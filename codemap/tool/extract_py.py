@@ -3,6 +3,7 @@
 
 usage: extract_py.py list <out file> <mod Assets/Python dir> [<base game Python dir> ...]
        extract_py.py link <map dir> <module list from list> <mod Assets/Config dir>
+       extract_py.py layers <module list> <out tsv> <mod Python dir> <base Python dir>...   py_modules.tsv
 
 list: the modules the game can import, one line each (name as shown in the map, path for Wine). Modules
   are imported by name from the mod's folder first, then the base game's, so a base module whose name the
@@ -62,9 +63,10 @@ def link(mapdir, listed, config):
     calls = read(os.path.join(mapdir, 'py_calls_raw.tsv'))
     by_mod = {}
     for d in defs: by_mod.setdefault((d['module'], d['name'].split('.')[-1]), []).append(d['name'])
-    write(os.path.join(mapdir, 'py_calls.tsv'), ['module', 'caller', 'name', 'attribute', 'line', 'same_module_target'],
+    write(os.path.join(mapdir, 'py_calls.tsv'), ['module', 'caller', 'name', 'attribute', 'line', 'same_module_target', 'recv', 'args'],
           [(c['module'], c['caller'], c['name'], c['attribute'], c['line'],
-            by_mod[(c['module'], c['name'])][0] if len(by_mod.get((c['module'], c['name']), [])) == 1 else '') for c in calls])
+            by_mod[(c['module'], c['name'])][0] if len(by_mod.get((c['module'], c['name']), [])) == 1 else '',
+            c.get('recv', ''), c.get('args', '')) for c in calls])
     exposed = {}
     for r in read(os.path.join(mapdir, 'python_defs.tsv')): exposed.setdefault(r['python_name'], set()).add(r['function'])
     rows = []
@@ -118,6 +120,17 @@ if __name__ == '__main__':
         with open(sys.argv[2], 'w', encoding='utf-8') as o:
             for name, p in rows: o.write(f"{name}\t{'Z:' + os.path.abspath(p).replace('/', chr(92))}\n")
         print(f'{len(rows)} modules', file=sys.stderr)
+    elif sys.argv[1] == 'layers':   # layers <module list> <out tsv> <mod dir> <base dir>...: each module's layer
+        roots = [os.path.abspath(r) for r in sys.argv[4:]]
+        names = ['mod', 'bts', 'civ4'] + ['base%d' % k for k in range(3, len(roots))]
+        with open(sys.argv[3], 'w', encoding='utf-8') as o:
+            o.write('module\tlayer\tfile\n')
+            for l in open(sys.argv[2], encoding='utf-8'):
+                if not l.strip(): continue
+                m, p = l.rstrip('\n').split('\t')
+                p = p[2:].replace(chr(92), '/')
+                k = next((i for i, r in enumerate(roots) if p.startswith(r + '/')), 0)
+                o.write('%s\t%s\t%s\n' % (m, names[k], os.path.relpath(p, roots[k])))
     elif sys.argv[1] == 'link':
         listed = [(l.split('\t')[0], l.rstrip('\n').split('\t')[1][2:].replace(chr(92), '/'))
                   for l in open(sys.argv[3], encoding='utf-8') if l.strip()]

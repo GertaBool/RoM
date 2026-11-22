@@ -1,0 +1,1517 @@
+module	scope	kind	source	name	alias	line
+AbandonCityEventManager.py	<module>	from	CvPythonExtensions	*		72
+AbandonCityEventManager.py	<module>	import	CvUtil			73
+AbandonCityEventManager.py	<module>	import	CvEventInterface			74
+AbandonCityEventManager.py	<module>	import	PyHelpers			75
+AbandonCityEventManager.py	<module>	import	Popup		PyPopup	76
+AbandonCityEventManager.py	<module>	import	BugCore			77
+AbandonCityEventManager.py	<module>	import	BugUtil			78
+AbandonCityEventManager.py	<module>	import	SdToolKit			79
+AbandonCityEventManager.py	<module>	import	autolog			80
+AbandonCityEventManager.py	<module>	import	string			81
+AugustusAIProfiler.py	<module>	from	CvPythonExtensions	*		1
+AugustusAIProfiler.py	<module>	import	BugPath			2
+AugustusAIProfiler.py	<module>	import	BugUtil			3
+AugustusAIProfiler.py	<module>	import	os			4
+BUFFY/Buffy.py	<module>	from	CvPythonExtensions	*		12
+BUFFY/Buffy.py	<module>	import	BugCore			13
+BUFFY/Buffy.py	<module>	import	BugPath			14
+BUFFY/Buffy.py	<module>	import	BugUtil			15
+BUFFY/Buffy.py	<module>	import	CvUtil			16
+BUFFY/Buffy.py	<module>	import	GameUtil			17
+BUFFY/Buffy.py	<module>	import	os.path			18
+BUFFY/GameSetUpCheck.py	<module>	from	CvPythonExtensions	*		5
+BUFFY/GameSetUpCheck.py	<module>	import	os			7
+BUFFY/GameSetUpCheck.py	<module>	import	AutoSave			8
+BUFFY/GameSetUpCheck.py	<module>	import	Buffy			9
+BUFFY/GameSetUpCheck.py	<module>	import	BugCore			10
+BUFFY/GameSetUpCheck.py	<module>	import	BugPath			11
+BUFFY/GameSetUpCheck.py	<module>	import	BugUtil			12
+BUFFY/GameSetUpCheck.py	<module>	import	MapFinder			13
+BUFFY/GameSetUpCheck.py	<module>	import	PlayerUtil			14
+BUG/AttitudeUtil.py	<module>	from	CvPythonExtensions	*		12
+BUG/AttitudeUtil.py	<module>	import	BugUtil			13
+BUG/AttitudeUtil.py	<module>	import	FontUtil			14
+BUG/AttitudeUtil.py	<module>	import	PlayerUtil			15
+BUG/AttitudeUtil.py	<module>	import	re			16
+BUG/BugConfig.py	<module>	import	BugCore			33
+BUG/BugConfig.py	<module>	import	BugDll			34
+BUG/BugConfig.py	<module>	import	BugInit			35
+BUG/BugConfig.py	<module>	import	BugTypes			36
+BUG/BugConfig.py	<module>	import	BugUtil			37
+BUG/BugConfig.py	<module>	import	CvEventInterface			38
+BUG/BugConfig.py	<module>	import	types			39
+BUG/BugConfig.py	<module>	import	sys			55
+BUG/BugConfig.py	<module>	import	xmllib			58
+BUG/BugConfigTracker.py	<module>	import	types			10
+BUG/BugConfigTracker.py	<module>	from	CvPythonExtensions	*		11
+BUG/BugCore.py	<module>	import	BugOptions			12
+BUG/BugCore.py	<module>	import	BugUtil			13
+BUG/BugData.py	<module>	from	CvPythonExtensions	CyGame		37
+BUG/BugData.py	<module>	import	BugUtil			38
+BUG/BugData.py	<module>	import	cPickle		pickle	39
+BUG/BugDll.py	<module>	from	CvPythonExtensions	*		38
+BUG/BugDll.py	<module>	import	BugOptions			39
+BUG/BugDll.py	<module>	import	BugUtil			40
+BUG/BugDll.py	init	import	BugInit			197
+BUG/BugEventManager.py	<module>	from	CvPythonExtensions	*		101
+BUG/BugEventManager.py	<module>	import	CvEventManager			102
+BUG/BugEventManager.py	<module>	import	BugData			103
+BUG/BugEventManager.py	<module>	import	BugUtil			104
+BUG/BugEventManager.py	<module>	import	InputUtil			105
+BUG/BugEventManager.py	<module>	import	types			106
+BUG/BugEventManager.py	BugEventManager._handleInitBugEvent	import	BugInit			407
+BUG/BugFile.py	<module>	import	codecs			3
+BUG/BugFile.py	<module>	import	os			4
+BUG/BugFile.py	<module>	import	os.path			5
+BUG/BugFile.py	<module>	import	string			6
+BUG/BugFile.py	<module>	import	BugCore			7
+BUG/BugFile.py	<module>	import	BugOptions			8
+BUG/BugFile.py	<module>	import	BugPath			9
+BUG/BugFile.py	<module>	import	BugConfigTracker			10
+BUG/BugGameUtils.py	<module>	from	CvPythonExtensions	*		80
+BUG/BugGameUtils.py	<module>	import	BugDll			81
+BUG/BugGameUtils.py	<module>	import	BugConfig			82
+BUG/BugGameUtils.py	<module>	import	BugUtil			83
+BUG/BugGameUtils.py	<module>	import	CvGameUtils			84
+BUG/BugGameUtils.py	<module>	import	types			85
+BUG/BugHelp.py	<module>	from	CvPythonExtensions	*		13
+BUG/BugHelp.py	<module>	import	Popup		PyPopup	14
+BUG/BugHelp.py	<module>	import	BugPath			15
+BUG/BugHelp.py	<module>	import	BugUtil			16
+BUG/BugHelp.py	launch	import	webbrowser			29
+BUG/BugHelp.py	launch	import	os			41
+BUG/BugInit.py	<module>	from	CvPythonExtensions	*		11
+BUG/BugInit.py	<module>	import	BugConfig			12
+BUG/BugInit.py	<module>	import	BugCore			13
+BUG/BugInit.py	<module>	import	BugPath			14
+BUG/BugInit.py	<module>	import	BugUtil			15
+BUG/BugOptions.py	<module>	from	CvPythonExtensions	*		108
+BUG/BugOptions.py	<module>	import	BugConfig			109
+BUG/BugOptions.py	<module>	import	BugDll			110
+BUG/BugOptions.py	<module>	import	BugInit			111
+BUG/BugOptions.py	<module>	import	BugPath			112
+BUG/BugOptions.py	<module>	import	BugUtil			113
+BUG/BugOptions.py	<module>	import	ColorUtil			114
+BUG/BugOptions.py	<module>	from	configobj	ConfigObj		115
+BUG/BugOptions.py	<module>	import	re			116
+BUG/BugOptions.py	<module>	import	types			117
+BUG/BugOptionsScreen.py	<module>	from	CvPythonExtensions	*		14
+BUG/BugOptionsScreen.py	<module>	import	CvEventInterface			15
+BUG/BugOptionsScreen.py	<module>	import	BugConfig			16
+BUG/BugOptionsScreen.py	<module>	import	BugCore			17
+BUG/BugOptionsScreen.py	<module>	import	BugErrorOptionsTab			18
+BUG/BugOptionsScreen.py	<module>	import	BugHelp			19
+BUG/BugOptionsScreen.py	<module>	import	BugOptions			20
+BUG/BugOptionsScreen.py	<module>	import	BugUtil			21
+BUG/BugOptionsTab.py	<module>	import	BugOptions			9
+BUG/BugOptionsTab.py	<module>	import	BugUtil			10
+BUG/BugPath.py	<module>	from	CvPythonExtensions	*		69
+BUG/BugPath.py	<module>	import	os			70
+BUG/BugPath.py	<module>	import	os.path			71
+BUG/BugPath.py	<module>	import	sys			72
+BUG/BugPath.py	<module>	import	BugConfigTracker			73
+BUG/BugPath.py	<module>	import	BugUtil			74
+BUG/BugPath.py	initModName	import	CvModName			369
+BUG/BugPath.py	initModFolder	import	CvModFolder			410
+BUG/BugPath.py	initNoCustomAssetsSetting	from	configobj	ConfigObj		459
+BUG/BugPath.py	initRootFolder	import	CvAltRoot			485
+BUG/BugPath.py	initRootFolder	import	_winreg			503
+BUG/BugScreen.py	<module>	from	CvPythonExtensions	*		64
+BUG/BugScreen.py	<module>	import	CvUtil			66
+BUG/BugScreen.py	<module>	import	BugUtil			70
+BUG/BugTypes.py	<module>	import	BugUtil			25
+BUG/BugUnitPlot.py	<module>	from	CvPythonExtensions	*		9
+BUG/BugUnitPlot.py	<module>	import	MonkeyTools		mt	10
+BUG/BugUnitPlot.py	<module>	import	BugUtil			11
+BUG/BugUnitPlot.py	<module>	import	UnitUtil			12
+BUG/BugUnitPlot.py	<module>	import	BugCore			14
+BUG/BugUpdateChecker.py	<module>	import	BugCore			9
+BUG/BugUpdateChecker.py	<module>	import	BugUtil			10
+BUG/BugUpdateChecker.py	<module>	import	SvnUtil			11
+BUG/BugUtil.py	<module>	from	CvPythonExtensions	*		136
+BUG/BugUtil.py	<module>	from	BugPath	isMac		137
+BUG/BugUtil.py	<module>	import	ColorUtil			138
+BUG/BugUtil.py	<module>	import	CvEventInterface			139
+BUG/BugUtil.py	<module>	import	sys			140
+BUG/BugUtil.py	<module>	import	time			141
+BUG/BugUtil.py	<module>	import	traceback			142
+BUG/BugUtil.py	<module>	import	types			143
+BUG/BugUtil.py	getText	import	FontUtil			184
+BUG/BugUtil.py	readLoggingOptions	import	BugCore			312
+BUG/BugUtil.py	fixSets	import	sets			745
+BUG/CityUtil.py	<module>	from	CvPythonExtensions	*		9
+BUG/ColorUtil.py	<module>	from	CvPythonExtensions	*		12
+BUG/ColorUtil.py	<module>	import	BugUtil			13
+BUG/DealUtil.py	<module>	from	CvPythonExtensions	*		30
+BUG/DealUtil.py	<module>	import	BugDll			31
+BUG/DealUtil.py	<module>	import	PlayerUtil			32
+BUG/DealUtil.py	<module>	import	TradeUtil			33
+BUG/DiplomacyUtil.py	<module>	from	CvPythonExtensions	*		24
+BUG/DiplomacyUtil.py	<module>	import	AttitudeUtil			25
+BUG/DiplomacyUtil.py	<module>	import	BugUtil			26
+BUG/DiplomacyUtil.py	<module>	import	BugDll			27
+BUG/DiplomacyUtil.py	<module>	import	GameUtil			28
+BUG/DiplomacyUtil.py	<module>	import	PlayerUtil			29
+BUG/DiplomacyUtil.py	<module>	import	TradeUtil			30
+BUG/FontUtil.py	<module>	from	CvPythonExtensions	*		34
+BUG/FontUtil.py	<module>	import	BugConfig			35
+BUG/FontUtil.py	<module>	import	BugDll			36
+BUG/FontUtil.py	<module>	import	BugUtil			37
+BUG/FontUtil.py	<module>	import	CvUtil			38
+BUG/FontUtil.py	<module>	import	re			39
+BUG/GGUtil.py	<module>	from	CvPythonExtensions	*		12
+BUG/GGUtil.py	<module>	import	BugUtil			13
+BUG/GGUtil.py	<module>	import	FontUtil			14
+BUG/GPUtil.py	<module>	from	CvPythonExtensions	*		23
+BUG/GPUtil.py	<module>	import	BugUtil			24
+BUG/GPUtil.py	<module>	import	FontUtil			25
+BUG/GPUtil.py	<module>	import	PlayerUtil			26
+BUG/GameUtil.py	<module>	from	CvPythonExtensions	*		62
+BUG/InputUtil.py	<module>	from	CvPythonExtensions	*		9
+BUG/InputUtil.py	<module>	import	BugConfig			10
+BUG/InputUtil.py	<module>	import	BugDll			11
+BUG/InputUtil.py	<module>	import	BugUtil			12
+BUG/InputUtil.py	<module>	import	CvEventInterface			13
+BUG/InputUtil.py	<module>	import	types			14
+BUG/PlayerUtil.py	<module>	from	CvPythonExtensions	*		58
+BUG/PlayerUtil.py	<module>	import	TradeUtil			59
+BUG/PlayerUtil.py	<module>	import	GameUtil			60
+BUG/ProgressBarUtil.py	<module>	from	CvPythonExtensions	*		10
+BUG/ProgressBarUtil.py	<module>	import	BugUtil			11
+BUG/RawYields.py	<module>	from	CvPythonExtensions	*		10
+BUG/RawYields.py	<module>	import	CvUtil			11
+BUG/RawYields.py	<module>	import	BugUtil			12
+BUG/RawYields.py	<module>	import	TradeUtil			13
+BUG/ReligionUtil.py	<module>	from	CvPythonExtensions	*		96
+BUG/ReligionUtil.py	<module>	import	BugUtil			98
+BUG/ReligionUtil.py	<module>	import	FontUtil			99
+BUG/ReligionUtil.py	<module>	import	CvUtil			100
+BUG/Scoreboard.py	<module>	from	CvPythonExtensions	*		13
+BUG/Scoreboard.py	<module>	import	BugCore			14
+BUG/Scoreboard.py	<module>	import	BugDll			15
+BUG/Scoreboard.py	<module>	import	BugUtil			16
+BUG/Scoreboard.py	<module>	import	DealUtil			17
+BUG/Scoreboard.py	<module>	import	FontUtil			18
+BUG/Scoreboard.py	<module>	import	CvUtil			19
+BUG/Scoreboard.py	<module>	import	re			20
+BUG/Scoreboard.py	<module>	import	string			21
+BUG/Scoreboard.py	<module>	import	CvMainInterface			24
+BUG/SpyUtil.py	<module>	from	CvPythonExtensions	*		9
+BUG/SpyUtil.py	<module>	import	BugUtil			10
+BUG/SpyUtil.py	<module>	import	PlayerUtil			11
+BUG/SpyUtil.py	<module>	import	BugData			12
+BUG/SvnUtil.py	<module>	import	BugUtil			9
+BUG/SvnUtil.py	<module>	import	os.path			10
+BUG/SvnUtil.py	<module>	import	re			11
+BUG/SvnUtil.py	<module>	import	threading			12
+BUG/SvnUtil.py	<module>	import	time			13
+BUG/SvnUtil.py	<module>	import	urllib			14
+BUG/Tabs/BugACOOptionsTab.py	<module>	import	BugOptionsTab			9
+BUG/Tabs/BugAdvisorOptionsTab.py	<module>	import	BugOptionsTab			9
+BUG/Tabs/BugAlertsOptionsTab.py	<module>	import	BugOptionsTab			9
+BUG/Tabs/BugAutologOptionsTab.py	<module>	import	BugOptionsTab			9
+BUG/Tabs/BugCityScreenOptionsTab.py	<module>	import	BugOptionsTab			9
+BUG/Tabs/BugConfigTrackerTab.py	<module>	import	BugOptionsTab			9
+BUG/Tabs/BugConfigTrackerTab.py	<module>	import	BugConfigTracker			10
+BUG/Tabs/BugCreditsOptionsTab.py	<module>	import	BugOptionsTab			9
+BUG/Tabs/BugErrorOptionsTab.py	<module>	import	BugOptionsTab			12
+BUG/Tabs/BugErrorOptionsTab.py	<module>	import	BugPath			13
+BUG/Tabs/BugGeneralOptionsTab.py	<module>	import	BugOptionsTab			9
+BUG/Tabs/BugGeneralOptionsTab.py	<module>	import	Buffy			10
+BUG/Tabs/BugMapOptionsTab.py	<module>	import	BugOptionsTab			9
+BUG/Tabs/BugNJAGCOptionsTab.py	<module>	import	BugOptionsTab			9
+BUG/Tabs/BugPleOptionsTab.py	<module>	import	BugOptionsTab			9
+BUG/Tabs/BugScoreOptionsTab.py	<module>	import	BugOptionsTab			9
+BUG/Tabs/BugSystemOptionsTab.py	<module>	import	BugOptionsTab			9
+BUG/Tabs/BugSystemOptionsTab.py	<module>	import	CvModName			10
+BUG/Tabs/BugSystemOptionsTab.py	<module>	import	BugConfigTracker			11
+BUG/Tabs/BugUnitNameOptionsTab.py	<module>	import	BugOptionsTab			9
+BUG/Tabs/RevDCMOptionsTab.py	<module>	from	CvPythonExtensions	*		9
+BUG/Tabs/RevDCMOptionsTab.py	<module>	import	BugOptionsTab			10
+BUG/Tabs/RoMOptionsTab.py	<module>	from	CvPythonExtensions	*		9
+BUG/Tabs/RoMOptionsTab.py	<module>	import	BugOptionsTab			10
+BUG/TechPrefs.py	<module>	from	CvPythonExtensions	*		9
+BUG/TechPrefs.py	<module>	import	BugUtil			12
+BUG/TechUtil.py	<module>	from	CvPythonExtensions	*		15
+BUG/TechUtil.py	<module>	import	BugUtil			18
+BUG/TradeUtil.py	<module>	from	CvPythonExtensions	*		101
+BUG/TradeUtil.py	<module>	import	BugUtil			102
+BUG/TradeUtil.py	<module>	import	DiplomacyUtil			103
+BUG/TradeUtil.py	<module>	import	GameUtil			104
+BUG/TradeUtil.py	<module>	import	PlayerUtil			105
+BUG/TraitUtil.py	<module>	from	CvPythonExtensions	*		12
+BUG/UnitGrouper.py	<module>	from	CvPythonExtensions	*		9
+BUG/UnitGrouper.py	<module>	import	BugUtil			10
+BUG/UnitGrouper.py	<module>	import	UnitUtil			11
+BUG/UnitPlotListUtil.py	<module>	from	CvPythonExtensions	*		9
+BUG/UnitPlotListUtil.py	<module>	import	MonkeyTools		mt	10
+BUG/UnitPlotListUtil.py	<module>	import	BugUtil			11
+BUG/UnitUtil.py	<module>	from	CvPythonExtensions	*		9
+BUG/UnitUtil.py	<module>	import	BugUtil			10
+BUG/UnitUtil.py	<module>	import	PlayerUtil			11
+BUG/WidgetUtil.py	<module>	from	CvPythonExtensions	*		41
+BUG/WidgetUtil.py	<module>	import	BugConfig			42
+BUG/WidgetUtil.py	<module>	import	BugUtil			43
+BUG/configobj.py	<module>	from	__future__	generators		19
+BUG/configobj.py	<module>	import	sys			36
+BUG/configobj.py	<module>	import	os			41
+BUG/configobj.py	<module>	import	re			41
+BUG/configobj.py	<module>	from	types	StringTypes		42
+BUG/configobj.py	<module>	from	warnings	warn		43
+BUG/configobj.py	<module>	from	codecs	BOM_UTF8		44
+BUG/configobj.py	<module>	from	codecs	BOM_UTF16		44
+BUG/configobj.py	<module>	from	codecs	BOM_UTF16_BE		44
+BUG/configobj.py	<module>	from	codecs	BOM_UTF16_LE		44
+BUG/configobj.py	<module>	from	validate	VdtMissingValue		86
+BUG/configobj.py	<module>	import	doctest			2981
+Contrib/AStarTools.py	<module>	from	CvPythonExtensions	*		14
+Contrib/AStarTools.py	<module>	import	BugCore			16
+Contrib/AutoSave.py	<module>	from	CvPythonExtensions	*		21
+Contrib/AutoSave.py	<module>	import	os.path			22
+Contrib/AutoSave.py	<module>	import	time			23
+Contrib/AutoSave.py	<module>	import	CvUtil			24
+Contrib/AutoSave.py	<module>	import	BugCore			25
+Contrib/AutoSave.py	<module>	import	BugPath			26
+Contrib/AutoSave.py	<module>	import	BugUtil			27
+Contrib/AutoSave.py	<module>	import	MapFinder			28
+Contrib/AutoSave.py	<module>	import	PlayerUtil			29
+Contrib/Civ4lerts.py	<module>	from	CvPythonExtensions	*		70
+Contrib/Civ4lerts.py	<module>	import	AttitudeUtil			71
+Contrib/Civ4lerts.py	<module>	import	BugCore			72
+Contrib/Civ4lerts.py	<module>	import	BugUtil			73
+Contrib/Civ4lerts.py	<module>	import	CityUtil			74
+Contrib/Civ4lerts.py	<module>	import	DiplomacyUtil			75
+Contrib/Civ4lerts.py	<module>	import	PlayerUtil			76
+Contrib/Civ4lerts.py	<module>	import	TradeUtil			77
+Contrib/CvAllErasDawnOfManScreenEventManager.py	<module>	from	CvPythonExtensions	*		9
+Contrib/CvOverlayScreenUtils.py	<module>	from	CvPythonExtensions	*		9
+Contrib/CvOverlayScreenUtils.py	<module>	import	CvDotMapOverlayScreen			10
+Contrib/CvOverlayScreenUtils.py	<module>	import	BugUtil			11
+Contrib/CvOverlayScreenUtils.py	<module>	import	CvUtil			12
+Contrib/CvStrategyOverlay.py	<module>	from	CvPythonExtensions	*		14
+Contrib/CvStrategyOverlay.py	<module>	import	BugCore			15
+Contrib/CvStrategyOverlay.py	<module>	import	BugPath			16
+Contrib/CvStrategyOverlay.py	<module>	import	BugUtil			17
+Contrib/CvStrategyOverlay.py	<module>	import	CvOverlayScreenUtils			18
+Contrib/CvStrategyOverlay.py	<module>	import	PlayerUtil			19
+Contrib/CvStrategyOverlay.py	<module>	import	SdToolKit			20
+Contrib/EspionageEventManager.py	<module>	from	CvPythonExtensions	*		7
+Contrib/EspionageEventManager.py	<module>	import	CvUtil			8
+Contrib/EspionageEventManager.py	<module>	import	Popup		PyPopup	9
+Contrib/EspionageEventManager.py	<module>	import	PyHelpers			10
+Contrib/EspionageEventManager.py	<module>	import	SdToolKit			21
+Contrib/EventSigns.py	<module>	from	CvPythonExtensions	*		10
+Contrib/EventSigns.py	<module>	import	BugUtil			12
+Contrib/EventSigns.py	<module>	import	CvUtil			13
+Contrib/EventSigns.py	<module>	import	PlayerUtil			14
+Contrib/EventSigns.py	<module>	import	CvRandomEventInterface			15
+Contrib/EventSigns.py	<module>	import	SdToolKit			16
+Contrib/EventSigns.py	<module>	import	BugCore			19
+Contrib/FavoriteCivicDetector.py	<module>	from	CvPythonExtensions	*		12
+Contrib/FavoriteCivicDetector.py	<module>	import	AttitudeUtil			14
+Contrib/FavoriteCivicDetector.py	<module>	import	BugUtil			15
+Contrib/FavoriteCivicDetector.py	<module>	import	PlayerUtil			16
+Contrib/FavoriteCivicDetector.py	<module>	import	SdToolKit			17
+Contrib/MapFinder.py	<module>	from	CvPythonExtensions	*		20
+Contrib/MapFinder.py	<module>	import	AutoSave			21
+Contrib/MapFinder.py	<module>	import	BugCore			22
+Contrib/MapFinder.py	<module>	import	BugDll			23
+Contrib/MapFinder.py	<module>	import	BugUtil			24
+Contrib/MapFinder.py	<module>	import	MapFinderStatusScreen			25
+Contrib/MapFinder.py	<module>	import	os.path			26
+Contrib/MapFinderStatusScreen.py	<module>	from	CvPythonExtensions	*		9
+Contrib/MapFinderStatusScreen.py	<module>	import	BugUtil			10
+Contrib/MapFinderStatusScreen.py	<module>	import	CvUtil			11
+Contrib/MapFinderStatusScreen.py	<module>	import	MapFinder			12
+Contrib/MonkeyTools.py	<module>	from	CvPythonExtensions	*		9
+Contrib/MonkeyTools.py	<module>	import	CvUtil			10
+Contrib/MonkeyTools.py	<module>	import	PyHelpers			11
+Contrib/MonkeyTools.py	<module>	import	CvEventInterface			12
+Contrib/MoreCiv4lerts.py	<module>	from	CvPythonExtensions	*		5
+Contrib/MoreCiv4lerts.py	<module>	import	PyHelpers			6
+Contrib/MoreCiv4lerts.py	<module>	import	BugCore			7
+Contrib/MoreCiv4lerts.py	<module>	import	PlayerUtil			8
+Contrib/MoreCiv4lerts.py	<module>	import	TradeUtil			9
+Contrib/MoreCiv4lerts.py	<module>	import	BugUtil			12
+Contrib/MovieMod.py	<module>	from	CvPythonExtensions	*		3
+Contrib/PlotListEnhancements.py	resetUnitPlotListStackedBarColors	import	CvScreensInterface			6
+Contrib/RandomNameUtils.py	<module>	from	CvPythonExtensions	*		6
+Contrib/RandomNameUtils.py	<module>	import	CvUtil			8
+Contrib/RandomNameUtils.py	<module>	import	sys			9
+Contrib/RandomNameUtils.py	<module>	import	math			10
+Contrib/RandomNameUtils.py	<module>	import	string			11
+Contrib/ReminderEventManager.py	<module>	from	CvPythonExtensions	*		12
+Contrib/ReminderEventManager.py	<module>	import	CvMainInterface			13
+Contrib/ReminderEventManager.py	<module>	import	CvUtil			14
+Contrib/ReminderEventManager.py	<module>	import	Popup		PyPopup	15
+Contrib/ReminderEventManager.py	<module>	import	BugCore			16
+Contrib/ReminderEventManager.py	<module>	import	BugUtil			17
+Contrib/ReminderEventManager.py	<module>	import	PlayerUtil			18
+Contrib/ReminderEventManager.py	<module>	import	SdToolKit			19
+Contrib/ReminderEventManager.py	<module>	import	autolog			20
+Contrib/ReminderEventManager.py	<module>	import	CvAppInterface			49
+Contrib/RevDCM.py	<module>	from	CvPythonExtensions	*		17
+Contrib/RevDCM.py	<module>	import	BugOptions			19
+Contrib/RevDCM.py	<module>	import	BugCore			20
+Contrib/RevDCM.py	<module>	import	BugUtil			21
+Contrib/RevDCM.py	<module>	import	Popup		PyPopup	22
+Contrib/RevDCM.py	<module>	import	CvUtil			23
+Contrib/RevDCMReligionControl.py	<module>	from	CvPythonExtensions	*		6
+Contrib/RevDCMReligionControl.py	<module>	import	BugUtil			7
+Contrib/RevDCMReligionControl.py	<module>	import	CvUtil			8
+Contrib/RevDCMReligionControl.py	<module>	import	BugCore			9
+Contrib/RevDCMReligionControl.py	<module>	import	Popup		PyPopup	10
+Contrib/RevDCMReligionControl.py	<module>	import	CvEventInterface			11
+Contrib/RevDCMReligionControl.py	<module>	import	PyHelpers			12
+Contrib/Roman.py	<module>	from	CvPythonExtensions	*		7
+Contrib/Roman.py	<module>	import	sys			9
+Contrib/Roman.py	<module>	import	math			10
+Contrib/RuffEcho.py	<module>	from	CvPythonExtensions	*		5
+Contrib/RuffEcho.py	<module>	import	CvUtil			6
+Contrib/SdToolKit.py	<module>	from	CvPythonExtensions	*		12
+Contrib/SdToolKit.py	<module>	import	BugUtil			13
+Contrib/SdToolKit.py	<module>	import	BugData			14
+Contrib/Sevopedia/SevoPediaBonus.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaBonus.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaBonus.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaBonus.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaBonus.py	<module>	import	string			17
+Contrib/Sevopedia/SevoPediaBuilding.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaBuilding.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaBuilding.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaBuilding.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaCivic.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaCivic.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaCivic.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaCivic.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaCivic.py	<module>	import	string			17
+Contrib/Sevopedia/SevoPediaCivilization.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaCivilization.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaCivilization.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaCivilization.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaCorporation.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaCorporation.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaCorporation.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaCorporation.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaCorporation.py	<module>	import	string			17
+Contrib/Sevopedia/SevoPediaFeature.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaFeature.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaFeature.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaFeature.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaFeature.py	<module>	import	string			17
+Contrib/Sevopedia/SevoPediaHistory.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaHistory.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaHistory.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaHistory.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaImprovement.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaImprovement.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaImprovement.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaImprovement.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaImprovement.py	<module>	import	string			17
+Contrib/Sevopedia/SevoPediaIndex.py	<module>	from	CvPythonExtensions	*		8
+Contrib/Sevopedia/SevoPediaIndex.py	<module>	import	CvUtil			9
+Contrib/Sevopedia/SevoPediaIndex.py	<module>	import	ScreenInput			10
+Contrib/Sevopedia/SevoPediaIndex.py	<module>	import	SevoScreenEnums			11
+Contrib/Sevopedia/SevoPediaIndex.py	<module>	import	BugUtil			12
+Contrib/Sevopedia/SevoPediaLeader.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaLeader.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaLeader.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaLeader.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaLeader.py	<module>	import	random			17
+Contrib/Sevopedia/SevoPediaMain.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	string			14
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	CvUtil			16
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	ScreenInput			17
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoScreenEnums			18
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	CvPediaScreen			20
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaTech			21
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaUnit			22
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaBuilding			23
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaPromotion			24
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaUnitChart			25
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaBonus			26
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaTerrain			27
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaFeature			28
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaImprovement			29
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaCivic			30
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaCivilization			31
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaLeader			32
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaTrait			33
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaSpecialist			34
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaHistory			35
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaProject			36
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaReligion			37
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaCorporation			38
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	SevoPediaIndex			39
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	UnitUpgradesGraph			41
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	TraitUtil			42
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	BugCore			43
+Contrib/Sevopedia/SevoPediaMain.py	<module>	import	BugUtil			44
+Contrib/Sevopedia/SevoPediaProject.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaProject.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaProject.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaProject.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaPromotion.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaPromotion.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaPromotion.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaPromotion.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaReligion.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaReligion.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaReligion.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaReligion.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaReligion.py	<module>	import	string			17
+Contrib/Sevopedia/SevoPediaSpecialist.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaSpecialist.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaSpecialist.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaSpecialist.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaSpecialist.py	<module>	import	string			17
+Contrib/Sevopedia/SevoPediaTech.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaTech.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaTech.py	<module>	import	CvPediaScreen			15
+Contrib/Sevopedia/SevoPediaTech.py	<module>	import	ScreenInput			16
+Contrib/Sevopedia/SevoPediaTech.py	<module>	import	SevoScreenEnums			17
+Contrib/Sevopedia/SevoPediaTerrain.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaTerrain.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaTerrain.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaTerrain.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaTerrain.py	<module>	import	string			17
+Contrib/Sevopedia/SevoPediaTrait.py	<module>	from	CvPythonExtensions	*		5
+Contrib/Sevopedia/SevoPediaTrait.py	<module>	import	CvUtil			6
+Contrib/Sevopedia/SevoPediaTrait.py	<module>	import	ScreenInput			7
+Contrib/Sevopedia/SevoPediaTrait.py	<module>	import	SevoScreenEnums			8
+Contrib/Sevopedia/SevoPediaTrait.py	<module>	import	string			9
+Contrib/Sevopedia/SevoPediaTrait.py	<module>	import	TraitUtil			11
+Contrib/Sevopedia/SevoPediaUnit.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaUnit.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaUnit.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaUnit.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaUnitChart.py	<module>	from	CvPythonExtensions	*		13
+Contrib/Sevopedia/SevoPediaUnitChart.py	<module>	import	CvUtil			14
+Contrib/Sevopedia/SevoPediaUnitChart.py	<module>	import	ScreenInput			15
+Contrib/Sevopedia/SevoPediaUnitChart.py	<module>	import	SevoScreenEnums			16
+Contrib/Sevopedia/SevoPediaUtil.py	<module>	import	BugCore			9
+Contrib/Sevopedia/SevoPediaUtil.py	<module>	import	BugOptions			10
+Contrib/Sevopedia/SevoPediaUtil.py	<module>	import	BugUtil			11
+Contrib/StatusDump.py	<module>	import	codecs			3
+Contrib/StatusDump.py	<module>	import	os			4
+Contrib/StatusDump.py	<module>	import	os.path			5
+Contrib/StatusDump.py	<module>	import	string			6
+Contrib/StatusDump.py	<module>	import	BugCore			7
+Contrib/StatusDump.py	<module>	import	BugOptions			8
+Contrib/StatusDump.py	<module>	import	BugPath			9
+Contrib/StatusDump.py	<module>	import	BugConfigTracker			10
+Contrib/StatusDumpEventManager.py	<module>	from	CvPythonExtensions	*		3
+Contrib/StatusDumpEventManager.py	<module>	import	CvUtil			4
+Contrib/StatusDumpEventManager.py	<module>	import	Popup		PyPopup	5
+Contrib/StatusDumpEventManager.py	<module>	import	PyHelpers			6
+Contrib/StatusDumpEventManager.py	<module>	import	autolog			7
+Contrib/StatusDumpEventManager.py	<module>	import	time			8
+Contrib/StatusDumpEventManager.py	<module>	import	BugCore			9
+Contrib/StatusDumpEventManager.py	<module>	import	BugUtil			10
+Contrib/StatusDumpEventManager.py	<module>	import	CvModName			11
+Contrib/StatusDumpEventManager.py	<module>	import	TradeUtil			12
+Contrib/StatusDumpEventManager.py	<module>	import	string			13
+Contrib/StatusDumpEventManager.py	<module>	import	BugFile			14
+Contrib/StatusDumpEventManager.py	<module>	import	BugUtil			16
+Contrib/TechWindow.py	<module>	from	CvPythonExtensions	*		8
+Contrib/TechWindow.py	<module>	import	CvUtil			9
+Contrib/TechWindow.py	<module>	import	BugCore			12
+Contrib/TechWindowWide.py	<module>	from	CvPythonExtensions	*		8
+Contrib/TechWindowWide.py	<module>	import	CvUtil			9
+Contrib/TechWindowWide.py	<module>	import	BugCore			12
+Contrib/UnitNameEventManager.py	<module>	from	CvPythonExtensions	*		70
+Contrib/UnitNameEventManager.py	<module>	import	CvUtil			71
+Contrib/UnitNameEventManager.py	<module>	import	BugUtil			72
+Contrib/UnitNameEventManager.py	<module>	import	PyHelpers			73
+Contrib/UnitNameEventManager.py	<module>	import	BugCore			74
+Contrib/UnitNameEventManager.py	<module>	import	PlayerUtil			75
+Contrib/UnitNameEventManager.py	<module>	import	Roman			76
+Contrib/UnitNameEventManager.py	<module>	import	RandomNameUtils			77
+Contrib/UnitNameEventManager.py	<module>	import	random			78
+Contrib/UnitNameEventManager.py	<module>	import	Popup		PyPopup	79
+Contrib/UnitNameEventManager.py	<module>	import	BugData			80
+Contrib/UnitUpgradesGraph.py	<module>	import	string			7
+Contrib/UnitUpgradesGraph.py	<module>	from	CvPythonExtensions	*		9
+Contrib/UnitUpgradesGraph.py	<module>	import	CvUtil			11
+Contrib/UnitUpgradesGraph.py	<module>	import	BugUtil			14
+Contrib/autolog.py	<module>	from	CvPythonExtensions	*		7
+Contrib/autolog.py	<module>	import	BugConfigTracker			8
+Contrib/autolog.py	<module>	import	BugCore			9
+Contrib/autolog.py	<module>	import	BugOptions			10
+Contrib/autolog.py	<module>	import	BugPath			11
+Contrib/autolog.py	<module>	import	BugUtil			12
+Contrib/autolog.py	<module>	import	CvModName			13
+Contrib/autolog.py	<module>	import	codecs			14
+Contrib/autolog.py	<module>	import	os.path			15
+Contrib/autolog.py	<module>	import	time			16
+Contrib/autologEventManager.py	<module>	from	CvPythonExtensions	*		11
+Contrib/autologEventManager.py	<module>	import	CvUtil			12
+Contrib/autologEventManager.py	<module>	import	Popup		PyPopup	13
+Contrib/autologEventManager.py	<module>	import	PyHelpers			14
+Contrib/autologEventManager.py	<module>	import	autolog			15
+Contrib/autologEventManager.py	<module>	import	time			16
+Contrib/autologEventManager.py	<module>	import	BugCore			17
+Contrib/autologEventManager.py	<module>	import	BugUtil			18
+Contrib/autologEventManager.py	<module>	import	TradeUtil			19
+CvAdvisorUtils.py	<module>	from	CvPythonExtensions	*		7
+CvAdvisorUtils.py	<module>	import	PyHelpers			8
+CvConfigParser.py	<module>	import	os.path			23
+CvConfigParser.py	<module>	import	ConfigParser			24
+CvConfigParser.py	<module>	import	BugPath			25
+CvDiplomacy.py	<module>	from	CvPythonExtensions	*		3
+CvDiplomacy.py	<module>	import	CvUtil			4
+CvDiplomacy.py	<module>	import	PyHelpers			5
+CvMapGeneratorUtil.py	<module>	from	CvPythonExtensions	*		3
+CvMapGeneratorUtil.py	<module>	import	CvUtil			4
+CvMapGeneratorUtil.py	<module>	import	random			5
+CvMapGeneratorUtil.py	<module>	from	math	sqrt		6
+CvMapGeneratorUtil.py	<module>	import	sys			7
+CvUtil.py	<module>	import	traceback			5
+CvUtil.py	<module>	import	os			8
+CvUtil.py	<module>	import	sys			9
+CvUtil.py	<module>	from	CvPythonExtensions	*		12
+EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py	<module>	from	CvPythonExtensions	*		4
+EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py	<module>	import	CvUtil			5
+EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py	<module>	import	CvEventManager			6
+EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py	<module>	import	sys			7
+EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py	<module>	import	EnhancedTechConquest			8
+EnhancedTechConquestUtils/EnhancedTechConquest.py	<module>	from	CvPythonExtensions	*		8
+EnhancedTechConquestUtils/EnhancedTechConquest.py	<module>	import	CvUtil			9
+EnhancedTechConquestUtils/EnhancedTechConquest.py	<module>	import	PyHelpers			10
+EnhancedTechConquestUtils/EnhancedTechConquest.py	<module>	import	Popup		PyPopup	11
+EnhancedTechConquestUtils/EnhancedTechConquest.py	<module>	import	CvConfigParser			12
+EntryPoints/CvAppInterface.py	<module>	import	sys			13
+EntryPoints/CvAppInterface.py	<module>	import	os			14
+EntryPoints/CvAppInterface.py	<module>	import	CvUtil			15
+EntryPoints/CvAppInterface.py	<module>	from	CvPythonExtensions	*		18
+EntryPoints/CvAppInterface.py	init	import	CvPythonExtensions			30
+EntryPoints/CvAppInterface.py	init	import	pydoc			33
+EntryPoints/CvAppInterface.py	onSave	import	CvWBDesc			43
+EntryPoints/CvAppInterface.py	onSave	import	cPickle		pickle	45
+EntryPoints/CvAppInterface.py	onSave	import	pickle			47
+EntryPoints/CvAppInterface.py	onSave	import	CvEventInterface			48
+EntryPoints/CvAppInterface.py	onLoad	import	cPickle		pickle	56
+EntryPoints/CvAppInterface.py	onLoad	import	pickle			58
+EntryPoints/CvAppInterface.py	onLoad	import	CvEventInterface			59
+EntryPoints/CvAppInterface.py	preGameStart	import	CvScreensInterface			65
+EntryPoints/CvAppInterface.py	preGameStart	import	CvEventInterface			68
+EntryPoints/CvAppInterface.py	onPbemSend	import	sys			88
+EntryPoints/CvAppInterface.py	onPbemSend	import	smtplib			88
+EntryPoints/CvAppInterface.py	onPbemSend	import	MimeWriter			88
+EntryPoints/CvAppInterface.py	onPbemSend	import	base64			88
+EntryPoints/CvAppInterface.py	onPbemSend	import	StringIO			88
+EntryPoints/CvAppInterface.py	getOption	import	BugOptions			208
+EntryPoints/CvAppInterface.py	getOption	import	BugUtil			211
+EntryPoints/CvAppInterface.py	getModNameAndVersion	import	CvModName			276
+EntryPoints/CvAppInterface.py	gameStartSave	import	AutoSave			284
+EntryPoints/CvAppInterface.py	gameEndSave	import	AutoSave			289
+EntryPoints/CvAppInterface.py	gameExitSave	import	AutoSave			294
+EntryPoints/CvEventInterface.py	<module>	import	BugEventManager			17
+EntryPoints/CvEventInterface.py	initAfterReload	import	BugInit			47
+EntryPoints/CvEventInterface.py	initAfterReload	import	BugPath			48
+EntryPoints/CvEventInterface.py	initAfterReload	import	CvScreensInterface			51
+EntryPoints/CvEventInterface.py	initAfterReload	import	BugUtil			54
+EntryPoints/CvGameInterfaceFile.py	<module>	import	BugGameUtils			9
+EntryPoints/CvOptionsScreenCallbackInterface.py	<module>	from	CvPythonExtensions	*		1
+EntryPoints/CvOptionsScreenCallbackInterface.py	<module>	import	CvScreensInterface			2
+EntryPoints/CvOptionsScreenCallbackInterface.py	<module>	import	Popup		PyPopup	3
+EntryPoints/CvOptionsScreenCallbackInterface.py	<module>	import	CvUtil			4
+EntryPoints/CvOptionsScreenCallbackInterface.py	<module>	import	string			5
+EntryPoints/CvOptionsScreenCallbackInterface.py	<module>	import	BugOptions			11
+EntryPoints/CvOptionsScreenCallbackInterface.py	<module>	import	BugOptionsScreen			12
+EntryPoints/CvOptionsScreenCallbackInterface.py	<module>	import	BugHelp			13
+EntryPoints/CvOptionsScreenCallbackInterface.py	<module>	import	CvEventInterface			17
+EntryPoints/CvRandomEventInterface.py	<module>	import	CvUtil			12
+EntryPoints/CvRandomEventInterface.py	<module>	from	CvPythonExtensions	*		13
+EntryPoints/CvScreenUtilsInterface.py	<module>	import	CvOverlayScreenUtils			21
+EntryPoints/CvScreensInterface.py	<module>	import	CvMainInterface			3
+EntryPoints/CvScreensInterface.py	<module>	import	CvTechChooser			4
+EntryPoints/CvScreensInterface.py	<module>	import	CvForeignAdvisor			5
+EntryPoints/CvScreensInterface.py	<module>	import	CvExoticForeignAdvisor			6
+EntryPoints/CvScreensInterface.py	<module>	import	CvReligionScreen			7
+EntryPoints/CvScreensInterface.py	<module>	import	CvCorporationScreen			8
+EntryPoints/CvScreensInterface.py	<module>	import	CvCivicsScreen			9
+EntryPoints/CvScreensInterface.py	<module>	import	CvVictoryScreen			10
+EntryPoints/CvScreensInterface.py	<module>	import	CvEspionageAdvisor			11
+EntryPoints/CvScreensInterface.py	<module>	import	CvOptionsScreen			13
+EntryPoints/CvScreensInterface.py	<module>	import	CvReplayScreen			14
+EntryPoints/CvScreensInterface.py	<module>	import	CvHallOfFameScreen			15
+EntryPoints/CvScreensInterface.py	<module>	import	CvDanQuayle			16
+EntryPoints/CvScreensInterface.py	<module>	import	CvUnVictoryScreen			17
+EntryPoints/CvScreensInterface.py	<module>	import	CvDawnOfMan			19
+EntryPoints/CvScreensInterface.py	<module>	import	CvTechSplashScreen			20
+EntryPoints/CvScreensInterface.py	<module>	import	CvTopCivs			21
+EntryPoints/CvScreensInterface.py	<module>	import	CvInfoScreen			22
+EntryPoints/CvScreensInterface.py	<module>	import	CvIntroMovieScreen			24
+EntryPoints/CvScreensInterface.py	<module>	import	CvVictoryMovieScreen			25
+EntryPoints/CvScreensInterface.py	<module>	import	CvWonderMovieScreen			26
+EntryPoints/CvScreensInterface.py	<module>	import	CvEraMovieScreen			27
+EntryPoints/CvScreensInterface.py	<module>	import	CvSpaceShipScreen			28
+EntryPoints/CvScreensInterface.py	<module>	import	SevoScreenEnums			31
+EntryPoints/CvScreensInterface.py	<module>	import	CvWorldBuilderScreen			34
+EntryPoints/CvScreensInterface.py	<module>	import	CvWorldBuilderDiplomacyScreen			35
+EntryPoints/CvScreensInterface.py	<module>	import	CvDebugTools			37
+EntryPoints/CvScreensInterface.py	<module>	import	CvDebugInfoScreen			38
+EntryPoints/CvScreensInterface.py	<module>	import	CvUtil			41
+EntryPoints/CvScreensInterface.py	<module>	import	CvEventInterface			42
+EntryPoints/CvScreensInterface.py	<module>	import	CvPopupInterface			43
+EntryPoints/CvScreensInterface.py	<module>	import	CvScreenUtilsInterface			44
+EntryPoints/CvScreensInterface.py	<module>	import	ScreenInput		PyScreenInput	45
+EntryPoints/CvScreensInterface.py	<module>	from	CvScreenEnums	*		46
+EntryPoints/CvScreensInterface.py	<module>	from	CvPythonExtensions	*		47
+EntryPoints/CvScreensInterface.py	<module>	import	BugCore			50
+EntryPoints/CvScreensInterface.py	createFinanceAdvisor	import	BugFinanceAdvisor			121
+EntryPoints/CvScreensInterface.py	createFinanceAdvisor	import	CvFinanceAdvisor			124
+EntryPoints/CvScreensInterface.py	createDomesticAdvisor	import	CvCustomizableDomesticAdvisor			140
+EntryPoints/CvScreensInterface.py	createDomesticAdvisor	import	CvDomesticAdvisor			143
+EntryPoints/CvScreensInterface.py	createMilitaryAdvisor	import	CvBUGMilitaryAdvisor			159
+EntryPoints/CvScreensInterface.py	createMilitaryAdvisor	import	CvMilitaryAdvisor			162
+EntryPoints/CvScreensInterface.py	createTechSplash	import	TechWindow			240
+EntryPoints/CvScreensInterface.py	createTechSplash	import	TechWindowWide			243
+EntryPoints/CvScreensInterface.py	createTechSplash	import	CvTechSplashScreen			246
+EntryPoints/CvScreensInterface.py	createRevolutionWatchAdvisor	import	RevolutionWatchAdvisor			273
+EntryPoints/CvScreensInterface.py	createCivilopedia	import	SevoPediaUtil			297
+EntryPoints/CvScreensInterface.py	createCivilopedia	import	SevoPediaMain			299
+EntryPoints/CvScreensInterface.py	createCivilopedia	import	SevoPediaHistory			300
+EntryPoints/CvScreensInterface.py	createCivilopedia	import	CvPediaMain			304
+EntryPoints/CvScreensInterface.py	createCivilopedia	import	CvPediaHistory			305
+EntryPoints/CvWBInterface.py	<module>	from	CvPythonExtensions	*		3
+EntryPoints/CvWBInterface.py	<module>	import	CvWBPopups			4
+EntryPoints/CvWBInterface.py	<module>	import	CvUtil			5
+EntryPoints/CvWBInterface.py	<module>	import	CvWBDesc			6
+EntryPoints/CvWBInterface.py	<module>	import	os			28
+ModTools/ModTools.py	<module>	from	CvPythonExtensions	*		3
+ModTools/ModTools.py	<module>	import	CvUtil			4
+ModTools/ModTools.py	<module>	import	ModToolsUtils			5
+ModTools/ModToolsUtils.py	<module>	from	CvPythonExtensions	*		3
+ModTools/ModToolsUtils.py	<module>	import	CvUtil			4
+OOSLogger.py	<module>	import	os			1
+OOSLogger.py	<module>	from	CvPythonExtensions	*		2
+OOSLogger.py	<module>	import	CvUtil			3
+PyHelpers.py	<module>	from	CvPythonExtensions	*		3
+PyHelpers.py	<module>	import	CvUtil			4
+Revolution/Development/ChangePlayer.py	<module>	from	CvPythonExtensions	*		7
+Revolution/Development/ChangePlayer.py	<module>	import	CvUtil			8
+Revolution/Development/ChangePlayer.py	<module>	import	PyHelpers			9
+Revolution/Development/ChangePlayer.py	<module>	import	Popup		PyPopup	10
+Revolution/Development/ChangePlayer.py	<module>	import	RevDefs			12
+Revolution/Development/ChangePlayer.py	<module>	import	RevUtils			13
+Revolution/Development/ChangePlayer.py	<module>	import	BugCore			14
+Revolution/Development/Tester.py	<module>	from	CvPythonExtensions	*		7
+Revolution/Development/Tester.py	<module>	import	CvUtil			8
+Revolution/Development/Tester.py	<module>	import	sys			9
+Revolution/Development/Tester.py	<module>	import	Popup		PyPopup	10
+Revolution/Development/Tester.py	<module>	from	PyHelpers	PyPlayer		11
+Revolution/Development/Tester.py	<module>	from	PyHelpers	PyInfo		11
+Revolution/Development/Tester.py	<module>	import	CvEventManager			12
+Revolution/Development/Tester.py	<module>	import	RevDefs			14
+Revolution/Development/Tester.py	<module>	import	CvUtil			15
+Revolution/Development/Tester.py	<module>	import	RevUtils			16
+Revolution/Development/Tester.py	<module>	import	RevInstances			17
+Revolution/Development/Tester.py	<module>	import	RevolutionInit			18
+Revolution/Development/Tester.py	<module>	import	SdToolKitCustom		SDTK	19
+Revolution/Development/Tester.py	<module>	import	RevData			20
+Revolution/Development/Tester.py	<module>	import	BugCore			21
+Revolution/Gameready/AIAutoPlay.py	<module>	from	CvPythonExtensions	*		6
+Revolution/Gameready/AIAutoPlay.py	<module>	import	CvScreenEnums			7
+Revolution/Gameready/AIAutoPlay.py	<module>	import	CvTopCivs			8
+Revolution/Gameready/AIAutoPlay.py	<module>	import	CvUtil			9
+Revolution/Gameready/AIAutoPlay.py	<module>	import	PyHelpers			10
+Revolution/Gameready/AIAutoPlay.py	<module>	import	Popup		PyPopup	11
+Revolution/Gameready/AIAutoPlay.py	<module>	import	RevDefs			13
+Revolution/Gameready/AIAutoPlay.py	<module>	import	SdToolKitCustom			14
+Revolution/Gameready/AIAutoPlay.py	<module>	import	RevUtils			15
+Revolution/Gameready/AIAutoPlay.py	<module>	import	BugCore			16
+Revolution/Gameready/BarbarianCiv.py	<module>	from	CvPythonExtensions	*		7
+Revolution/Gameready/BarbarianCiv.py	<module>	import	CvUtil			8
+Revolution/Gameready/BarbarianCiv.py	<module>	import	PyHelpers			9
+Revolution/Gameready/BarbarianCiv.py	<module>	import	Popup		PyPopup	10
+Revolution/Gameready/BarbarianCiv.py	<module>	import	RevDefs			12
+Revolution/Gameready/BarbarianCiv.py	<module>	import	RevUtils			13
+Revolution/Gameready/BarbarianCiv.py	<module>	import	SdToolKitCustom		SDTK	14
+Revolution/Gameready/BarbarianCiv.py	<module>	import	RevInstances			15
+Revolution/Gameready/BarbarianCiv.py	<module>	import	BugCore			16
+Revolution/Gameready/DynamicCivNames.py	<module>	from	CvPythonExtensions	*		8
+Revolution/Gameready/DynamicCivNames.py	<module>	import	CvUtil			9
+Revolution/Gameready/DynamicCivNames.py	<module>	import	PyHelpers			10
+Revolution/Gameready/DynamicCivNames.py	<module>	import	Popup		PyPopup	11
+Revolution/Gameready/DynamicCivNames.py	<module>	import	RevDefs			13
+Revolution/Gameready/DynamicCivNames.py	<module>	import	SdToolKitCustom		SDTK	14
+Revolution/Gameready/DynamicCivNames.py	<module>	import	RevUtils			15
+Revolution/Gameready/DynamicCivNames.py	<module>	import	LeaderCivNames			16
+Revolution/Gameready/DynamicCivNames.py	<module>	import	BugCore			17
+Revolution/Gameready/Revolt.py	<module>	from	CvPythonExtensions	*		6
+Revolution/Gameready/Revolt.py	<module>	import	CvUtil			7
+Revolution/Gameready/Revolt.py	<module>	import	PyHelpers			8
+Revolution/Gameready/Revolt.py	<module>	import	Popup		PyPopup	9
+Revolution/Gameready/Revolt.py	<module>	import	math			10
+Revolution/Gameready/Revolt.py	<module>	import	RevDefs			12
+Revolution/Gameready/Revolt.py	<module>	import	RevData			13
+Revolution/Gameready/Revolt.py	<module>	import	RevUtils			14
+Revolution/Gameready/Revolt.py	<module>	import	SdToolKitCustom			15
+Revolution/Gameready/Revolt.py	<module>	import	BugCore			16
+Revolution/Gameready/Revolution.py	<module>	from	CvPythonExtensions	*		7
+Revolution/Gameready/Revolution.py	<module>	import	CvUtil			8
+Revolution/Gameready/Revolution.py	<module>	import	PyHelpers			9
+Revolution/Gameready/Revolution.py	<module>	import	Popup		PyPopup	10
+Revolution/Gameready/Revolution.py	<module>	import	math			11
+Revolution/Gameready/Revolution.py	<module>	import	RevDefs			13
+Revolution/Gameready/Revolution.py	<module>	import	RevData			14
+Revolution/Gameready/Revolution.py	<module>	import	RevUtils			15
+Revolution/Gameready/Revolution.py	<module>	import	RevEvents			16
+Revolution/Gameready/Revolution.py	<module>	import	SdToolKitCustom			17
+Revolution/Gameready/Revolution.py	<module>	import	CvScreensInterface			19
+Revolution/Gameready/Revolution.py	<module>	import	RebelTypes			22
+Revolution/Gameready/Revolution.py	<module>	import	RevInstances			25
+Revolution/Gameready/Revolution.py	<module>	from	TextUtils	getCityTextList		26
+Revolution/Gameready/Revolution.py	<module>	import	BugCore			27
+Revolution/Gameready/StartAsMinors.py	<module>	from	CvPythonExtensions	*		6
+Revolution/Gameready/StartAsMinors.py	<module>	import	CvUtil			7
+Revolution/Gameready/StartAsMinors.py	<module>	import	PyHelpers			8
+Revolution/Gameready/StartAsMinors.py	<module>	import	cPickle		pickle	10
+Revolution/Gameready/StartAsMinors.py	<module>	import	pickle			12
+Revolution/Gameready/StartAsMinors.py	<module>	import	math			13
+Revolution/Gameready/StartAsMinors.py	<module>	import	RevDefs			15
+Revolution/Gameready/StartAsMinors.py	<module>	import	RevData			16
+Revolution/Gameready/StartAsMinors.py	<module>	import	SdToolKitCustom		SDTK	17
+Revolution/Gameready/StartAsMinors.py	<module>	import	RevInstances			18
+Revolution/Gameready/StartAsMinors.py	<module>	import	RevUtils			19
+Revolution/Gameready/StartAsMinors.py	<module>	import	BugCore			20
+Revolution/Gameready/TechDiffusion.py	<module>	from	CvPythonExtensions	*		8
+Revolution/Gameready/TechDiffusion.py	<module>	import	CvUtil			9
+Revolution/Gameready/TechDiffusion.py	<module>	import	PyHelpers			10
+Revolution/Gameready/TechDiffusion.py	<module>	import	Popup		PyPopup	11
+Revolution/Gameready/TechDiffusion.py	<module>	import	RevDefs			13
+Revolution/Gameready/TechDiffusion.py	<module>	import	BugCore			14
+Revolution/LeaderCivNames.py	<module>	from	CvPythonExtensions	*		8
+Revolution/LeaderCivNames.py	<module>	import	CvUtil			9
+Revolution/RebelTypes.py	<module>	from	CvPythonExtensions	*		8
+Revolution/RebelTypes.py	<module>	import	CvUtil			9
+Revolution/RevBuildingsUtils.py	<module>	from	CvPythonExtensions	*		6
+Revolution/RevBuildingsUtils.py	<module>	import	CvUtil			7
+Revolution/RevBuildingsUtils.py	<module>	import	PyHelpers			8
+Revolution/RevBuildingsUtils.py	<module>	import	pickle			9
+Revolution/RevBuildingsUtils.py	<module>	import	RevDefs			11
+Revolution/RevBuildingsUtils.py	<module>	import	RevData			12
+Revolution/RevBuildingsUtils.py	<module>	import	SdToolKitCustom			13
+Revolution/RevBuildingsUtils.py	<module>	import	RevInstances			14
+Revolution/RevCivicsUtils.py	<module>	from	CvPythonExtensions	*		6
+Revolution/RevCivicsUtils.py	<module>	import	CvUtil			7
+Revolution/RevCivicsUtils.py	<module>	import	PyHelpers			8
+Revolution/RevCivicsUtils.py	<module>	import	cPickle		pickle	10
+Revolution/RevCivicsUtils.py	<module>	import	pickle			12
+Revolution/RevCivicsUtils.py	<module>	import	RevDefs			14
+Revolution/RevCivicsUtils.py	<module>	import	RevData			15
+Revolution/RevCivicsUtils.py	<module>	import	SdToolKitCustom			16
+Revolution/RevCivicsUtils.py	<module>	import	RevInstances			17
+Revolution/RevData.py	<module>	import	CvPythonExtensions			6
+Revolution/RevData.py	<module>	import	cPickle		pickle	10
+Revolution/RevData.py	<module>	import	pickle			12
+Revolution/RevData.py	<module>	import	SdToolKitCustom			14
+Revolution/RevData.py	<module>	import	RevDefs			15
+Revolution/RevDefs.py	<module>	from	CvPythonExtensions	*		6
+Revolution/RevDefs.py	<module>	import	CvUtil			7
+Revolution/RevDefs.py	<module>	import	PyHelpers			8
+Revolution/RevDefs.py	<module>	import	BugCore			9
+Revolution/RevEvents.py	<module>	from	CvPythonExtensions	*		6
+Revolution/RevEvents.py	<module>	import	CvUtil			7
+Revolution/RevEvents.py	<module>	import	PyHelpers			8
+Revolution/RevEvents.py	<module>	import	Popup		PyPopup	9
+Revolution/RevEvents.py	<module>	import	cPickle		pickle	11
+Revolution/RevEvents.py	<module>	import	pickle			13
+Revolution/RevEvents.py	<module>	import	math			14
+Revolution/RevEvents.py	<module>	import	RevDefs			16
+Revolution/RevEvents.py	<module>	import	RevData			17
+Revolution/RevEvents.py	<module>	import	SdToolKitCustom			18
+Revolution/RevEvents.py	<module>	import	RevInstances			19
+Revolution/RevEvents.py	<module>	import	RevUtils			20
+Revolution/RevEvents.py	<module>	import	BugCore			21
+Revolution/RevTraitsUtils.py	<module>	from	CvPythonExtensions	*		6
+Revolution/RevTraitsUtils.py	<module>	import	CvUtil			7
+Revolution/RevTraitsUtils.py	<module>	import	PyHelpers			8
+Revolution/RevTraitsUtils.py	<module>	import	cPickle		pickle	10
+Revolution/RevTraitsUtils.py	<module>	import	pickle			12
+Revolution/RevTraitsUtils.py	<module>	import	RevDefs			14
+Revolution/RevTraitsUtils.py	<module>	import	RevData			15
+Revolution/RevTraitsUtils.py	<module>	import	SdToolKitCustom			16
+Revolution/RevTraitsUtils.py	<module>	import	RevInstances			17
+Revolution/RevUtils.py	<module>	from	CvPythonExtensions	*		6
+Revolution/RevUtils.py	<module>	import	CvUtil			7
+Revolution/RevUtils.py	<module>	import	PyHelpers			8
+Revolution/RevUtils.py	<module>	import	cPickle		pickle	10
+Revolution/RevUtils.py	<module>	import	pickle			12
+Revolution/RevUtils.py	<module>	import	RevDefs			14
+Revolution/RevUtils.py	<module>	import	RevData			15
+Revolution/RevUtils.py	<module>	import	SdToolKitCustom			16
+Revolution/RevUtils.py	<module>	import	RevInstances			17
+Revolution/RevUtils.py	<module>	from	RevCivicsUtils	*		19
+Revolution/RevUtils.py	<module>	from	RevTraitsUtils	*		21
+Revolution/RevUtils.py	<module>	from	RevBuildingsUtils	*		22
+Revolution/RevUtils.py	<module>	import	BugCore			24
+Revolution/RevolutionInit.py	<module>	from	CvPythonExtensions	*		14
+Revolution/RevolutionInit.py	<module>	import	CvUtil			15
+Revolution/RevolutionInit.py	<module>	import	PyHelpers			16
+Revolution/RevolutionInit.py	<module>	import	Popup		PyPopup	17
+Revolution/RevolutionInit.py	<module>	import	CvModName			18
+Revolution/RevolutionInit.py	<module>	import	BugPath			19
+Revolution/RevolutionInit.py	<module>	import	RevDefs			21
+Revolution/RevolutionInit.py	<module>	import	RevEvents			22
+Revolution/RevolutionInit.py	<module>	import	BarbarianCiv			23
+Revolution/RevolutionInit.py	<module>	import	AIAutoPlay			24
+Revolution/RevolutionInit.py	<module>	import	ChangePlayer			25
+Revolution/RevolutionInit.py	<module>	import	Revolution			26
+Revolution/RevolutionInit.py	<module>	import	Tester			27
+Revolution/RevolutionInit.py	<module>	import	TechDiffusion			28
+Revolution/RevolutionInit.py	<module>	import	StartAsMinors			29
+Revolution/RevolutionInit.py	<module>	import	DynamicCivNames			30
+Revolution/RevolutionInit.py	<module>	import	RevInstances			31
+Revolution/RevolutionInit.py	<module>	import	BugCore			33
+Revolution/RevolutionInit.py	<module>	import	RevDCM			34
+Revolution/RevolutionInit.py	<module>	import	BugOptions			35
+Revolution/TextUtils.py	<module>	from	CvPythonExtensions	*		6
+Revolution/TextUtils.py	<module>	import	PyHelpers			7
+RoMEventManager.py	<module>	from	CvPythonExtensions	*		4
+RoMEventManager.py	<module>	import	CvEventInterface			5
+RoMEventManager.py	<module>	import	CvUtil			6
+RoMEventManager.py	<module>	import	Popup		PyPopup	7
+RoMEventManager.py	<module>	import	SdToolKit			8
+RoMEventManager.py	<module>	import	PyHelpers			9
+RoMEventManager.py	<module>	import	CvGameUtils			14
+RoMEventManager.py	<module>	import	BugOptions			15
+RoMEventManager.py	<module>	import	BugCore			16
+RoMEventManager.py	<module>	import	BugUtil			17
+RoMEventManager.py	<module>	import	PlayerUtil			19
+RoMEventManager.py	<module>	import	AugustusAIProfiler			20
+RoMEventManager.py	<module>	import	SettlementTrainingProfiler			21
+RoMGameUtils.py	<module>	import	CvUtil			6
+RoMGameUtils.py	<module>	from	CvPythonExtensions	*		7
+RoMGameUtils.py	<module>	import	CvEventInterface			8
+RoMGameUtils.py	<module>	import	Popup		PyPopup	9
+RoMGameUtils.py	<module>	import	PyHelpers			10
+RoMGameUtils.py	<module>	import	zCivics			11
+RoMGameUtils.py	<module>	import	BugOptions			12
+RoMGameUtils.py	<module>	import	BugCore			13
+RoMGameUtils.py	<module>	import	BugUtil			14
+RoMGameUtils.py	<module>	import	RevInstances			15
+RoMGameUtils.py	<module>	import	RevDCM			16
+RoMGameUtils.py	<module>	import	PlayerUtil			17
+Screens/BugFinanceAdvisor.py	<module>	from	CvPythonExtensions	*		3
+Screens/BugFinanceAdvisor.py	<module>	import	PyHelpers			4
+Screens/BugFinanceAdvisor.py	<module>	import	CvUtil			5
+Screens/BugFinanceAdvisor.py	<module>	import	ScreenInput			6
+Screens/BugFinanceAdvisor.py	<module>	import	CvScreenEnums			7
+Screens/BugFinanceAdvisor.py	<module>	import	BugDll			8
+Screens/BugFinanceAdvisor.py	<module>	import	BugUtil			9
+Screens/BugFinanceAdvisor.py	<module>	import	PlayerUtil			10
+Screens/BugFinanceAdvisor.py	<module>	import	TradeUtil			11
+Screens/CvBUGMilitaryAdvisor.py	<module>	from	CvPythonExtensions	*		23
+Screens/CvBUGMilitaryAdvisor.py	<module>	import	CvUtil			24
+Screens/CvBUGMilitaryAdvisor.py	<module>	import	PyHelpers			25
+Screens/CvBUGMilitaryAdvisor.py	<module>	import	time			26
+Screens/CvBUGMilitaryAdvisor.py	<module>	import	re			27
+Screens/CvBUGMilitaryAdvisor.py	<module>	import	IconGrid_BUG			29
+Screens/CvBUGMilitaryAdvisor.py	<module>	import	AttitudeUtil			30
+Screens/CvBUGMilitaryAdvisor.py	<module>	import	BugUtil			31
+Screens/CvBUGMilitaryAdvisor.py	<module>	import	BugDll			32
+Screens/CvBUGMilitaryAdvisor.py	<module>	import	PlayerUtil			33
+Screens/CvBUGMilitaryAdvisor.py	<module>	import	UnitGrouper			34
+Screens/CvBUGMilitaryAdvisor.py	<module>	import	UnitUtil			35
+Screens/CvCivicsScreen.py	<module>	from	CvPythonExtensions	*		3
+Screens/CvCivicsScreen.py	<module>	import	CvUtil			4
+Screens/CvCivicsScreen.py	<module>	import	ScreenInput			5
+Screens/CvCivicsScreen.py	<module>	import	CvScreenEnums			6
+Screens/CvCivicsScreen.py	<module>	import	string			7
+Screens/CvCivicsScreen.py	<module>	import	CvScreensInterface			8
+Screens/CvCivicsScreen.py	<module>	import	BugCore			10
+Screens/CvCivicsScreen.py	<module>	import	BugUtil			13
+Screens/CvCivicsScreen.py	<module>	import	PyHelpers			21
+Screens/CvCorporationScreen.py	<module>	from	CvPythonExtensions	*		3
+Screens/CvCorporationScreen.py	<module>	import	PyHelpers			4
+Screens/CvCorporationScreen.py	<module>	import	CvUtil			5
+Screens/CvCorporationScreen.py	<module>	import	ScreenInput			6
+Screens/CvCorporationScreen.py	<module>	import	CvScreenEnums			7
+Screens/CvCustomizableDomesticAdvisor.py	<module>	from	CvPythonExtensions	*		63
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	PyHelpers			65
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	CvUtil			66
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	CvScreenEnums			67
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	CvEventInterface			68
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	Popup		PyPopup	69
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	BugConfigTracker			71
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	BugCore			72
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	BugPath			73
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	BugUtil			74
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	FontUtil			75
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	GameUtil			76
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	TradeUtil			77
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	math			83
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	cPickle		pickle	94
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	pickle			96
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	re			100
+Screens/CvCustomizableDomesticAdvisor.py	<module>	import	time			102
+Screens/CvDawnOfMan.py	<module>	import	CvUtil			4
+Screens/CvDawnOfMan.py	<module>	from	CvPythonExtensions	*		5
+Screens/CvDawnOfMan.py	<module>	import	Buffy			12
+Screens/CvDawnOfMan.py	<module>	import	BugCore			13
+Screens/CvDawnOfMan.py	<module>	import	GameSetUpCheck			14
+Screens/CvDotMapOverlayScreen.py	<module>	from	CvPythonExtensions	*		10
+Screens/CvDotMapOverlayScreen.py	<module>	import	BugUtil			11
+Screens/CvDotMapOverlayScreen.py	<module>	import	CvStrategyOverlay			12
+Screens/CvDotMapOverlayScreen.py	<module>	import	CvUtil			13
+Screens/CvDotMapOverlayScreen.py	<module>	import	sys			14
+Screens/CvEspionageAdvisor.py	<module>	from	CvPythonExtensions	*		4
+Screens/CvEspionageAdvisor.py	<module>	from	PyHelpers	PyPlayer		5
+Screens/CvEspionageAdvisor.py	<module>	import	CvUtil			6
+Screens/CvEspionageAdvisor.py	<module>	import	ScreenInput			7
+Screens/CvEspionageAdvisor.py	<module>	import	CvScreenEnums			8
+Screens/CvEspionageAdvisor.py	<module>	import	BugCore			11
+Screens/CvEspionageAdvisor.py	<module>	import	BugUtil			12
+Screens/CvEspionageAdvisor.py	<module>	import	ColorUtil			13
+Screens/CvEspionageAdvisor.py	<module>	import	FontUtil			14
+Screens/CvEspionageAdvisor.py	<module>	import	SpyUtil			15
+Screens/CvEspionageAdvisor.py	<module>	import	BugScreen			16
+Screens/CvExoticForeignAdvisor.py	<module>	from	CvPythonExtensions	*		6
+Screens/CvExoticForeignAdvisor.py	<module>	import	CvUtil			7
+Screens/CvExoticForeignAdvisor.py	<module>	import	ScreenInput			8
+Screens/CvExoticForeignAdvisor.py	<module>	import	CvScreenEnums			9
+Screens/CvExoticForeignAdvisor.py	<module>	import	math			10
+Screens/CvExoticForeignAdvisor.py	<module>	import	IconGrid_BUG			15
+Screens/CvExoticForeignAdvisor.py	<module>	import	CvForeignAdvisor			21
+Screens/CvExoticForeignAdvisor.py	<module>	import	DomPyHelpers			22
+Screens/CvExoticForeignAdvisor.py	<module>	import	TechTree			23
+Screens/CvExoticForeignAdvisor.py	<module>	import	AttitudeUtil			24
+Screens/CvExoticForeignAdvisor.py	<module>	import	BugCore			25
+Screens/CvExoticForeignAdvisor.py	<module>	import	BugDll			26
+Screens/CvExoticForeignAdvisor.py	<module>	import	BugUtil			27
+Screens/CvExoticForeignAdvisor.py	<module>	import	DealUtil			28
+Screens/CvExoticForeignAdvisor.py	<module>	import	DiplomacyUtil			29
+Screens/CvExoticForeignAdvisor.py	<module>	import	FavoriteCivicDetector			30
+Screens/CvExoticForeignAdvisor.py	<module>	import	FontUtil			31
+Screens/CvExoticForeignAdvisor.py	<module>	import	TradeUtil			32
+Screens/CvExoticForeignAdvisor.py	<module>	import	re			34
+Screens/CvForeignAdvisor.py	<module>	from	CvPythonExtensions	*		3
+Screens/CvForeignAdvisor.py	<module>	import	CvUtil			4
+Screens/CvForeignAdvisor.py	<module>	import	ScreenInput			5
+Screens/CvForeignAdvisor.py	<module>	import	CvScreenEnums			6
+Screens/CvForeignAdvisor.py	<module>	import	math			7
+Screens/CvHallOfFameScreen.py	<module>	from	CvPythonExtensions	*		8
+Screens/CvHallOfFameScreen.py	<module>	import	BugUtil			9
+Screens/CvHallOfFameScreen.py	<module>	import	CvUtil			10
+Screens/CvHallOfFameScreen.py	<module>	import	ScreenInput			11
+Screens/CvHallOfFameScreen.py	<module>	from	CvScreenEnums	*		12
+Screens/CvHallOfFameScreen.py	<module>	import	CvReplayScreen			13
+Screens/CvHallOfFameScreen.py	<module>	import	CvScreensInterface			14
+Screens/CvHallOfFameScreen.py	<module>	import	re			15
+Screens/CvInfoScreen.py	<module>	from	CvPythonExtensions	*		6
+Screens/CvInfoScreen.py	<module>	import	CvScreenEnums			7
+Screens/CvInfoScreen.py	<module>	import	CvUtil			8
+Screens/CvInfoScreen.py	<module>	import	ScreenInput			9
+Screens/CvInfoScreen.py	<module>	import	string			11
+Screens/CvInfoScreen.py	<module>	import	math			13
+Screens/CvInfoScreen.py	<module>	from	PyHelpers	PyPlayer		15
+Screens/CvInfoScreen.py	<module>	import	GameUtil			18
+Screens/CvInfoScreen.py	<module>	import	BugCore			22
+Screens/CvInfoScreen.py	<module>	import	BugUtil			23
+Screens/CvMainInterface.py	<module>	from	CvPythonExtensions	*		3
+Screens/CvMainInterface.py	<module>	import	CvUtil			4
+Screens/CvMainInterface.py	<module>	import	ScreenInput			5
+Screens/CvMainInterface.py	<module>	import	CvScreenEnums			6
+Screens/CvMainInterface.py	<module>	import	CvEventInterface			7
+Screens/CvMainInterface.py	<module>	import	CvScreensInterface			9
+Screens/CvMainInterface.py	<module>	import	time			10
+Screens/CvMainInterface.py	<module>	import	BugDll			13
+Screens/CvMainInterface.py	<module>	import	RevInstances			17
+Screens/CvMainInterface.py	<module>	import	BugCore			23
+Screens/CvMainInterface.py	<module>	import	BugOptions			24
+Screens/CvMainInterface.py	<module>	import	BugOptionsScreen			25
+Screens/CvMainInterface.py	<module>	import	BugPath			26
+Screens/CvMainInterface.py	<module>	import	BugUtil			27
+Screens/CvMainInterface.py	<module>	import	CityUtil			28
+Screens/CvMainInterface.py	<module>	import	ReligionUtil			42
+Screens/CvMainInterface.py	<module>	import	Scoreboard			50
+Screens/CvMainInterface.py	<module>	import	PlayerUtil			51
+Screens/CvMainInterface.py	<module>	import	AttitudeUtil			55
+Screens/CvMainInterface.py	<module>	import	DiplomacyUtil			59
+Screens/CvMainInterface.py	<module>	import	TradeUtil			63
+Screens/CvMainInterface.py	<module>	import	BugUnitPlot			66
+Screens/CvMainInterface.py	<module>	import	GameUtil			74
+Screens/CvMainInterface.py	<module>	import	ReminderEventManager			78
+Screens/CvMainInterface.py	<module>	import	GGUtil			82
+Screens/CvMainInterface.py	<module>	import	GPUtil			86
+Screens/CvMainInterface.py	<module>	import	ProgressBarUtil			91
+Screens/CvMainInterface.py	<module>	import	PLE			95
+Screens/CvMainInterface.py	<module>	import	RawYields			199
+Screens/CvPediaHistory.py	<module>	from	CvPythonExtensions	*		3
+Screens/CvPediaHistory.py	<module>	import	CvUtil			4
+Screens/CvPediaHistory.py	<module>	import	ScreenInput			5
+Screens/CvPediaHistory.py	<module>	import	CvScreenEnums			6
+Screens/CvPediaMain.py	<module>	from	CvPythonExtensions	*		3
+Screens/CvPediaMain.py	<module>	import	string			4
+Screens/CvPediaMain.py	<module>	import	CvUtil			5
+Screens/CvPediaMain.py	<module>	import	ScreenInput			6
+Screens/CvPediaMain.py	<module>	import	CvScreenEnums			7
+Screens/CvPediaMain.py	<module>	import	CvPediaScreen			8
+Screens/CvPediaMain.py	<module>	import	CvPediaTech			9
+Screens/CvPediaMain.py	<module>	import	CvPediaUnit			10
+Screens/CvPediaMain.py	<module>	import	CvPediaBuilding			11
+Screens/CvPediaMain.py	<module>	import	CvPediaPromotion			12
+Screens/CvPediaMain.py	<module>	import	CvPediaUnitChart			13
+Screens/CvPediaMain.py	<module>	import	CvPediaBonus			14
+Screens/CvPediaMain.py	<module>	import	CvPediaTerrain			15
+Screens/CvPediaMain.py	<module>	import	CvPediaFeature			16
+Screens/CvPediaMain.py	<module>	import	CvPediaImprovement			17
+Screens/CvPediaMain.py	<module>	import	CvPediaCivic			18
+Screens/CvPediaMain.py	<module>	import	CvPediaCivilization			19
+Screens/CvPediaMain.py	<module>	import	CvPediaLeader			20
+Screens/CvPediaMain.py	<module>	import	CvPediaSpecialist			21
+Screens/CvPediaMain.py	<module>	import	CvPediaHistory			22
+Screens/CvPediaMain.py	<module>	import	CvPediaProject			23
+Screens/CvPediaMain.py	<module>	import	CvPediaReligion			24
+Screens/CvPediaMain.py	<module>	import	CvPediaCorporation			25
+Screens/CvReligionScreen.py	<module>	from	CvPythonExtensions	*		7
+Screens/CvReligionScreen.py	<module>	import	PyHelpers			8
+Screens/CvReligionScreen.py	<module>	import	CvUtil			9
+Screens/CvReligionScreen.py	<module>	import	ScreenInput			10
+Screens/CvReligionScreen.py	<module>	import	CvScreenEnums			11
+Screens/CvReligionScreen.py	<module>	import	BugUtil			14
+Screens/CvReligionScreen.py	<module>	import	BugCore			15
+Screens/CvReligionScreen.py	<module>	import	PlayerUtil			16
+Screens/CvReligionScreen.py	<module>	import	ReligionUtil			17
+Screens/CvScreenEnums.py	<module>	from	CvPythonExtensions	CivilopediaPageTypes		6
+Screens/CvTechChooser.py	<module>	from	CvPythonExtensions	*		3
+Screens/CvTechChooser.py	<module>	import	CvUtil			4
+Screens/CvTechChooser.py	<module>	import	ScreenInput			5
+Screens/CvTechChooser.py	<module>	import	CvScreenEnums			6
+Screens/CvTechChooser.py	<module>	import	CvScreensInterface			7
+Screens/CvTechChooser.py	<module>	import	TechPrefs			26
+Screens/CvTechChooser.py	<module>	import	BugCore			27
+Screens/CvTechChooser.py	<module>	import	BugUtil			31
+Screens/CvTechChooser.py	<module>	import	GameUtil			44
+Screens/CvVictoryScreen.py	<module>	from	CvPythonExtensions	*		3
+Screens/CvVictoryScreen.py	<module>	import	CvUtil			4
+Screens/CvVictoryScreen.py	<module>	import	ScreenInput			5
+Screens/CvVictoryScreen.py	<module>	import	PyHelpers			6
+Screens/CvVictoryScreen.py	<module>	import	time			7
+Screens/CvVictoryScreen.py	<module>	import	AttitudeUtil			10
+Screens/CvVictoryScreen.py	<module>	import	BugCore			11
+Screens/CvVictoryScreen.py	<module>	import	BugPath			12
+Screens/CvVictoryScreen.py	<module>	import	BugUtil			13
+Screens/CvVictoryScreen.py	<module>	import	ColorUtil			14
+Screens/CvVictoryScreen.py	<module>	import	GameUtil			15
+Screens/CvVictoryScreen.py	<module>	import	PlayerUtil			16
+Screens/CvVictoryScreen.py	<module>	import	TechUtil			17
+Screens/CvVictoryScreen.py	<module>	import	os			23
+Screens/CvVictoryScreen.py	<module>	import	GameSetUpCheck			24
+Screens/CvVictoryScreen.py	<module>	import	Buffy			25
+Screens/IconGrid.py	<module>	from	CvPythonExtensions	*		2
+Screens/IconGrid.py	<module>	import	CvUtil			3
+Screens/IconGrid.py	<module>	import	ScreenInput			4
+Screens/IconGrid.py	<module>	import	CvScreenEnums			5
+Screens/IconGrid.py	<module>	import	math			6
+Screens/IconGrid_BUG.py	<module>	from	CvPythonExtensions	*		2
+Screens/IconGrid_BUG.py	<module>	import	CvUtil			3
+Screens/IconGrid_BUG.py	<module>	import	ScreenInput			4
+Screens/IconGrid_BUG.py	<module>	import	CvScreenEnums			5
+Screens/IconGrid_BUG.py	<module>	import	BugUtil			6
+Screens/IconGrid_BUG.py	<module>	import	math			7
+Screens/PLE.py	<module>	from	CvPythonExtensions	*		1
+Screens/PLE.py	<module>	import	CvUtil			2
+Screens/PLE.py	<module>	import	ScreenInput			3
+Screens/PLE.py	<module>	import	CvScreenEnums			4
+Screens/PLE.py	<module>	import	CvEventInterface			5
+Screens/PLE.py	<module>	from	AStarTools	*		7
+Screens/PLE.py	<module>	import	MonkeyTools		mt	8
+Screens/PLE.py	<module>	import	UnitUtil			9
+Screens/PLE.py	<module>	import	string			10
+Screens/PLE.py	<module>	import	PyHelpers			12
+Screens/PLE.py	<module>	import	BugUtil			15
+Screens/PLE.py	<module>	import	BugCore			16
+Screens/PLE.py	<module>	import	BugUnitPlot			19
+Screens/RevolutionWatchAdvisor.py	<module>	from	CvPythonExtensions	*		51
+Screens/RevolutionWatchAdvisor.py	<module>	import	PyHelpers			53
+Screens/RevolutionWatchAdvisor.py	<module>	import	CvUtil			54
+Screens/RevolutionWatchAdvisor.py	<module>	import	ScreenInput			55
+Screens/RevolutionWatchAdvisor.py	<module>	import	CvScreenEnums			56
+Screens/RevolutionWatchAdvisor.py	<module>	import	CvEventInterface			57
+Screens/RevolutionWatchAdvisor.py	<module>	import	CvEventManager			58
+Screens/RevolutionWatchAdvisor.py	<module>	import	Popup		PyPopup	59
+Screens/RevolutionWatchAdvisor.py	<module>	import	CvEventInterface			61
+Screens/RevolutionWatchAdvisor.py	<module>	import	BugPath			62
+Screens/RevolutionWatchAdvisor.py	<module>	import	BugUtil			63
+Screens/RevolutionWatchAdvisor.py	<module>	import	BugConfigTracker			64
+Screens/RevolutionWatchAdvisor.py	<module>	import	math			66
+Screens/RevolutionWatchAdvisor.py	<module>	import	os.path			67
+Screens/RevolutionWatchAdvisor.py	<module>	import	BugCore			76
+Screens/RevolutionWatchAdvisor.py	<module>	import	RevDefs			81
+Screens/RevolutionWatchAdvisor.py	<module>	import	RevData			82
+Screens/RevolutionWatchAdvisor.py	<module>	import	RevInstances			83
+Screens/RevolutionWatchAdvisor.py	<module>	import	RevUtils			84
+Screens/RevolutionWatchAdvisor.py	<module>	import	BugOptionsTab			85
+Screens/RevolutionWatchAdvisor.py	<module>	import	cPickle		pickle	90
+Screens/RevolutionWatchAdvisor.py	<module>	import	pickle			92
+Screens/RevolutionWatchAdvisor.py	<module>	import	re			96
+Screens/RevolutionWatchAdvisor.py	<module>	import	time			98
+SdToolKitCustom.py	<module>	from	CvPythonExtensions	*		13
+SdToolKitCustom.py	<module>	import	CvUtil			14
+SdToolKitCustom.py	<module>	import	sys			15
+SdToolKitCustom.py	<module>	import	cPickle		pickle	17
+SdToolKitCustom.py	<module>	import	pickle			19
+SettlementTrainingProfiler.py	<module>	from	CvPythonExtensions	*		1
+SettlementTrainingProfiler.py	<module>	import	BugPath			2
+SettlementTrainingProfiler.py	<module>	import	BugUtil			3
+SettlementTrainingProfiler.py	<module>	import	os			4
+zCivics.py	<module>	from	CvPythonExtensions	*		8
+base/CvCameraControls.py	<module>	from	CvPythonExtensions	*		6
+base/CvCameraControls.py	<module>	import	CvUtil			7
+base/CvDebugTools.py	<module>	import	CvUtil			6
+base/CvDebugTools.py	<module>	import	PyHelpers			7
+base/CvDebugTools.py	<module>	import	Popup		PyPopup	8
+base/CvDebugTools.py	<module>	import	CvScreenEnums			9
+base/CvDebugTools.py	<module>	from	CvPythonExtensions	*		10
+base/CvEventManager.py	<module>	from	CvPythonExtensions	*		10
+base/CvEventManager.py	<module>	import	CvUtil			11
+base/CvEventManager.py	<module>	import	CvScreensInterface			12
+base/CvEventManager.py	<module>	import	CvDebugTools			13
+base/CvEventManager.py	<module>	import	CvWBPopups			14
+base/CvEventManager.py	<module>	import	PyHelpers			15
+base/CvEventManager.py	<module>	import	Popup		PyPopup	16
+base/CvEventManager.py	<module>	import	CvCameraControls			17
+base/CvEventManager.py	<module>	import	CvTopCivs			18
+base/CvEventManager.py	<module>	import	sys			19
+base/CvEventManager.py	<module>	import	CvWorldBuilderScreen			20
+base/CvEventManager.py	<module>	import	CvAdvisorUtils			21
+base/CvEventManager.py	<module>	import	CvTechChooser			22
+base/CvEventManager.py	CvEventManager.onKbdEvent	import	CvDebugInfoScreen			270
+base/CvGameUtils.py	<module>	import	CvUtil			6
+base/CvGameUtils.py	<module>	from	CvPythonExtensions	*		7
+base/CvGameUtils.py	<module>	import	CvEventInterface			8
+base/CvPerfTest.py	<module>	from	CvPythonExtensions	*		3
+base/DomPyHelpers.py	<module>	from	CvPythonExtensions	*		3
+base/DomPyHelpers.py	<module>	import	CvUtil			5
+base/DomPyHelpers.py	<module>	import	PyHelpers			6
+base/EntryPoints/CvGameInterface.py	<module>	import	CvUtil			12
+base/EntryPoints/CvGameInterface.py	<module>	import	CvGameUtils			13
+base/EntryPoints/CvGameInterface.py	<module>	import	CvGameInterfaceFile			14
+base/EntryPoints/CvGameInterface.py	<module>	import	CvEventInterface			15
+base/EntryPoints/CvGameInterface.py	<module>	from	CvPythonExtensions	*		16
+base/EntryPoints/CvTranslator.py	<module>	from	CvPythonExtensions	*		3
+base/EntryPoints/CvTranslator.py	<module>	import	CvUtil			4
+base/EntryPoints/CvTranslator.py	<module>	import	re			5
+base/EntryPoints/PbMain.py	<module>	from	CvPythonExtensions	*		7
+base/EntryPoints/PbMain.py	<module>	import	PbWizard			8
+base/EntryPoints/PbMain.py	<module>	import	PbAdmin			9
+base/EntryPoints/PbMain.py	sendEmail	import	sys			96
+base/EntryPoints/PbMain.py	sendEmail	import	smtplib			96
+base/EntryPoints/PbMain.py	sendEmail	import	MimeWriter			96
+base/EntryPoints/PbMain.py	sendEmail	import	base64			96
+base/EntryPoints/PbMain.py	sendEmail	import	StringIO			96
+base/PitBoss/PbAdmin.py	<module>	from	CvPythonExtensions	*		7
+base/PitBoss/PbAdmin.py	<module>	import	wx			8
+base/PitBoss/PbAdmin.py	<module>	import	wx.lib.scrolledpanel			9
+base/PitBoss/PbAdmin.py	<module>	import	time			10
+base/PitBoss/PbAdmin.py	<module>	import	string			11
+base/PitBoss/PbWizard.py	<module>	from	CvPythonExtensions	*		7
+base/PitBoss/PbWizard.py	<module>	import	wx			8
+base/PitBoss/PbWizard.py	<module>	import	wx.wizard			9
+base/PitBoss/PbWizard.py	<module>	import	wx.lib.scrolledpanel			10
+base/PitBoss/PbWizard.py	<module>	import	time			11
+base/PitBoss/PbWizard.py	<module>	import	string			12
+base/Screens/CvDomesticAdvisor.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvDomesticAdvisor.py	<module>	import	CvUtil			4
+base/Screens/CvDomesticAdvisor.py	<module>	import	ScreenInput			5
+base/Screens/CvDomesticAdvisor.py	<module>	import	CvScreenEnums			6
+base/Screens/CvIntroMovieScreen.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvIntroMovieScreen.py	<module>	import	CvUtil			4
+base/Screens/CvIntroMovieScreen.py	<module>	import	ScreenInput			5
+base/Screens/CvIntroMovieScreen.py	<module>	import	CvScreenEnums			6
+base/Screens/CvMilitaryAdvisor.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvMilitaryAdvisor.py	<module>	import	CvUtil			4
+base/Screens/CvMilitaryAdvisor.py	<module>	import	ScreenInput			5
+base/Screens/CvMilitaryAdvisor.py	<module>	import	time			6
+base/Screens/CvMilitaryAdvisor.py	<module>	import	PyHelpers			7
+base/Screens/CvMilitaryAdvisor.py	<module>	import	re			8
+base/Screens/CvOptionsScreen.py	<module>	import	CvUtil			6
+base/Screens/CvOptionsScreen.py	<module>	from	CvPythonExtensions	*		7
+base/Screens/CvPediaBonus.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaBonus.py	<module>	import	CvUtil			4
+base/Screens/CvPediaBonus.py	<module>	import	ScreenInput			5
+base/Screens/CvPediaBonus.py	<module>	import	CvScreenEnums			6
+base/Screens/CvPediaBonus.py	<module>	import	string			7
+base/Screens/CvPediaBuilding.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaBuilding.py	<module>	import	CvUtil			4
+base/Screens/CvPediaBuilding.py	<module>	import	ScreenInput			5
+base/Screens/CvPediaBuilding.py	<module>	import	CvScreenEnums			6
+base/Screens/CvPediaCivilization.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaCivilization.py	<module>	import	CvUtil			4
+base/Screens/CvPediaCivilization.py	<module>	import	ScreenInput			5
+base/Screens/CvPediaCivilization.py	<module>	import	CvScreenEnums			6
+base/Screens/CvPediaCorporation.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaCorporation.py	<module>	import	CvUtil			4
+base/Screens/CvPediaCorporation.py	<module>	import	ScreenInput			5
+base/Screens/CvPediaCorporation.py	<module>	import	CvScreenEnums			6
+base/Screens/CvPediaCorporation.py	<module>	import	string			7
+base/Screens/CvPediaImprovement.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaImprovement.py	<module>	import	CvUtil			4
+base/Screens/CvPediaImprovement.py	<module>	import	ScreenInput			5
+base/Screens/CvPediaImprovement.py	<module>	import	CvScreenEnums			6
+base/Screens/CvPediaLeader.py	<module>	from	CvPythonExtensions	*		5
+base/Screens/CvPediaLeader.py	<module>	import	CvUtil			6
+base/Screens/CvPediaLeader.py	<module>	import	ScreenInput			7
+base/Screens/CvPediaLeader.py	<module>	import	CvScreenEnums			8
+base/Screens/CvPediaLeader.py	<module>	import	random			9
+base/Screens/CvPediaProject.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaProject.py	<module>	import	CvUtil			4
+base/Screens/CvPediaProject.py	<module>	import	ScreenInput			5
+base/Screens/CvPediaProject.py	<module>	import	CvScreenEnums			6
+base/Screens/CvPediaPromotion.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaPromotion.py	<module>	import	CvUtil			4
+base/Screens/CvPediaPromotion.py	<module>	import	ScreenInput			5
+base/Screens/CvPediaPromotion.py	<module>	import	CvScreenEnums			6
+base/Screens/CvPediaTech.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaTech.py	<module>	import	CvUtil			4
+base/Screens/CvPediaTech.py	<module>	import	CvPediaScreen			5
+base/Screens/CvPediaTech.py	<module>	import	ScreenInput			6
+base/Screens/CvPediaTech.py	<module>	import	CvScreenEnums			7
+base/Screens/CvPediaUnit.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaUnit.py	<module>	import	CvUtil			4
+base/Screens/CvPediaUnit.py	<module>	import	ScreenInput			5
+base/Screens/CvPediaUnit.py	<module>	import	CvScreenEnums			6
+base/Screens/CvPediaUnitChart.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaUnitChart.py	<module>	import	CvUtil			4
+base/Screens/CvPediaUnitChart.py	<module>	import	ScreenInput			5
+base/Screens/CvPediaUnitChart.py	<module>	import	CvScreenEnums			6
+base/Screens/CvSpaceShipScreen.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvSpaceShipScreen.py	<module>	import	PyHelpers			4
+base/Screens/CvSpaceShipScreen.py	<module>	import	CvUtil			5
+base/Screens/CvSpaceShipScreen.py	<module>	import	ScreenInput			6
+base/Screens/CvSpaceShipScreen.py	<module>	import	CvScreenEnums			7
+base/Screens/CvSpaceShipScreen.py	<module>	import	string			8
+base/Screens/CvTechSplashScreen.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvTechSplashScreen.py	<module>	import	CvUtil			4
+base/Screens/CvTechSplashScreen.py	<module>	import	ScreenInput			5
+base/Screens/CvTechSplashScreen.py	<module>	import	string			6
+base/Screens/CvWonderMovieScreen.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvWonderMovieScreen.py	<module>	import	PyHelpers			4
+base/Screens/CvWonderMovieScreen.py	<module>	import	CvUtil			5
+base/Screens/CvWonderMovieScreen.py	<module>	import	ScreenInput			6
+base/Screens/CvWonderMovieScreen.py	<module>	import	CvScreenEnums			7
+base/Screens/CvWorldBuilderDiplomacyScreen.py	<module>	import	CvUtil			4
+base/Screens/CvWorldBuilderDiplomacyScreen.py	<module>	import	CvScreenEnums			5
+base/Screens/CvWorldBuilderDiplomacyScreen.py	<module>	from	CvPythonExtensions	*		6
+base/Screens/CvWorldBuilderScreen.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvWorldBuilderScreen.py	<module>	import	CvUtil			4
+base/Screens/CvWorldBuilderScreen.py	<module>	import	CvScreensInterface			5
+base/Screens/CvWorldBuilderScreen.py	<module>	import	ScreenInput			6
+base/Screens/CvWorldBuilderScreen.py	<module>	import	CvEventInterface			7
+base/Screens/CvWorldBuilderScreen.py	<module>	import	CvScreenEnums			8
+base/Screens/CvWorldBuilderScreen.py	<module>	import	time			9
+base/Screens/CvWorldBuilderScreen.py	<module>	import	Popup		PyPopup	10
+base/Screens/TechTree.py	<module>	from	CvPythonExtensions	*		2
+base/Screens/TechTree.py	<module>	import	CvUtil			3
+base/Screens/TechTree.py	<module>	import	ScreenInput			4
+base/Screens/TechTree.py	<module>	import	CvScreenEnums			5
+base/Screens/TechTree.py	<module>	import	math			6
+base/pyWB/CvWBDesc.py	<module>	from	CvPythonExtensions	*		10
+base/pyWB/CvWBDesc.py	<module>	import	os			11
+base/pyWB/CvWBDesc.py	<module>	import	sys			12
+base/pyWB/CvWBDesc.py	<module>	import	CvUtil			13
+base/pyWB/CvWBDesc.py	<module>	from	array	*		14
+base/CvDefineEditor.py	<module>	import	wx			1
+base/CvDefineEditor.py	<module>	from	CvPythonExtensions	*		2
+base/CvQuestManager.py	<module>	import	CvUtil			7
+base/CvQuestManager.py	<module>	import	CvTutorialQuestScreen			8
+base/CvQuestManager.py	<module>	import	CvScreenEnums			9
+base/CvQuestManager.py	<module>	from	CvPythonExtensions	*		10
+base/CvScreenUtils.py	<module>	import	ScreenInput		PyScreenInput	13
+base/EntryPoints/CvDebugInterface.py	toggleDebugMode	import	CvDebugTools			10
+base/EntryPoints/CvDiplomacyInterface.py	<module>	from	CvPythonExtensions	*		3
+base/EntryPoints/CvDiplomacyInterface.py	<module>	import	CvUtil			4
+base/EntryPoints/CvDiplomacyInterface.py	<module>	import	CvDiplomacy			5
+base/EntryPoints/CvMapScriptInterface.py	<module>	from	CvPythonExtensions	*		3
+base/EntryPoints/CvMapScriptInterface.py	<module>	import	CvUtil			4
+base/EntryPoints/CvPopupInterface.py	<module>	from	CvPythonExtensions	*		3
+base/EntryPoints/CvPopupInterface.py	<module>	import	CvUtil			4
+base/EntryPoints/CvPopupInterface.py	<module>	import	Popup		PyPopup	5
+base/EntryPoints/CvUnitControlInterface.py	<module>	from	CvPythonExtensions	*		3
+base/EntryPoints/CvUnitControlInterface.py	<module>	import	CvUnitController			4
+base/ScreenInput.py	<module>	import	CvUtil			3
+base/Screens/CvAdvisorScreen.py	<module>	import	CvScreenEnums			3
+base/Screens/CvAdvisorScreen.py	<module>	import	CvGFCScreen			4
+base/Screens/CvAdvisorScreen.py	<module>	import	CvUtil			5
+base/Screens/CvAdvisorScreen.py	<module>	from	CvPythonExtensions	*		6
+base/Screens/CvDanQuayle.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvDanQuayle.py	<module>	import	PyHelpers			4
+base/Screens/CvDanQuayle.py	<module>	import	ScreenInput			5
+base/Screens/CvDanQuayle.py	<module>	import	CvScreenEnums			6
+base/Screens/CvDanQuayle.py	<module>	import	CvUtil			7
+base/Screens/CvDanQuayle.py	<module>	import	CvGameUtils			8
+base/Screens/CvDanQuayle.py	<module>	import	CvScreensInterface			9
+base/Screens/CvDebugInfoScreen.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvDebugInfoScreen.py	<module>	import	CvUtil			4
+base/Screens/CvDebugInfoScreen.py	<module>	import	PyHelpers			5
+base/Screens/CvDebugInfoScreen.py	<module>	import	ScreenInput			6
+base/Screens/CvDebugInfoScreen.py	<module>	import	CvScreenEnums			7
+base/Screens/CvDebugInfoScreen.py	<module>	import	CvMapGeneratorUtil			8
+base/Screens/CvDebugInfoScreen.py	<module>	import	CvGFCScreen			9
+base/Screens/CvEraMovieScreen.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvEraMovieScreen.py	<module>	import	PyHelpers			4
+base/Screens/CvEraMovieScreen.py	<module>	import	CvUtil			5
+base/Screens/CvEraMovieScreen.py	<module>	import	ScreenInput			6
+base/Screens/CvEraMovieScreen.py	<module>	import	CvScreenEnums			7
+base/Screens/CvEraMovieScreen.py	<module>	import	string			8
+base/Screens/CvFinanceAdvisor.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvFinanceAdvisor.py	<module>	import	PyHelpers			4
+base/Screens/CvFinanceAdvisor.py	<module>	import	CvUtil			5
+base/Screens/CvFinanceAdvisor.py	<module>	import	ScreenInput			6
+base/Screens/CvFinanceAdvisor.py	<module>	import	CvScreenEnums			7
+base/Screens/CvGFCScreen.py	<module>	import	CvUtil			3
+base/Screens/CvGFCScreen.py	<module>	from	CvPythonExtensions	*		4
+base/Screens/CvPediaCivic.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaCivic.py	<module>	import	CvUtil			4
+base/Screens/CvPediaCivic.py	<module>	import	ScreenInput			5
+base/Screens/CvPediaCivic.py	<module>	import	CvScreenEnums			6
+base/Screens/CvPediaFeature.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaFeature.py	<module>	import	CvUtil			4
+base/Screens/CvPediaFeature.py	<module>	import	ScreenInput			5
+base/Screens/CvPediaFeature.py	<module>	import	CvScreenEnums			6
+base/Screens/CvPediaFeature.py	<module>	import	string			7
+base/Screens/CvPediaReligion.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaReligion.py	<module>	import	CvUtil			4
+base/Screens/CvPediaReligion.py	<module>	import	ScreenInput			5
+base/Screens/CvPediaReligion.py	<module>	import	CvScreenEnums			6
+base/Screens/CvPediaReligion.py	<module>	import	string			7
+base/Screens/CvPediaScreen.py	<module>	from	CvPythonExtensions	*		8
+base/Screens/CvPediaScreen.py	<module>	import	CvUtil			9
+base/Screens/CvPediaScreen.py	<module>	import	CvScreen			10
+base/Screens/CvPediaSpecialist.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaSpecialist.py	<module>	import	CvUtil			4
+base/Screens/CvPediaSpecialist.py	<module>	import	ScreenInput			5
+base/Screens/CvPediaSpecialist.py	<module>	import	CvScreenEnums			6
+base/Screens/CvPediaSpecialist.py	<module>	import	string			7
+base/Screens/CvPediaTerrain.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvPediaTerrain.py	<module>	import	CvUtil			4
+base/Screens/CvPediaTerrain.py	<module>	import	ScreenInput			5
+base/Screens/CvPediaTerrain.py	<module>	import	CvScreenEnums			6
+base/Screens/CvPediaTerrain.py	<module>	import	string			7
+base/Screens/CvReplayScreen.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvReplayScreen.py	<module>	import	CvUtil			4
+base/Screens/CvReplayScreen.py	<module>	import	ScreenInput			5
+base/Screens/CvReplayScreen.py	<module>	import	time			6
+base/Screens/CvReplayScreen.py	<module>	import	re			7
+base/Screens/CvReplayScreen.py	<module>	import	CvScreensInterface			8
+base/Screens/CvScreen.py	<module>	from	CvPythonExtensions	*		6
+base/Screens/CvScreen.py	<module>	import	CvUtil			7
+base/Screens/CvTopCivs.py	<module>	import	PyHelpers			6
+base/Screens/CvTopCivs.py	<module>	import	CvUtil			7
+base/Screens/CvTopCivs.py	<module>	import	CvScreenEnums			8
+base/Screens/CvTopCivs.py	<module>	import	random			9
+base/Screens/CvTopCivs.py	<module>	from	CvPythonExtensions	*		10
+base/Screens/CvTutorialQuestScreen.py	<module>	import	CvUtil			3
+base/Screens/CvTutorialQuestScreen.py	<module>	import	CvScreenEnums			4
+base/Screens/CvTutorialQuestScreen.py	<module>	from	CvPythonExtensions	*		5
+base/Screens/CvUNVictoryScreen.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvUNVictoryScreen.py	<module>	import	CvUtil			4
+base/Screens/CvUNVictoryScreen.py	<module>	import	ScreenInput			5
+base/Screens/CvUNVictoryScreen.py	<module>	import	CvScreenEnums			6
+base/Screens/CvUNVictoryScreen.py	<module>	import	math			7
+base/Screens/CvVictoryMovieScreen.py	<module>	from	CvPythonExtensions	*		3
+base/Screens/CvVictoryMovieScreen.py	<module>	import	CvUtil			4
+base/Screens/CvVictoryMovieScreen.py	<module>	import	ScreenInput			5
+base/Screens/CvVictoryMovieScreen.py	<module>	import	CvScreenEnums			6
+base/System/email/Charset.py	<module>	import	email.base64MIME			5
+base/System/email/Charset.py	<module>	import	email.quopriMIME			6
+base/System/email/Charset.py	<module>	from	email.Encoders	encode_7or8bit		7
+base/System/email/Encoders.py	<module>	import	base64			7
+base/System/email/Encoders.py	<module>	from	quopri	encodestring	_encodestring	8
+base/System/email/FeedParser.py	<module>	import	re			22
+base/System/email/FeedParser.py	<module>	from	email	Errors		23
+base/System/email/FeedParser.py	<module>	from	email	Message		24
+base/System/email/Generator.py	<module>	import	re			7
+base/System/email/Generator.py	<module>	import	sys			8
+base/System/email/Generator.py	<module>	import	time			9
+base/System/email/Generator.py	<module>	import	random			10
+base/System/email/Generator.py	<module>	import	warnings			11
+base/System/email/Generator.py	<module>	from	cStringIO	StringIO		12
+base/System/email/Generator.py	<module>	from	email.Header	Header		14
+base/System/email/Header.py	<module>	import	re			7
+base/System/email/Header.py	<module>	import	binascii			8
+base/System/email/Header.py	<module>	import	email.quopriMIME			10
+base/System/email/Header.py	<module>	import	email.base64MIME			11
+base/System/email/Header.py	<module>	from	email.Errors	HeaderParseError		12
+base/System/email/Header.py	<module>	from	email.Charset	Charset		13
+base/System/email/Iterators.py	<module>	import	sys			7
+base/System/email/Iterators.py	<module>	from	cStringIO	StringIO		8
+base/System/email/MIMEAudio.py	<module>	import	sndhdr			7
+base/System/email/MIMEAudio.py	<module>	from	cStringIO	StringIO		8
+base/System/email/MIMEAudio.py	<module>	from	email	Errors		10
+base/System/email/MIMEAudio.py	<module>	from	email	Encoders		11
+base/System/email/MIMEAudio.py	<module>	from	email.MIMENonMultipart	MIMENonMultipart		12
+base/System/email/MIMEBase.py	<module>	from	email	Message		7
+base/System/email/MIMEImage.py	<module>	import	imghdr			7
+base/System/email/MIMEImage.py	<module>	from	email	Errors		9
+base/System/email/MIMEImage.py	<module>	from	email	Encoders		10
+base/System/email/MIMEImage.py	<module>	from	email.MIMENonMultipart	MIMENonMultipart		11
+base/System/email/MIMEMessage.py	<module>	from	email	Message		7
+base/System/email/MIMEMessage.py	<module>	from	email.MIMENonMultipart	MIMENonMultipart		8
+base/System/email/MIMEMultipart.py	<module>	from	email	MIMEBase		7
+base/System/email/MIMENonMultipart.py	<module>	from	email	Errors		7
+base/System/email/MIMENonMultipart.py	<module>	from	email	MIMEBase		8
+base/System/email/MIMEText.py	<module>	from	email.MIMENonMultipart	MIMENonMultipart		7
+base/System/email/MIMEText.py	<module>	from	email.Encoders	encode_7or8bit		8
+base/System/email/Message.py	<module>	import	re			7
+base/System/email/Message.py	<module>	import	uu			8
+base/System/email/Message.py	<module>	import	binascii			9
+base/System/email/Message.py	<module>	import	warnings			10
+base/System/email/Message.py	<module>	from	cStringIO	StringIO		11
+base/System/email/Message.py	<module>	from	email	Utils		14
+base/System/email/Message.py	<module>	from	email	Errors		15
+base/System/email/Message.py	<module>	from	email	Charset		16
+base/System/email/Message.py	Message.as_string	from	email.Generator	Generator		126
+base/System/email/Message.py	Message	from	email.Iterators	walk		807
+base/System/email/Parser.py	<module>	import	warnings			7
+base/System/email/Parser.py	<module>	from	cStringIO	StringIO		8
+base/System/email/Parser.py	<module>	from	email.FeedParser	FeedParser		9
+base/System/email/Parser.py	<module>	from	email.Message	Message		10
+base/System/email/Utils.py	<module>	import	os			7
+base/System/email/Utils.py	<module>	import	re			8
+base/System/email/Utils.py	<module>	import	time			9
+base/System/email/Utils.py	<module>	import	base64			10
+base/System/email/Utils.py	<module>	import	random			11
+base/System/email/Utils.py	<module>	import	socket			12
+base/System/email/Utils.py	<module>	import	warnings			13
+base/System/email/Utils.py	<module>	from	cStringIO	StringIO		14
+base/System/email/Utils.py	<module>	from	email._parseaddr	quote		16
+base/System/email/Utils.py	<module>	from	email._parseaddr	AddressList	_AddressList	17
+base/System/email/Utils.py	<module>	from	email._parseaddr	mktime_tz		18
+base/System/email/Utils.py	<module>	from	email._parseaddr	parsedate	_parsedate	21
+base/System/email/Utils.py	<module>	from	email._parseaddr	parsedate_tz	_parsedate_tz	22
+base/System/email/Utils.py	<module>	from	quopri	decodestring	_qdecode	24
+base/System/email/Utils.py	<module>	from	email.Encoders	_bencode		27
+base/System/email/Utils.py	<module>	from	email.Encoders	_qencode		27
+base/System/email/Utils.py	decode_rfc2231	import	urllib			218
+base/System/email/Utils.py	encode_rfc2231	import	urllib			233
+base/System/email/__init__.py	message_from_string	from	email.Parser	Parser		42
+base/System/email/__init__.py	message_from_file	from	email.Parser	Parser		51
+base/System/email/_parseaddr.py	<module>	import	time			9
+base/System/email/base64MIME.py	<module>	import	re			27
+base/System/email/base64MIME.py	<module>	from	binascii	b2a_base64		28
+base/System/email/base64MIME.py	<module>	from	binascii	a2b_base64		28
+base/System/email/base64MIME.py	<module>	from	email.Utils	fix_eols		29
+base/System/email/quopriMIME.py	<module>	import	re			29
+base/System/email/quopriMIME.py	<module>	from	string	hexdigits		30
+base/System/email/quopriMIME.py	<module>	from	email.Utils	fix_eols		31
+base/_DebugTools/AudioLogParser.py	<module>	import	sys			3
+base/pyHelper/Popup.py	<module>	import	CvUtil			3
+base/pyHelper/Popup.py	<module>	from	CvPythonExtensions	*		4
+base/pyHelper/Unit.py	<module>	from	CvPythonExtensions	*		3
+base/pyHelper/Unit.py	<module>	import	Player		PyPlayer	4
+base/pyHelper/UnitEntity.py	<module>	from	CvPythonExtensions	*		3
+base/pyHelper/UnitEntity.py	<module>	import	Player		PyPlayer	4
+base/pyUnit/CvUnitController.py	<module>	from	CvPythonExtensions	*		1
+base/pyUnit/CvUnitController.py	<module>	import	random			2
+base/pyWB/CvWBPopups.py	<module>	from	CvPythonExtensions	*		3
+base/pyWB/CvWBPopups.py	<module>	import	CvUtil			4
+base/pyWB/CvWBPopups.py	<module>	import	Popup		PyPopup	5
+base/pyWB/CvWBPopups.py	<module>	import	PyHelpers			6
+base/vector.py	<module>	import	math			6
+base/vector.py	random	import	whrandom			127

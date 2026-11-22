@@ -254,6 +254,15 @@ def show(repo, rev, path):
         return ''
 
 
+def map_commit():
+    """The commit the compiler map was built from (top of skeleton.md)."""
+    try:
+        m = re.search(r'commit `([0-9a-f]{7,40})', open(os.path.join(HERE, '..', 'skeleton.md')).read())
+        return m.group(1) if m else ''
+    except OSError:
+        return ''
+
+
 def fid(f):
     return (f['scope'] + '::' if f['scope'] else '') + f['name']
 
@@ -266,6 +275,16 @@ def diff(repo, base, head, depth):
     out.append('Commits:\n\n' + git(repo, 'log', '--format=- %h %ad %s', '--date=short', '%s..%s' % (base, head)).decode())
     out.append('```\n' + git(repo, 'diff', '--stat', base, head).decode() + '```')
     LH, LB = Layer(files=files_at(repo, head)), Layer(files=files_at(repo, base))
+    head_decls = LH.fields          # declarations compared with the same reader (the parser) on both sides
+    same = map_commit() and hh.startswith(map_commit()[:12]) or map_commit().startswith(hh)
+    if same:
+        # head is the map's commit: member uses, fills and define reads exactly as clang read them
+        ST = Layer()
+        LH.access, LH.fields, LH.strings, LH.defines = ST.access, ST.fields, ST.strings, ST.defines
+        out.append('_Members, XML fills and defines at %s: the map\'s clang tables (exact)._' % hh)
+    else:
+        out.append('_%s is not the map\'s commit (%s): members of the head are read by the tree-sitter parser '
+                   '(by name, see README)._' % (hh, map_commit() or 'unknown'))
     g = graph(LH)
     seeds = []
     # C++
@@ -289,7 +308,7 @@ def diff(repo, base, head, depth):
             out.append('  - %s %s  (%s:%d-%d)' % (lab, f, L[f]['file'], L[f]['line'], L[f]['end']))
     for f in changed + added:
         seeds += g.cnodes(f)
-    fh = {(r['cls'], r['field']): r for r in LH.fields}
+    fh = {(r['cls'], r['field']): r for r in head_decls}
     fb = {(r['cls'], r['field']): r for r in LB.fields}
     decl = []
     for k in sorted(set(fh) | set(fb)):

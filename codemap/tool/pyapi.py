@@ -10,7 +10,8 @@ docstrings, maintained by the BUG project). The game's Python reaches C++ only t
 are bound by the DLL (map/python_defs.tsv: CyCity, CyPlayer, the Cv*Info classes ...); the rest are bound by
 the exe (CyInterface, CyEngine, CyAudioGame, CyCamera ...), which the code map cannot see.
 
-  python_bindings.tsv every .def("name", &f) in the DLL source, with the class it is bound on
+  python_bindings.tsv every .def("name", &f) in the DLL source, with the class it is bound on, its docstring and
+                    the return type the docstring starts with ("CyCity (int iID)" -> CyCity)
   python_classes.tsv  every class the DLL registers for Python (python::class_<C, bases<B>>("Name")), with its
                     C++ class and bases, read from the DLL source
   py_api.tsv        class, method, return type, parameters, description, and where the class is bound:
@@ -97,8 +98,12 @@ def main(path, src):
             ms = [c for pos, c in marks if pos < m.start()]
             cls = ms[-1] if ms else ''
             own[cls].add(m.group(1))
-            bind_rows.append([m.group(1), cls, m.group(2), f, d.count('\n', 0, m.start()) + 1])
-    write('python_bindings.tsv', ['python_name', 'cpp_class', 'target', 'file', 'line'], bind_rows)
+            rest = d[m.end():d.find('\n', m.end())]
+            docs = re.findall(r'"([^"]*)"', rest)
+            doc = docs[-1] if docs else ''
+            ret = re.match(r'\s*([A-Za-z_]\w*)', doc)
+            bind_rows.append([m.group(1), cls, m.group(2), f, d.count('\n', 0, m.start()) + 1, doc, ret.group(1) if ret else ''])
+    write('python_bindings.tsv', ['python_name', 'cpp_class', 'target', 'file', 'line', 'doc', 'returns'], bind_rows)
     dll_names = {r[0] for r in bind_rows}
     cpp_of = {r[0]: r[1] for r in reg}
     base_of = {r[1]: [b for b in r[2].split(',') if b] for r in reg}

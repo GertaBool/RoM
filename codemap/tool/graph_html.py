@@ -20,7 +20,8 @@ import graph as GR
 out_path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, '..', 'graph.html')
 g = GR.Graph()
 KIND = ['cpp', 'new', 'py', 'member', 'tag', 'define']
-LINK = ['call', 'py>cpp', 'py>py', 'cpp>py', 'event', 'read', 'fill', 'define', 'writes', 'call (name match)']
+LINK = ['call', 'py>cpp', 'py>py', 'cpp>py', 'event', 'read', 'fill', 'define', 'writes', 'call (name match)',
+        'py>cpp (only target)', 'py>py (only target)', 'py>cpp (name match)', 'py>py (name match)']
 groups = [x for x, _ in render.GROUPS] + ['Python']
 ids = sorted(g.info, key=lambda n: (KIND.index(g.info[n]['kind']), g.info[n]['label']))
 ix = {n: k for k, n in enumerate(ids)}

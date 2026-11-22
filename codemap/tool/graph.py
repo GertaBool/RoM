@@ -12,9 +12,11 @@ Imported by impact.py and graph_html.py. A node id is
 
 dep[a] holds the nodes a change of a reaches directly, each with the kind of link:
   call      C++ caller of a C++ function (map/calls.tsv; virtual calls into overrides, as query.py)
-  py>cpp    Python call site of a C++ function bound for Python (map/py_to_cpp.tsv; name match)
-  py>py     Python caller of a Python function: same-module target (map/py_calls.tsv), else a name defined
-            in exactly one module and bound neither by the DLL nor by the exe (name match)
+  py>cpp    Python call of a C++ function bound for Python, resolved (map/py_resolved.tsv)
+  py>py     Python caller of a Python function, resolved: imports, self and bases, typed receivers
+  ... (only target)  the receiver's type is not fixed, but the name has one possible target in all the code
+  ... (name match)   unresolved: every function bearing the name (py_to_cpp.tsv; for Python, a name defined
+            in one module only)
   cpp>py    C++ function that calls a Python function (map/cpp_to_py.tsv)
   event     C++ function posting the event a Python handler is registered for (map/event_handlers.tsv)
   read      function reading a member (map/field_access.tsv: read, ref, call)
@@ -83,28 +85,46 @@ class Graph:
         self.modname = collections.defaultdict(list)     # bare module name -> module paths
         for m in mods:
             self.modname[os.path.splitext(os.path.basename(m))[0]].append(m)
+        # Python calls: resolved as Python resolves them where the source fixes the target (py_resolve.py,
+        # map/py_resolved.tsv); a name match only for calls left unresolved, labelled so
+        res = read('py_resolved.tsv')
+        unres = {(r['module'], r['caller'], r['name'], r['line']) for r in res if r['how'] == 'unresolved'} if res else None
+        for r in res:
+            how, tgt = r['how'], r['target']
+            if how not in ('cpp', 'cpp-only', 'py', 'py-only'):
+                continue
+            src = self.pycaller(r['module'], r['caller'])
+            if how.startswith('cpp'):
+                for t in tgt.split(','):
+                    scope, _, name = t.rpartition('::')
+                    for nid in self.by_key.get(key(scope, name), []):
+                        self.dep[nid].setdefault(src, 'py>cpp' if how == 'cpp' else 'py>cpp (only target)')
+            else:
+                m, q = tgt.split(':', 1)
+                node = self.py_by_mod[m].get(q)
+                if node and node != src:
+                    self.dep[node].setdefault(src, 'py>py' if how == 'py' else 'py>py (only target)')
         for r in read('py_to_cpp.tsv'):
+            if unres is not None and (r['module'], r['caller'], r['name'], r['line']) not in unres:
+                continue
             src = self.pycaller(r['module'], r['caller'])
             for f in r['functions'].split(','):
                 if f.strip().isdigit() and 'c:' + f.strip() in self.info:
-                    self.dep['c:' + f.strip()].setdefault(src, 'py>cpp')
+                    self.dep['c:' + f.strip()].setdefault(src, 'py>cpp (name match)')
         api_names = {r['method'] for r in read('py_api.tsv')} | {r['python_name'] for r in read('python_defs.tsv')}
         defined = collections.defaultdict(set)   # last name -> modules defining it
         for r in pyf:
             defined[r['name'].split('.')[-1]].add(r['module'])
         for r in read('py_calls.tsv'):
-            src = self.pycaller(r['module'], r['caller'])
-            if r['same_module_target']:
-                tgt = self.py_by_mod[r['module']].get(r['same_module_target'])
-                if tgt:
-                    self.dep[tgt].setdefault(src, 'py>py')
+            if unres is not None and (r['module'], r['caller'], r['name'], r['line']) not in unres:
                 continue
+            src = self.pycaller(r['module'], r['caller'])
             n = r['name']
             if r['attribute'] == '1' and n not in api_names and len(defined.get(n, ())) == 1:
                 m = next(iter(defined[n]))
                 hits = [v for q, v in self.py_by_mod[m].items() if q.split('.')[-1] == n]
                 if len(hits) == 1 and hits[0] != src:
-                    self.dep[hits[0]].setdefault(src, 'py>py')
+                    self.dep[hits[0]].setdefault(src, 'py>py (name match)')
         for r in read('cpp_to_py.tsv'):
             if r['python_file']:
                 tgt = self.py_by_mod[r['python_file']].get(r['python_function'])

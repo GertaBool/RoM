@@ -8,6 +8,7 @@ The compiler map (calls.tsv and the rest) gives exact calls at the commit it was
 read straight from the source with tree-sitter (a C++ parser; no compiler, no headers), so it can be rerun
 on any checkout in seconds. It adds what the compiler map does not have:
   syntax_functions.tsv  every function definition: scope, name, file, first and last line
+  (with --parser-members only; members_clang.py writes these four exactly, with clang:)
   fields.tsv            every data member declared in a class or struct: class, name, declared type
   field_access.tsv      every use of a data member inside a function: read, write, ref (&m_x passed on),
                         call (a method of the member is called, e.g. m_aUnits.push_back)
@@ -374,7 +375,7 @@ def write(path, rows, cols):
 
 
 def main(argv):
-    args = [a for a in argv if not a.startswith('--')]
+    args = [a for a in argv if not a.startswith('--')]   # --parser-members: also write the parser's member tables
     out_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'map')
     if '--out' in argv:
         out_dir = argv[argv.index('--out') + 1]
@@ -383,11 +384,12 @@ def main(argv):
         sys.exit(__doc__)
     s = scan(read_sources(args[0]))
     write(os.path.join(out_dir, 'syntax_functions.tsv'), s['functions'], ['scope', 'name', 'file', 'line', 'end'])
-    write(os.path.join(out_dir, 'fields.tsv'), sorted(s['fields'], key=lambda r: (r['cls'], r['line'])),
-          ['cls', 'field', 'type', 'static', 'file', 'line'])
-    write(os.path.join(out_dir, 'field_access.tsv'), s['access'], ['function', 'cls', 'field', 'kind', 'file', 'line'])
-    write(os.path.join(out_dir, 'field_strings.tsv'), s['strings'], ['function', 'cls', 'field', 'string', 'call', 'file', 'line'])
-    write(os.path.join(out_dir, 'defines_used.tsv'), s['defines'], ['function', 'define', 'kind', 'file', 'line'])
+    if '--parser-members' in argv:   # the member tables come from members_clang.py; this is the parser's fallback
+        write(os.path.join(out_dir, 'fields.tsv'), sorted(s['fields'], key=lambda r: (r['cls'], r['line'])),
+              ['cls', 'field', 'type', 'static', 'file', 'line'])
+        write(os.path.join(out_dir, 'field_access.tsv'), s['access'], ['function', 'cls', 'field', 'kind', 'file', 'line'])
+        write(os.path.join(out_dir, 'field_strings.tsv'), s['strings'], ['function', 'cls', 'field', 'string', 'call', 'file', 'line'])
+        write(os.path.join(out_dir, 'defines_used.tsv'), s['defines'], ['function', 'define', 'kind', 'file', 'line'])
     write(os.path.join(out_dir, 'syntax_parse.tsv'), s['errors'], ['file', 'errors'])
     write(os.path.join(out_dir, 'xml_classes.tsv'), scan_loaders(read_sources(args[0])),
           ['cls', 'getter', 'file', 'xpath', 'src', 'line'])

@@ -16,6 +16,7 @@ Commits:
  Assets/XML/GlobalDefinesAlt.xml     |   7 +-
  8 files changed, 345 insertions(+), 68 deletions(-)
 ```
+_Members, XML fills and defines at 9627e508fedc: the map's clang tables (exact)._
 
 ## C++ functions
 
@@ -68,15 +69,15 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT, PEACE_TREA
 | | start | reached | per level |
 |---|---|---|---|
 | member variables | 7 | 0 |  |
-| C++ functions | 21 | 845 | 1: 38, 2: 74, 3: 105, 4: 124, 5: 130, 6: 101, 7: 202, 8: 45, 9: 17, 10: 7, 11: 2 |
-| Python functions | 0 | 330 | 2: 6, 3: 30, 4: 58, 5: 36, 6: 85, 7: 60, 8: 25, 9: 21, 10: 8, 11: 1 |
+| C++ functions | 21 | 845 | 1: 38, 2: 74, 3: 105, 4: 124, 5: 128, 6: 99, 7: 203, 8: 46, 9: 17, 10: 8, 11: 3 |
+| Python functions | 0 | 319 | 2: 6, 3: 28, 4: 51, 5: 35, 6: 77, 7: 54, 8: 28, 9: 23, 10: 10, 11: 3, 12: 4 |
 | defines | 5 | 0 |  |
 
 - C++ functions the exe calls (exported): 102: CvCity::cheat, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchButtonPopup, CvDLLWidgetData::executeAction, CvDLLWidgetData::isLink, CvDLLWidgetData::parseHelp, CvDeal::isCancelable, CvDeal::kill, CvDeal::turnsToCancel, CvEventReporter::gameStart, CvEventReporter::kbdEvent, CvEventReporter::reportModNetMessage ...
 - C++ functions bound for Python: 145
-- Python event handlers: 34: AIAutoPlay.onBeginGameTurn (BeginGameTurn), AIAutoPlay.onGameStart (GameStart), AIAutoPlay.onKbdEvent (kbdEvent), AIAutoPlay.onModNetMessage (ModNetMessage), AIAutoPlay.onVictory (victory), BarbarianCiv.onBeginGameTurn (BeginGameTurn), BarbarianCiv.onCityAcquired (cityAcquired), BarbarianCiv.onEndPlayerTurn (EndPlayerTurn), ChangePlayer.onKbdEvent (kbdEvent), CvEventManager.onCityRazed (cityRazed), CvEventManager.onKbdEvent (kbdEvent), MoreCiv4lertsEvent.OnCityAcquired (cityAcquired)
+- Python event handlers: 35: AIAutoPlay.onBeginGameTurn (BeginGameTurn), AIAutoPlay.onGameStart (GameStart), AIAutoPlay.onKbdEvent (kbdEvent), AIAutoPlay.onModNetMessage (ModNetMessage), AIAutoPlay.onVictory (victory), BarbarianCiv.onBeginGameTurn (BeginGameTurn), BarbarianCiv.onCityAcquired (cityAcquired), BarbarianCiv.onEndPlayerTurn (EndPlayerTurn), ChangePlayer.onKbdEvent (kbdEvent), CvEnhancedTechConquestEventManager.onCityAcquired (cityAcquired), CvEventManager.onCityRazed (cityRazed), CvEventManager.onKbdEvent (kbdEvent)
 - C++ files: CvUnitAI.cpp 165, CvUnit.cpp 80, CvPlayer.cpp 75, CvGame.cpp 67, CvCity.cpp 39, CvPlot.cpp 39, CvTeam.cpp 37, CyPlayer.cpp 37, CvPlayerAI.cpp 33, CvSelectionGroup.cpp 21, CyCity.cpp 19, CvMessageData.cpp 19, CyTeam.cpp 18, CyUnit.cpp 18, CvDLLWidgetData.cpp 17, CvDllPythonEvents.cpp 17, CvEventReporter.cpp 17, CyPlot.cpp 15, CvMap.cpp 13, CvGameTextMgr.cpp 13, CvCityAI.cpp 13, CvDeal.cpp 10, CvMapGenerator.cpp 10, CyMapGenerator.cpp 10, CyGame.cpp 9
-- Python modules: EntryPoints/CvRandomEventInterface.py 60, base/Screens/CvWorldBuilderScreen.py 23, Revolution/Gameready/Revolution.py 18, Contrib/AStarTools.py 17, EntryPoints/CvScreensInterface.py 15, Contrib/MoreCiv4lerts.py 15, Revolution/Gameready/AIAutoPlay.py 14, Revolution/RevEvents.py 12, Revolution/Gameready/BarbarianCiv.py 12, Revolution/RevUtils.py 8, Screens/PLE.py 8, PyHelpers.py 7, base/pyWB/CvWBDesc.py 6, Screens/CvMainInterface.py 6, RoMEventManager.py 6, Screens/CvForeignAdvisor.py 6, CvMapGeneratorUtil.py 6, base/CvEventManager.py 6, base/CvDebugTools.py 5, Screens/CvExoticForeignAdvisor.py 5, ModTools/ModTools.py 5, Revolution/Development/ChangePlayer.py 5, Contrib/RevDCMReligionControl.py 5, BUG/DealUtil.py 4, BUG/PlayerUtil.py 4
+- Python modules: EntryPoints/CvRandomEventInterface.py 60, base/Screens/CvWorldBuilderScreen.py 23, EntryPoints/CvScreensInterface.py 19, Revolution/Gameready/Revolution.py 17, Contrib/MoreCiv4lerts.py 15, Revolution/Gameready/AIAutoPlay.py 14, Revolution/Gameready/BarbarianCiv.py 12, Revolution/RevEvents.py 11, Revolution/RevUtils.py 8, PyHelpers.py 7, Screens/PLE.py 7, base/pyWB/CvWBDesc.py 6, RoMEventManager.py 6, Screens/CvForeignAdvisor.py 6, base/CvEventManager.py 6, Screens/CvMainInterface.py 6, base/CvDebugTools.py 5, Screens/CvExoticForeignAdvisor.py 5, ModTools/ModTools.py 5, base/CvPerfTest.py 5, CvMapGeneratorUtil.py 5, Revolution/Development/ChangePlayer.py 5, Contrib/RevDCMReligionControl.py 5, Screens/CvPediaMain.py 5, BUG/DealUtil.py 4
 
 ## Member variables (7)
 
@@ -279,76 +280,74 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT, PEACE_TREA
 
 ### level 2 (6)
 
-- canTriggerHolyMountainRevealed  (EntryPoints/CvRandomEventInterface.py:218)  <- py>cpp CyCity::setRevealed
-- Revolution.processRevolution  (Revolution/Gameready/Revolution.py:5015)  <- py>cpp CyCity::setRevealed
-- Revolution.spawnRevolutionaries  (Revolution/Gameready/Revolution.py:6243)  <- py>cpp CyCity::setRevealed
-- CvWorldBuilderScreen.RevealCurrentPlot  (base/Screens/CvWorldBuilderScreen.py:2314)  <- py>cpp CyCity::setRevealed
-- CvWorldBuilderScreen.revealAll  (base/Screens/CvWorldBuilderScreen.py:2304)  <- py>cpp CyCity::setRevealed
-- CvWBDesc.applyInitialItems  (base/pyWB/CvWBDesc.py:1617)  <- py>cpp CyCity::setRevealed
+- canTriggerHolyMountainRevealed  (EntryPoints/CvRandomEventInterface.py:218)  <- py>cpp CyPlot::setRevealed
+- Revolution.processRevolution  (Revolution/Gameready/Revolution.py:5015)  <- py>cpp CyPlot::setRevealed
+- Revolution.spawnRevolutionaries  (Revolution/Gameready/Revolution.py:6243)  <- py>cpp CyPlot::setRevealed
+- CvWorldBuilderScreen.RevealCurrentPlot  (base/Screens/CvWorldBuilderScreen.py:2314)  <- py>cpp (name match) CyCity::setRevealed
+- CvWorldBuilderScreen.revealAll  (base/Screens/CvWorldBuilderScreen.py:2304)  <- py>cpp CyPlot::setRevealed
+- CvWBDesc.applyInitialItems  (base/pyWB/CvWBDesc.py:1617)  <- py>cpp CyPlot::setRevealed
 
-### level 3 (30)
+### level 3 (28)
 
-- Deal.isCancelable  (BUG/DealUtil.py:190)  <- py>cpp CyDeal::turnsToCancel
-- Deal.turnsToCancel  (BUG/DealUtil.py:202)  <- py>cpp CyDeal::turnsToCancel
-- GoldPerTurnTrade.onBeginActivePlayerTurn  (Contrib/Civ4lerts.py:780)  <- py>cpp CyPlayer::AI_maxGoldPerTurnTrade
-- applyEarthquake1  (EntryPoints/CvRandomEventInterface.py:6860)  <- py>cpp CyPlot::setImprovementType
-- applyVolcano1  (EntryPoints/CvRandomEventInterface.py:790)  <- py>cpp CyPlot::setImprovementType
+- Deal.turnsToCancel  (BUG/DealUtil.py:202)  <- py>cpp (name match) CyDeal::turnsToCancel
+- GoldPerTurnTrade.onBeginActivePlayerTurn  (Contrib/Civ4lerts.py:780)  <- py>cpp (only target) CyPlayer::AI_maxGoldPerTurnTrade
+- applyEarthquake1  (EntryPoints/CvRandomEventInterface.py:6860)  <- py>cpp (only target) CyPlot::setImprovementType
+- applyVolcano1  (EntryPoints/CvRandomEventInterface.py:790)  <- py>cpp (only target) CyPlot::setImprovementType
 - doAntelope2  (EntryPoints/CvRandomEventInterface.py:1206)  <- py>cpp CyPlot::setImprovementType
 - doImpactCrater2  (EntryPoints/CvRandomEventInterface.py:1782)  <- py>cpp CyPlot::setImprovementType
 - doSpicy2  (EntryPoints/CvRandomEventInterface.py:410)  <- py>cpp CyPlot::setImprovementType
 - doWiningMonks2  (EntryPoints/CvRandomEventInterface.py:1295)  <- py>cpp CyPlot::setImprovementType
 - WorldBuilderRevealAllCB  (EntryPoints/CvScreensInterface.py:578)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.revealAll
 - WorldBuilderUnRevealAllCB  (EntryPoints/CvScreensInterface.py:581)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.revealAll
+- applyInitialItems  (EntryPoints/CvWBInterface.py:269)  <- py>py base/pyWB/CvWBDesc.py CvWBDesc.applyInitialItems
+- readAndApplyDesc  (EntryPoints/CvWBInterface.py:232)  <- py>py base/pyWB/CvWBDesc.py CvWBDesc.applyInitialItems
 - Revolution.joinHumanHandler  (Revolution/Gameready/Revolution.py:6018)  <- py>py Revolution/Gameready/Revolution.py Revolution.processRevolution
 - Revolution.launchRevolution  (Revolution/Gameready/Revolution.py:6189)  <- py>py Revolution/Gameready/Revolution.py Revolution.spawnRevolutionaries
 - Revolution.makeRevolutionDecision  (Revolution/Gameready/Revolution.py:4192)  <- py>py Revolution/Gameready/Revolution.py Revolution.processRevolution
 - Revolution.revolutionNetworkPopupHandler  (Revolution/Gameready/Revolution.py:4906)  <- py>py Revolution/Gameready/Revolution.py Revolution.processRevolution
 - assimilateHandler  (Revolution/RevEvents.py:1150)  <- py>cpp CyPlayer::assimilatePlayer
-- checkForAssimilation  (Revolution/RevEvents.py:891)  <- py>cpp CyPlayer::assimilatePlayer
-- RoMEventManager.onCityLost  (RoMEventManager.py:508)  <- py>cpp CyPlot::setImprovementType
-- CvCivicsScreen.handleInput  (Screens/CvCivicsScreen.py:480)  <- py>cpp CyGame::setActivePlayer
-- CvCivicsScreen.interfaceScreen  (Screens/CvCivicsScreen.py:149)  <- py>cpp CyGame::setActivePlayer
+- checkForAssimilation  (Revolution/RevEvents.py:891)  <- py>cpp (only target) CyPlayer::assimilatePlayer
+- RoMEventManager.onCityLost  (RoMEventManager.py:508)  <- py>cpp (only target) CyPlot::setImprovementType
 - CvExoticForeignAdvisor.drawActive  (Screens/CvExoticForeignAdvisor.py:380)  <- py>cpp CyDeal::turnsToCancel
 - CvExoticForeignAdvisor.drawResourceDeals  (Screens/CvExoticForeignAdvisor.py:1145)  <- py>cpp CyPlayer::AI_maxGoldPerTurnTrade
 - CvForeignAdvisor.drawPossibleDeals  (Screens/CvForeignAdvisor.py:269)  <- py>cpp CyPlayer::AI_maxGoldPerTurnTrade
-- CvMainInterface.updateScoreStrings  (Screens/CvMainInterface.py:5148)  <- py>cpp CyTeam::addTeam
 - CvDebugTools.allImprovements  (base/CvDebugTools.py:267)  <- py>cpp CyPlot::setImprovementType
-- CvWorldBuilderScreen.eraseAll  (base/Screens/CvWorldBuilderScreen.py:2448)  <- py>cpp CyPlot::setImprovementType
-- CvWorldBuilderScreen.placeObject  (base/Screens/CvWorldBuilderScreen.py:714)  <- py>cpp CyPlot::setImprovementType
-- CvWorldBuilderScreen.removeObject  (base/Screens/CvWorldBuilderScreen.py:931)  <- py>cpp CyPlot::setImprovementType
+- CvWorldBuilderScreen.eraseAll  (base/Screens/CvWorldBuilderScreen.py:2448)  <- py>cpp (only target) CyPlot::setImprovementType
+- CvWorldBuilderScreen.placeObject  (base/Screens/CvWorldBuilderScreen.py:714)  <- py>cpp (only target) CyPlot::setImprovementType
+- CvWorldBuilderScreen.removeObject  (base/Screens/CvWorldBuilderScreen.py:931)  <- py>cpp (only target) CyPlot::setImprovementType
 - CvWorldBuilderScreen.setMultipleReveal  (base/Screens/CvWorldBuilderScreen.py:1909)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.RevealCurrentPlot
 - CvPlotDesc.apply  (base/pyWB/CvWBDesc.py:1118)  <- py>cpp CyPlot::setImprovementType
 
-(levels above 3: 294 more)
+(levels above 3: 285 more)
 
 ## Reach per start node
 
 | start | reached | C++ | Python | members |
 |---|---|---|---|---|
-| PEACE_TREATY_LENGTH | 1144 | 825 | 319 | 0 |
-| CvGame::m_aiDeferredRevealPlots | 1052 | 780 | 272 | 0 |
-| CvPlot::m_bRevealedGraphicsDirty | 1047 | 775 | 272 | 0 |
-| CvGame::m_iBulkRevealDepth | 1046 | 774 | 272 | 0 |
-| CvPlot::isRevealedGraphicsDirty | 1045 | 773 | 272 | 0 |
-| CvGame::m_eBulkRevealTeam | 1043 | 771 | 272 | 0 |
-| CvPlot::setRevealedGraphicsDirty | 1042 | 770 | 272 | 0 |
-| CvGame::deferRevealedGraphics | 1041 | 769 | 272 | 0 |
-| CvPlot::deferRevealedGraphics | 1040 | 768 | 272 | 0 |
-| CvPlot::setRevealedRouteType | 1036 | 764 | 272 | 0 |
-| CvCity::setRevealed | 1034 | 762 | 272 | 0 |
-| CvPlot::setRevealedImprovementType | 1033 | 761 | 272 | 0 |
-| CvPlot::setRevealed | 1032 | 760 | 272 | 0 |
-| BILLBOARD_ACTIVE_TEAM_ONLY | 1031 | 760 | 271 | 0 |
-| CvPlayerAI::AI_goldPerTurnTradeVal | 1025 | 759 | 266 | 0 |
-| GRAPHICS_PAGING_MAX_IN | 1024 | 758 | 266 | 0 |
-| GRAPHICS_PAGING_LOG | 1024 | 758 | 266 | 0 |
-| CvPlot::m_bRevealedRouteDirty | 1024 | 758 | 266 | 0 |
-| CvPlot::refreshRevealedGraphics | 1023 | 757 | 266 | 0 |
-| CvGame::processDeferredReveals | 1022 | 756 | 266 | 0 |
-| CvGame::endBulkReveal | 1020 | 754 | 266 | 0 |
-| CvGame::beginBulkReveal | 1020 | 754 | 266 | 0 |
-| CvDeal::startTrade | 1019 | 753 | 266 | 0 |
-| CvPlayerAI::AI_doDiplo | 112 | 60 | 52 | 0 |
+| PEACE_TREATY_LENGTH | 1135 | 825 | 310 | 0 |
+| CvGame::m_aiDeferredRevealPlots | 1036 | 778 | 258 | 0 |
+| CvPlot::m_bRevealedGraphicsDirty | 1031 | 773 | 258 | 0 |
+| CvGame::m_iBulkRevealDepth | 1030 | 772 | 258 | 0 |
+| CvPlot::isRevealedGraphicsDirty | 1029 | 771 | 258 | 0 |
+| CvPlot::setRevealedGraphicsDirty | 1026 | 768 | 258 | 0 |
+| CvGame::m_eBulkRevealTeam | 1026 | 768 | 258 | 0 |
+| CvGame::deferRevealedGraphics | 1025 | 767 | 258 | 0 |
+| CvPlot::deferRevealedGraphics | 1024 | 766 | 258 | 0 |
+| CvPlot::setRevealedRouteType | 1020 | 762 | 258 | 0 |
+| CvCity::setRevealed | 1018 | 760 | 258 | 0 |
+| CvPlot::setRevealedImprovementType | 1017 | 759 | 258 | 0 |
+| CvPlot::setRevealed | 1016 | 758 | 258 | 0 |
+| BILLBOARD_ACTIVE_TEAM_ONLY | 1013 | 758 | 255 | 0 |
+| CvPlayerAI::AI_goldPerTurnTradeVal | 1009 | 757 | 252 | 0 |
+| GRAPHICS_PAGING_MAX_IN | 1008 | 756 | 252 | 0 |
+| GRAPHICS_PAGING_LOG | 1008 | 756 | 252 | 0 |
+| CvPlot::m_bRevealedRouteDirty | 1008 | 756 | 252 | 0 |
+| CvPlot::refreshRevealedGraphics | 1007 | 755 | 252 | 0 |
+| CvGame::processDeferredReveals | 1006 | 754 | 252 | 0 |
+| CvGame::endBulkReveal | 1004 | 752 | 252 | 0 |
+| CvGame::beginBulkReveal | 1004 | 752 | 252 | 0 |
+| CvDeal::startTrade | 1003 | 751 | 252 | 0 |
+| CvPlayerAI::AI_doDiplo | 113 | 60 | 53 | 0 |
 | CvPlot::reset | 16 | 13 | 3 | 0 |
 | CvGame::reset | 11 | 11 | 0 | 0 |
 | CvPlot::setupGraphical | 8 | 6 | 2 | 0 |

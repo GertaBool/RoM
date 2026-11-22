@@ -48,17 +48,40 @@ functions it dominates.
 
 ## Variables, XML, defines and what a change reaches
 
-The compiler map has calls only. A second layer, read straight from the source with
-[tree-sitter](https://tree-sitter.github.io/) (a C++ parser: no compiler, no headers, about 7 seconds for the
-whole DLL), adds the data side. It can be rerun on any checkout, so it can be newer than the compiler map.
-`map/syntax_meta.tsv` names its commit.
+The compiler map has calls only. The data side comes from two more readers.
 
-- `fields.tsv`: every data member of every class and struct, with its declared type.
-- `field_access.tsv`: every use of a member inside a function: `read`, `write`, `ref` (`&m_x` passed on, as
-  in `pStream->Read(&m_x)`), `call` (a method of the member, as in `m_aUnits.push_back`).
-- `field_strings.tsv`: a member and a string passed to the same call. For the XML loaders this is the tag
-  that fills the member (`GetChildXmlValByName(&m_iCost, "iCost")`).
-- `defines_used.tsv`: `getDefineINT("NAME")` and the like.
+**Members, XML fills and defines: clang** (`tool/members_clang.py`). Every unit is parsed with full semantic
+analysis:
+- the same flags and SDK headers as `toolchain/clang-gate/check.sh`;
+- the source mirrored by `mirror.sh`;
+- MSVC 2003's for-loop scope emulated by `forscope-pass.sh`, which moves no line;
+- templates parsed where they are written.
+
+Each expression naming a data member is tied to the class that declares it, so `obj->m_x` belongs to exactly one
+class. The kind of use comes from the expression around it.
+- `fields.tsv`: every data member, with its declaring class and type.
+- `field_access.tsv`: every use of a member inside a function:
+  - `write`: left of `=`, `+=` …, operand of `++`/`--`, or object of a non-const `operator=`;
+  - `ref`: address taken, or passed by non-const reference (`pStream->Read(&m_x)`);
+  - `call`: a non-const method called on it (`m_aUnits.push_back`);
+  - `read`: anything else, const methods included.
+- `field_strings.tsv`: a member and a string literal in one call. For the XML loaders this is the tag that fills
+  the member (`GetChildXmlValByName(&m_iCost, "iCost")`).
+- `defines_used.tsv`: `getDefineINT("NAME")` and the like, in the function holding the call.
+- `function_returns.tsv`: the declared return type of every function, used to type Python values.
+- `members_clang.tsv`: errors clang reported per unit. At 9627e508 there are 182: 103 are one expression
+  repeated in every unit (an uninstantiated template constructor in `FFreeListArray.h` names
+  `FFreeList::FLA_FREE_LIST_INDEX`, which does not exist; MSVC never checks it). The rest are single
+  expressions MSVC accepts and clang does not: MSVC library internals such as `_Alloc`, ambiguous `CvString`
+  conversions, and Windows constants missing from the stubs. Clang still analyses the rest of each unit.
+- Compared with the earlier tree-sitter reading, uses only clang sees include members inside macros (`SETCOLR`,
+  `ART_INFO_DEFN`) and `it->second`. The parser's extra uses were false (`.value(...)` in `CyEnumsInterface.cpp`)
+  or compiled out (`FAssert`). Where the parser listed several classes for one use (1,875 uses), clang names the
+  one.
+
+**Functions, XML layers and loaders: tree-sitter** (`tool/syntax.py`, a C++ parser, about 7 seconds). Its own
+member reading is kept only for `impact.py diff` at commits other than the map's, where no clang tables exist,
+and is marked so in the report. `syntax.py --parser-members` writes it to the tables.
 - `xml_tags.tsv`, `xml_defines.tsv`: every XML element name and every `<DefineName>`, with the files that hold
   them in each layer the game reads (`mod`, `bts`, `civ4`), and whether the game loads that file: a file of the
   mod shadows the base game's file of the same path.
@@ -68,8 +91,12 @@ whole DLL), adds the data side. It can be rerun on any checkout, so it can be ne
   define (callers of code added after the map's commit).
 
 ```sh
-pip install tree-sitter tree-sitter-cpp
+pip install tree-sitter tree-sitter-cpp libclang
+toolchain/clang-gate/mirror.sh <checkout>/Assets/CvGameCoreDLL /tmp/mirror
+BTS_SDK_DIR=<SDK CvGameCoreDLL> toolchain/clang-gate/forscope-pass.sh /tmp/mirror
+python3 codemap/tool/members_clang.py /tmp/mirror <SDK CvGameCoreDLL>          # members, fills, defines (exact)
 python3 codemap/tool/syntax.py <checkout>/Assets/CvGameCoreDLL <checkout>/Assets/XML <BTS XML> <Civ4 XML>
+python3 codemap/tool/py_resolve.py                                             # Python calls resolved
 ```
 
 ## The whole graph, and what a change reaches
@@ -80,8 +107,10 @@ member variables, XML tags and defines. An edge from A to B means a change of A 
 | link | from | to | source |
 |---|---|---|---|
 | `call` | C++ function | its C++ callers (virtual calls into overrides) | `calls.tsv` |
-| `py>cpp` | C++ function bound for Python | the Python functions calling it (name match) | `py_to_cpp.tsv` |
-| `py>py` | Python function | its Python callers: same module, or a name defined in one module only | `py_calls.tsv` |
+| `py>cpp` | C++ function bound for Python | the Python functions calling it, resolved | `py_resolved.tsv` |
+| `py>py` | Python function | its Python callers, resolved | `py_resolved.tsv` |
+| `… (only target)` | | a call whose receiver has no fixed type, but whose name has one possible target in all the code | `py_resolved.tsv` |
+| `… (name match)` | | a call left unresolved: every function bearing the name | `py_to_cpp.tsv`, `py_calls.tsv` |
 | `cpp>py` | Python function | the C++ functions calling it | `cpp_to_py.tsv` |
 | `event` | Python event handler | the C++ function posting its event | `event_handlers.tsv` |
 | `read` | member variable | the functions reading it | `field_access.tsv` |
@@ -124,18 +153,43 @@ When the source has moved past the compiler map's commit, a C++ function newer t
   of the reach in columns across C++, Python, members, tags and defines, each node with the link that reached
   it. For a member it shows its writers, readers, XML files and serialization.
 
-Limits:
-- Python links are name matches: Python resolves names when it runs.
-- A `py>py` link across modules is made only when the name is defined in one module.
+### Python calls, resolved (`tool/py_resolve.py`)
 
-Limits of the member layer: it is a parser, not a compiler.
-- Members are matched by name. Inside a method, an unqualified name is that class's member (or a base's)
-  unless a local or parameter hides it. `obj->m_x` is counted for every class that declares `m_x`.
-- Every `#ifdef` branch is read.
-- MSVC words tree-sitter does not know (`DllExport` and similar) are blanked before parsing. The parse
-  errors left are counted per file in `syntax_parse.tsv`.
-- Checked by hand: the uses of `CvCity::m_iPopulation` and `CvPlot::m_bRevealedRouteDirty` match a grep of
-  the source line for line.
+The game's Python 2.4 parser (`py24_scan.py`) records the facts Python itself uses to resolve a call:
+- every call's receiver as an expression, and its positional arguments;
+- assignments, `return` expressions, imports, classes with their bases, and each function's parameters;
+- names used as values (callbacks).
+
+The resolver looks names up as Python does: the function's scope, then enclosing functions, then the module
+(defs, classes, assignments, imports; `from X import *` brings X's names; `CvPythonExtensions` is the C++ side).
+
+A value has a type when the source fixes it:
+- **classes and modules:** a module, a Python class, a C++-side class (`CyGlobalContext`);
+- **instances:** a call of a class; the first parameter of a method; an attribute the class sets (`self.x = …`);
+- **C++ results:** the result of a C++ method, typed by the C++ function's declared return type
+  (`CyGlobalContext::getCyPlayer` returns `CyPlayer*`);
+- **Python results:** a variable, or a Python function's result, whose every assignment or `return` gives the
+  same type;
+- **parameters:** typed from their call sites, iterated to a fixed point. This needs every call of the function
+  to be known: the function is never used as a value, no unresolved call has its name, and no call passes
+  keyword or star arguments or leaves the parameter to its default.
+
+At 9627e508, 63,609 calls:
+
+| how | calls |
+|---|---|
+| C++ method of a DLL class (`cpp`) | 20,476 |
+| Python function (`py`) | 12,670 |
+| exe method (`exe`) | 8,232 |
+| builtin | 5,622 |
+| C++-side constructor (`api-class`) | 2,262 |
+| only possible target (`cpp-only`, `py-only`) | 2,352 |
+| unresolved | 11,995 |
+
+Each unresolved call is on a receiver whose type the source does not fix: an event argument unpacked from
+`argsList`, a loop variable, a list element, an untyped parameter. Its name has several possible targets
+(`append`, `getID`, `getName`, `getOwner` …). Only those calls keep the name match, labelled `(name match)`.
+`py_params.tsv` lists the typed parameters; `py_resolved.tsv` lists every call with how it resolved and its target.
 
 `impact/` holds reports written with `impact.py diff`.
 
@@ -257,6 +311,9 @@ tarball supplies only the Boost 1.32 and Python 2.4 headers. The source commit i
 | `event_handlers.tsv` | event and each handler registered for it |
 | `py_event_registrations.tsv` | every registration of a Python event handler, for any event name |
 | `py_modules.tsv` | Python module the game loads, with its layer (mod, Beyond the Sword, Civilization IV) and file |
+| `py_assign.tsv`, `py_returns.tsv`, `py_imports.tsv`, `py_classes.tsv`, `py_args.tsv`, `py_values.tsv` | the facts `py_resolve.py` resolves calls with (written by `py24_scan.py`) |
+| `py_resolved.tsv`, `py_params.tsv` | every Python call with how it resolved and its target; the parameters typed from their call sites |
+| `members_clang.tsv`, `function_returns.tsv` | clang's errors per unit; every function's declared return type |
 | `python_classes.tsv`, `python_bindings.tsv`, `py_api.tsv`, `py_targets.tsv`, `py_api_check.tsv` | see "Python: what lands in the DLL and what in the exe" |
 | `fields.tsv`, `field_access.tsv`, `field_strings.tsv`, `defines_used.tsv`, `xml_tags.tsv`, `xml_defines.tsv`, `xml_classes.tsv`, `syntax_*.tsv` | see "Variables, XML, defines and what a change reaches" |
 
@@ -284,8 +341,9 @@ Limits:
   The type records' slot offsets for overload sets cannot be read, so which overload is called is not shown.
 - **The exe is outside the map.** Calls into its interfaces are recorded. Which exported functions the exe
   actually calls would need the exe's import table.
-- **Python links into the DLL are name matches,** since Python resolves names when it runs. Calls through
-  `getattr` or strings are not seen.
+- **`py_to_cpp.tsv` holds name matches,** since Python resolves names when it runs. The graph uses
+  `py_resolved.tsv` instead, which resolves 81% of the calls exactly or to their only possible target (see "Python
+  calls, resolved"). Calls through `getattr` or strings are not seen.
 - **Line numbers** refer to the source at the commit named in `skeleton.md`.
 - **Rebuilds give the same tables.** The compiler names each anonymous namespace with a hash that changes
   with every compile, so the hash is replaced by a number fixed by the unit's name.
