@@ -1,2 +1,2 @@
 source
-Syntactic layer (members, XML tags, defines) read from the source at cdda5b6 2026-11-21 HEAD, origin/Graphics-Paging-Fix-Test; callers from the compiler map at the commit named in skeleton.md
+Syntactic layer (members, XML tags, defines) read from the source at 1d9a473 2026-11-22 HEAD, origin/Graphics-Paging-Fix-Test; callers from the compiler map at the commit named in skeleton.md

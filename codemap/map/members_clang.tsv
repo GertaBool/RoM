@@ -15,7 +15,7 @@ CvDllPythonEvents.cpp	1
 CvDllTranslator.cpp	1
 CvEventReporter.cpp	1
 CvFractal.cpp	1
-CvGame.cpp	7
+CvGame.cpp	10
 CvGameAI.cpp	1
 CvGameCoreDLL.cpp	2
 CvGameCoreUtils.cpp	1

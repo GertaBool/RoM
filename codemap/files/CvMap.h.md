@@ -38,9 +38,6 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (2): CvGame::read, CvGame::setPlotExtraYield
 - **·** `PlotExtraYield::~PlotExtraYield()` (written by the compiler)
   - called by (2): CvGame::read, CvGame::setPlotExtraYield
-- **·** `CvGame::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: CvGame::~CvGame [CvGame.cpp], operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
-  - takes the address of: CvGame::~CvGame [CvGame.cpp]
 - **·** `CvMap::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvMap::~CvMap [CvMap.cpp]
   - takes the address of: CvMap::~CvMap [CvMap.cpp]

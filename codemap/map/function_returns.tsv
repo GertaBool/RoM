@@ -3614,6 +3614,7 @@ CvGame::updateBuildingCommerce	void
 CvGame::updateCitySight	void
 CvGame::updateColoredPlots	void
 CvGame::updateDebugModeCache	void
+CvGame::updateGraphicsMemoryPressure	void
 CvGame::updateGraphicsPaging	void
 CvGame::updateMoves	void
 CvGame::updatePlotGroups	void
@@ -6281,6 +6282,7 @@ CvPlayerAI::AI_countNumAreaHostileUnits	int
 CvPlayerAI::AI_countSeaOnlySettlementSites	int
 CvPlayerAI::AI_counterPropose	bool
 CvPlayerAI::AI_cultureVictoryTechValue	int
+CvPlayerAI::AI_dealNetVal	int
 CvPlayerAI::AI_dealVal	int
 CvPlayerAI::AI_demandRebukedSneak	bool
 CvPlayerAI::AI_demandRebukedWar	bool
@@ -6413,6 +6415,7 @@ CvPlayerAI::AI_getWarPosture	int
 CvPlayerAI::AI_getWaterDanger	int
 CvPlayerAI::AI_getWorseRankDifferenceAttitude	int
 CvPlayerAI::AI_goldDeal	bool
+CvPlayerAI::AI_goldPerTurnCostVal	int
 CvPlayerAI::AI_goldPerTurnTradeVal	int
 CvPlayerAI::AI_goldTarget	int
 CvPlayerAI::AI_goldToUpgradeAllUnits	int
@@ -6434,6 +6437,7 @@ CvPlayerAI::AI_isDoVictoryStrategyLevel4	bool
 CvPlayerAI::AI_isFinancialTrouble	bool
 CvPlayerAI::AI_isFirstContact	bool
 CvPlayerAI::AI_isFirstTech	bool
+CvPlayerAI::AI_isMutuallyBeneficialDeal	bool
 CvPlayerAI::AI_isOperationalGeneral	bool
 CvPlayerAI::AI_isPlotCitySite	bool
 CvPlayerAI::AI_isPlotThreatened	bool
@@ -6485,6 +6489,7 @@ CvPlayerAI::AI_totalAreaUnitAIs	int
 CvPlayerAI::AI_totalMissionAIs	int
 CvPlayerAI::AI_totalUnitAIs	int
 CvPlayerAI::AI_totalWaterAreaUnitAIs	int
+CvPlayerAI::AI_tradeGiveVal	int
 CvPlayerAI::AI_uninit	void
 CvPlayerAI::AI_unitAIDomainType	DomainTypes
 CvPlayerAI::AI_unitImpassableCount	int

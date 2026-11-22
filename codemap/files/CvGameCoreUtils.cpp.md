@@ -7,7 +7,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - called by (8): CvCityAI::AI_chooseProduction, CvPlayerAI::AI_doDiplo, CvSelectionGroup::groupAttack, CvTeamAI::AI_declareWarTrade, CvTeamAI::AI_doWar, CvUnitAI::AI_bombardCity, CvUnitAI::AI_collateralMove, CvUnitAI::AI_update
 - **11** `isAIDiplomacy(int)`
   - calls: CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
-  - called by (4): CvPlayerAI::AI_bonusTradeVal, CvPlayerAI::AI_considerOffer, CvPlayerAI::AI_doDiplo, CvTeamAI::AI_techTradeVal
+  - called by (3): CvPlayerAI::AI_bonusTradeVal, CvPlayerAI::AI_doDiplo, CvTeamAI::AI_techTradeVal
 - **18** `effectiveCollateral(CvUnit const*)`
   - calls: CvUnit::collateralDamage [CvUnit.cpp], CvUnit::baseCombatStr [CvUnit.cpp], CvUnit::getExtraCollateralDamage [CvUnit.cpp]
   - called by (2): CvUnitAI::LFBgetBetterAttacker, pickCollateralAttacker

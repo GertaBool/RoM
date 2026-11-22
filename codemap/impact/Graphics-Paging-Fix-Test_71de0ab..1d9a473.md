@@ -1,46 +1,61 @@
-# Impact of 71de0abe5dc8..cdda5b65d3da
+# Impact of 71de0abe5dc8..1d9a473e5d53
 
 Commits:
 
+- 1d9a473 2026-11-22 Memory fixes; Also trade in the diplomacy screen reworked
+- 69955ed 2026-11-22 Memory fixes
 - cdda5b6 2026-11-21 Map trading fix 2
 - 9627e50 2026-11-21 Map trade fix, GPT fix also
 - 9b85482 2026-11-20 Update 3 files
 
 ```
- Assets/CvGameCoreDLL/CvCity.cpp     |  26 +++-
+ Assets/CvGameCoreDLL/CvCity.cpp     |  43 +++-
  Assets/CvGameCoreDLL/CvDeal.cpp     |   6 +-
- Assets/CvGameCoreDLL/CvGame.cpp     | 251 ++++++++++++++++++++++++++++++++----
- Assets/CvGameCoreDLL/CvGame.h       |  12 +-
- Assets/CvGameCoreDLL/CvPlayerAI.cpp |  55 ++++----
- Assets/CvGameCoreDLL/CvPlot.cpp     |  90 ++++++++++++-
- Assets/CvGameCoreDLL/CvPlot.h       |   8 ++
- Assets/XML/GlobalDefinesAlt.xml     |  12 +-
- 8 files changed, 393 insertions(+), 67 deletions(-)
+ Assets/CvGameCoreDLL/CvGame.cpp     | 455 +++++++++++++++++++++++++++++++++---
+ Assets/CvGameCoreDLL/CvGame.h       |  17 +-
+ Assets/CvGameCoreDLL/CvPlayerAI.cpp | 249 +++++++++++++++-----
+ Assets/CvGameCoreDLL/CvPlayerAI.h   |   5 +
+ Assets/CvGameCoreDLL/CvPlot.cpp     | 104 ++++++++-
+ Assets/CvGameCoreDLL/CvPlot.h       |   8 +
+ Assets/CvGameCoreDLL/CvUnit.cpp     |  14 +-
+ Assets/XML/GlobalDefinesAlt.xml     |  74 +++++-
+ 10 files changed, 864 insertions(+), 111 deletions(-)
 ```
-_Members, XML fills and defines at cdda5b65d3da: the map's clang tables (exact)._
+_Members, XML fills and defines at 1d9a473e5d53: the map's clang tables (exact)._
 
 ## C++ functions
 
-- changed: 13; added: 8; removed: 0
-  - changed CvCity::setRevealed  (CvCity.cpp:10862-10905)
+- changed: 19; added: 13; removed: 0
+  - changed CvCity::canPageGraphicsOut  (CvCity.cpp:764-779)
+  - changed CvCity::setRevealed  (CvCity.cpp:10875-10918)
   - changed CvDeal::startTrade  (CvDeal.cpp:695-1094)
-  - changed CvGame::reset  (CvGame.cpp:482-726)
-  - changed CvGame::updateGraphicsPaging  (CvGame.cpp:2406-2558)
-  - changed CvGame::pageGraphics  (CvGame.cpp:2696-2896)
-  - changed CvPlayerAI::AI_counterPropose  (CvPlayerAI.cpp:9090-9641)
-  - changed CvPlayerAI::AI_goldPerTurnTradeVal  (CvPlayerAI.cpp:9702-9708)
-  - changed CvPlayerAI::AI_doDiplo  (CvPlayerAI.cpp:17242-19180)
+  - changed CvGame::reset  (CvGame.cpp:482-730)
+  - changed CvGame::updateGraphicsPaging  (CvGame.cpp:2508-2679)
+  - changed CvGame::pageGraphics  (CvGame.cpp:2817-3094)
+  - changed CvPlayerAI::AI_considerOffer  (CvPlayerAI.cpp:8989-9128)
+  - changed CvPlayerAI::AI_counterPropose  (CvPlayerAI.cpp:9131-9720)
+  - changed CvPlayerAI::AI_goldPerTurnTradeVal  (CvPlayerAI.cpp:9781-9787)
+  - changed CvPlayerAI::AI_doDiplo  (CvPlayerAI.cpp:17344-19308)
   - changed CvPlot::reset  (CvPlot.cpp:179-266)
   - changed CvPlot::setupGraphical  (CvPlot.cpp:272-294)
-  - changed CvPlot::setRevealed  (CvPlot.cpp:7700-7822)
-  - changed CvPlot::setRevealedImprovementType  (CvPlot.cpp:7888-7916)
-  - changed CvPlot::setRevealedRouteType  (CvPlot.cpp:7940-7982)
-  - added CvGame::beginBulkReveal  (CvGame.cpp:2295-2306)
-  - added CvGame::endBulkReveal  (CvGame.cpp:2308-2334)
-  - added CvGame::deferRevealedGraphics  (CvGame.cpp:2336-2351)
-  - added CvGame::processDeferredReveals  (CvGame.cpp:2353-2404)
+  - changed CvPlot::setRevealed  (CvPlot.cpp:7702-7824)
+  - changed CvPlot::setRevealedImprovementType  (CvPlot.cpp:7890-7918)
+  - changed CvPlot::setRevealedRouteType  (CvPlot.cpp:7942-7984)
+  - changed CvPlot::updateFeatureSymbolEntity  (CvPlot.cpp:8122-8165)
+  - changed CvPlot::updateRouteSymbol  (CvPlot.cpp:8175-8227)
+  - changed CvPlot::updatePlotBuilder  (CvPlot.cpp:9728-9746)
+  - changed CvUnit::canPageGraphicsOut  (CvUnit.cpp:464-480)
+  - added CvGame::beginBulkReveal  (CvGame.cpp:2299-2310)
+  - added CvGame::endBulkReveal  (CvGame.cpp:2312-2342)
+  - added CvGame::deferRevealedGraphics  (CvGame.cpp:2344-2359)
+  - added CvGame::processDeferredReveals  (CvGame.cpp:2361-2412)
+  - added CvGame::updateGraphicsMemoryPressure  (CvGame.cpp:2416-2506)
+  - added CvPlayerAI::AI_tradeGiveVal  (CvPlayerAI.cpp:8914-8944)
+  - added CvPlayerAI::AI_dealNetVal  (CvPlayerAI.cpp:8946-8952)
+  - added CvPlayerAI::AI_isMutuallyBeneficialDeal  (CvPlayerAI.cpp:8954-8961)
+  - added CvPlayerAI::AI_goldPerTurnCostVal  (CvPlayerAI.cpp:9789-9810)
   - added CvPlot::deferRevealedGraphics  (CvPlot.cpp:296-299)
-  - added CvPlot::refreshRevealedGraphics  (CvPlot.cpp:305-337)
+  - added CvPlot::refreshRevealedGraphics  (CvPlot.cpp:305-339)
   - added CvPlot::isRevealedGraphicsDirty  (CvPlot.h:68-68)
   - added CvPlot::setRevealedGraphicsDirty  (CvPlot.h:69-69)
 
@@ -48,93 +63,131 @@ _Members, XML fills and defines at cdda5b65d3da: the map's clang tables (exact).
 
 - added CvGame::m_aiDeferredRevealPlots std::vector<int>
 - added CvGame::m_bPagingPendingOut bool
+- added CvGame::m_dwGraphicsMemorySampleTime DWORD
 - added CvGame::m_eBulkRevealTeam TeamTypes
 - added CvGame::m_iBulkRevealDepth int
+- added CvGame::m_iGraphicsMemoryAvailMB int
+- added CvGame::m_iGraphicsMemoryPressure int
+- added CvGame::m_iGraphicsMemoryRecoverySamples int
 - added CvPlot::m_bRevealedGraphicsDirty bool
 - added CvPlot::m_bRevealedRouteDirty bool
 
 ## Members written on changed lines, or declared new
 
-CvGame::m_aiDeferredRevealPlots, CvGame::m_bPagingPending, CvGame::m_bPagingPendingOut, CvGame::m_eBulkRevealTeam, CvGame::m_iBulkRevealDepth, CvPlot::m_bRevealedGraphicsDirty, CvPlot::m_bRevealedRouteDirty
+CvGame::m_aiDeferredRevealPlots, CvGame::m_bPagingPending, CvGame::m_bPagingPendingOut, CvGame::m_dwGraphicsMemorySampleTime, CvGame::m_eBulkRevealTeam, CvGame::m_iBulkRevealDepth, CvGame::m_iGraphicsMemoryAvailMB, CvGame::m_iGraphicsMemoryPressure, CvGame::m_iGraphicsMemoryRecoverySamples, CvPlot::m_bRevealedGraphicsDirty, CvPlot::m_bRevealedRouteDirty
 
 ## Defines read on changed lines
 
-GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_TREATY_LENGTH
+GRAPHICS_PAGING_ACTIVE_CITIES, GRAPHICS_PAGING_ACTIVE_UNITS, GRAPHICS_PAGING_CRITICAL_SELECTED_IN, GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_MEMORY_CONSERVE_MAX_IN, GRAPHICS_PAGING_MEMORY_CONSERVE_MB, GRAPHICS_PAGING_MEMORY_CONTROL, GRAPHICS_PAGING_MEMORY_CRITICAL_MB, GRAPHICS_PAGING_MEMORY_RECOVER_MB, GRAPHICS_PAGING_MEMORY_RECOVER_SAMPLES, GRAPHICS_PAGING_PRESSURE_RANGE_NORTH, GRAPHICS_PAGING_PRESSURE_RANGE_SOUTH, GRAPHICS_PAGING_PRESSURE_RANGE_X, GRAPHICS_PAGING_REVEAL_MAX, PEACE_TREATY_LENGTH
 
 ## XML
 
-- GlobalDefinesAlt.xml: tags on changed lines: none; defines: GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX
+- GlobalDefinesAlt.xml: tags on changed lines: none; defines: GRAPHICS_PAGING_ACTIVE_CITIES, GRAPHICS_PAGING_ACTIVE_UNITS, GRAPHICS_PAGING_CRITICAL_SELECTED_IN, GRAPHICS_PAGING_MARGIN, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_MEMORY_CONSERVE_MAX_IN, GRAPHICS_PAGING_MEMORY_CONSERVE_MB, GRAPHICS_PAGING_MEMORY_CONTROL, GRAPHICS_PAGING_MEMORY_CRITICAL_MB, GRAPHICS_PAGING_MEMORY_RECOVER_MB, GRAPHICS_PAGING_MEMORY_RECOVER_SAMPLES, GRAPHICS_PAGING_PRESSURE_RANGE_NORTH, GRAPHICS_PAGING_PRESSURE_RANGE_SOUTH, GRAPHICS_PAGING_PRESSURE_RANGE_X, GRAPHICS_PAGING_REVEAL_MAX, GRAPHICS_PAGING_SYMBOLS
 
 ## Reach
 
 | | start | reached | per level |
 |---|---|---|---|
-| member variables | 7 | 0 |  |
-| C++ functions | 21 | 841 | 1: 37, 2: 71, 3: 104, 4: 124, 5: 129, 6: 99, 7: 203, 8: 46, 9: 17, 10: 8, 11: 3 |
-| Python functions | 0 | 316 | 2: 6, 3: 28, 4: 50, 5: 31, 6: 77, 7: 56, 8: 28, 9: 23, 10: 10, 11: 3, 12: 4 |
-| defines | 4 | 0 |  |
+| member variables | 11 | 0 |  |
+| C++ functions | 32 | 968 | 1: 48, 2: 100, 3: 157, 4: 158, 5: 141, 6: 93, 7: 209, 8: 44, 9: 13, 10: 3, 11: 2 |
+| Python functions | 0 | 335 | 2: 6, 3: 29, 4: 56, 5: 82, 6: 48, 7: 53, 8: 23, 9: 22, 10: 10, 11: 2, 12: 4 |
+| defines | 19 | 0 |  |
 
-- C++ functions the exe calls (exported): 101: CvCity::cheat, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchButtonPopup, CvDLLWidgetData::executeAction, CvDLLWidgetData::isLink, CvDLLWidgetData::parseHelp, CvDeal::isCancelable, CvDeal::kill, CvDeal::turnsToCancel, CvEventReporter::gameStart, CvEventReporter::kbdEvent, CvEventReporter::reportModNetMessage, CvGame::CvGame, CvGame::cheatSpaceship, CvGame::implementDeal, CvGame::init, CvGame::initDiplomacy, CvGame::initFreeState, CvGame::initFreeUnits, CvGame::nextActivePlayer, CvGame::normalizeStartingPlots, CvGame::read, CvGame::regenerateMap, CvGame::reset, CvGame::reviveActivePlayer, CvGame::revivePlayer, CvGame::setAIAutoPlay, CvGame::setInitialItems, CvGame::setVoteChosen, CvGame::update, CvGame::updateCitySight, CvGameTextMgr::getActiveDealsString, CvGameTextMgr::getBonusDataForWB, CvGameTextMgr::getDealString, CvGameTextMgr::getTechDataForWB, CvGameTextMgr::getTradeString, CvGameTextMgr::getTurnTimerText, CvGameTextMgr::parseLeaderHeadHelp, CvGameTextMgr::setBonusHelp, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setTechHelp, CvGameTextMgr::setTechTradeHelp, CvGlobals::init, CvMap::erasePlots, CvMap::init, CvMap::read, CvMap::setupGraphical, CvMapGenerator::addFeatures, CvMapGenerator::addGameElements, CvMapGenerator::addGoodies, CvMapGenerator::eraseFeatures, CvMapGenerator::eraseGoodies, CvMapGenerator::generateRandomMap, CvNetAdvancedStartAction::Execute, CvNetAutoMission::Execute, CvNetAutoMoves::Execute, CvNetChangeVassal::Execute, CvNetChangeWar::Execute, CvNetChooseElection::Execute, CvNetConvert::Execute, CvNetDoCommand::Execute, CvNetDoTask::Execute, CvNetEmpireSplit::Execute, CvNetEventTriggered::Execute, CvNetFoundReligion::Execute, CvNetModNetMessage::Execute, CvNetPopOrder::Execute, CvNetPushMission::Execute, CvNetPushOrder::Execute, CvNetResearch::Execute, CvNetTurnComplete::Execute, CvNetUpdateCivics::Execute, CvPlayer::applyEvent, CvPlayer::buildTradeTable, CvPlayer::canTradeItem, CvPlayer::cheat, CvPlayer::convert, CvPlayer::doAdvancedStartAction, CvPlayer::foundReligion, CvPlayer::getGlobeLayerColors, CvPlayer::getItemTradeString, CvPlayer::handleDiploEvent, CvPlayer::init, CvPlayer::revolution, CvPlayer::setAutoMoves, CvPlayer::setEndTurn, CvPlayer::setLoyalMember, CvPlayer::setTurnActive, CvPlayer::splitEmpire, CvPlayerAI::AI_maxGoldPerTurnTrade, CvPlot::erase, CvPlot::setFeatureType, CvPlot::setImprovementType, CvPlot::setRevealed, CvPlot::setRouteType, CvSelectionGroup::autoMission, CvSelectionGroup::pushMission, CvTeam::declareWar, CvTeam::init, CvTeam::makePeace, DLLPublishToPython
-- C++ functions bound for Python: 143: CyCity::addProductionExperience, CyCity::changeCulture, CyCity::changeCultureTimes100, CyCity::changeOccupationTimer, CyCity::clearOrderQueue, CyCity::conscript, CyCity::createGreatPeople, CyCity::doTask, CyCity::kill, CyCity::liberate, CyCity::popOrder, CyCity::pushOrder, CyCity::setCulture, CyCity::setCultureTimes100, CyCity::setHasCorporation, CyCity::setNumRealBuilding, CyCity::setOccupationTimer, CyCity::setProductionAutomated, CyCity::setRevealed, CyDeal::getCannotCancelReason, CyDeal::isCancelable, CyDeal::kill, CyDeal::turnsToCancel, CyGame::addPlayer, CyGame::clearHeadquarters, CyGame::regenerateMap, CyGame::reviveActivePlayer, CyGame::setAIAutoPlay, CyGame::setHeadquarters, CyGame::setWinner, CyGameTextMgr::getActiveDealsString, CyGameTextMgr::getBonusHelp, CyGameTextMgr::getDealString, CyGameTextMgr::getTechHelp, CyGameTextMgr::getTradeString, CyMap::erasePlots, CyMap::rebuild, CyMap::recalculateAreas, CyMap::regenerateGameElements, CyMap::setAllPlotTypes, CyMap::setRevealedPlots, CyMap::verifyUnitValidPlot, CyMapGenerator::addFeatures, CyMapGenerator::addGameElements, CyMapGenerator::addGoodies, CyMapGenerator::addLakes, CyMapGenerator::eraseFeatures, CyMapGenerator::eraseGoodies, CyMapGenerator::generatePlotTypes, CyMapGenerator::generateRandomMap, CyMapGenerator::generateTerrain, CyMapGenerator::setPlotTypes, CyPlayer::AI_maxGoldPerTurnTrade, CyPlayer::acquireCity, CyPlayer::assimilatePlayer, CyPlayer::canStopTradingWithTeam, CyPlayer::canTradeItem, CyPlayer::changeCiv, CyPlayer::changeCombatExperience, CyPlayer::convert, CyPlayer::createGreatPeople, CyPlayer::disband, CyPlayer::disbandUnit, CyPlayer::doEspionageMission, CyPlayer::doGoody, CyPlayer::findNewCapital, CyPlayer::forcePeace, CyPlayer::found, CyPlayer::foundCorporation, CyPlayer::foundReligion, CyPlayer::initCity, CyPlayer::initTriggeredData, CyPlayer::initUnit, CyPlayer::killAllDeals, CyPlayer::killCities, CyPlayer::killUnits, CyPlayer::raze, CyPlayer::receiveGoody, CyPlayer::removeBuildingClass, CyPlayer::revolution, CyPlayer::setAlive, CyPlayer::setCivics, CyPlayer::setCombatExperience, CyPlayer::setLastStateReligion, CyPlayer::setLoyalMember, CyPlayer::setNewPlayerAlive, CyPlayer::splitEmpire, CyPlayer::stopTradingWithTeam, CyPlayer::trigger, CyPlot::changeBuildProgress, CyPlot::changeCulture, CyPlot::changeVisibilityCount, CyPlot::erase, CyPlot::nukeExplosion, CyPlot::removeGoody, CyPlot::setCulture, CyPlot::setFeatureType, CyPlot::setImprovementType, CyPlot::setOwner, CyPlot::setOwnerNoUnitCheck, CyPlot::setPlotType, CyPlot::setRevealed, CyPlot::setRouteType, CyPlot::setTerrainType, CySelectionGroup::popMission, CySelectionGroup::pushMission, CySelectionGroup::pushMoveToMission, CyTeam::addTeam, CyTeam::assignVassal, CyTeam::changeEspionagePointsAgainstTeam, CyTeam::changeExtraWaterSeeFromCount, CyTeam::changeProjectCount, CyTeam::changeResearchProgress, CyTeam::changeTechShareCount, CyTeam::declareWar, CyTeam::freeVassal, CyTeam::makePeace, CyTeam::meet, CyTeam::setEspionagePointsAgainstTeam, CyTeam::setHasTech, CyTeam::setIsMinorCiv, CyTeam::setResearchProgress, CyTeam::setVassal, CyTeam::signDefensivePact, CyTeam::signOpenBorders, CyUnit::attackForDamage, CyUnit::changeDamage, CyUnit::changeExperience, CyUnit::convert, CyUnit::doCommand, CyUnit::gift, CyUnit::giveExperience, CyUnit::jumpToNearestValidPlot, CyUnit::kill, CyUnit::lead, CyUnit::promote, CyUnit::rangeStrike, CyUnit::rotateFacingDirectionClockwise, CyUnit::rotateFacingDirectionCounterClockwise, CyUnit::setDamage, CyUnit::setHasPromotion, CyUnit::setReconPlot, CyUnit::setXY
-- Python event handlers: 35: AIAutoPlay.onBeginGameTurn (BeginGameTurn), AIAutoPlay.onGameStart (GameStart), AIAutoPlay.onKbdEvent (kbdEvent), AIAutoPlay.onModNetMessage (ModNetMessage), AIAutoPlay.onVictory (victory), BarbarianCiv.onBeginGameTurn (BeginGameTurn), BarbarianCiv.onCityAcquired (cityAcquired), BarbarianCiv.onEndPlayerTurn (EndPlayerTurn), ChangePlayer.onKbdEvent (kbdEvent), CvEnhancedTechConquestEventManager.onCityAcquired (cityAcquired), CvEventManager.onCityRazed (cityRazed), CvEventManager.onKbdEvent (kbdEvent), MoreCiv4lertsEvent.OnCityAcquired (cityAcquired), MoreCiv4lertsEvent.OnCityBuilt (cityBuilt), MoreCiv4lertsEvent.OnCityLost (cityLost), MoreCiv4lertsEvent.OnCityRazed (cityRazed), Revolution.onBeginPlayerTurn (BeginPlayerTurn), Revolution.onEndPlayerTurn (EndPlayerTurn), Revolution.onModNetMessage (ModNetMessage), RevolutionInit.onGameStart (GameStart), RoMEventManager.onBeginPlayerTurn (BeginPlayerTurn), RoMEventManager.onBuildingBuilt (buildingBuilt), RoMEventManager.onCityLost (cityLost), RoMEventManager.onModNetMessage (ModNetMessage), RoMEventManager.onProjectBuilt (projectBuilt), TechDiffusion.onBeginGameTurn (BeginGameTurn), Tester.onBeginPlayerTurn (BeginPlayerTurn), onBeginPlayerTurn (BeginPlayerTurn), onChangeWar (changeWar), onCityAcquired (cityAcquired), onEndGameTurn (EndGameTurn), onEndPlayerTurn (EndPlayerTurn), onSetPlayerAlive (setPlayerAlive), onSetPlayerAlive (setPlayerAlive), onTechAcquired (techAcquired)
-- C++ files: CvUnitAI.cpp 165, CvUnit.cpp 80, CvPlayer.cpp 75, CvGame.cpp 65, CvCity.cpp 39, CvPlot.cpp 39, CvTeam.cpp 37, CyPlayer.cpp 37, CvPlayerAI.cpp 33, CvSelectionGroup.cpp 21, CyCity.cpp 19, CvMessageData.cpp 19, CyTeam.cpp 18, CyUnit.cpp 18, CvDLLWidgetData.cpp 17, CvDllPythonEvents.cpp 17, CvEventReporter.cpp 17, CyPlot.cpp 15, CvMap.cpp 13, CvGameTextMgr.cpp 13, CvCityAI.cpp 13, CvDeal.cpp 10, CvMapGenerator.cpp 10, CyMapGenerator.cpp 10, CyMap.cpp 7, CyGame.cpp 7, CvSelectionGroupAI.cpp 6, CyGameTextMgr.cpp 5, CyDeal.cpp 4, CvTeamAI.cpp 4, CvDLLButtonPopup.cpp 3, CySelectionGroup.cpp 3, CvPlot.h 2, CvGameAI.cpp 2, FFreeListTrashArray.h 2, CvGameInterface.cpp 2, CyCityInterface1.cpp 1, CyPlotInterface1.cpp 1, CvDLLPython.cpp 1, CvGlobals.cpp 1, CyMapInterface.cpp 1, CyPlayerInterface2.cpp 1, CyPlayerInterface1.cpp 1, CyTeamInterface.cpp 1, CyGameInterface.cpp 1, CyGameTextMgrInterface.cpp 1, CyUnitInterface1.cpp 1, CyMapGeneratorInterface.cpp 1, CvArea.cpp 1, CySelectionGroupInterface.cpp 1, CvGameCoreUtils.cpp 1
-- Python modules: EntryPoints/CvRandomEventInterface.py 60, base/Screens/CvWorldBuilderScreen.py 23, EntryPoints/CvScreensInterface.py 19, Revolution/Gameready/Revolution.py 17, Contrib/MoreCiv4lerts.py 15, Revolution/Gameready/AIAutoPlay.py 14, Revolution/RevEvents.py 11, Revolution/Gameready/BarbarianCiv.py 11, PyHelpers.py 7, Revolution/RevUtils.py 7, Screens/PLE.py 7, base/pyWB/CvWBDesc.py 6, RoMEventManager.py 6, Screens/CvForeignAdvisor.py 6, base/CvEventManager.py 6, Screens/CvMainInterface.py 6, base/CvDebugTools.py 5, Screens/CvExoticForeignAdvisor.py 5, ModTools/ModTools.py 5, base/CvPerfTest.py 5, CvMapGeneratorUtil.py 5, Contrib/RevDCMReligionControl.py 5, Screens/CvPediaMain.py 5, BUG/DealUtil.py 4, Revolution/Development/ChangePlayer.py 4, BUG/PlayerUtil.py 4, EntryPoints/CvWBInterface.py 3, base/Screens/CvWorldBuilderDiplomacyScreen.py 3, Revolution/Gameready/StartAsMinors.py 3, CvUtil.py 3, Revolution/RevolutionInit.py 3, Screens/CvBUGMilitaryAdvisor.py 3, Contrib/MapFinder.py 2, Revolution/Gameready/TechDiffusion.py 2, Revolution/Development/Tester.py 2, BUG/TradeUtil.py 2, Contrib/FavoriteCivicDetector.py 2, Contrib/Sevopedia/SevoPediaBonus.py 2, base/Screens/CvPediaBonus.py 2, Contrib/Sevopedia/SevoPediaTech.py 2, base/Screens/CvPediaTech.py 2, Contrib/Civ4lerts.py 1, ModTools/ModToolsUtils.py 1, base/EntryPoints/CvGameInterface.py 1, AbandonCityEventManager.py 1, BUG/Scoreboard.py 1, EnhancedTechConquestUtils/EnhancedTechConquest.py 1, EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py 1, Contrib/MonkeyTools.py 1, base/pyWB/CvWBPopups.py 1, Contrib/TechWindow.py 1, Contrib/TechWindowWide.py 1, base/Screens/CvTechSplashScreen.py 1
+- C++ functions the exe calls (exported): 120: CvCity::cheat, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchButtonPopup, CvDLLWidgetData::executeAction, CvDLLWidgetData::isLink, CvDLLWidgetData::parseHelp, CvDeal::isCancelable, CvDeal::kill, CvDeal::turnsToCancel, CvEventReporter::gameStart, CvEventReporter::kbdEvent, CvEventReporter::reportModNetMessage, CvGame::CvGame, CvGame::cheatSpaceship, CvGame::implementDeal, CvGame::init, CvGame::initDiplomacy, CvGame::initFreeState, CvGame::initFreeUnits, CvGame::nextActivePlayer, CvGame::normalizeStartingPlots, CvGame::read, CvGame::regenerateMap, CvGame::reset, CvGame::reviveActivePlayer, CvGame::revivePlayer, CvGame::setAIAutoPlay, CvGame::setActivePlayer, CvGame::setFinalInitialized, CvGame::setInitialItems, CvGame::setVoteChosen, CvGame::toggleDebugMode, CvGame::update, CvGame::updateCitySight, CvGameTextMgr::getActiveDealsString, CvGameTextMgr::getBonusDataForWB, CvGameTextMgr::getDealString, CvGameTextMgr::getTechDataForWB, CvGameTextMgr::getTradeString, CvGameTextMgr::getTurnTimerText, CvGameTextMgr::parseLeaderHeadHelp, CvGameTextMgr::setBonusHelp, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setTechHelp, CvGameTextMgr::setTechTradeHelp, CvGlobals::init, CvMap::erasePlots, CvMap::init, CvMap::read, CvMap::setupGraphical, CvMap::updateFlagSymbols, CvMap::updateVisibility, CvMapGenerator::addBonuses, CvMapGenerator::addFeatures, CvMapGenerator::addGameElements, CvMapGenerator::addGoodies, CvMapGenerator::addRivers, CvMapGenerator::eraseBonuses, CvMapGenerator::eraseFeatures, CvMapGenerator::eraseGoodies, CvMapGenerator::eraseRivers, CvMapGenerator::generateRandomMap, CvNetAdvancedStartAction::Execute, CvNetAutoMission::Execute, CvNetAutoMoves::Execute, CvNetChangeVassal::Execute, CvNetChangeWar::Execute, CvNetChooseElection::Execute, CvNetConvert::Execute, CvNetDoCommand::Execute, CvNetDoTask::Execute, CvNetEmpireSplit::Execute, CvNetEventTriggered::Execute, CvNetFoundReligion::Execute, CvNetJoinGroup::Execute, CvNetModNetMessage::Execute, CvNetPopOrder::Execute, CvNetPushMission::Execute, CvNetPushOrder::Execute, CvNetResearch::Execute, CvNetTurnComplete::Execute, CvNetUpdateCivics::Execute, CvPlayer::applyEvent, CvPlayer::buildTradeTable, CvPlayer::canTradeItem, CvPlayer::cheat, CvPlayer::convert, CvPlayer::doAdvancedStartAction, CvPlayer::foundReligion, CvPlayer::getGlobeLayerColors, CvPlayer::getItemTradeString, CvPlayer::handleDiploEvent, CvPlayer::init, CvPlayer::revolution, CvPlayer::setAutoMoves, CvPlayer::setEndTurn, CvPlayer::setLoyalMember, CvPlayer::setTurnActive, CvPlayer::setupGraphical, CvPlayer::splitEmpire, CvPlayerAI::AI_maxGoldPerTurnTrade, CvPlot::erase, CvPlot::setFeatureType, CvPlot::setImprovementType, CvPlot::setLayoutDirty, CvPlot::setNOfRiver, CvPlot::setRevealed, CvPlot::setRouteType, CvPlot::setWOfRiver, CvPlot::updateFlagSymbol, CvSelectionGroup::autoMission, CvSelectionGroup::clearUnits, CvSelectionGroup::deleteUnitNode, CvSelectionGroup::pushMission, CvTeam::declareWar, CvTeam::init, CvTeam::makePeace, CvUnit::cheat, CvUnit::joinGroup, DLLPublishToPython
+- C++ functions bound for Python: 171: CyCity::addProductionExperience, CyCity::alterSpecialistCount, CyCity::alterWorkingPlot, CyCity::changeCulture, CyCity::changeCultureTimes100, CyCity::changeOccupationTimer, CyCity::clearOrderQueue, CyCity::clearWorkingOverride, CyCity::conscript, CyCity::createGreatPeople, CyCity::doTask, CyCity::kill, CyCity::liberate, CyCity::popOrder, CyCity::pushOrder, CyCity::setCitizensAutomated, CyCity::setCulture, CyCity::setCultureTimes100, CyCity::setHasCorporation, CyCity::setNumRealBuilding, CyCity::setOccupationTimer, CyCity::setProductionAutomated, CyCity::setRevealed, CyDeal::getCannotCancelReason, CyDeal::isCancelable, CyDeal::kill, CyDeal::turnsToCancel, CyGame::addPlayer, CyGame::changeHumanPlayer, CyGame::clearHeadquarters, CyGame::regenerateMap, CyGame::reviveActivePlayer, CyGame::setAIAutoPlay, CyGame::setActivePlayer, CyGame::setHeadquarters, CyGame::setWinner, CyGame::toggleDebugMode, CyGameTextMgr::getActiveDealsString, CyGameTextMgr::getBonusHelp, CyGameTextMgr::getDealString, CyGameTextMgr::getTechHelp, CyGameTextMgr::getTradeString, CyMap::erasePlots, CyMap::rebuild, CyMap::recalculateAreas, CyMap::regenerateGameElements, CyMap::setAllPlotTypes, CyMap::setRevealedPlots, CyMap::updateVisibility, CyMap::verifyUnitValidPlot, CyMapGenerator::addBonuses, CyMapGenerator::addFeatures, CyMapGenerator::addGameElements, CyMapGenerator::addGoodies, CyMapGenerator::addLakes, CyMapGenerator::addNonUniqueBonusType, CyMapGenerator::addRivers, CyMapGenerator::addUniqueBonusType, CyMapGenerator::doRiver, CyMapGenerator::eraseBonuses, CyMapGenerator::eraseFeatures, CyMapGenerator::eraseGoodies, CyMapGenerator::eraseRivers, CyMapGenerator::generatePlotTypes, CyMapGenerator::generateRandomMap, CyMapGenerator::generateTerrain, CyMapGenerator::setPlotTypes, CyPlayer::AI_maxGoldPerTurnTrade, CyPlayer::acquireCity, CyPlayer::assimilatePlayer, CyPlayer::canStopTradingWithTeam, CyPlayer::canTradeItem, CyPlayer::changeCiv, CyPlayer::changeCombatExperience, CyPlayer::convert, CyPlayer::createGreatPeople, CyPlayer::disband, CyPlayer::disbandUnit, CyPlayer::doEspionageMission, CyPlayer::doGoody, CyPlayer::findNewCapital, CyPlayer::forcePeace, CyPlayer::found, CyPlayer::foundCorporation, CyPlayer::foundReligion, CyPlayer::initCity, CyPlayer::initTriggeredData, CyPlayer::initUnit, CyPlayer::killAllDeals, CyPlayer::killCities, CyPlayer::killUnits, CyPlayer::raze, CyPlayer::receiveGoody, CyPlayer::removeBuildingClass, CyPlayer::revolution, CyPlayer::setAlive, CyPlayer::setCivics, CyPlayer::setCombatExperience, CyPlayer::setCurrentEra, CyPlayer::setLastStateReligion, CyPlayer::setLoyalMember, CyPlayer::setNewPlayerAlive, CyPlayer::splitEmpire, CyPlayer::stopTradingWithTeam, CyPlayer::trigger, CyPlot::changeBuildProgress, CyPlot::changeCulture, CyPlot::changeVisibilityCount, CyPlot::erase, CyPlot::nukeExplosion, CyPlot::removeGoody, CyPlot::setBonusType, CyPlot::setCulture, CyPlot::setFeatureType, CyPlot::setImprovementType, CyPlot::setNOfRiver, CyPlot::setOwner, CyPlot::setOwnerNoUnitCheck, CyPlot::setPlotType, CyPlot::setRevealed, CyPlot::setRouteType, CyPlot::setTerrainType, CyPlot::setWOfRiver, CyPlot::updateVisibility, CySelectionGroup::clearMissionQueue, CySelectionGroup::popMission, CySelectionGroup::pushMission, CySelectionGroup::pushMoveToMission, CySelectionGroup::setActivityType, CySelectionGroup::setAutomateType, CyTeam::addTeam, CyTeam::assignVassal, CyTeam::changeEspionagePointsAgainstTeam, CyTeam::changeExtraWaterSeeFromCount, CyTeam::changeIrrigationCount, CyTeam::changeProjectCount, CyTeam::changeResearchProgress, CyTeam::changeTechShareCount, CyTeam::declareWar, CyTeam::freeVassal, CyTeam::makePeace, CyTeam::meet, CyTeam::setEspionagePointsAgainstTeam, CyTeam::setHasTech, CyTeam::setIsMinorCiv, CyTeam::setResearchProgress, CyTeam::setVassal, CyTeam::signDefensivePact, CyTeam::signOpenBorders, CyUnit::attackForDamage, CyUnit::changeDamage, CyUnit::changeExperience, CyUnit::convert, CyUnit::doCommand, CyUnit::gift, CyUnit::giveExperience, CyUnit::jumpToNearestValidPlot, CyUnit::kill, CyUnit::lead, CyUnit::promote, CyUnit::rangeStrike, CyUnit::rotateFacingDirectionClockwise, CyUnit::rotateFacingDirectionCounterClockwise, CyUnit::setDamage, CyUnit::setHasPromotion, CyUnit::setLeaderUnitType, CyUnit::setPromotionReady, CyUnit::setReconPlot, CyUnit::setTransportUnit, CyUnit::setUnitAIType, CyUnit::setXY
+- Python event handlers: 36: AIAutoPlay.onBeginGameTurn (BeginGameTurn), AIAutoPlay.onEndPlayerTurn (EndPlayerTurn), AIAutoPlay.onGameStart (GameStart), AIAutoPlay.onKbdEvent (kbdEvent), AIAutoPlay.onModNetMessage (ModNetMessage), AIAutoPlay.onVictory (victory), BarbarianCiv.onBeginGameTurn (BeginGameTurn), BarbarianCiv.onCityAcquired (cityAcquired), BarbarianCiv.onEndPlayerTurn (EndPlayerTurn), ChangePlayer.onKbdEvent (kbdEvent), CvEnhancedTechConquestEventManager.onCityAcquired (cityAcquired), CvEventManager.onCityRazed (cityRazed), CvEventManager.onKbdEvent (kbdEvent), MoreCiv4lertsEvent.OnCityAcquired (cityAcquired), MoreCiv4lertsEvent.OnCityBuilt (cityBuilt), MoreCiv4lertsEvent.OnCityLost (cityLost), MoreCiv4lertsEvent.OnCityRazed (cityRazed), Revolution.onBeginPlayerTurn (BeginPlayerTurn), Revolution.onEndPlayerTurn (EndPlayerTurn), Revolution.onModNetMessage (ModNetMessage), RevolutionInit.onGameStart (GameStart), RoMEventManager.onBeginPlayerTurn (BeginPlayerTurn), RoMEventManager.onBuildingBuilt (buildingBuilt), RoMEventManager.onCityLost (cityLost), RoMEventManager.onModNetMessage (ModNetMessage), RoMEventManager.onProjectBuilt (projectBuilt), TechDiffusion.onBeginGameTurn (BeginGameTurn), Tester.onBeginPlayerTurn (BeginPlayerTurn), onBeginPlayerTurn (BeginPlayerTurn), onChangeWar (changeWar), onCityAcquired (cityAcquired), onEndGameTurn (EndGameTurn), onEndPlayerTurn (EndPlayerTurn), onSetPlayerAlive (setPlayerAlive), onSetPlayerAlive (setPlayerAlive), onTechAcquired (techAcquired)
+- C++ files: CvUnitAI.cpp 169, CvUnit.cpp 97, CvPlayer.cpp 78, CvGame.cpp 71, CvPlot.cpp 56, CvCity.cpp 51, CvPlayerAI.cpp 42, CvTeam.cpp 39, CyPlayer.cpp 38, CvSelectionGroup.cpp 33, CyCity.cpp 23, CvCityAI.cpp 23, CyUnit.cpp 22, CvMessageData.cpp 20, CyPlot.cpp 19, CyTeam.cpp 19, CvMapGenerator.cpp 18, CvMap.cpp 17, CvDLLWidgetData.cpp 17, CyMapGenerator.cpp 17, CvDllPythonEvents.cpp 17, CvEventReporter.cpp 17, CvGameTextMgr.cpp 13, CvDeal.cpp 10, CyGame.cpp 10, CyMap.cpp 8, CvSelectionGroupAI.cpp 7, CySelectionGroup.cpp 6, CyGameTextMgr.cpp 5, CyDeal.cpp 4, CvTeamAI.cpp 4, CvDLLButtonPopup.cpp 3, CvGameAI.cpp 3, CvGameCoreUtils.cpp 3, CvPlot.h 2, FFreeListTrashArray.h 2, CvGameInterface.cpp 2, CvArea.cpp 2, CyCityInterface1.cpp 1, CyPlotInterface1.cpp 1, CvDLLPython.cpp 1, CvGlobals.cpp 1, CyMapInterface.cpp 1, CyPlayerInterface2.cpp 1, CyPlayerInterface1.cpp 1, CyTeamInterface.cpp 1, CyGameInterface.cpp 1, CyGameTextMgrInterface.cpp 1, CyUnitInterface1.cpp 1, CyMapGeneratorInterface.cpp 1, CySelectionGroupInterface.cpp 1
+- Python modules: EntryPoints/CvRandomEventInterface.py 61, base/Screens/CvWorldBuilderScreen.py 32, EntryPoints/CvScreensInterface.py 20, Revolution/Gameready/Revolution.py 17, Revolution/Gameready/AIAutoPlay.py 15, Contrib/MoreCiv4lerts.py 15, Revolution/Gameready/BarbarianCiv.py 12, Revolution/RevEvents.py 11, Revolution/RevUtils.py 9, PyHelpers.py 7, Screens/PLE.py 7, base/pyWB/CvWBDesc.py 6, RoMEventManager.py 6, base/CvDebugTools.py 6, Screens/CvForeignAdvisor.py 6, CvMapGeneratorUtil.py 6, base/CvEventManager.py 6, Screens/CvMainInterface.py 6, Screens/CvExoticForeignAdvisor.py 5, ModTools/ModTools.py 5, base/CvPerfTest.py 5, Revolution/Development/ChangePlayer.py 5, Contrib/RevDCMReligionControl.py 5, Screens/CvPediaMain.py 5, BUG/DealUtil.py 4, BUG/PlayerUtil.py 4, EntryPoints/CvWBInterface.py 3, base/Screens/CvWorldBuilderDiplomacyScreen.py 3, Revolution/Gameready/StartAsMinors.py 3, CvUtil.py 3, Revolution/RevolutionInit.py 3, Screens/CvBUGMilitaryAdvisor.py 3, Contrib/MapFinder.py 2, Revolution/Gameready/TechDiffusion.py 2, Revolution/Development/Tester.py 2, BUG/TradeUtil.py 2, Contrib/FavoriteCivicDetector.py 2, Contrib/Sevopedia/SevoPediaBonus.py 2, base/Screens/CvPediaBonus.py 2, Contrib/Sevopedia/SevoPediaTech.py 2, base/Screens/CvPediaTech.py 2, Contrib/Civ4lerts.py 1, ModTools/ModToolsUtils.py 1, base/EntryPoints/CvGameInterface.py 1, AbandonCityEventManager.py 1, BUG/Scoreboard.py 1, base/CvCameraControls.py 1, EnhancedTechConquestUtils/EnhancedTechConquest.py 1, EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py 1, Contrib/MonkeyTools.py 1, base/pyWB/CvWBPopups.py 1, Contrib/TechWindow.py 1, Contrib/TechWindowWide.py 1, base/Screens/CvTechSplashScreen.py 1
 
-## Member variables (7)
+## Member variables (11)
 
-- CvGame::m_aiDeferredRevealPlots (CvGame.h:688): std::vector<int>
-- CvGame::m_bPagingPending (CvGame.h:684): bool
-- CvGame::m_bPagingPendingOut (CvGame.h:685): bool
-- CvGame::m_eBulkRevealTeam (CvGame.h:687): TeamTypes
-- CvGame::m_iBulkRevealDepth (CvGame.h:686): int
+- CvGame::m_aiDeferredRevealPlots (CvGame.h:693): std::vector<int>
+- CvGame::m_bPagingPending (CvGame.h:685): bool
+- CvGame::m_bPagingPendingOut (CvGame.h:686): bool
+- CvGame::m_dwGraphicsMemorySampleTime (CvGame.h:690): DWORD
+- CvGame::m_eBulkRevealTeam (CvGame.h:692): TeamTypes
+- CvGame::m_iBulkRevealDepth (CvGame.h:691): int
+- CvGame::m_iGraphicsMemoryAvailMB (CvGame.h:688): int
+- CvGame::m_iGraphicsMemoryPressure (CvGame.h:687): int
+- CvGame::m_iGraphicsMemoryRecoverySamples (CvGame.h:689): int
 - CvPlot::m_bRevealedGraphicsDirty (CvPlot.h:611): bool
 - CvPlot::m_bRevealedRouteDirty (CvPlot.h:612): bool
 
 ## XML tags and defines
 
+- define GRAPHICS_PAGING_ACTIVE_CITIES: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_ACTIVE_UNITS: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_CRITICAL_SELECTED_IN: GlobalDefinesAlt.xml [mod]
 - define GRAPHICS_PAGING_LOG: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_MARGIN: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_MAX_IN: GlobalDefinesAlt.xml [mod]
 - define GRAPHICS_PAGING_MAX_OUT: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_MEMORY_CONSERVE_MAX_IN: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_MEMORY_CONSERVE_MB: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_MEMORY_CONTROL: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_MEMORY_CRITICAL_MB: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_MEMORY_RECOVER_MB: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_MEMORY_RECOVER_SAMPLES: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_PRESSURE_RANGE_NORTH: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_PRESSURE_RANGE_SOUTH: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_PRESSURE_RANGE_X: GlobalDefinesAlt.xml [mod]
 - define GRAPHICS_PAGING_REVEAL_MAX: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_SYMBOLS: GlobalDefinesAlt.xml [mod]
 - define PEACE_TREATY_LENGTH: GlobalDefines.xml [mod]
 
 ## C++ functions, level by level
 
 
-### level 0 (21)
+### level 0 (32)
 
-- CvCity::setRevealed  (CvCity.cpp:10863)
+- CvCity::canPageGraphicsOut  (CvCity.cpp:765)
+- CvCity::setRevealed  (CvCity.cpp:10876)
 - CvDeal::startTrade  (CvDeal.cpp:696)
-- CvGame::beginBulkReveal  (CvGame.cpp:2296)
-- CvGame::deferRevealedGraphics  (CvGame.cpp:2337)
-- CvGame::endBulkReveal  (CvGame.cpp:2309)
-- CvGame::pageGraphics  (CvGame.cpp:2697)
-- CvGame::processDeferredReveals  (CvGame.cpp:2354)
+- CvGame::beginBulkReveal  (CvGame.cpp:2300)
+- CvGame::deferRevealedGraphics  (CvGame.cpp:2345)
+- CvGame::endBulkReveal  (CvGame.cpp:2313)
+- CvGame::pageGraphics  (CvGame.cpp:2818)
+- CvGame::processDeferredReveals  (CvGame.cpp:2362)
 - CvGame::reset  (CvGame.cpp:483)
-- CvGame::updateGraphicsPaging  (CvGame.cpp:2407)
-- CvPlayerAI::AI_counterPropose  (CvPlayerAI.cpp:9091)
-- CvPlayerAI::AI_doDiplo  (CvPlayerAI.cpp:17243)
-- CvPlayerAI::AI_goldPerTurnTradeVal  (CvPlayerAI.cpp:9703)
+- CvGame::updateGraphicsMemoryPressure  (CvGame.cpp:2417)
+- CvGame::updateGraphicsPaging  (CvGame.cpp:2509)
+- CvPlayerAI::AI_considerOffer  (CvPlayerAI.cpp:8990)
+- CvPlayerAI::AI_counterPropose  (CvPlayerAI.cpp:9132)
+- CvPlayerAI::AI_dealNetVal  (CvPlayerAI.cpp:8947)
+- CvPlayerAI::AI_doDiplo  (CvPlayerAI.cpp:17345)
+- CvPlayerAI::AI_goldPerTurnCostVal  (CvPlayerAI.cpp:9790)
+- CvPlayerAI::AI_goldPerTurnTradeVal  (CvPlayerAI.cpp:9782)
+- CvPlayerAI::AI_isMutuallyBeneficialDeal  (CvPlayerAI.cpp:8955)
+- CvPlayerAI::AI_tradeGiveVal  (CvPlayerAI.cpp:8915)
 - CvPlot::deferRevealedGraphics  (CvPlot.cpp:297)
 - CvPlot::isRevealedGraphicsDirty  (CvPlot.h:68)
 - CvPlot::refreshRevealedGraphics  (CvPlot.cpp:306)
 - CvPlot::reset  (CvPlot.cpp:180)
-- CvPlot::setRevealed  (CvPlot.cpp:7701)
+- CvPlot::setRevealed  (CvPlot.cpp:7703)
 - CvPlot::setRevealedGraphicsDirty  (CvPlot.h:69)
-- CvPlot::setRevealedImprovementType  (CvPlot.cpp:7889)
-- CvPlot::setRevealedRouteType  (CvPlot.cpp:7941)
+- CvPlot::setRevealedImprovementType  (CvPlot.cpp:7891)
+- CvPlot::setRevealedRouteType  (CvPlot.cpp:7943)
 - CvPlot::setupGraphical  (CvPlot.cpp:273)
+- CvPlot::updateFeatureSymbolEntity  (CvPlot.cpp:8123)
+- CvPlot::updatePlotBuilder  (CvPlot.cpp:9729)
+- CvPlot::updateRouteSymbol  (CvPlot.cpp:8176)
+- CvUnit::canPageGraphicsOut  (CvUnit.cpp:465)
 
-### level 1 (37)
+### level 1 (48)
 
 - CvCity::init  (CvCity.cpp:157)  <- call CvCity::setRevealed
+- CvCity::pageGraphics  (CvCity.cpp:784)  <- call CvCity::canPageGraphicsOut
+- CvCity::setWorkingPlot  (CvCity.cpp:11944)  <- call CvPlot::updatePlotBuilder
+- CvCity::setupGraphical  (CvCity.cpp:738)  <- call CvCity::canPageGraphicsOut
+- CvDLLButtonPopup::OnOkClicked  (CvDLLButtonPopup.cpp:75)  <- call CvPlayerAI::AI_considerOffer
 - CvDLLWidgetData::parseTradeItem  (CvDLLWidgetData.cpp:4631)  <- define PEACE_TREATY_LENGTH
 - CvDeal::addTrades  (CvDeal.cpp:119)  <- call CvDeal::startTrade
 - CvDeal::doTurn  (CvDeal.cpp:298)  <- define PEACE_TREATY_LENGTH
 - CvDeal::turnsToCancel  (CvDeal.cpp:1299)  <- define PEACE_TREATY_LENGTH
 - CvGame::CvGame  (CvGame.cpp:50)  <- call CvGame::reset
 - CvGame::init  (CvGame.cpp:108)  <- call CvGame::reset
-- CvGame::read  (CvGame.cpp:8971)  <- call CvGame::reset
-- CvGame::update  (CvGame.cpp:2171)  <- call CvGame::updateGraphicsPaging
+- CvGame::read  (CvGame.cpp:9169)  <- call CvGame::reset
+- CvGame::update  (CvGame.cpp:2175)  <- call CvGame::updateGraphicsPaging
 - CvGameTextMgr::getTradeString  (CvGameTextMgr.cpp:15442)  <- define PEACE_TREATY_LENGTH
 - CvGameTextMgr::getTurnTimerText  (CvGameTextMgr.cpp:19628)  <- define PEACE_TREATY_LENGTH
 - CvMap::setRevealedPlots  (CvMap.cpp:291)  <- call CvPlot::setRevealed
@@ -146,45 +199,67 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvPlayer::initFreeUnits  (CvPlayer.cpp:1848)  <- call CvPlot::setRevealed
 - CvPlayer::receiveGoody  (CvPlayer.cpp:6344)  <- call CvPlot::setRevealed
 - CvPlayer::splitEmpire  (CvPlayer.cpp:22369)  <- call CvPlot::setRevealed
-- CvPlayerAI::AI_bonusTradeVal  (CvPlayerAI.cpp:10120)  <- define PEACE_TREATY_LENGTH
+- CvPlayerAI::AI_bonusTradeVal  (CvPlayerAI.cpp:10222)  <- define PEACE_TREATY_LENGTH
 - CvPlayerAI::AI_dealVal  (CvPlayerAI.cpp:8823)  <- call CvPlayerAI::AI_goldPerTurnTradeVal
-- CvPlayerAI::AI_doAdvancedStart  (CvPlayerAI.cpp:23991)  <- call CvPlot::setRevealed
+- CvPlayerAI::AI_doAdvancedStart  (CvPlayerAI.cpp:24119)  <- call CvPlot::setRevealed
 - CvPlayerAI::AI_doTurnPost  (CvPlayerAI.cpp:543)  <- call CvPlayerAI::AI_doDiplo
-- CvPlayerAI::AI_eventValue  (CvPlayerAI.cpp:19602)  <- define PEACE_TREATY_LENGTH
-- CvPlayerAI::AI_maxGoldPerTurnTrade  (CvPlayerAI.cpp:9679)  <- define PEACE_TREATY_LENGTH
+- CvPlayerAI::AI_eventValue  (CvPlayerAI.cpp:19730)  <- define PEACE_TREATY_LENGTH
+- CvPlayerAI::AI_maxGoldPerTurnTrade  (CvPlayerAI.cpp:9758)  <- define PEACE_TREATY_LENGTH
 - CvPlot::CvPlot  (CvPlot.cpp:44)  <- call CvPlot::reset
-- CvPlot::changeStolenVisibilityCount  (CvPlot.cpp:7286)  <- call CvPlot::setRevealed
-- CvPlot::changeVisibilityCount  (CvPlot.cpp:7189)  <- call CvPlot::setRevealed
+- CvPlot::changeStolenVisibilityCount  (CvPlot.cpp:7288)  <- call CvPlot::setRevealed
+- CvPlot::changeVisibilityCount  (CvPlot.cpp:7191)  <- call CvPlot::setRevealed
 - CvPlot::init  (CvPlot.cpp:108)  <- call CvPlot::reset
-- CvPlot::read  (CvPlot.cpp:9204)  <- call CvPlot::reset
-- CvPlot::setImprovementType  (CvPlot.cpp:5818)  <- call CvPlot::setRevealedImprovementType
-- CvPlot::setRouteType  (CvPlot.cpp:5939)  <- call CvPlot::setRevealedRouteType
+- CvPlot::pageGraphics  (CvPlot.cpp:349)  <- call CvPlot::updateFeatureSymbolEntity
+- CvPlot::read  (CvPlot.cpp:9214)  <- call CvPlot::reset
+- CvPlot::setImprovementType  (CvPlot.cpp:5820)  <- call CvPlot::setRevealedImprovementType
+- CvPlot::setLayoutDirty  (CvPlot.cpp:9708)  <- call CvPlot::updatePlotBuilder
+- CvPlot::setPlotType  (CvPlot.cpp:5294)  <- call CvPlot::updateRouteSymbol
+- CvPlot::setRouteType  (CvPlot.cpp:5941)  <- call CvPlot::setRevealedRouteType
+- CvPlot::updateFeatureSymbol  (CvPlot.cpp:8109)  <- call CvPlot::updateFeatureSymbolEntity
+- CvPlot::updateVisibility  (CvPlot.cpp:765)  <- call CvPlot::updateRouteSymbol
 - CvTeam::addTeam  (CvTeam.cpp:520)  <- call CvPlot::setRevealed
 - CvTeam::resetPlotAndCityData  (CvTeam.cpp:433)  <- call CvCity::setRevealed
+- CvUnit::pageGraphics  (CvUnit.cpp:484)  <- call CvUnit::canPageGraphicsOut
+- CvUnit::setupGraphical  (CvUnit.cpp:435)  <- call CvUnit::canPageGraphicsOut
 - CyCity::setRevealed  (CyCity.cpp:2236)  <- call CvCity::setRevealed
 - CyPlot::setRevealed  (CyPlot.cpp:967)  <- call CvPlot::setRevealed
 
-### level 2 (71)
+### level 2 (100)
 
-- CvCity::applyEvent  (CvCity.cpp:15236)  <- call CvPlot::setImprovementType
-- CvCity::doTask  (CvCity.cpp:1504)  <- call CvPlayer::acquireCity
-- CvCity::kill  (CvCity.cpp:1005)  <- call CvPlot::setImprovementType
-- CvCity::liberate  (CvCity.cpp:15930)  <- call CvPlayer::acquireCity
+- CvCity::alterWorkingPlot  (CvCity.cpp:12012)  <- call CvCity::setWorkingPlot
+- CvCity::applyEvent  (CvCity.cpp:15249)  <- call CvPlot::setImprovementType
+- CvCity::doTask  (CvCity.cpp:1517)  <- call CvPlayer::acquireCity
+- CvCity::kill  (CvCity.cpp:1018)  <- call CvPlot::setImprovementType
+- CvCity::liberate  (CvCity.cpp:15943)  <- call CvPlayer::acquireCity
+- CvCity::setWorkingPlot  (CvCity.cpp:12006)  <- call CvCity::setWorkingPlot
+- CvCity::verifyWorkingPlot  (CvCity.cpp:1699)  <- call CvCity::setWorkingPlot
+- CvCityAI::AI_addBestCitizen  (CvCityAI.cpp:9768)  <- call CvCity::setWorkingPlot
+- CvCityAI::AI_assignWorkingPlots  (CvCityAI.cpp:245)  <- call CvCity::setWorkingPlot
+- CvCityAI::AI_juggleCitizens  (CvCityAI.cpp:10041)  <- call CvCity::setWorkingPlot
+- CvCityAI::AI_removeWorstCitizen  (CvCityAI.cpp:9917)  <- call CvCity::setWorkingPlot
+- CvCityAI::AI_updateWorkersNeededHere  (CvCityAI.cpp:13224)  <- call CvCity::setWorkingPlot
 - CvDLLWidgetData::parseHelp  (CvDLLWidgetData.cpp:53)  <- call CvDLLWidgetData::parseTradeItem
 - CvDeal::isCancelable  (CvDeal.cpp:1280)  <- call CvDeal::turnsToCancel
-- CvGame::doDeals  (CvGame.cpp:6754)  <- call CvDeal::doTurn
-- CvGame::doGlobalWarming  (CvGame.cpp:6768)  <- call CvPlot::setImprovementType
-- CvGame::implementDeal  (CvGame.cpp:3289)  <- call CvDeal::addTrades
-- CvGame::initFreeState  (CvGame.cpp:786)  <- call CvMap::setRevealedPlots
-- CvGame::initFreeUnits  (CvGame.cpp:846)  <- call CvPlayer::initFreeUnits
-- CvGame::processVote  (CvGame.cpp:8467)  <- call CvPlayer::acquireCity
+- CvGame::doDeals  (CvGame.cpp:6952)  <- call CvDeal::doTurn
+- CvGame::doGlobalWarming  (CvGame.cpp:6966)  <- call CvPlot::setImprovementType
+- CvGame::implementDeal  (CvGame.cpp:3487)  <- call CvDeal::addTrades
+- CvGame::initFreeState  (CvGame.cpp:790)  <- call CvMap::setRevealedPlots
+- CvGame::initFreeUnits  (CvGame.cpp:850)  <- call CvPlayer::initFreeUnits
+- CvGame::normalizeAddExtras  (CvGame.cpp:1752)  <- call CvPlot::setPlotType
+- CvGame::normalizeAddLakes  (CvGame.cpp:1302)  <- call CvPlot::setPlotType
+- CvGame::normalizeRemovePeaks  (CvGame.cpp:1264)  <- call CvPlot::setPlotType
+- CvGame::processVote  (CvGame.cpp:8665)  <- call CvPlayer::acquireCity
 - CvGame::regenerateMap  (CvGame.cpp:348)  <- call CvMap::setupGraphical
 - CvGameAI::CvGameAI  (CvGameAI.cpp:13)  <- call CvGame::CvGame
 - CvGameAI::read  (CvGameAI.cpp:113)  <- call CvGame::read
 - CvGameTextMgr::getDealString  (CvGameTextMgr.cpp:15071)  <- call CvGameTextMgr::getTradeString
 - CvMap::init  (CvMap.cpp:65)  <- call CvPlot::init
 - CvMap::read  (CvMap.cpp:1300)  <- call CvPlot::CvPlot
+- CvMap::setAllPlotTypes  (CvMap.cpp:306)  <- call CvPlot::setPlotType
+- CvMap::updateVisibility  (CvMap.cpp:374)  <- call CvPlot::updateVisibility
 - CvMapGenerator::addGoodies  (CvMapGenerator.cpp:888)  <- call CvPlot::setImprovementType
+- CvMapGenerator::addLakes  (CvMapGenerator.cpp:262)  <- call CvPlot::setPlotType
+- CvMapGenerator::setPlotTypes  (CvMapGenerator.cpp:1078)  <- call CvPlot::setPlotType
 - CvNetAdvancedStartAction::Execute  (CvMessageData.cpp:484)  <- call CvPlayer::doAdvancedStartAction
 - CvNetEmpireSplit::Execute  (CvMessageData.cpp:588)  <- call CvPlayer::splitEmpire
 - CvPlayer::applyEvent  (CvPlayer.cpp:20656)  <- call CvPlot::setImprovementType
@@ -193,34 +268,45 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvPlayer::doTurn  (CvPlayer.cpp:3918)  <- call CvPlayerAI::AI_doTurnPost
 - CvPlayer::initCity  (CvPlayer.cpp:2320)  <- call CvCity::init
 - CvPlayer::initInGame  (CvPlayer.cpp:445)  <- call CvTeam::resetPlotAndCityData
+- CvPlayer::setCurrentEra  (CvPlayer.cpp:12644)  <- call CvPlot::setLayoutDirty
 - CvPlayer::setTurnActive  (CvPlayer.cpp:12160)  <- call CvPlayerAI::AI_doAdvancedStart
-- CvPlayerAI::AI_advancedStartDoRoute  (CvPlayerAI.cpp:23752)  <- call CvPlayer::doAdvancedStartAction
-- CvPlayerAI::AI_advancedStartPlaceCity  (CvPlayerAI.cpp:23638)  <- call CvPlayer::doAdvancedStartAction
-- CvPlayerAI::AI_advancedStartPlaceExploreUnits  (CvPlayerAI.cpp:23529)  <- call CvPlayer::doAdvancedStartAction
-- CvPlayerAI::AI_advancedStartRevealRadius  (CvPlayerAI.cpp:23613)  <- call CvPlayer::doAdvancedStartAction
-- CvPlayerAI::AI_advancedStartRouteTerritory  (CvPlayerAI.cpp:23788)  <- call CvPlayer::doAdvancedStartAction
-- CvPlayerAI::AI_chooseEvent  (CvPlayerAI.cpp:20145)  <- call CvPlayerAI::AI_eventValue
-- CvPlayerAI::AI_considerOffer  (CvPlayerAI.cpp:8937)  <- call CvPlayerAI::AI_dealVal
-- CvPlayerAI::AI_doSplit  (CvPlayerAI.cpp:20180)  <- call CvPlayer::splitEmpire
-- CvPlayerAI::AI_stopTradingTradeVal  (CvPlayerAI.cpp:10641)  <- call CvPlayerAI::AI_dealVal
-- CvPlot::applyEvent  (CvPlot.cpp:10212)  <- call CvPlot::setImprovementType
-- CvPlot::changeAdjacentSight  (CvPlot.cpp:1854)  <- call CvPlot::changeVisibilityCount
-- CvPlot::changeBuildProgress  (CvPlot.cpp:7998)  <- call CvPlot::setImprovementType
-- CvPlot::doImprovementUpgrade  (CvPlot.cpp:693)  <- call CvPlot::setImprovementType
-- CvPlot::erase  (CvPlot.cpp:449)  <- call CvPlot::setImprovementType
-- CvPlot::nukeExplosion  (CvPlot.cpp:1058)  <- call CvPlot::setImprovementType
-- CvPlot::removeGoody  (CvPlot.cpp:3697)  <- call CvPlot::setImprovementType
-- CvPlot::setFeatureType  (CvPlot.cpp:5597)  <- call CvPlot::setImprovementType
-- CvPlot::setOwner  (CvPlot.cpp:5002)  <- call CvPlayer::acquireCity
-- CvPlot::updateCityRoute  (CvPlot.cpp:5986)  <- call CvPlot::setRouteType
+- CvPlayer::setupGraphical  (CvPlayer.cpp:1815)  <- call CvCity::setupGraphical
+- CvPlayerAI::AI_advancedStartDoRoute  (CvPlayerAI.cpp:23880)  <- call CvPlayer::doAdvancedStartAction
+- CvPlayerAI::AI_advancedStartPlaceCity  (CvPlayerAI.cpp:23766)  <- call CvPlayer::doAdvancedStartAction
+- CvPlayerAI::AI_advancedStartPlaceExploreUnits  (CvPlayerAI.cpp:23657)  <- call CvPlayer::doAdvancedStartAction
+- CvPlayerAI::AI_advancedStartRevealRadius  (CvPlayerAI.cpp:23741)  <- call CvPlayer::doAdvancedStartAction
+- CvPlayerAI::AI_advancedStartRouteTerritory  (CvPlayerAI.cpp:23916)  <- call CvPlayer::doAdvancedStartAction
+- CvPlayerAI::AI_chooseEvent  (CvPlayerAI.cpp:20273)  <- call CvPlayerAI::AI_eventValue
+- CvPlayerAI::AI_doSplit  (CvPlayerAI.cpp:20308)  <- call CvPlayer::splitEmpire
+- CvPlayerAI::AI_stopTradingTradeVal  (CvPlayerAI.cpp:10743)  <- call CvPlayerAI::AI_dealVal
+- CvPlot::applyEvent  (CvPlot.cpp:10226)  <- call CvPlot::setImprovementType
+- CvPlot::changeAdjacentSight  (CvPlot.cpp:1856)  <- call CvPlot::changeVisibilityCount
+- CvPlot::changeBuildProgress  (CvPlot.cpp:8000)  <- call CvPlot::setImprovementType
+- CvPlot::doImprovementUpgrade  (CvPlot.cpp:695)  <- call CvPlot::setImprovementType
+- CvPlot::erase  (CvPlot.cpp:451)  <- call CvPlot::setImprovementType
+- CvPlot::nukeExplosion  (CvPlot.cpp:1060)  <- call CvPlot::setImprovementType
+- CvPlot::removeGoody  (CvPlot.cpp:3699)  <- call CvPlot::setImprovementType
+- CvPlot::setBonusType  (CvPlot.cpp:5769)  <- call CvPlot::setLayoutDirty
+- CvPlot::setFeatureType  (CvPlot.cpp:5599)  <- call CvPlot::setImprovementType
+- CvPlot::setIrrigated  (CvPlot.cpp:4785)  <- call CvPlot::setLayoutDirty
+- CvPlot::setOwner  (CvPlot.cpp:5004)  <- call CvPlayer::acquireCity
+- CvPlot::setTerrainType  (CvPlot.cpp:5544)  <- call CvPlot::setPlotType
+- CvPlot::updateCityRoute  (CvPlot.cpp:5988)  <- call CvPlot::setRouteType
+- CvPlot::updateFlagSymbol  (CvPlot.cpp:8342)  <- call CvPlot::pageGraphics
+- CvPlot::updateRiverSymbol  (CvPlot.cpp:8243)  <- call CvPlot::setLayoutDirty
+- CvTeam::processTech  (CvTeam.cpp:6792)  <- call CvPlot::setLayoutDirty
+- CvTeam::setForceRevealedBonus  (CvTeam.cpp:7197)  <- call CvPlot::setLayoutDirty
 - CvTeam::setHasTech  (CvTeam.cpp:5947)  <- call CvMap::setRevealedPlots
 - CvTeam::setStolenVisibilityTimer  (CvTeam.cpp:4270)  <- call CvPlot::changeStolenVisibilityCount
-- CvUnit::airBomb  (CvUnit.cpp:4895)  <- call CvPlot::setImprovementType
-- CvUnit::airBomb1  (CvUnit.cpp:14533)  <- call CvPlot::setImprovementType
-- CvUnit::bombardRanged  (CvUnit.cpp:15531)  <- call CvPlot::setImprovementType
-- CvUnit::pillage  (CvUnit.cpp:5400)  <- call CvPlot::setImprovementType
-- CvUnit::sabotage  (CvUnit.cpp:5803)  <- call CvPlot::setImprovementType
-- CvUnit::setXY  (CvUnit.cpp:10566)  <- call CvPlayer::acquireCity
+- CvUnit::airBomb  (CvUnit.cpp:4905)  <- call CvPlot::setImprovementType
+- CvUnit::airBomb1  (CvUnit.cpp:14543)  <- call CvPlot::setImprovementType
+- CvUnit::bombardRanged  (CvUnit.cpp:15541)  <- call CvPlot::setImprovementType
+- CvUnit::init  (CvUnit.cpp:100)  <- call CvUnit::setupGraphical
+- CvUnit::isCombatVisible  (CvUnit.cpp:14330)  <- call CvUnit::pageGraphics
+- CvUnit::pillage  (CvUnit.cpp:5410)  <- call CvPlot::setImprovementType
+- CvUnit::reloadEntity  (CvUnit.cpp:83)  <- call CvUnit::setupGraphical
+- CvUnit::sabotage  (CvUnit.cpp:5813)  <- call CvPlot::setImprovementType
+- CvUnit::setXY  (CvUnit.cpp:10576)  <- call CvPlayer::acquireCity
 - CyCityPythonInterface1  (CyCityInterface1.cpp:15)  <- call CyCity::setRevealed
 - CyDeal::turnsToCancel  (CyDeal.cpp:125)  <- call CvDeal::turnsToCancel
 - CyGameTextMgr::getTradeString  (CyGameTextMgr.cpp:198)  <- call CvGameTextMgr::getTradeString
@@ -232,48 +318,73 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CyPlayer::splitEmpire  (CyPlayer.cpp:2483)  <- call CvPlayer::splitEmpire
 - CyPlot::changeVisibilityCount  (CyPlot.cpp:936)  <- call CvPlot::changeVisibilityCount
 - CyPlot::setImprovementType  (CyPlot.cpp:776)  <- call CvPlot::setImprovementType
+- CyPlot::setPlotType  (CyPlot.cpp:651)  <- call CvPlot::setPlotType
 - CyPlot::setRouteType  (CyPlot.cpp:787)  <- call CvPlot::setRouteType
+- CyPlot::updateVisibility  (CyPlot.cpp:70)  <- call CvPlot::updateVisibility
 - CyPlotPythonInterface1  (CyPlotInterface1.cpp:15)  <- call CyPlot::setRevealed
 - CyTeam::addTeam  (CyTeam.cpp:48)  <- call CvTeam::addTeam
 - ReadStreamableFFreeListTrashArray<class CvArea>  (FFreeListTrashArray.h:485)  <- call CvGame::read
 - ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>  (FFreeListTrashArray.h:485)  <- call CvGame::read
+- addEntityMission  (CvGameCoreUtils.cpp:219)  <- call CvUnit::pageGraphics
 
-### level 3 (104)
+### level 3 (157)
 
-- CvCity::doMeltdown  (CvCity.cpp:14052)  <- call CvPlot::nukeExplosion
-- CvDLLButtonPopup::OnOkClicked  (CvDLLButtonPopup.cpp:75)  <- call CvPlayerAI::AI_considerOffer
+- CvCity::alterSpecialistCount  (CvCity.cpp:11567)  <- call CvCityAI::AI_addBestCitizen
+- CvCity::doMeltdown  (CvCity.cpp:14065)  <- call CvPlot::nukeExplosion
+- CvCity::popOrder  (CvCity.cpp:12939)  <- call CvCityAI::AI_assignWorkingPlots
+- CvCity::setCitizensAutomated  (CvCity.cpp:8698)  <- call CvCityAI::AI_assignWorkingPlots
+- CvCity::verifyWorkingPlots  (CvCity.cpp:1723)  <- call CvCity::verifyWorkingPlot
+- CvCityAI::AI_buildGovernorChooseProduction  (CvCityAI.cpp:12171)  <- call CvCityAI::AI_assignWorkingPlots
+- CvCityAI::AI_chooseProduction  (CvCityAI.cpp:706)  <- call CvCityAI::AI_assignWorkingPlots
+- CvCityAI::AI_doTurn  (CvCityAI.cpp:186)  <- call CvCityAI::AI_updateWorkersNeededHere
+- CvCityAI::AI_init  (CvCityAI.cpp:82)  <- call CvCityAI::AI_updateWorkersNeededHere
+- CvCityAI::AI_setEmphasize  (CvCityAI.cpp:6606)  <- call CvCityAI::AI_assignWorkingPlots
+- CvCityAI::AI_updateAssignWork  (CvCityAI.cpp:400)  <- call CvCityAI::AI_assignWorkingPlots
 - CvDLLWidgetData::doDealKill  (CvDLLWidgetData.cpp:5969)  <- call CvDeal::isCancelable
 - CvDLLWidgetData::isLink  (CvDLLWidgetData.cpp:1072)  <- call CvDeal::isCancelable
 - CvDLLWidgetData::parseKillDealHelp  (CvDLLWidgetData.cpp:5906)  <- call CvDeal::isCancelable
 - CvDeal::startTeamTrade  (CvDeal.cpp:1198)  <- call CvGame::implementDeal
 - CvDeal::verify  (CvDeal.cpp:336)  <- call CvDeal::isCancelable
-- CvGame::addPlayer  (CvGame.cpp:9533)  <- call CvPlayer::initInGame
+- CvGame::addPlayer  (CvGame.cpp:9731)  <- call CvPlayer::initInGame
 - CvGame::cheatSpaceship  (CvGameInterface.cpp:2561)  <- call CvTeam::setHasTech
-- CvGame::doTurn  (CvGame.cpp:6606)  <- call CvPlayer::setTurnActive
-- CvGame::initDiplomacy  (CvGame.cpp:730)  <- call CvGame::implementDeal
+- CvGame::doTurn  (CvGame.cpp:6804)  <- call CvPlayer::setTurnActive
+- CvGame::initDiplomacy  (CvGame.cpp:734)  <- call CvGame::implementDeal
 - CvGame::nextActivePlayer  (CvGameInterface.cpp:2691)  <- call CvPlayer::setTurnActive
-- CvGame::normalizeAddExtras  (CvGame.cpp:1748)  <- call CvPlot::setFeatureType
-- CvGame::normalizeAddGoodTerrain  (CvGame.cpp:1643)  <- call CvPlot::setFeatureType
-- CvGame::normalizeAddRiver  (CvGame.cpp:1206)  <- call CvPlot::setFeatureType
-- CvGame::normalizeRemoveBadFeatures  (CvGame.cpp:1370)  <- call CvPlot::setFeatureType
+- CvGame::normalizeAddFoodBonuses  (CvGame.cpp:1537)  <- call CvPlot::setBonusType
+- CvGame::normalizeAddGoodTerrain  (CvGame.cpp:1647)  <- call CvPlot::setFeatureType
+- CvGame::normalizeAddRiver  (CvGame.cpp:1210)  <- call CvPlot::setFeatureType
+- CvGame::normalizeRemoveBadFeatures  (CvGame.cpp:1374)  <- call CvPlot::setFeatureType
+- CvGame::normalizeRemoveBadTerrain  (CvGame.cpp:1451)  <- call CvPlot::setTerrainType
+- CvGame::normalizeStartingPlots  (CvGame.cpp:2052)  <- call CvGame::normalizeRemovePeaks
+- CvGame::setActivePlayer  (CvGame.cpp:5561)  <- call CvMap::updateVisibility
 - CvGame::setInitialItems  (CvGame.cpp:293)  <- call CvGame::initFreeState
-- CvGame::setVoteOutcome  (CvGame.cpp:6019)  <- call CvGame::processVote
+- CvGame::setVoteOutcome  (CvGame.cpp:6217)  <- call CvGame::processVote
+- CvGame::toggleDebugMode  (CvGame.cpp:5384)  <- call CvMap::updateVisibility
 - CvGameTextMgr::getDealString  (CvGameTextMgr.cpp:15060)  <- call CvGameTextMgr::getDealString
 - CvGlobals::init  (CvGlobals.cpp:384)  <- call CvGameAI::CvGameAI
 - CvMap::erasePlots  (CvMap.cpp:280)  <- call CvPlot::erase
 - CvMap::rebuild  (CvMap.cpp:1378)  <- call CvMap::init
+- CvMap::updateFlagSymbols  (CvMap.cpp:343)  <- call CvPlot::updateFlagSymbol
 - CvMapGenerator::addFeatures  (CvMapGenerator.cpp:644)  <- call CvPlot::setFeatureType
 - CvMapGenerator::addGameElements  (CvMapGenerator.cpp:240)  <- call CvMapGenerator::addGoodies
+- CvMapGenerator::addNonUniqueBonusType  (CvMapGenerator.cpp:828)  <- call CvPlot::setBonusType
+- CvMapGenerator::addUniqueBonusType  (CvMapGenerator.cpp:712)  <- call CvPlot::setBonusType
+- CvMapGenerator::eraseBonuses  (CvMapGenerator.cpp:968)  <- call CvPlot::setBonusType
 - CvMapGenerator::eraseFeatures  (CvMapGenerator.cpp:957)  <- call CvPlot::setFeatureType
 - CvMapGenerator::eraseGoodies  (CvMapGenerator.cpp:979)  <- call CvPlot::removeGoody
+- CvMapGenerator::generatePlotTypes  (CvMapGenerator.cpp:1022)  <- call CvMapGenerator::setPlotTypes
+- CvMapGenerator::generateTerrain  (CvMapGenerator.cpp:1051)  <- call CvPlot::setTerrainType
 - CvNetDoTask::Execute  (CvMessageData.cpp:283)  <- call CvCity::doTask
 - CvNetEventTriggered::Execute  (CvMessageData.cpp:685)  <- call CvPlayer::applyEvent
 - CvNetResearch::Execute  (CvMessageData.cpp:376)  <- call CvTeam::setHasTech
+- CvPlayer::changeCiv  (CvPlayer.cpp:1573)  <- call CvPlayer::setupGraphical
 - CvPlayer::cheat  (CvPlayer.cpp:24740)  <- call CvTeam::setHasTech
 - CvPlayer::disband  (CvPlayer.cpp:6222)  <- call CvCity::kill
 - CvPlayer::doEvents  (CvPlayer.cpp:21539)  <- call CvPlayer::applyEvent
 - CvPlayer::forcePeace  (CvPlayer.cpp:23601)  <- call CvGame::implementDeal
 - CvPlayer::found  (CvPlayer.cpp:6737)  <- call CvPlayer::initCity
+- CvPlayer::init  (CvPlayer.cpp:191)  <- call CvPlayer::setupGraphical
+- CvPlayer::initUnit  (CvPlayer.cpp:3107)  <- call CvUnit::init
 - CvPlayer::isTradingWithTeam  (CvPlayer.cpp:5899)  <- call CvDeal::isCancelable
 - CvPlayer::killCities  (CvPlayer.cpp:2951)  <- call CvCity::kill
 - CvPlayer::read  (CvPlayer.cpp:18464)  <- call ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>
@@ -282,23 +393,26 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvPlayer::setNewPlayerAlive  (CvPlayer.cpp:11916)  <- call CvPlayer::setTurnActive
 - CvPlayer::stopTradingWithTeam  (CvPlayer.cpp:5963)  <- call CvDeal::isCancelable
 - CvPlayer::trigger  (CvPlayer.cpp:21805)  <- call CvPlayer::applyEvent
+- CvPlayerAI::AI_assignWorkingPlots  (CvPlayerAI.cpp:1701)  <- call CvCityAI::AI_assignWorkingPlots
 - CvPlayerAI::AI_chooseFreeTech  (CvPlayerAI.cpp:7103)  <- call CvTeam::setHasTech
 - CvPlayerAI::AI_conquerCity  (CvPlayerAI.cpp:1744)  <- call CvCity::doTask
 - CvPlayerAI::AI_doPeace  (CvPlayerAI.cpp:862)  <- call CvGame::implementDeal
 - CvPlayerAI::AI_doTurnUnitsPost  (CvPlayerAI.cpp:625)  <- call CvPlayerAI::AI_doSplit
-- CvPlot::doCulture  (CvPlot.cpp:8946)  <- call CvPlot::setOwner
-- CvPlot::doFeature  (CvPlot.cpp:8788)  <- call CvPlot::setFeatureType
-- CvPlot::doImprovement  (CvPlot.cpp:630)  <- call CvPlot::doImprovementUpgrade
-- CvPlot::setPlotType  (CvPlot.cpp:5292)  <- call CvPlot::erase
-- CvPlot::updateCulture  (CvPlot.cpp:713)  <- call CvPlot::setOwner
-- CvPlot::updateSight  (CvPlot.cpp:2092)  <- call CvPlot::changeAdjacentSight
+- CvPlot::doCulture  (CvPlot.cpp:8956)  <- call CvPlot::setOwner
+- CvPlot::doFeature  (CvPlot.cpp:8798)  <- call CvPlot::setFeatureType
+- CvPlot::doImprovement  (CvPlot.cpp:632)  <- call CvPlot::doImprovementUpgrade
+- CvPlot::setNOfRiver  (CvPlot.cpp:4611)  <- call CvPlot::updateRiverSymbol
+- CvPlot::setWOfRiver  (CvPlot.cpp:4658)  <- call CvPlot::updateRiverSymbol
+- CvPlot::updateCulture  (CvPlot.cpp:715)  <- call CvPlot::setOwner
+- CvPlot::updateIrrigated  (CvPlot.cpp:4811)  <- call CvPlot::setIrrigated
+- CvPlot::updateSight  (CvPlot.cpp:2094)  <- call CvPlot::changeAdjacentSight
+- CvPlot::updateWorkingCity  (CvPlot.cpp:6101)  <- call CvCity::setWorkingPlot
 - CvSelectionGroup::groupAttack  (CvSelectionGroup.cpp:4392)  <- call CvUnit::bombardRanged
 - CvSelectionGroup::groupStackAttack  (CvSelectionGroup.cpp:6368)  <- call CvUnit::bombardRanged
 - CvSelectionGroup::setRemoteTransportUnit  (CvSelectionGroup.cpp:5064)  <- call CvUnit::setXY
 - CvSelectionGroup::startMission  (CvSelectionGroup.cpp:1372)  <- call CvUnit::airBomb1
 - CvTeam::assignVassal  (CvTeam.cpp:5125)  <- call CvGame::implementDeal
 - CvTeam::changeStolenVisibilityTimer  (CvTeam.cpp:4302)  <- call CvTeam::setStolenVisibilityTimer
-- CvTeam::processTech  (CvTeam.cpp:6792)  <- call CvPlot::updateCityRoute
 - CvTeam::setResearchProgress  (CvTeam.cpp:5595)  <- call CvTeam::setHasTech
 - CvTeam::setTurnActive  (CvTeam.cpp:7295)  <- call CvPlayer::setTurnActive
 - CvTeam::shareCounters  (CvTeam.cpp:897)  <- call CvTeam::setStolenVisibilityTimer
@@ -306,18 +420,38 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvTeam::signDefensivePact  (CvTeam.cpp:2276)  <- call CvGame::implementDeal
 - CvTeam::signOpenBorders  (CvTeam.cpp:2249)  <- call CvGame::implementDeal
 - CvTeam::updateTechShare  (CvTeam.cpp:6634)  <- call CvTeam::setHasTech
-- CvUnit::airlift  (CvUnit.cpp:4203)  <- call CvUnit::setXY
-- CvUnit::build  (CvUnit.cpp:7641)  <- call CvPlot::changeBuildProgress
-- CvUnit::changeExtraVisibilityRange  (CvUnit.cpp:11540)  <- call CvPlot::changeAdjacentSight
-- CvUnit::espionage  (CvUnit.cpp:7332)  <- call CvPlayer::doEspionageMission
-- CvUnit::init  (CvUnit.cpp:100)  <- call CvUnit::setXY
-- CvUnit::jumpToNearestValidPlot  (CvUnit.cpp:3216)  <- call CvUnit::setXY
-- CvUnit::kill  (CvUnit.cpp:582)  <- call CvUnit::setXY
-- CvUnit::move  (CvUnit.cpp:3173)  <- call CvUnit::setXY
-- CvUnit::paradrop  (CvUnit.cpp:4704)  <- call CvUnit::setXY
-- CvUnit::setFacingDirection  (CvUnit.cpp:11905)  <- call CvPlot::changeAdjacentSight
-- CvUnit::setReconPlot  (CvUnit.cpp:11086)  <- call CvPlot::changeAdjacentSight
-- CvUnit::testSpyIntercepted  (CvUnit.cpp:7400)  <- call CvUnit::setXY
+- CvUnit::airBomb2  (CvUnit.cpp:14694)  <- call addEntityMission
+- CvUnit::airBomb3  (CvUnit.cpp:14897)  <- call addEntityMission
+- CvUnit::airBomb4  (CvUnit.cpp:15138)  <- call addEntityMission
+- CvUnit::airBomb5  (CvUnit.cpp:15325)  <- call addEntityMission
+- CvUnit::airCircle  (CvUnit.cpp:3932)  <- call addEntityMission
+- CvUnit::airlift  (CvUnit.cpp:4213)  <- call CvUnit::setXY
+- CvUnit::archerBombard  (CvUnit.cpp:16457)  <- call addEntityMission
+- CvUnit::attackForDamage  (CvUnit.cpp:3063)  <- call addEntityMission
+- CvUnit::bombard  (CvUnit.cpp:5300)  <- call addEntityMission
+- CvUnit::build  (CvUnit.cpp:7651)  <- call CvPlot::changeBuildProgress
+- CvUnit::changeExtraVisibilityRange  (CvUnit.cpp:11550)  <- call CvPlot::changeAdjacentSight
+- CvUnit::doActiveDefense  (CvUnit.cpp:16332)  <- call addEntityMission
+- CvUnit::doOpportunityFire  (CvUnit.cpp:16269)  <- call addEntityMission
+- CvUnit::espionage  (CvUnit.cpp:7342)  <- call CvPlayer::doEspionageMission
+- CvUnit::fighterEngage  (CvUnit.cpp:16633)  <- call addEntityMission
+- CvUnit::jumpToNearestValidPlot  (CvUnit.cpp:3226)  <- call CvUnit::setXY
+- CvUnit::kill  (CvUnit.cpp:592)  <- call CvUnit::setXY
+- CvUnit::move  (CvUnit.cpp:3183)  <- call CvUnit::setXY
+- CvUnit::nuke  (CvUnit.cpp:4346)  <- call addEntityMission
+- CvUnit::paradrop  (CvUnit.cpp:4714)  <- call CvUnit::setXY
+- CvUnit::promote  (CvUnit.cpp:7741)  <- call CvUnit::reloadEntity
+- CvUnit::rangeStrike  (CvUnit.cpp:13601)  <- call addEntityMission
+- CvUnit::recon  (CvUnit.cpp:4615)  <- call addEntityMission
+- CvUnit::setFacingDirection  (CvUnit.cpp:11915)  <- call CvPlot::changeAdjacentSight
+- CvUnit::setLeaderUnitType  (CvUnit.cpp:12221)  <- call CvUnit::reloadEntity
+- CvUnit::setReconPlot  (CvUnit.cpp:11096)  <- call CvPlot::changeAdjacentSight
+- CvUnit::testSpyIntercepted  (CvUnit.cpp:7410)  <- call CvUnit::setXY
+- CvUnit::updateAirCombat  (CvUnit.cpp:1088)  <- call addEntityMission
+- CvUnit::updateAirStrike  (CvUnit.cpp:881)  <- call addEntityMission
+- CvUnit::updateCombat  (CvUnit.cpp:1405)  <- call addEntityMission
+- CvUnit::updateStackCombat  (CvUnit.cpp:15848)  <- call addEntityMission
+- CyCity::alterWorkingPlot  (CyCity.cpp:2591)  <- call CvCity::alterWorkingPlot
 - CyCity::doTask  (CyCity.cpp:216)  <- call CvCity::doTask
 - CyCity::kill  (CyCity.cpp:24)  <- call CvCity::kill
 - CyCity::liberate  (CyCity.cpp:2814)  <- call CvCity::liberate
@@ -326,78 +460,108 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CyGame::regenerateMap  (CyGame.cpp:1285)  <- call CvGame::regenerateMap
 - CyGamePythonInterface  (CyGameInterface.cpp:13)  <- call CyDeal::turnsToCancel
 - CyGameTextMgrInterface  (CyGameTextMgrInterface.cpp:9)  <- call CyGameTextMgr::getTradeString
+- CyMap::setAllPlotTypes  (CyMap.cpp:40)  <- call CvMap::setAllPlotTypes
+- CyMap::updateVisibility  (CyMap.cpp:59)  <- call CvMap::updateVisibility
 - CyMapGenerator::addGoodies  (CyMapGenerator.cpp:87)  <- call CvMapGenerator::addGoodies
+- CyMapGenerator::addLakes  (CyMapGenerator.cpp:45)  <- call CvMapGenerator::addLakes
+- CyMapGenerator::setPlotTypes  (CyMapGenerator.cpp:141)  <- call CvMapGenerator::setPlotTypes
 - CyMapPythonInterface  (CyMapInterface.cpp:17)  <- call CyMap::setRevealedPlots
 - CyPlayer::doEspionageMission  (CyPlayer.cpp:1031)  <- call CvPlayer::doEspionageMission
 - CyPlayer::doGoody  (CyPlayer.cpp:502)  <- call CvPlayer::doGoody
 - CyPlayer::initCity  (CyPlayer.cpp:148)  <- call CvPlayer::initCity
+- CyPlayer::setCurrentEra  (CyPlayer.cpp:1716)  <- call CvPlayer::setCurrentEra
 - CyPlayerPythonInterface1  (CyPlayerInterface1.cpp:17)  <- call CyPlayer::acquireCity
 - CyPlayerPythonInterface2  (CyPlayerInterface2.cpp:17)  <- call CyPlayer::splitEmpire
 - CyPlot::changeBuildProgress  (CyPlot.cpp:988)  <- call CvPlot::changeBuildProgress
 - CyPlot::erase  (CyPlot.cpp:23)  <- call CvPlot::erase
 - CyPlot::nukeExplosion  (CyPlot.cpp:39)  <- call CvPlot::nukeExplosion
 - CyPlot::removeGoody  (CyPlot.cpp:309)  <- call CvPlot::removeGoody
+- CyPlot::setBonusType  (CyPlot.cpp:765)  <- call CvPlot::setBonusType
 - CyPlot::setFeatureType  (CyPlot.cpp:673)  <- call CvPlot::setFeatureType
 - CyPlot::setOwner  (CyPlot.cpp:615)  <- call CvPlot::setOwner
 - CyPlot::setOwnerNoUnitCheck  (CyPlot.cpp:621)  <- call CvPlot::setOwner
+- CyPlot::setTerrainType  (CyPlot.cpp:662)  <- call CvPlot::setTerrainType
 - CyTeam::setHasTech  (CyTeam.cpp:873)  <- call CvTeam::setHasTech
 - CyTeamPythonInterface  (CyTeamInterface.cpp:10)  <- call CyTeam::addTeam
 - CyUnit::setXY  (CyUnit.cpp:1192)  <- call CvUnit::setXY
 - DLLPublishToPython  (CvDLLPython.cpp:50)  <- call CyCityPythonInterface1
+- changeIrrigated  (CvGameCoreUtils.cpp:1642)  <- call CvPlot::setIrrigated
 
-### level 4 (124)
+### level 4 (158)
 
-- CvCity::doTurn  (CvCity.cpp:1208)  <- call CvCity::doMeltdown
-- CvCity::popOrder  (CvCity.cpp:12926)  <- call CvUnit::jumpToNearestValidPlot
-- CvCity::setEspionageVisibility  (CvCity.cpp:10918)  <- call CvPlot::updateSight
-- CvCity::setNumRealBuildingTimed  (CvCity.cpp:12064)  <- call CvPlayerAI::AI_chooseFreeTech
+- CvCity::cheat  (CvCity.cpp:16214)  <- call CvCity::popOrder
+- CvCity::clearOrderQueue  (CvCity.cpp:12751)  <- call CvCity::popOrder
+- CvCity::doCheckProduction  (CvCity.cpp:13641)  <- call CvCity::popOrder
+- CvCity::doProduction  (CvCity.cpp:13780)  <- call CvCityAI::AI_chooseProduction
+- CvCity::doTurn  (CvCity.cpp:1221)  <- call CvCity::doMeltdown
+- CvCity::emergencyConscript  (CvCity.cpp:16271)  <- call CvPlayer::initUnit
+- CvCity::initConscriptedUnit  (CvCity.cpp:4201)  <- call CvPlayer::initUnit
+- CvCity::pushOrder  (CvCity.cpp:12765)  <- call CvCity::popOrder
+- CvCity::setEspionageVisibility  (CvCity.cpp:10931)  <- call CvPlot::updateSight
+- CvCity::setHeadquarters  (CvCity.cpp:4776)  <- call CvPlayer::initUnit
+- CvCity::setNumRealBuildingTimed  (CvCity.cpp:12077)  <- call CvPlayerAI::AI_chooseFreeTech
+- CvCity::setProductionAutomated  (CvCity.cpp:8732)  <- call CvCityAI::AI_chooseProduction
+- CvCityAI::AI_doEmphasize  (CvCityAI.cpp:9279)  <- call CvCityAI::AI_setEmphasize
 - CvDLLWidgetData::executeAction  (CvDLLWidgetData.cpp:657)  <- call CvDLLWidgetData::doDealKill
 - CvDeal::kill  (CvDeal.cpp:78)  <- call CvGameTextMgr::getDealString
 - CvDllPythonEvents::reportCityLost  (CvDllPythonEvents.cpp:534)  <- event RoMEventManager.py RoMEventManager.onCityLost
-- CvGame::clearSecretaryGeneral  (CvGame.cpp:3617)  <- call CvGame::setVoteOutcome
-- CvGame::createBarbarianCities  (CvGame.cpp:7285)  <- call CvPlayer::found
-- CvGame::createBarbarianUnits  (CvGame.cpp:7523)  <- call CvUnit::kill
-- CvGame::doVoteResults  (CvGame.cpp:10191)  <- call CvGame::setVoteOutcome
-- CvGame::foundBarbarianCity  (CvGame.cpp:10632)  <- call CvPlayer::found
-- CvGame::normalizeAddLakes  (CvGame.cpp:1298)  <- call CvPlot::setPlotType
-- CvGame::normalizeRemovePeaks  (CvGame.cpp:1260)  <- call CvPlot::setPlotType
-- CvGame::normalizeStartingPlots  (CvGame.cpp:2048)  <- call CvGame::normalizeAddRiver
-- CvGame::replaceCorporation  (CvGame.cpp:3851)  <- call CvUnit::kill
-- CvGame::setAIAutoPlay  (CvGame.cpp:4717)  <- call CvPlayer::setAutoMoves
-- CvGame::updateMoves  (CvGame.cpp:7908)  <- call CvPlayer::setAutoMoves
-- CvGame::verifyDeals  (CvGame.cpp:3307)  <- call CvDeal::verify
+- CvGame::changeHumanPlayer  (CvGame.cpp:9807)  <- call CvGame::setActivePlayer
+- CvGame::clearSecretaryGeneral  (CvGame.cpp:3815)  <- call CvGame::setVoteOutcome
+- CvGame::createAnimals  (CvGame.cpp:7988)  <- call CvPlayer::initUnit
+- CvGame::createBarbarianCities  (CvGame.cpp:7483)  <- call CvPlayer::found
+- CvGame::createBarbarianUnits  (CvGame.cpp:7721)  <- call CvUnit::kill
+- CvGame::doVoteResults  (CvGame.cpp:10389)  <- call CvGame::setVoteOutcome
+- CvGame::foundBarbarianCity  (CvGame.cpp:10830)  <- call CvPlayer::found
+- CvGame::replaceCorporation  (CvGame.cpp:4049)  <- call CvUnit::kill
+- CvGame::reviveActivePlayer  (CvGame.cpp:4298)  <- call CvPlayer::initUnit
+- CvGame::revivePlayer  (CvGame.cpp:4275)  <- call CvPlayer::initUnit
+- CvGame::setAIAutoPlay  (CvGame.cpp:4915)  <- call CvPlayer::setAutoMoves
+- CvGame::updateMoves  (CvGame.cpp:8106)  <- call CvPlayer::setAutoMoves
+- CvGame::verifyDeals  (CvGame.cpp:3505)  <- call CvDeal::verify
 - CvGameTextMgr::getActiveDealsString  (CvGameTextMgr.cpp:16556)  <- call CvGameTextMgr::getDealString
-- CvMap::setAllPlotTypes  (CvMap.cpp:306)  <- call CvPlot::setPlotType
+- CvMap::updateIrrigated  (CvMap.cpp:429)  <- call CvPlot::updateIrrigated
 - CvMap::updateSight  (CvMap.cpp:418)  <- call CvPlot::updateSight
-- CvMapGenerator::addLakes  (CvMapGenerator.cpp:262)  <- call CvPlot::setPlotType
-- CvMapGenerator::setPlotTypes  (CvMapGenerator.cpp:1078)  <- call CvPlot::setPlotType
+- CvMap::updateWorkingCity  (CvMap.cpp:451)  <- call CvPlot::updateWorkingCity
+- CvMapGenerator::addBonuses  (CvMapGenerator.cpp:674)  <- call CvMapGenerator::addUniqueBonusType
+- CvMapGenerator::doRiver  (CvMapGenerator.cpp:373)  <- call CvPlot::setNOfRiver
+- CvMapGenerator::eraseRivers  (CvMapGenerator.cpp:939)  <- call CvPlot::setNOfRiver
+- CvMapGenerator::generateRandomMap  (CvMapGenerator.cpp:999)  <- call CvMapGenerator::generatePlotTypes
 - CvNetAutoMoves::Execute  (CvMessageData.cpp:125)  <- call CvPlayer::setAutoMoves
+- CvNetPopOrder::Execute  (CvMessageData.cpp:238)  <- call CvCity::popOrder
+- CvPlayer::addFreeUnit  (CvPlayer.cpp:2004)  <- call CvPlayer::initUnit
 - CvPlayer::canStopTradingWithTeam  (CvPlayer.cpp:5937)  <- call CvPlayer::isTradingWithTeam
+- CvPlayer::createGreatPeople  (CvPlayer.cpp:19505)  <- call CvPlayer::initUnit
 - CvPlayer::disbandUnit  (CvPlayer.cpp:3124)  <- call CvUnit::kill
 - CvPlayer::doTurnUnits  (CvPlayer.cpp:4068)  <- call CvPlayerAI::AI_doTurnUnitsPost
+- CvPlayer::foundReligion  (CvPlayer.cpp:9205)  <- call CvPlayer::initUnit
 - CvPlayer::handleDiploEvent  (CvPlayer.cpp:5137)  <- call CvPlayer::forcePeace
-- CvPlayer::init  (CvPlayer.cpp:191)  <- call CvPlayer::setAlive
 - CvPlayer::initTriggeredData  (CvPlayer.cpp:19815)  <- call CvPlayer::trigger
-- CvPlayer::initUnit  (CvPlayer.cpp:3107)  <- call CvUnit::init
 - CvPlayer::killGoldenAgeUnits  (CvPlayer.cpp:9580)  <- call CvUnit::kill
 - CvPlayer::killUnits  (CvPlayer.cpp:3282)  <- call CvUnit::kill
 - CvPlayer::raze  (CvPlayer.cpp:6151)  <- call CvPlayer::disband
 - CvPlayer::setEndTurn  (CvPlayer.cpp:12511)  <- call CvPlayer::setAutoMoves
 - CvPlayer::updateCitySight  (CvPlayer.cpp:4358)  <- call CvPlot::updateSight
 - CvPlayer::verifyAlive  (CvPlayer.cpp:12013)  <- call CvPlayer::setAlive
-- CvPlayerAI::AI_disbandUnit  (CvPlayerAI.cpp:20329)  <- call CvUnit::kill
-- CvPlayerAI::read  (CvPlayerAI.cpp:19188)  <- call CvPlayer::read
-- CvPlot::changeCultureRangeCities  (CvPlot.cpp:8513)  <- call CvPlot::updateCulture
-- CvPlot::doTurn  (CvPlot.cpp:577)  <- call CvPlot::doCulture
-- CvPlot::setCulture  (CvPlot.cpp:6783)  <- call CvPlot::updateCulture
-- CvPlot::setTerrainType  (CvPlot.cpp:5542)  <- call CvPlot::setPlotType
-- CvPlot::updateSeeFromSight  (CvPlot.cpp:2177)  <- call CvPlot::updateSight
-- CvPlot::verifyUnitValidPlot  (CvPlot.cpp:962)  <- call CvUnit::jumpToNearestValidPlot
+- CvPlayerAI::AI_disbandUnit  (CvPlayerAI.cpp:20457)  <- call CvUnit::kill
+- CvPlayerAI::AI_doCommerce  (CvPlayerAI.cpp:16646)  <- call CvPlayerAI::AI_assignWorkingPlots
+- CvPlayerAI::AI_updateAssignWork  (CvPlayerAI.cpp:1713)  <- call CvCityAI::AI_updateAssignWork
+- CvPlayerAI::AI_updateMilitaryOperations  (CvPlayerAI.cpp:16065)  <- call CvPlayer::initUnit
+- CvPlayerAI::read  (CvPlayerAI.cpp:19316)  <- call CvPlayer::read
+- CvPlot::changeCultureRangeCities  (CvPlot.cpp:8523)  <- call CvPlot::updateCulture
+- CvPlot::doTurn  (CvPlot.cpp:579)  <- call CvPlot::doCulture
+- CvPlot::setArea  (CvPlot.cpp:4402)  <- call CvPlot::updateIrrigated
+- CvPlot::setCulture  (CvPlot.cpp:6785)  <- call CvPlot::updateCulture
+- CvPlot::setPlotCity  (CvPlot.cpp:6014)  <- call CvPlot::updateIrrigated
+- CvPlot::setWorkingCityOverride  (CvPlot.cpp:6205)  <- call CvPlot::updateWorkingCity
+- CvPlot::updateSeeFromSight  (CvPlot.cpp:2179)  <- call CvPlot::updateSight
+- CvPlot::verifyUnitValidPlot  (CvPlot.cpp:964)  <- call CvUnit::jumpToNearestValidPlot
 - CvSelectionGroup::activateHeadMission  (CvSelectionGroup.cpp:6327)  <- call CvSelectionGroup::startMission
+- CvSelectionGroup::airCircle  (CvSelectionGroup.cpp:4106)  <- call CvUnit::airCircle
 - CvSelectionGroup::autoMission  (CvSelectionGroup.cpp:718)  <- call CvSelectionGroup::startMission
 - CvSelectionGroup::continueMission  (CvSelectionGroup.cpp:2043)  <- call CvSelectionGroup::setRemoteTransportUnit
 - CvSelectionGroup::groupBuild  (CvSelectionGroup.cpp:4863)  <- call CvUnit::build
 - CvSelectionGroup::groupMove  (CvSelectionGroup.cpp:4697)  <- call CvUnit::move
+- CvSelectionGroup::updateTimers  (CvSelectionGroup.cpp:525)  <- call CvUnit::updateAirCombat
 - CvSelectionGroupAI::AI_update  (CvSelectionGroupAI.cpp:184)  <- call CvSelectionGroup::groupAttack
 - CvTeam::changeResearchProgress  (CvTeam.cpp:5627)  <- call CvTeam::setResearchProgress
 - CvTeam::doTurn  (CvTeam.cpp:1050)  <- call CvTeam::changeStolenVisibilityTimer
@@ -405,88 +569,105 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvTeam::updateTechShare  (CvTeam.cpp:6682)  <- call CvTeam::updateTechShare
 - CvTeam::verifySpyUnitsValidPlot  (CvTeam.cpp:7162)  <- call CvUnit::jumpToNearestValidPlot
 - CvTeamAI::AI_doWar  (CvTeamAI.cpp:4754)  <- call CvPlayerAI::AI_doPeace
-- CvUnit::airBomb2  (CvUnit.cpp:14684)  <- call CvUnit::kill
-- CvUnit::airBomb3  (CvUnit.cpp:14887)  <- call CvUnit::kill
-- CvUnit::airBomb4  (CvUnit.cpp:15128)  <- call CvUnit::kill
-- CvUnit::airBomb5  (CvUnit.cpp:15315)  <- call CvUnit::kill
-- CvUnit::airStrike  (CvUnit.cpp:13455)  <- call CvUnit::setReconPlot
-- CvUnit::applyEvent  (CvUnit.cpp:14174)  <- call CvUnit::kill
-- CvUnit::attackForDamage  (CvUnit.cpp:3053)  <- call CvUnit::setFacingDirection
-- CvUnit::construct  (CvUnit.cpp:6681)  <- call CvUnit::kill
-- CvUnit::convert  (CvUnit.cpp:513)  <- call CvUnit::jumpToNearestValidPlot
-- CvUnit::destroy  (CvUnit.cpp:5996)  <- call CvUnit::kill
-- CvUnit::discover  (CvUnit.cpp:6760)  <- call CvUnit::kill
-- CvUnit::doDelayedDeath  (CvUnit.cpp:12044)  <- call CvUnit::kill
-- CvUnit::doTurn  (CvUnit.cpp:798)  <- call CvUnit::testSpyIntercepted
-- CvUnit::flankingStrikeCombat  (CvUnit.cpp:13272)  <- call CvUnit::kill
-- CvUnit::found  (CvUnit.cpp:6229)  <- call CvPlayer::found
-- CvUnit::goldenAge  (CvUnit.cpp:7595)  <- call CvUnit::kill
-- CvUnit::greatWork  (CvUnit.cpp:7006)  <- call CvUnit::kill
-- CvUnit::hurry  (CvUnit.cpp:6857)  <- call CvUnit::kill
-- CvUnit::infiltrate  (CvUnit.cpp:7093)  <- call CvUnit::kill
-- CvUnit::join  (CvUnit.cpp:6605)  <- call CvUnit::kill
-- CvUnit::lead  (CvUnit.cpp:7783)  <- call CvUnit::kill
-- CvUnit::nuke  (CvUnit.cpp:4336)  <- call CvUnit::kill
-- CvUnit::performInquisition  (CvUnit.cpp:17101)  <- call CvUnit::kill
-- CvUnit::recon  (CvUnit.cpp:4605)  <- call CvUnit::setReconPlot
-- CvUnit::rotateFacingDirectionClockwise  (CvUnit.cpp:11932)  <- call CvUnit::setFacingDirection
-- CvUnit::rotateFacingDirectionCounterClockwise  (CvUnit.cpp:11939)  <- call CvUnit::setFacingDirection
-- CvUnit::scrap  (CvUnit.cpp:3417)  <- call CvUnit::kill
-- CvUnit::setDamage  (CvUnit.cpp:11136)  <- call CvUnit::kill
-- CvUnit::setHasPromotion  (CvUnit.cpp:12725)  <- call CvUnit::changeExtraVisibilityRange
-- CvUnit::spread  (CvUnit.cpp:6354)  <- call CvUnit::kill
-- CvUnit::spreadCorporation  (CvUnit.cpp:6519)  <- call CvUnit::kill
-- CvUnit::stealPlans  (CvUnit.cpp:6153)  <- call CvUnit::kill
-- CvUnit::trade  (CvUnit.cpp:6944)  <- call CvUnit::kill
-- CvUnit::updateAirCombat  (CvUnit.cpp:1078)  <- call CvUnit::kill
-- CvUnit::updateAirStrike  (CvUnit.cpp:871)  <- call CvUnit::kill
-- CvUnit::updateCombat  (CvUnit.cpp:1395)  <- call CvUnit::kill
-- CvUnit::updateStackCombat  (CvUnit.cpp:15838)  <- call CvUnit::kill
-- CvUnit::verifyStackValid  (CvUnit.cpp:14303)  <- call CvUnit::jumpToNearestValidPlot
+- CvUnit::airStrike  (CvUnit.cpp:13465)  <- call CvUnit::setReconPlot
+- CvUnit::applyEvent  (CvUnit.cpp:14184)  <- call CvUnit::kill
+- CvUnit::attack  (CvUnit.cpp:3044)  <- call CvUnit::updateCombat
+- CvUnit::construct  (CvUnit.cpp:6691)  <- call CvUnit::kill
+- CvUnit::convert  (CvUnit.cpp:523)  <- call CvUnit::jumpToNearestValidPlot
+- CvUnit::destroy  (CvUnit.cpp:6006)  <- call CvUnit::kill
+- CvUnit::discover  (CvUnit.cpp:6770)  <- call CvUnit::kill
+- CvUnit::doCommand  (CvUnit.cpp:2424)  <- call CvUnit::promote
+- CvUnit::doDelayedDeath  (CvUnit.cpp:12054)  <- call CvUnit::kill
+- CvUnit::doTurn  (CvUnit.cpp:808)  <- call CvUnit::testSpyIntercepted
+- CvUnit::fightInterceptor  (CvUnit.cpp:3054)  <- call CvUnit::updateAirCombat
+- CvUnit::flankingStrikeCombat  (CvUnit.cpp:13282)  <- call CvUnit::kill
+- CvUnit::found  (CvUnit.cpp:6239)  <- call CvPlayer::found
+- CvUnit::gift  (CvUnit.cpp:3506)  <- call CvPlayer::initUnit
+- CvUnit::goldenAge  (CvUnit.cpp:7605)  <- call CvUnit::kill
+- CvUnit::greatWork  (CvUnit.cpp:7016)  <- call CvUnit::kill
+- CvUnit::hurry  (CvUnit.cpp:6867)  <- call CvUnit::kill
+- CvUnit::infiltrate  (CvUnit.cpp:7103)  <- call CvUnit::kill
+- CvUnit::join  (CvUnit.cpp:6615)  <- call CvUnit::kill
+- CvUnit::lead  (CvUnit.cpp:7793)  <- call CvUnit::kill
+- CvUnit::performInquisition  (CvUnit.cpp:17111)  <- call CvUnit::kill
+- CvUnit::rotateFacingDirectionClockwise  (CvUnit.cpp:11942)  <- call CvUnit::setFacingDirection
+- CvUnit::rotateFacingDirectionCounterClockwise  (CvUnit.cpp:11949)  <- call CvUnit::setFacingDirection
+- CvUnit::scrap  (CvUnit.cpp:3427)  <- call CvUnit::kill
+- CvUnit::setDamage  (CvUnit.cpp:11146)  <- call CvUnit::kill
+- CvUnit::setHasPromotion  (CvUnit.cpp:12735)  <- call CvUnit::changeExtraVisibilityRange
+- CvUnit::spread  (CvUnit.cpp:6364)  <- call CvUnit::kill
+- CvUnit::spreadCorporation  (CvUnit.cpp:6529)  <- call CvUnit::kill
+- CvUnit::stealPlans  (CvUnit.cpp:6163)  <- call CvUnit::kill
+- CvUnit::trade  (CvUnit.cpp:6954)  <- call CvUnit::kill
+- CvUnit::upgrade  (CvUnit.cpp:8370)  <- call CvPlayer::initUnit
+- CvUnit::verifyStackValid  (CvUnit.cpp:14313)  <- call CvUnit::jumpToNearestValidPlot
 - CvUnitAI::AI_espionageSpy  (CvUnitAI.cpp:23164)  <- call CvUnit::espionage
+- CvUnitAI::AI_promote  (CvUnitAI.cpp:695)  <- call CvUnit::promote
 - CvUnitAI::AI_revoltCitySpy  (CvUnitAI.cpp:22910)  <- call CvUnit::espionage
+- CyCity::alterSpecialistCount  (CyCity.cpp:2458)  <- call CvCity::alterSpecialistCount
+- CyCity::popOrder  (CyCity.cpp:2662)  <- call CvCity::popOrder
+- CyCity::setCitizensAutomated  (CyCity.cpp:1834)  <- call CvCity::setCitizensAutomated
 - CyGame::addPlayer  (CyGame.cpp:1166)  <- call CvGame::addPlayer
+- CyGame::setActivePlayer  (CyGame.cpp:677)  <- call CvGame::setActivePlayer
+- CyGame::toggleDebugMode  (CyGame.cpp:617)  <- call CvGame::toggleDebugMode
 - CyGameTextMgr::getDealString  (CyGameTextMgr.cpp:257)  <- call CvGameTextMgr::getDealString
 - CyMap::erasePlots  (CyMap.cpp:28)  <- call CvMap::erasePlots
 - CyMap::rebuild  (CyMap.cpp:289)  <- call CvMap::rebuild
 - CyMap::regenerateGameElements  (CyMap.cpp:297)  <- call CvMapGenerator::addGameElements
 - CyMapGenerator::addFeatures  (CyMapGenerator.cpp:63)  <- call CvMapGenerator::addFeatures
 - CyMapGenerator::addGameElements  (CyMapGenerator.cpp:39)  <- call CvMapGenerator::addGameElements
+- CyMapGenerator::addNonUniqueBonusType  (CyMapGenerator.cpp:81)  <- call CvMapGenerator::addNonUniqueBonusType
+- CyMapGenerator::addUniqueBonusType  (CyMapGenerator.cpp:75)  <- call CvMapGenerator::addUniqueBonusType
+- CyMapGenerator::eraseBonuses  (CyMapGenerator.cpp:105)  <- call CvMapGenerator::eraseBonuses
 - CyMapGenerator::eraseFeatures  (CyMapGenerator.cpp:99)  <- call CvMapGenerator::eraseFeatures
 - CyMapGenerator::eraseGoodies  (CyMapGenerator.cpp:111)  <- call CvMapGenerator::eraseGoodies
+- CyMapGenerator::generatePlotTypes  (CyMapGenerator.cpp:123)  <- call CvMapGenerator::generatePlotTypes
+- CyMapGenerator::generateTerrain  (CyMapGenerator.cpp:129)  <- call CvMapGenerator::generateTerrain
 - CyMapGeneratorPythonInterface  (CyMapGeneratorInterface.cpp:12)  <- call CyMapGenerator::addGoodies
+- CyPlayer::changeCiv  (CyPlayer.cpp:40)  <- call CvPlayer::changeCiv
 - CyPlayer::disband  (CyPlayer.cpp:485)  <- call CvPlayer::disband
 - CyPlayer::forcePeace  (CyPlayer.cpp:2536)  <- call CvPlayer::forcePeace
 - CyPlayer::found  (CyPlayer.cpp:513)  <- call CvPlayer::found
+- CyPlayer::initUnit  (CyPlayer.cpp:170)  <- call CvPlayer::initUnit
 - CyPlayer::killCities  (CyPlayer.cpp:159)  <- call CvPlayer::killCities
 - CyPlayer::setAlive  (CyPlayer.cpp:1651)  <- call CvPlayer::setAlive
 - CyPlayer::setNewPlayerAlive  (CyPlayer.cpp:1658)  <- call CvPlayer::setNewPlayerAlive
 - CyPlayer::stopTradingWithTeam  (CyPlayer.cpp:446)  <- call CvPlayer::stopTradingWithTeam
-- CyPlot::setPlotType  (CyPlot.cpp:651)  <- call CvPlot::setPlotType
+- CyPlot::setNOfRiver  (CyPlot.cpp:551)  <- call CvPlot::setNOfRiver
+- CyPlot::setWOfRiver  (CyPlot.cpp:564)  <- call CvPlot::setWOfRiver
 - CyTeam::assignVassal  (CyTeam.cpp:714)  <- call CvTeam::assignVassal
 - CyTeam::setResearchProgress  (CyTeam.cpp:833)  <- call CvTeam::setResearchProgress
 - CyTeam::signDefensivePact  (CyTeam.cpp:93)  <- call CvTeam::signDefensivePact
 - CyTeam::signOpenBorders  (CyTeam.cpp:87)  <- call CvTeam::signOpenBorders
+- CyUnit::attackForDamage  (CyUnit.cpp:1759)  <- call CvUnit::attackForDamage
 - CyUnit::jumpToNearestValidPlot  (CyUnit.cpp:113)  <- call CvUnit::jumpToNearestValidPlot
 - CyUnit::kill  (CyUnit.cpp:35)  <- call CvUnit::kill
+- CyUnit::promote  (CyUnit.cpp:479)  <- call CvUnit::promote
+- CyUnit::rangeStrike  (CyUnit.cpp:1767)  <- call CvUnit::rangeStrike
+- CyUnit::setLeaderUnitType  (CyUnit.cpp:1607)  <- call CvUnit::setLeaderUnitType
 - CyUnit::setReconPlot  (CyUnit.cpp:1223)  <- call CvUnit::setReconPlot
 - CyUnitPythonInterface1  (CyUnitInterface1.cpp:18)  <- call CyUnit::setXY
 
-### level 5 (129)
+### level 5 (141)
 
-- CvCity::addProductionExperience  (CvCity.cpp:2957)  <- call CvUnit::setHasPromotion
-- CvCity::cheat  (CvCity.cpp:16201)  <- call CvCity::popOrder
-- CvCity::clearOrderQueue  (CvCity.cpp:12738)  <- call CvCity::popOrder
-- CvCity::doCheckProduction  (CvCity.cpp:13628)  <- call CvCity::popOrder
-- CvCity::doProduction  (CvCity.cpp:13767)  <- call CvCity::popOrder
-- CvCity::emergencyConscript  (CvCity.cpp:16258)  <- call CvPlayer::initUnit
-- CvCity::initConscriptedUnit  (CvCity.cpp:4188)  <- call CvPlayer::initUnit
-- CvCity::pushOrder  (CvCity.cpp:12752)  <- call CvCity::popOrder
-- CvCity::setCultureLevel  (CvCity.cpp:8853)  <- call CvPlot::changeCultureRangeCities
-- CvCity::setHasCorporation  (CvCity.cpp:12481)  <- call CvGame::replaceCorporation
-- CvCity::setHeadquarters  (CvCity.cpp:4763)  <- call CvPlayer::initUnit
-- CvCity::setNumRealBuilding  (CvCity.cpp:12058)  <- call CvCity::setNumRealBuildingTimed
-- CvCity::updateEspionageVisibility  (CvCity.cpp:10933)  <- call CvCity::setEspionageVisibility
+- CvArea::changeNumTiles  (CvArea.cpp:365)  <- call CvMap::updateIrrigated
+- CvCity::addProductionExperience  (CvCity.cpp:2970)  <- call CvUnit::setHasPromotion
+- CvCity::clearWorkingOverride  (CvCity.cpp:1734)  <- call CvPlot::setWorkingCityOverride
+- CvCity::conscript  (CvCity.cpp:4246)  <- call CvCity::initConscriptedUnit
+- CvCity::createGreatPeople  (CvCity.cpp:1511)  <- call CvPlayer::createGreatPeople
+- CvCity::processBuilding  (CvCity.cpp:4420)  <- call CvCity::setHeadquarters
+- CvCity::setCultureLevel  (CvCity.cpp:8866)  <- call CvPlot::changeCultureRangeCities
+- CvCity::setGameTurnFounded  (CvCity.cpp:6001)  <- call CvMap::updateWorkingCity
+- CvCity::setHasCorporation  (CvCity.cpp:12494)  <- call CvGame::replaceCorporation
+- CvCity::setNumRealBuilding  (CvCity.cpp:12071)  <- call CvCity::setNumRealBuildingTimed
+- CvCity::updateEspionageVisibility  (CvCity.cpp:10946)  <- call CvCity::setEspionageVisibility
+- CvCityAI::AI_chooseBuilding  (CvCityAI.cpp:9712)  <- call CvCity::pushOrder
+- CvCityAI::AI_chooseProcess  (CvCityAI.cpp:9752)  <- call CvCity::pushOrder
+- CvCityAI::AI_chooseProject  (CvCityAI.cpp:9736)  <- call CvCity::pushOrder
+- CvCityAI::AI_chooseUnit  (CvCityAI.cpp:9406)  <- call CvCity::pushOrder
+- CvCityAI::AI_chooseUnit  (CvCityAI.cpp:9457)  <- call CvCity::pushOrder
+- CvCityAI::AI_stealPlots  (CvCityAI.cpp:12613)  <- call CvPlot::setWorkingCityOverride
+- CvCityAI::AI_trainInquisitor  (CvCityAI.cpp:13542)  <- call CvCity::pushOrder
 - CvDLLButtonPopup::launchRazeCityPopup  (CvDLLButtonPopup.cpp:1400)  <- call CvPlayer::raze
 - CvDLLWidgetData::parseContactCivHelp  (CvDLLWidgetData.cpp:3484)  <- call CvGameTextMgr::getActiveDealsString
 - CvDLLWidgetData::parseTradeRoutes  (CvDLLWidgetData.cpp:6057)  <- call CvGameTextMgr::getActiveDealsString
@@ -498,55 +679,60 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvDllPythonEvents::reportModNetMessage  (CvDllPythonEvents.cpp:75)  <- event Revolution/Gameready/Revolution.py Revolution.onModNetMessage
 - CvDllPythonEvents::reportProjectBuilt  (CvDllPythonEvents.cpp:1076)  <- event RoMEventManager.py RoMEventManager.onProjectBuilt
 - CvEventReporter::cityLost  (CvEventReporter.cpp:229)  <- call CvDllPythonEvents::reportCityLost
-- CvGame::changeAIAutoPlay  (CvGame.cpp:4767)  <- call CvGame::setAIAutoPlay
-- CvGame::createAnimals  (CvGame.cpp:7790)  <- call CvPlayer::initUnit
-- CvGame::doDiploVote  (CvGame.cpp:7277)  <- call CvGame::doVoteResults
-- CvGame::isValidVoteSelection  (CvGame.cpp:4915)  <- call CvPlayer::canStopTradingWithTeam
-- CvGame::normalizeRemoveBadTerrain  (CvGame.cpp:1447)  <- call CvPlot::setTerrainType
-- CvGame::reviveActivePlayer  (CvGame.cpp:4100)  <- call CvPlayer::initUnit
-- CvGame::revivePlayer  (CvGame.cpp:4077)  <- call CvPlayer::initUnit
-- CvGame::testAlive  (CvGame.cpp:8024)  <- call CvPlayer::verifyAlive
-- CvGame::updateCitySight  (CvGame.cpp:3022)  <- call CvPlayer::updateCitySight
-- CvGame::updateSecretaryGeneral  (CvGame.cpp:3640)  <- call CvGame::clearSecretaryGeneral
-- CvGame::updateTurnTimer  (CvGame.cpp:7994)  <- call CvPlayer::setEndTurn
+- CvGame::changeAIAutoPlay  (CvGame.cpp:4965)  <- call CvGame::setAIAutoPlay
+- CvGame::doDiploVote  (CvGame.cpp:7475)  <- call CvGame::doVoteResults
+- CvGame::doHolyCity  (CvGame.cpp:7213)  <- call CvPlayer::foundReligion
+- CvGame::isValidVoteSelection  (CvGame.cpp:5113)  <- call CvPlayer::canStopTradingWithTeam
+- CvGame::setFinalInitialized  (CvGame.cpp:5476)  <- call CvMap::updateIrrigated
+- CvGame::testAlive  (CvGame.cpp:8222)  <- call CvPlayer::verifyAlive
+- CvGame::updateCitySight  (CvGame.cpp:3220)  <- call CvPlayer::updateCitySight
+- CvGame::updateSecretaryGeneral  (CvGame.cpp:3838)  <- call CvGame::clearSecretaryGeneral
+- CvGame::updateTurnTimer  (CvGame.cpp:8192)  <- call CvPlayer::setEndTurn
+- CvGameAI::AI_updateAssignWork  (CvGameAI.cpp:61)  <- call CvPlayerAI::AI_updateAssignWork
 - CvGameTextMgr::parseLeaderHeadHelp  (CvGameTextMgr.cpp:16428)  <- call CvGameTextMgr::getActiveDealsString
 - CvGameTextMgr::parseLeaderHeadRelationsHelp  (CvGameTextMgr.cpp:16470)  <- call CvGameTextMgr::getActiveDealsString
+- CvMap::calculateAreas  (CvMap.cpp:1397)  <- call CvPlot::setArea
 - CvMap::doTurn  (CvMap.cpp:330)  <- call CvPlot::doTurn
+- CvMap::recalculateAreas  (CvMap.cpp:1203)  <- call CvPlot::setArea
 - CvMap::verifyUnitValidPlot  (CvMap.cpp:527)  <- call CvPlot::verifyUnitValidPlot
-- CvMapGenerator::generatePlotTypes  (CvMapGenerator.cpp:1022)  <- call CvMapGenerator::setPlotTypes
-- CvMapGenerator::generateTerrain  (CvMapGenerator.cpp:1051)  <- call CvPlot::setTerrainType
+- CvMapGenerator::addRiver  (CvMapGenerator.cpp:536)  <- call CvMapGenerator::doRiver
+- CvMapGenerator::addRivers  (CvMapGenerator.cpp:300)  <- call CvMapGenerator::doRiver
 - CvNetAutoMission::Execute  (CvMessageData.cpp:821)  <- call CvSelectionGroup::autoMission
 - CvNetChangeVassal::Execute  (CvMessageData.cpp:975)  <- call CvTeam::setVassal
-- CvNetPopOrder::Execute  (CvMessageData.cpp:238)  <- call CvCity::popOrder
+- CvNetDoCommand::Execute  (CvMessageData.cpp:863)  <- call CvUnit::doCommand
+- CvNetFoundReligion::Execute  (CvMessageData.cpp:620)  <- call CvPlayer::foundReligion
+- CvNetPushOrder::Execute  (CvMessageData.cpp:185)  <- call CvCity::pushOrder
 - CvNetTurnComplete::Execute  (CvMessageData.cpp:153)  <- call CvPlayer::setEndTurn
-- CvPlayer::addFreeUnit  (CvPlayer.cpp:2004)  <- call CvPlayer::initUnit
+- CvPlayer::addFreeUnitAI  (CvPlayer.cpp:1945)  <- call CvPlayer::addFreeUnit
 - CvPlayer::canDoResolution  (CvPlayer.cpp:23131)  <- call CvPlayer::canStopTradingWithTeam
 - CvPlayer::canTradeItem  (CvPlayer.cpp:5413)  <- call CvPlayer::canStopTradingWithTeam
-- CvPlayer::createGreatPeople  (CvPlayer.cpp:19505)  <- call CvPlayer::initUnit
+- CvPlayer::changeGoldPerTurnByPlayer  (CvPlayer.cpp:13436)  <- call CvPlayerAI::AI_doCommerce
 - CvPlayer::doGold  (CvPlayer.cpp:15287)  <- call CvPlayer::disbandUnit
 - CvPlayer::doResearch  (CvPlayer.cpp:15358)  <- call CvTeam::changeResearchProgress
-- CvPlayer::foundReligion  (CvPlayer.cpp:9205)  <- call CvPlayer::initUnit
+- CvPlayer::foundCorporation  (CvPlayer.cpp:9362)  <- call CvCity::setHeadquarters
 - CvPlayer::killAllDeals  (CvPlayer.cpp:5997)  <- call CvDeal::kill
 - CvPlayer::resetPlotAndCityData  (CvPlayer.cpp:704)  <- call CvPlot::setCulture
 - CvPlayer::trigger  (CvPlayer.cpp:21800)  <- call CvPlayer::initTriggeredData
+- CvPlayer::updateTimers  (CvPlayer.cpp:4434)  <- call CvSelectionGroup::updateTimers
 - CvPlayer::verifyUnitStacksValid  (CvPlayer.cpp:23706)  <- call CvUnit::verifyStackValid
-- CvPlayerAI::AI_beginDiplomacy  (CvPlayerAI.cpp:17177)  <- call CvPlayer::handleDiploEvent
+- CvPlayerAI::AI_beginDiplomacy  (CvPlayerAI.cpp:17279)  <- call CvPlayer::handleDiploEvent
 - CvPlayerAI::AI_diploVote  (CvPlayerAI.cpp:8037)  <- call CvPlayer::canStopTradingWithTeam
-- CvPlayerAI::AI_doMilitary  (CvPlayerAI.cpp:16492)  <- call CvPlayerAI::AI_disbandUnit
+- CvPlayerAI::AI_doMilitary  (CvPlayerAI.cpp:16594)  <- call CvPlayerAI::AI_disbandUnit
+- CvPlayerAI::AI_doTurnPre  (CvPlayerAI.cpp:430)  <- call CvPlayerAI::AI_doCommerce
 - CvPlayerAI::AI_unitUpdate  (CvPlayerAI.cpp:1572)  <- call CvSelectionGroupAI::AI_update
-- CvPlayerAI::AI_updateMilitaryOperations  (CvPlayerAI.cpp:15963)  <- call CvPlayer::initUnit
-- CvPlot::changeCulture  (CvPlot.cpp:6821)  <- call CvPlot::setCulture
+- CvPlot::changeCulture  (CvPlot.cpp:6823)  <- call CvPlot::setCulture
 - CvSelectionGroup::deleteMissionQueueNode  (CvSelectionGroup.cpp:6161)  <- call CvSelectionGroup::activateHeadMission
 - CvSelectionGroup::doDelayedDeath  (CvSelectionGroup.cpp:582)  <- call CvUnit::doDelayedDeath
 - CvSelectionGroup::doTurn  (CvSelectionGroup.cpp:298)  <- call CvUnit::doTurn
 - CvSelectionGroup::groupPathTo  (CvSelectionGroup.cpp:4751)  <- call CvSelectionGroup::groupMove
 - CvSelectionGroup::groupRoadTo  (CvSelectionGroup.cpp:4839)  <- call CvSelectionGroup::groupBuild
 - CvSelectionGroup::insertAtEndMissionQueue  (CvSelectionGroup.cpp:6139)  <- call CvSelectionGroup::activateHeadMission
+- CvSelectionGroup::setActivityType  (CvSelectionGroup.cpp:5393)  <- call CvSelectionGroup::airCircle
 - CvSelectionGroup::updateMission  (CvSelectionGroup.cpp:774)  <- call CvSelectionGroup::continueMission
-- CvSelectionGroup::updateTimers  (CvSelectionGroup.cpp:525)  <- call CvUnit::updateAirCombat
 - CvTeam::cancelDefensivePacts  (CvTeam.cpp:6990)  <- call CvDeal::kill
 - CvTeam::changeAliveCount  (CvTeam.cpp:3777)  <- call CvTeam::setVassal
 - CvTeam::changeExtraWaterSeeFromCount  (CvTeam.cpp:3946)  <- call CvMap::updateSight
+- CvTeam::changeIrrigationCount  (CvTeam.cpp:4142)  <- call CvMap::updateIrrigated
 - CvTeam::changeResearchProgressPercent  (CvTeam.cpp:5632)  <- call CvTeam::changeResearchProgress
 - CvTeam::changeTechShareCount  (CvTeam.cpp:4376)  <- call CvTeam::updateTechShare
 - CvTeam::declareWar  (CvTeam.cpp:1410)  <- call CvDeal::kill
@@ -554,18 +740,12 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvTeam::makeHasMet  (CvTeam.cpp:4469)  <- call CvTeam::updateTechShare
 - CvTeam::setEspionagePointsAgainstTeam  (CvTeam.cpp:7066)  <- call CvTeam::verifySpyUnitsValidPlot
 - CvTeamAI::AI_doTurnPost  (CvTeamAI.cpp:188)  <- call CvTeamAI::AI_doWar
-- CvUnit::attack  (CvUnit.cpp:3034)  <- call CvUnit::updateCombat
-- CvUnit::changeDamage  (CvUnit.cpp:11173)  <- call CvUnit::setDamage
-- CvUnit::collateralCombat  (CvUnit.cpp:13134)  <- call CvUnit::setDamage
-- CvUnit::doActiveDefense  (CvUnit.cpp:16322)  <- call CvUnit::setDamage
-- CvUnit::doCommand  (CvUnit.cpp:2414)  <- call CvUnit::scrap
-- CvUnit::fightInterceptor  (CvUnit.cpp:3044)  <- call CvUnit::updateAirCombat
-- CvUnit::gift  (CvUnit.cpp:3496)  <- call CvPlayer::initUnit
-- CvUnit::influencePlots  (CvUnit.cpp:16873)  <- call CvPlot::setCulture
-- CvUnit::promote  (CvUnit.cpp:7731)  <- call CvUnit::setHasPromotion
-- CvUnit::rangeStrike  (CvUnit.cpp:13591)  <- call CvUnit::setDamage
-- CvUnit::resolveCombat  (CvUnit.cpp:1247)  <- call CvUnit::setDamage
-- CvUnit::upgrade  (CvUnit.cpp:8360)  <- call CvPlayer::initUnit
+- CvUnit::changeDamage  (CvUnit.cpp:11183)  <- call CvUnit::setDamage
+- CvUnit::collateralCombat  (CvUnit.cpp:13144)  <- call CvUnit::setDamage
+- CvUnit::doVictoryInfluence  (CvUnit.cpp:16746)  <- call CvCity::emergencyConscript
+- CvUnit::influencePlots  (CvUnit.cpp:16883)  <- call CvPlot::setCulture
+- CvUnit::interceptTest  (CvUnit.cpp:13387)  <- call CvUnit::fightInterceptor
+- CvUnit::resolveCombat  (CvUnit.cpp:1257)  <- call CvUnit::setDamage
 - CvUnitAI::AI_barbAttackSeaMove  (CvUnitAI.cpp:5966)  <- call CvUnit::scrap
 - CvUnitAI::AI_carrierSeaTransport  (CvUnitAI.cpp:18795)  <- call CvSelectionGroupAI::AI_update
 - CvUnitAI::AI_doInquisition  (CvUnitAI.cpp:14097)  <- call CvUnit::performInquisition
@@ -575,88 +755,94 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvUnitAI::AI_settleMove  (CvUnitAI.cpp:1389)  <- call CvUnit::scrap
 - CvUnitAI::AI_settlerSeaMove  (CvUnitAI.cpp:7855)  <- call CvUnit::scrap
 - CvUnitAI::AI_spyMove  (CvUnitAI.cpp:5568)  <- call CvUnitAI::AI_revoltCitySpy
+- CvUnitAI::AI_switchHurry  (CvUnitAI.cpp:13917)  <- call CvCity::pushOrder
 - CvUnitAI::AI_upgrade  (CvUnitAI.cpp:617)  <- call CvUnit::doDelayedDeath
 - CvUnitAI::AI_workerMove  (CvUnitAI.cpp:1547)  <- call CvUnit::scrap
 - CvUnitAI::AI_workerSeaMove  (CvUnitAI.cpp:5850)  <- call CvUnit::scrap
-- CyCity::popOrder  (CyCity.cpp:2662)  <- call CvCity::popOrder
+- CyCity::clearOrderQueue  (CyCity.cpp:2650)  <- call CvCity::clearOrderQueue
+- CyCity::pushOrder  (CyCity.cpp:2656)  <- call CvCity::pushOrder
+- CyCity::setProductionAutomated  (CyCity.cpp:1845)  <- call CvCity::setProductionAutomated
 - CyDeal::kill  (CyDeal.cpp:91)  <- call CvDeal::kill
+- CyGame::changeHumanPlayer  (CyGame.cpp:1174)  <- call CvGame::changeHumanPlayer
+- CyGame::reviveActivePlayer  (CyGame.cpp:293)  <- call CvGame::reviveActivePlayer
 - CyGame::setAIAutoPlay  (CyGame.cpp:570)  <- call CvGame::setAIAutoPlay
 - CyGameTextMgr::getActiveDealsString  (CyGameTextMgr.cpp:250)  <- call CvGameTextMgr::getActiveDealsString
-- CyMap::setAllPlotTypes  (CyMap.cpp:40)  <- call CvMap::setAllPlotTypes
-- CyMapGenerator::addLakes  (CyMapGenerator.cpp:45)  <- call CvMapGenerator::addLakes
-- CyMapGenerator::setPlotTypes  (CyMapGenerator.cpp:141)  <- call CvMapGenerator::setPlotTypes
+- CyMapGenerator::addBonuses  (CyMapGenerator.cpp:69)  <- call CvMapGenerator::addBonuses
+- CyMapGenerator::doRiver  (CyMapGenerator.cpp:57)  <- call CvMapGenerator::doRiver
+- CyMapGenerator::eraseRivers  (CyMapGenerator.cpp:93)  <- call CvMapGenerator::eraseRivers
+- CyMapGenerator::generateRandomMap  (CyMapGenerator.cpp:117)  <- call CvMapGenerator::generateRandomMap
 - CyPlayer::canStopTradingWithTeam  (CyPlayer.cpp:441)  <- call CvPlayer::canStopTradingWithTeam
+- CyPlayer::createGreatPeople  (CyPlayer.cpp:1127)  <- call CvPlayer::createGreatPeople
 - CyPlayer::disbandUnit  (CyPlayer.cpp:175)  <- call CvPlayer::disbandUnit
+- CyPlayer::foundReligion  (CyPlayer.cpp:813)  <- call CvPlayer::foundReligion
 - CyPlayer::initTriggeredData  (CyPlayer.cpp:2279)  <- call CvPlayer::initTriggeredData
-- CyPlayer::initUnit  (CyPlayer.cpp:170)  <- call CvPlayer::initUnit
 - CyPlayer::killUnits  (CyPlayer.cpp:180)  <- call CvPlayer::killUnits
 - CyPlayer::raze  (CyPlayer.cpp:479)  <- call CvPlayer::raze
 - CyPlot::setCulture  (CyPlot.cpp:894)  <- call CvPlot::setCulture
-- CyPlot::setTerrainType  (CyPlot.cpp:662)  <- call CvPlot::setTerrainType
 - CyTeam::changeResearchProgress  (CyTeam.cpp:839)  <- call CvTeam::changeResearchProgress
 - CyTeam::setVassal  (CyTeam.cpp:706)  <- call CvTeam::setVassal
-- CyUnit::attackForDamage  (CyUnit.cpp:1759)  <- call CvUnit::attackForDamage
 - CyUnit::convert  (CyUnit.cpp:29)  <- call CvUnit::convert
+- CyUnit::doCommand  (CyUnit.cpp:67)  <- call CvUnit::doCommand
+- CyUnit::gift  (CyUnit.cpp:138)  <- call CvUnit::gift
 - CyUnit::lead  (CyUnit.cpp:459)  <- call CvUnit::lead
 - CyUnit::rotateFacingDirectionClockwise  (CyUnit.cpp:1316)  <- call CvUnit::rotateFacingDirectionClockwise
 - CyUnit::rotateFacingDirectionCounterClockwise  (CyUnit.cpp:1322)  <- call CvUnit::rotateFacingDirectionCounterClockwise
 - CyUnit::setDamage  (CyUnit.cpp:1239)  <- call CvUnit::setDamage
 - CyUnit::setHasPromotion  (CyUnit.cpp:1726)  <- call CvUnit::setHasPromotion
-- `anonymous namespace'::setOperationalGeneralBadge  (CvPlayerAI.cpp:15602)  <- call CvUnit::setHasPromotion
+- `anonymous namespace'::setOperationalGeneralBadge  (CvPlayerAI.cpp:15704)  <- call CvUnit::setHasPromotion
+- joinArea  (CvGameCoreUtils.cpp:2564)  <- call CvPlot::setArea
 
-### level 6 (99)
+### level 6 (93)
 
 - CvArea::changeBorderObstacleCount  (CvArea.cpp:731)  <- call CvMap::verifyUnitValidPlot
-- CvCity::conscript  (CvCity.cpp:4233)  <- call CvCity::initConscriptedUnit
-- CvCity::createGreatPeople  (CvCity.cpp:1498)  <- call CvPlayer::createGreatPeople
-- CvCity::doPlotCulture  (CvCity.cpp:13550)  <- call CvPlot::changeCulture
-- CvCity::processBuilding  (CvCity.cpp:4407)  <- call CvCity::setHeadquarters
-- CvCity::setProductionAutomated  (CvCity.cpp:8719)  <- call CvCity::clearOrderQueue
-- CvCity::updateCultureLevel  (CvCity.cpp:8987)  <- call CvCity::setCultureLevel
-- CvCityAI::AI_buildGovernorChooseProduction  (CvCityAI.cpp:12171)  <- call CvCity::clearOrderQueue
-- CvCityAI::AI_chooseBuilding  (CvCityAI.cpp:9712)  <- call CvCity::pushOrder
-- CvCityAI::AI_chooseProcess  (CvCityAI.cpp:9752)  <- call CvCity::pushOrder
-- CvCityAI::AI_chooseProduction  (CvCityAI.cpp:706)  <- call CvCity::clearOrderQueue
-- CvCityAI::AI_chooseProject  (CvCityAI.cpp:9736)  <- call CvCity::pushOrder
-- CvCityAI::AI_chooseUnit  (CvCityAI.cpp:9406)  <- call CvCity::pushOrder
-- CvCityAI::AI_chooseUnit  (CvCityAI.cpp:9457)  <- call CvCity::pushOrder
-- CvCityAI::AI_trainInquisitor  (CvCityAI.cpp:13542)  <- call CvCity::pushOrder
+- CvCity::doGreatPeople  (CvCity.cpp:13991)  <- call CvCity::createGreatPeople
+- CvCity::doPlotCulture  (CvCity.cpp:13563)  <- call CvPlot::changeCulture
+- CvCity::setNumFreeBuilding  (CvCity.cpp:12284)  <- call CvCity::processBuilding
+- CvCity::updateCultureLevel  (CvCity.cpp:9000)  <- call CvCity::setCultureLevel
+- CvCityAI::AI_chooseDefender  (CvCityAI.cpp:9488)  <- call CvCityAI::AI_chooseUnit
+- CvCityAI::AI_chooseLeastRepresentedUnit  (CvCityAI.cpp:9514)  <- call CvCityAI::AI_chooseUnit
+- CvCityAI::AI_doDraft  (CvCityAI.cpp:8436)  <- call CvCity::conscript
+- CvCityAI::AI_doPanic  (CvCityAI.cpp:12033)  <- call CvCityAI::AI_chooseUnit
 - CvDLLButtonPopup::launchButtonPopup  (CvDLLButtonPopup.cpp:855)  <- call CvDLLButtonPopup::launchRazeCityPopup
 - CvDLLWidgetData::parseLeaderheadHelp  (CvDLLWidgetData.cpp:6025)  <- call CvGameTextMgr::parseLeaderHeadHelp
 - CvDLLWidgetData::parseLeaderheadRelationsHelp  (CvDLLWidgetData.cpp:6036)  <- call CvGameTextMgr::parseLeaderHeadRelationsHelp
+- CvDllPythonEvents::reportBeginPlayerTurn  (CvDllPythonEvents.cpp:196)  <- event RoMEventManager.py RoMEventManager.onBeginPlayerTurn
+- CvDllPythonEvents::reportCityAcquired  (CvDllPythonEvents.cpp:499)  <- event Revolution/Gameready/BarbarianCiv.py BarbarianCiv.onCityAcquired
+- CvDllPythonEvents::reportSetPlayerAlive  (CvDllPythonEvents.cpp:1273)  <- event Revolution/Gameready/StartAsMinors.py onSetPlayerAlive
 - CvEventReporter::buildingBuilt  (CvEventReporter.cpp:382)  <- call CvDllPythonEvents::reportBuildingBuilt
 - CvEventReporter::endGameTurn  (CvEventReporter.cpp:100)  <- call CvDllPythonEvents::reportEndGameTurn
 - CvEventReporter::endPlayerTurn  (CvEventReporter.cpp:123)  <- call CvDllPythonEvents::reportEndPlayerTurn
 - CvEventReporter::projectBuilt  (CvEventReporter.cpp:389)  <- call CvDllPythonEvents::reportProjectBuilt
 - CvEventReporter::reportModNetMessage  (CvEventReporter.cpp:64)  <- call CvDllPythonEvents::reportModNetMessage
-- CvGame::addVoteSelection  (CvGame.cpp:9990)  <- call CvGame::isValidVoteSelection
-- CvGame::addVoteTriggered  (CvGame.cpp:10152)  <- call CvPlayerAI::AI_diploVote
-- CvGame::canDoResolution  (CvGame.cpp:4872)  <- call CvPlayer::canDoResolution
-- CvGame::doHolyCity  (CvGame.cpp:7015)  <- call CvPlayer::foundReligion
-- CvGame::setHeadquarters  (CvGame.cpp:6407)  <- call CvCity::setHasCorporation
-- CvGame::updateWar  (CvGame.cpp:7875)  <- call CvTeam::declareWar
+- CvGame::addVoteSelection  (CvGame.cpp:10188)  <- call CvGame::isValidVoteSelection
+- CvGame::addVoteTriggered  (CvGame.cpp:10350)  <- call CvPlayerAI::AI_diploVote
+- CvGame::canDoResolution  (CvGame.cpp:5070)  <- call CvPlayer::canDoResolution
+- CvGame::doHeadquarters  (CvGame.cpp:7345)  <- call CvPlayer::foundCorporation
+- CvGame::setHeadquarters  (CvGame.cpp:6605)  <- call CvCity::setHasCorporation
+- CvGame::updateTimers  (CvGame.cpp:8178)  <- call CvPlayer::updateTimers
+- CvGame::updateWar  (CvGame.cpp:8073)  <- call CvTeam::declareWar
 - CvGameTextMgr::setBonusTradeHelp  (CvGameTextMgr.cpp:13296)  <- call CvPlayer::canTradeItem
 - CvGameTextMgr::setTechTradeHelp  (CvGameTextMgr.cpp:8365)  <- call CvPlayer::canTradeItem
-- CvMapGenerator::generateRandomMap  (CvMapGenerator.cpp:999)  <- call CvMapGenerator::generatePlotTypes
+- CvMap::setup  (CvMap.cpp:245)  <- call joinArea
 - CvNetChangeWar::Execute  (CvMessageData.cpp:1080)  <- call CvTeam::declareWar
-- CvNetDoCommand::Execute  (CvMessageData.cpp:863)  <- call CvUnit::doCommand
-- CvNetFoundReligion::Execute  (CvMessageData.cpp:620)  <- call CvPlayer::foundReligion
-- CvNetPushOrder::Execute  (CvMessageData.cpp:185)  <- call CvCity::pushOrder
-- CvPlayer::addFreeUnitAI  (CvPlayer.cpp:1945)  <- call CvPlayer::addFreeUnit
 - CvPlayer::buildTradeTable  (CvPlayer.cpp:23774)  <- call CvPlayer::canTradeItem
 - CvPlayer::findNewCapital  (CvPlayer.cpp:6012)  <- call CvCity::setNumRealBuilding
-- CvPlayer::foundCorporation  (CvPlayer.cpp:9362)  <- call CvCity::setHeadquarters
 - CvPlayer::removeBuildingClass  (CvPlayer.cpp:7705)  <- call CvCity::setNumRealBuilding
 - CvPlayer::setCivics  (CvPlayer.cpp:14261)  <- call CvGame::updateSecretaryGeneral
+- CvPlayer::setCombatExperience  (CvPlayer.cpp:11673)  <- call CvCity::createGreatPeople
 - CvPlayer::setLastStateReligion  (CvPlayer.cpp:12729)  <- call CvGame::updateSecretaryGeneral
 - CvPlayer::setLoyalMember  (CvPlayer.cpp:14155)  <- call CvGame::updateSecretaryGeneral
 - CvPlayer::setTeam  (CvPlayer.cpp:12861)  <- call CvTeam::changeAliveCount
-- CvPlayer::updateTimers  (CvPlayer.cpp:4434)  <- call CvSelectionGroup::updateTimers
-- CvPlayerAI::AI_doTurnPre  (CvPlayerAI.cpp:430)  <- call CvPlayerAI::AI_doMilitary
+- CvPlayerAI::AI_wakePlotTargetMissionAIs  (CvPlayerAI.cpp:13226)  <- call CvSelectionGroup::setActivityType
+- CvPlot::processArea  (CvPlot.cpp:9063)  <- call CvArea::changeNumTiles
+- CvSelectionGroup::deactivateHeadMission  (CvSelectionGroup.cpp:6341)  <- call CvSelectionGroup::setActivityType
+- CvSelectionGroup::deleteUnitNode  (CvSelectionGroup.cpp:5721)  <- call CvSelectionGroup::setActivityType
 - CvSelectionGroup::groupDeclareWar  (CvSelectionGroup.cpp:4301)  <- call CvTeam::declareWar
 - CvSelectionGroup::popMission  (CvSelectionGroup.cpp:703)  <- call CvSelectionGroup::deleteMissionQueueNode
 - CvSelectionGroup::pushMission  (CvSelectionGroup.cpp:651)  <- call CvSelectionGroup::doDelayedDeath
+- CvSelectionGroup::setAutomateType  (CvSelectionGroup.cpp:5476)  <- call CvSelectionGroup::setActivityType
 - CvTeam::changeEspionagePointsAgainstTeam  (CvTeam.cpp:7080)  <- call CvTeam::setEspionagePointsAgainstTeam
+- CvTeam::changeObsoleteBuildingCount  (CvTeam.cpp:5542)  <- call CvCity::processBuilding
 - CvTeam::changeProjectCount  (CvTeam.cpp:5330)  <- call CvTeam::changeTechShareCount
 - CvTeam::init  (CvTeam.cpp:130)  <- call CvTeam::declareWar
 - CvTeam::makePeace  (CvTeam.cpp:1909)  <- call CvMap::verifyUnitValidPlot
@@ -664,96 +850,96 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvTeam::setIsMinorCiv  (CvTeam.cpp:3369)  <- call CvTeam::declareWar
 - CvTeam::setOpenBorders  (CvTeam.cpp:4659)  <- call CvMap::verifyUnitValidPlot
 - CvTeamAI::AI_chooseElection  (CvTeamAI.cpp:1173)  <- call CvPlayerAI::AI_diploVote
-- CvUnit::archerBombard  (CvUnit.cpp:16447)  <- call CvUnit::changeDamage
-- CvUnit::doHeal  (CvUnit.cpp:4124)  <- call CvUnit::changeDamage
-- CvUnit::doOpportunityFire  (CvUnit.cpp:16259)  <- call CvUnit::changeDamage
-- CvUnit::doPillageInfluence  (CvUnit.cpp:16986)  <- call CvPlot::changeCulture
-- CvUnit::doVictoryInfluence  (CvUnit.cpp:16736)  <- call CvUnit::influencePlots
-- CvUnit::interceptTest  (CvUnit.cpp:13377)  <- call CvUnit::fightInterceptor
-- CvUnit::resolveAirCombat  (CvUnit.cpp:943)  <- call CvUnit::changeDamage
+- CvUnit::doHeal  (CvUnit.cpp:4134)  <- call CvUnit::changeDamage
+- CvUnit::doPillageInfluence  (CvUnit.cpp:16996)  <- call CvPlot::changeCulture
+- CvUnit::joinGroup  (CvUnit.cpp:10424)  <- call CvSelectionGroup::setActivityType
+- CvUnit::resolveAirCombat  (CvUnit.cpp:953)  <- call CvUnit::changeDamage
+- CvUnit::setPromotionReady  (CvUnit.cpp:12009)  <- call CvSelectionGroup::setActivityType
+- CvUnit::setTransportUnit  (CvUnit.cpp:12322)  <- call CvSelectionGroup::setActivityType
+- CvUnit::unloadAll  (CvUnit.cpp:3822)  <- call CvSelectionGroup::setActivityType
 - CvUnitAI::AI_assaultSeaMove  (CvUnitAI.cpp:7104)  <- call CvUnitAI::AI_barbAttackSeaMove
 - CvUnitAI::AI_carrierSeaMove  (CvUnitAI.cpp:8421)  <- call CvUnitAI::AI_carrierSeaTransport
+- CvUnitAI::AI_engineerMove  (CvUnitAI.cpp:5453)  <- call CvUnitAI::AI_switchHurry
 - CvUnitAI::AI_handleSettlerTransport  (CvUnitAI.cpp:7819)  <- call CvUnitAI::AI_settlerSeaMove
 - CvUnitAI::AI_missileCarrierSeaMove  (CvUnitAI.cpp:8544)  <- call CvUnitAI::AI_carrierSeaTransport
 - CvUnitAI::AI_missionaryMove  (CvUnitAI.cpp:4763)  <- call CvUnitAI::AI_doInquisition
 - CvUnitAI::AI_poach  (CvUnitAI.cpp:24236)  <- call CvTeam::declareWar
-- CvUnitAI::AI_promote  (CvUnitAI.cpp:695)  <- call CvUnit::promote
-- CvUnitAI::AI_switchHurry  (CvUnitAI.cpp:13917)  <- call CvCity::pushOrder
 - CvUnitAI::AI_update  (CvUnitAI.cpp:195)  <- call CvUnitAI::AI_spyMove
 - CyCity::addProductionExperience  (CyCity.cpp:397)  <- call CvCity::addProductionExperience
-- CyCity::clearOrderQueue  (CyCity.cpp:2650)  <- call CvCity::clearOrderQueue
-- CyCity::pushOrder  (CyCity.cpp:2656)  <- call CvCity::pushOrder
+- CyCity::clearWorkingOverride  (CyCity.cpp:243)  <- call CvCity::clearWorkingOverride
+- CyCity::conscript  (CyCity.cpp:581)  <- call CvCity::conscript
+- CyCity::createGreatPeople  (CyCity.cpp:210)  <- call CvCity::createGreatPeople
 - CyCity::setHasCorporation  (CyCity.cpp:2629)  <- call CvCity::setHasCorporation
 - CyCity::setNumRealBuilding  (CyCity.cpp:2602)  <- call CvCity::setNumRealBuilding
-- CyGame::reviveActivePlayer  (CyGame.cpp:293)  <- call CvGame::reviveActivePlayer
+- CyMap::recalculateAreas  (CyMap.cpp:270)  <- call CvMap::recalculateAreas
 - CyMap::verifyUnitValidPlot  (CyMap.cpp:51)  <- call CvMap::verifyUnitValidPlot
-- CyMapGenerator::generatePlotTypes  (CyMapGenerator.cpp:123)  <- call CvMapGenerator::generatePlotTypes
-- CyMapGenerator::generateTerrain  (CyMapGenerator.cpp:129)  <- call CvMapGenerator::generateTerrain
+- CyMapGenerator::addRivers  (CyMapGenerator.cpp:51)  <- call CvMapGenerator::addRivers
 - CyPlayer::canTradeItem  (CyPlayer.cpp:406)  <- call CvPlayer::canTradeItem
-- CyPlayer::createGreatPeople  (CyPlayer.cpp:1127)  <- call CvPlayer::createGreatPeople
-- CyPlayer::foundReligion  (CyPlayer.cpp:813)  <- call CvPlayer::foundReligion
+- CyPlayer::foundCorporation  (CyPlayer.cpp:834)  <- call CvPlayer::foundCorporation
 - CyPlayer::killAllDeals  (CyPlayer.cpp:452)  <- call CvPlayer::killAllDeals
 - CyPlayer::trigger  (CyPlayer.cpp:2252)  <- call CvPlayer::trigger
 - CyPlot::changeCulture  (CyPlot.cpp:900)  <- call CvPlot::changeCulture
+- CySelectionGroup::setActivityType  (CySelectionGroup.cpp:241)  <- call CvSelectionGroup::setActivityType
 - CyTeam::changeExtraWaterSeeFromCount  (CyTeam.cpp:362)  <- call CvTeam::changeExtraWaterSeeFromCount
+- CyTeam::changeIrrigationCount  (CyTeam.cpp:506)  <- call CvTeam::changeIrrigationCount
 - CyTeam::changeTechShareCount  (CyTeam.cpp:631)  <- call CvTeam::changeTechShareCount
 - CyTeam::declareWar  (CyTeam.cpp:64)  <- call CvTeam::declareWar
 - CyTeam::freeVassal  (CyTeam.cpp:722)  <- call CvTeam::freeVassal
 - CyTeam::setEspionagePointsAgainstTeam  (CyTeam.cpp:927)  <- call CvTeam::setEspionagePointsAgainstTeam
 - CyUnit::changeDamage  (CyUnit.cpp:1245)  <- call CvUnit::changeDamage
-- CyUnit::doCommand  (CyUnit.cpp:67)  <- call CvUnit::doCommand
-- CyUnit::gift  (CyUnit.cpp:138)  <- call CvUnit::gift
-- CyUnit::promote  (CyUnit.cpp:479)  <- call CvUnit::promote
-- CyUnit::rangeStrike  (CyUnit.cpp:1767)  <- call CvUnit::rangeStrike
 
-### level 7 (203)
+### level 7 (209)
 
-- CvCity::doGreatPeople  (CvCity.cpp:13978)  <- call CvCity::createGreatPeople
-- CvCity::setCultureTimes100  (CvCity.cpp:10745)  <- call CvCity::doPlotCulture
-- CvCity::setNumFreeBuilding  (CvCity.cpp:12271)  <- call CvCity::processBuilding
-- CvCity::setOccupationTimer  (CvCity.cpp:8504)  <- call CvCity::updateCultureLevel
-- CvCityAI::AI_chooseDefender  (CvCityAI.cpp:9488)  <- call CvCityAI::AI_chooseUnit
-- CvCityAI::AI_chooseLeastRepresentedUnit  (CvCityAI.cpp:9514)  <- call CvCityAI::AI_chooseUnit
-- CvCityAI::AI_doDraft  (CvCityAI.cpp:8436)  <- call CvCity::conscript
-- CvCityAI::AI_doPanic  (CvCityAI.cpp:12033)  <- call CvCityAI::AI_chooseUnit
+- CvCity::setCultureTimes100  (CvCity.cpp:10758)  <- call CvCity::doPlotCulture
+- CvCity::setOccupationTimer  (CvCity.cpp:8517)  <- call CvCity::updateCultureLevel
 - CvDLLWidgetData::parseBonusTradeHelp  (CvDLLWidgetData.cpp:5639)  <- call CvGameTextMgr::setBonusTradeHelp
 - CvDLLWidgetData::parseTechTradeEntryHelp  (CvDLLWidgetData.cpp:5282)  <- call CvGameTextMgr::setTechTradeHelp
 - CvDllPythonEvents::reportBeginGameTurn  (CvDllPythonEvents.cpp:156)  <- event Revolution/Gameready/TechDiffusion.py TechDiffusion.onBeginGameTurn
-- CvDllPythonEvents::reportBeginPlayerTurn  (CvDllPythonEvents.cpp:196)  <- event RoMEventManager.py RoMEventManager.onBeginPlayerTurn
-- CvDllPythonEvents::reportCityAcquired  (CvDllPythonEvents.cpp:499)  <- event Revolution/Gameready/BarbarianCiv.py BarbarianCiv.onCityAcquired
 - CvDllPythonEvents::reportCityRazed  (CvDllPythonEvents.cpp:483)  <- event base/CvEventManager.py CvEventManager.onCityRazed
 - CvDllPythonEvents::reportKbdEvent  (CvDllPythonEvents.cpp:30)  <- event base/CvEventManager.py CvEventManager.onKbdEvent
-- CvDllPythonEvents::reportSetPlayerAlive  (CvDllPythonEvents.cpp:1273)  <- event Revolution/Gameready/StartAsMinors.py onSetPlayerAlive
 - CvDllPythonEvents::reportVictory  (CvDllPythonEvents.cpp:1247)  <- event Revolution/Gameready/AIAutoPlay.py AIAutoPlay.onVictory
-- CvGame::addVoteTriggered  (CvGame.cpp:10142)  <- call CvGame::addVoteTriggered
-- CvGame::doHeadquarters  (CvGame.cpp:7147)  <- call CvPlayer::foundCorporation
-- CvGame::doVoteSelection  (CvGame.cpp:10413)  <- call CvTeam::meet
-- CvGame::updateTimers  (CvGame.cpp:7980)  <- call CvPlayer::updateTimers
+- CvEventReporter::beginPlayerTurn  (CvEventReporter.cpp:118)  <- call CvDllPythonEvents::reportBeginPlayerTurn
+- CvEventReporter::cityAcquired  (CvEventReporter.cpp:218)  <- call CvDllPythonEvents::reportCityAcquired
+- CvEventReporter::setPlayerAlive  (CvEventReporter.cpp:452)  <- call CvDllPythonEvents::reportSetPlayerAlive
+- CvGame::addVoteTriggered  (CvGame.cpp:10340)  <- call CvGame::addVoteTriggered
+- CvGame::doVoteSelection  (CvGame.cpp:10611)  <- call CvTeam::meet
 - CvGameTextMgr::setBonusHelp  (CvGameTextMgr.cpp:13291)  <- call CvGameTextMgr::setBonusTradeHelp
 - CvGameTextMgr::setTechHelp  (CvGameTextMgr.cpp:8359)  <- call CvGameTextMgr::setTechTradeHelp
+- CvNetJoinGroup::Execute  (CvMessageData.cpp:721)  <- call CvUnit::joinGroup
 - CvNetModNetMessage::Execute  (CvMessageData.cpp:524)  <- call CvEventReporter::reportModNetMessage
 - CvNetPushMission::Execute  (CvMessageData.cpp:769)  <- call CvSelectionGroup::pushMission
+- CvPlayer::changeCombatExperience  (CvPlayer.cpp:11726)  <- call CvPlayer::setCombatExperience
+- CvPlayer::changeFreeBuildingCount  (CvPlayer.cpp:13596)  <- call CvCity::setNumFreeBuilding
 - CvPlayer::convert  (CvPlayer.cpp:9086)  <- call CvPlayer::setLastStateReligion
 - CvPlayer::doEspionagePoints  (CvPlayer.cpp:15421)  <- call CvTeam::changeEspionagePointsAgainstTeam
 - CvPlayer::processBuilding  (CvPlayer.cpp:7739)  <- call CvArea::changeBorderObstacleCount
 - CvPlayer::resetCivTypeEffects  (CvPlayer.cpp:1479)  <- call CvPlayer::setCivics
 - CvPlayer::revolution  (CvPlayer.cpp:8924)  <- call CvPlayer::setCivics
-- CvPlayer::setCombatExperience  (CvPlayer.cpp:11673)  <- call CvCity::createGreatPeople
 - CvPlayer::setDefiedResolution  (CvPlayer.cpp:23353)  <- call CvPlayer::setLoyalMember
 - CvPlayer::setEndorsedResolution  (CvPlayer.cpp:23379)  <- call CvPlayer::setLoyalMember
 - CvPlayer::verifyCivics  (CvPlayer.cpp:4138)  <- call CvPlayer::setCivics
-- CvPlot::processArea  (CvPlot.cpp:9053)  <- call CvArea::changeBorderObstacleCount
+- CvSelectionGroup::clearMissionQueue  (CvSelectionGroup.cpp:6099)  <- call CvSelectionGroup::deactivateHeadMission
+- CvSelectionGroup::clearUnits  (CvSelectionGroup.cpp:5625)  <- call CvSelectionGroup::deleteUnitNode
 - CvSelectionGroup::groupAmphibMove  (CvSelectionGroup.cpp:5173)  <- call CvSelectionGroup::pushMission
+- CvSelectionGroup::mergeIntoGroup  (CvSelectionGroup.cpp:5761)  <- call CvUnit::joinGroup
+- CvSelectionGroup::removeUnit  (CvSelectionGroup.cpp:5700)  <- call CvSelectionGroup::deleteUnitNode
+- CvSelectionGroup::setTransportUnit  (CvSelectionGroup.cpp:4982)  <- call CvUnit::setTransportUnit
+- CvSelectionGroup::splitGroup  (CvSelectionGroup.cpp:5811)  <- call CvUnit::joinGroup
+- CvSelectionGroup::unloadAll  (CvSelectionGroup.cpp:3968)  <- call CvUnit::unloadAll
+- CvSelectionGroupAI::AI_ejectBestDefender  (CvSelectionGroupAI.cpp:897)  <- call CvUnit::joinGroup
 - CvSelectionGroupAI::AI_separate  (CvSelectionGroupAI.cpp:64)  <- call CvSelectionGroup::pushMission
 - CvSelectionGroupAI::AI_separateAI  (CvSelectionGroupAI.cpp:111)  <- call CvSelectionGroup::pushMission
 - CvSelectionGroupAI::AI_separateEmptyTransports  (CvSelectionGroupAI.cpp:157)  <- call CvSelectionGroup::pushMission
 - CvSelectionGroupAI::AI_separateImpassable  (CvSelectionGroupAI.cpp:134)  <- call CvSelectionGroup::pushMission
 - CvSelectionGroupAI::AI_separateNonAI  (CvSelectionGroupAI.cpp:89)  <- call CvSelectionGroup::pushMission
-- CvTeam::changeObsoleteBuildingCount  (CvTeam.cpp:5542)  <- call CvCity::processBuilding
 - CvTeam::resetVictoryProgress  (CvTeam.cpp:5852)  <- call CvTeam::changeProjectCount
 - CvTeamAI::AI_reviewWars  (CvTeamAI.cpp:4132)  <- call CvTeam::makePeace
-- CvUnit::bombard  (CvUnit.cpp:5290)  <- call CvSelectionGroup::groupDeclareWar
-- CvUnit::fighterEngage  (CvUnit.cpp:16623)  <- call CvUnit::interceptTest
+- CvUnit::automate  (CvUnit.cpp:3405)  <- call CvSelectionGroup::setAutomateType
+- CvUnit::cheat  (CvUnit.cpp:14412)  <- call CvUnit::setPromotionReady
+- CvUnit::load  (CvUnit.cpp:3718)  <- call CvUnit::setTransportUnit
+- CvUnit::loadUnit  (CvUnit.cpp:3628)  <- call CvUnit::setTransportUnit
+- CvUnit::testPromotionReady  (CvUnit.cpp:12035)  <- call CvUnit::setPromotionReady
+- CvUnit::unload  (CvUnit.cpp:3800)  <- call CvUnit::setTransportUnit
 - CvUnitAI::AI_Abombard  (CvUnitAI.cpp:25113)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_FEngage  (CvUnitAI.cpp:25179)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_ICBMMove  (CvUnitAI.cpp:5759)  <- call CvSelectionGroup::pushMission
@@ -798,7 +984,6 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvUnitAI::AI_defenseAirMove  (CvUnitAI.cpp:8987)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_defensiveAirStrike  (CvUnitAI.cpp:21901)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_discover  (CvUnitAI.cpp:13468)  <- call CvSelectionGroup::pushMission
-- CvUnitAI::AI_engineerMove  (CvUnitAI.cpp:5453)  <- call CvUnitAI::AI_switchHurry
 - CvUnitAI::AI_explore  (CvUnitAI.cpp:15008)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_exploreAir  (CvUnitAI.cpp:22280)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_exploreAir2  (CvUnitAI.cpp:22364)  <- call CvSelectionGroup::pushMission
@@ -868,6 +1053,7 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvUnitAI::AI_protect  (CvUnitAI.cpp:14451)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_rangeAttack  (CvUnitAI.cpp:16047)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_reconSpy  (CvUnitAI.cpp:22800)  <- call CvSelectionGroup::pushMission
+- CvUnitAI::AI_recruitSettlerEscort  (CvUnitAI.cpp:11029)  <- call CvUnit::joinGroup
 - CvUnitAI::AI_reinforceOperation  (CvUnitAI.cpp:2125)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_reserveMove  (CvUnitAI.cpp:3877)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_reserveSeaMove  (CvUnitAI.cpp:6472)  <- call CvSelectionGroup::pushMission
@@ -877,6 +1063,8 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvUnitAI::AI_safety  (CvUnitAI.cpp:14684)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_scientistMove  (CvUnitAI.cpp:5064)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_seaBombardRange  (CvUnitAI.cpp:16586)  <- call CvSelectionGroup::pushMission
+- CvUnitAI::AI_separateSettlerTransports  (CvUnitAI.cpp:7790)  <- call CvUnit::joinGroup
+- CvUnitAI::AI_setUnitAIType  (CvUnitAI.cpp:1246)  <- call CvUnit::joinGroup
 - CvUnitAI::AI_settlerSeaFerry  (CvUnitAI.cpp:18379)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_settlerSeaTransport  (CvUnitAI.cpp:18133)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_shadow  (CvUnitAI.cpp:10481)  <- call CvSelectionGroup::pushMission
@@ -891,34 +1079,33 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvUnitAI::AI_stackAttackCity  (CvUnitAI.cpp:23920)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_trade  (CvUnitAI.cpp:22634)  <- call CvSelectionGroup::pushMission
 - CvUnitAI::AI_travelToUpgradeCity  (CvUnitAI.cpp:20407)  <- call CvSelectionGroup::pushMission
-- CyCity::conscript  (CyCity.cpp:581)  <- call CvCity::conscript
-- CyCity::createGreatPeople  (CyCity.cpp:210)  <- call CvCity::createGreatPeople
-- CyCity::setProductionAutomated  (CyCity.cpp:1845)  <- call CvCity::setProductionAutomated
 - CyGame::clearHeadquarters  (CyGame.cpp:974)  <- call CvGame::setHeadquarters
 - CyGame::setHeadquarters  (CyGame.cpp:968)  <- call CvGame::setHeadquarters
-- CyMapGenerator::generateRandomMap  (CyMapGenerator.cpp:117)  <- call CvMapGenerator::generateRandomMap
 - CyPlayer::findNewCapital  (CyPlayer.cpp:463)  <- call CvPlayer::findNewCapital
-- CyPlayer::foundCorporation  (CyPlayer.cpp:834)  <- call CvPlayer::foundCorporation
 - CyPlayer::removeBuildingClass  (CyPlayer.cpp:574)  <- call CvPlayer::removeBuildingClass
 - CyPlayer::setCivics  (CyPlayer.cpp:2068)  <- call CvPlayer::setCivics
+- CyPlayer::setCombatExperience  (CyPlayer.cpp:2092)  <- call CvPlayer::setCombatExperience
 - CyPlayer::setLastStateReligion  (CyPlayer.cpp:1727)  <- call CvPlayer::setLastStateReligion
 - CyPlayer::setLoyalMember  (CyPlayer.cpp:1872)  <- call CvPlayer::setLoyalMember
 - CySelectionGroup::popMission  (CySelectionGroup.cpp:38)  <- call CvSelectionGroup::popMission
 - CySelectionGroup::pushMission  (CySelectionGroup.cpp:26)  <- call CvSelectionGroup::pushMission
 - CySelectionGroup::pushMoveToMission  (CySelectionGroup.cpp:32)  <- call CvSelectionGroup::pushMission
+- CySelectionGroup::setAutomateType  (CySelectionGroup.cpp:257)  <- call CvSelectionGroup::setAutomateType
+- CySelectionGroupInterface  (CySelectionGroupInterface.cpp:15)  <- call CySelectionGroup::setActivityType
 - CyTeam::changeEspionagePointsAgainstTeam  (CyTeam.cpp:933)  <- call CvTeam::changeEspionagePointsAgainstTeam
 - CyTeam::changeProjectCount  (CyTeam.cpp:787)  <- call CvTeam::changeProjectCount
 - CyTeam::makePeace  (CyTeam.cpp:70)  <- call CvTeam::makePeace
 - CyTeam::meet  (CyTeam.cpp:81)  <- call CvTeam::meet
 - CyTeam::setIsMinorCiv  (CyTeam.cpp:266)  <- call CvTeam::setIsMinorCiv
+- CyUnit::setPromotionReady  (CyUnit.cpp:1566)  <- call CvUnit::setPromotionReady
+- CyUnit::setTransportUnit  (CyUnit.cpp:1623)  <- call CvUnit::setTransportUnit
 
-### level 8 (46)
+### level 8 (44)
 
-- CvCity::changeCulture  (CvCity.cpp:10765)  <- call CvCity::setCultureTimes100
-- CvCity::changeCultureTimes100  (CvCity.cpp:10770)  <- call CvCity::setCultureTimes100
-- CvCity::changeOccupationTimer  (CvCity.cpp:8531)  <- call CvCity::setOccupationTimer
-- CvCity::setCulture  (CvCity.cpp:10740)  <- call CvCity::setCultureTimes100
-- CvCityAI::AI_doTurn  (CvCityAI.cpp:186)  <- call CvCityAI::AI_doDraft
+- CvCity::changeCulture  (CvCity.cpp:10778)  <- call CvCity::setCultureTimes100
+- CvCity::changeCultureTimes100  (CvCity.cpp:10783)  <- call CvCity::setCultureTimes100
+- CvCity::changeOccupationTimer  (CvCity.cpp:8544)  <- call CvCity::setOccupationTimer
+- CvCity::setCulture  (CvCity.cpp:10753)  <- call CvCity::setCultureTimes100
 - CvDLLWidgetData::parseBonusHelp  (CvDLLWidgetData.cpp:5630)  <- call CvGameTextMgr::setBonusHelp
 - CvDLLWidgetData::parseResearchHelp  (CvDLLWidgetData.cpp:3433)  <- call CvGameTextMgr::setTechHelp
 - CvDLLWidgetData::parseTechEntryHelp  (CvDLLWidgetData.cpp:5273)  <- call CvGameTextMgr::setTechHelp
@@ -927,28 +1114,26 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvDllPythonEvents::reportGameStart  (CvDllPythonEvents.cpp:124)  <- event Revolution/Gameready/AIAutoPlay.py AIAutoPlay.onGameStart
 - CvDllPythonEvents::reportTechAcquired  (CvDllPythonEvents.cpp:1094)  <- event Revolution/Gameready/StartAsMinors.py onTechAcquired
 - CvEventReporter::beginGameTurn  (CvEventReporter.cpp:94)  <- call CvDllPythonEvents::reportBeginGameTurn
-- CvEventReporter::beginPlayerTurn  (CvEventReporter.cpp:118)  <- call CvDllPythonEvents::reportBeginPlayerTurn
-- CvEventReporter::cityAcquired  (CvEventReporter.cpp:218)  <- call CvDllPythonEvents::reportCityAcquired
 - CvEventReporter::cityRazed  (CvEventReporter.cpp:211)  <- call CvDllPythonEvents::reportCityRazed
 - CvEventReporter::kbdEvent  (CvEventReporter.cpp:34)  <- call CvDllPythonEvents::reportKbdEvent
-- CvEventReporter::setPlayerAlive  (CvEventReporter.cpp:452)  <- call CvDllPythonEvents::reportSetPlayerAlive
 - CvEventReporter::victory  (CvEventReporter.cpp:479)  <- call CvDllPythonEvents::reportVictory
-- CvGame::setVoteChosen  (CvGame.cpp:6267)  <- call CvGame::addVoteTriggered
-- CvGame::testVictory  (CvGame.cpp:8359)  <- call CvTeam::resetVictoryProgress
-- CvGame::verifyCivics  (CvGame.cpp:7966)  <- call CvPlayer::verifyCivics
+- CvGame::setVoteChosen  (CvGame.cpp:6465)  <- call CvGame::addVoteTriggered
+- CvGame::testVictory  (CvGame.cpp:8557)  <- call CvTeam::resetVictoryProgress
+- CvGame::verifyCivics  (CvGame.cpp:8164)  <- call CvPlayer::verifyCivics
 - CvGameTextMgr::getBonusDataForWB  (CvGameTextMgr.cpp:20107)  <- call CvGameTextMgr::setBonusHelp
 - CvGameTextMgr::getTechDataForWB  (CvGameTextMgr.cpp:20085)  <- call CvGameTextMgr::setTechHelp
 - CvNetConvert::Execute  (CvMessageData.cpp:556)  <- call CvPlayer::convert
 - CvNetUpdateCivics::Execute  (CvMessageData.cpp:336)  <- call CvPlayer::revolution
-- CvPlayer::changeCiv  (CvPlayer.cpp:1573)  <- call CvPlayer::resetCivTypeEffects
-- CvPlayer::changeCombatExperience  (CvPlayer.cpp:11726)  <- call CvPlayer::setCombatExperience
-- CvPlayer::changeFreeBuildingCount  (CvPlayer.cpp:13596)  <- call CvCity::setNumFreeBuilding
 - CvPlayer::getResourceLayerColors  (CvPlayer.cpp:24549)  <- call CvGameTextMgr::setBonusHelp
-- CvPlayerAI::AI_doCivics  (CvPlayerAI.cpp:17033)  <- call CvPlayer::revolution
-- CvPlayerAI::AI_doReligion  (CvPlayerAI.cpp:17126)  <- call CvPlayer::convert
-- CvPlot::setArea  (CvPlot.cpp:4400)  <- call CvPlot::processArea
+- CvPlayerAI::AI_convertUnitAITypesForCrush  (CvPlayerAI.cpp:23165)  <- call CvUnitAI::AI_setUnitAIType
+- CvPlayerAI::AI_doCivics  (CvPlayerAI.cpp:17135)  <- call CvPlayer::revolution
+- CvPlayerAI::AI_doReligion  (CvPlayerAI.cpp:17228)  <- call CvPlayer::convert
+- CvUnit::awardSpyExperience  (CvUnit.cpp:7187)  <- call CvUnit::testPromotionReady
+- CvUnit::changeExperience  (CvUnit.cpp:11261)  <- call CvPlayer::changeCombatExperience
+- CvUnit::giveExperience  (CvUnit.cpp:7901)  <- call CvUnit::testPromotionReady
 - CvUnitAI::AI_afterAttack  (CvUnitAI.cpp:12673)  <- call CvUnitAI::AI_guardCity
 - CvUnitAI::AI_chokeDefend  (CvUnitAI.cpp:12496)  <- call CvUnitAI::AI_anyAttack
+- CvUnitAI::AI_clearSettlerSeaLoads  (CvUnitAI.cpp:18117)  <- call CvSelectionGroup::clearMissionQueue
 - CvUnitAI::AI_connectBonus  (CvUnitAI.cpp:20166)  <- call CvUnitAI::AI_connectPlot
 - CvUnitAI::AI_connectCity  (CvUnitAI.cpp:20208)  <- call CvUnitAI::AI_connectPlot
 - CvUnitAI::AI_loadForCoastalAttack  (CvUnitAI.cpp:10856)  <- call CvUnitAI::AI_load
@@ -956,47 +1141,38 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CyCity::setOccupationTimer  (CyCity.cpp:1762)  <- call CvCity::setOccupationTimer
 - CyGameTextMgr::getBonusHelp  (CyGameTextMgr.cpp:121)  <- call CvGameTextMgr::setBonusHelp
 - CyGameTextMgr::getTechHelp  (CyGameTextMgr.cpp:76)  <- call CvGameTextMgr::setTechHelp
+- CyPlayer::changeCombatExperience  (CyPlayer.cpp:2083)  <- call CvPlayer::changeCombatExperience
 - CyPlayer::convert  (CyPlayer.cpp:775)  <- call CvPlayer::convert
 - CyPlayer::revolution  (CyPlayer.cpp:749)  <- call CvPlayer::revolution
-- CyPlayer::setCombatExperience  (CyPlayer.cpp:2092)  <- call CvPlayer::setCombatExperience
-- CySelectionGroupInterface  (CySelectionGroupInterface.cpp:15)  <- call CySelectionGroup::pushMission
+- CySelectionGroup::clearMissionQueue  (CySelectionGroup.cpp:289)  <- call CvSelectionGroup::clearMissionQueue
+- CyUnit::setUnitAIType  (CyUnit.cpp:1737)  <- call CvUnitAI::AI_setUnitAIType
 
-### level 9 (17)
+### level 9 (13)
 
-- CvCity::doCulture  (CvCity.cpp:13523)  <- call CvCity::changeCultureTimes100
+- CvCity::doCulture  (CvCity.cpp:13536)  <- call CvCity::changeCultureTimes100
 - CvEventReporter::gameStart  (CvEventReporter.cpp:84)  <- call CvDllPythonEvents::reportGameStart
 - CvEventReporter::techAcquired  (CvEventReporter.cpp:394)  <- call CvDllPythonEvents::reportTechAcquired
-- CvGame::changeForceCivicCount  (CvGame.cpp:5974)  <- call CvGame::verifyCivics
-- CvGame::setWinner  (CvGame.cpp:5529)  <- call CvEventReporter::victory
-- CvMap::calculateAreas  (CvMap.cpp:1397)  <- call CvPlot::setArea
-- CvMap::recalculateAreas  (CvMap.cpp:1203)  <- call CvPlot::setArea
+- CvGame::changeForceCivicCount  (CvGame.cpp:6172)  <- call CvGame::verifyCivics
+- CvGame::setWinner  (CvGame.cpp:5727)  <- call CvEventReporter::victory
 - CvNetChooseElection::Execute  (CvMessageData.cpp:1014)  <- call CvGame::setVoteChosen
 - CvPlayer::getGlobeLayerColors  (CvPlayer.cpp:24307)  <- call CvPlayer::getResourceLayerColors
-- CvUnit::changeExperience  (CvUnit.cpp:11251)  <- call CvPlayer::changeCombatExperience
 - CyCity::changeCulture  (CyCity.cpp:2191)  <- call CvCity::changeCulture
 - CyCity::changeCultureTimes100  (CyCity.cpp:2197)  <- call CvCity::changeCultureTimes100
 - CyCity::changeOccupationTimer  (CyCity.cpp:1768)  <- call CvCity::changeOccupationTimer
 - CyCity::setCulture  (CyCity.cpp:2179)  <- call CvCity::setCulture
-- CyPlayer::changeCiv  (CyPlayer.cpp:40)  <- call CvPlayer::changeCiv
-- CyPlayer::changeCombatExperience  (CyPlayer.cpp:2083)  <- call CvPlayer::changeCombatExperience
-- joinArea  (CvGameCoreUtils.cpp:2564)  <- call CvPlot::setArea
+- CyUnit::changeExperience  (CyUnit.cpp:1285)  <- call CvUnit::changeExperience
+- CyUnit::giveExperience  (CyUnit.cpp:469)  <- call CvUnit::giveExperience
 
-### level 10 (8)
+### level 10 (3)
 
 - CvDllPythonEvents::reportChangeWar  (CvDllPythonEvents.cpp:1234)  <- event Revolution/RevEvents.py onChangeWar
 - CvDllPythonEvents::reportCityBuilt  (CvDllPythonEvents.cpp:468)  <- event Contrib/MoreCiv4lerts.py MoreCiv4lertsEvent.OnCityBuilt
-- CvMap::setup  (CvMap.cpp:245)  <- call joinArea
-- CvUnit::awardSpyExperience  (CvUnit.cpp:7177)  <- call CvUnit::changeExperience
-- CvUnit::giveExperience  (CvUnit.cpp:7891)  <- call CvUnit::changeExperience
 - CyGame::setWinner  (CyGame.cpp:713)  <- call CvGame::setWinner
-- CyMap::recalculateAreas  (CyMap.cpp:270)  <- call CvMap::recalculateAreas
-- CyUnit::changeExperience  (CyUnit.cpp:1285)  <- call CvUnit::changeExperience
 
-### level 11 (3)
+### level 11 (2)
 
 - CvEventReporter::changeWar  (CvEventReporter.cpp:447)  <- call CvDllPythonEvents::reportChangeWar
 - CvEventReporter::cityBuilt  (CvEventReporter.cpp:204)  <- call CvDllPythonEvents::reportCityBuilt
-- CyUnit::giveExperience  (CyUnit.cpp:469)  <- call CvUnit::giveExperience
 
 ## Python functions, level by level
 
@@ -1010,7 +1186,7 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvWorldBuilderScreen.revealAll  (base/Screens/CvWorldBuilderScreen.py:2304)  <- py>cpp CyPlot::setRevealed
 - CvWBDesc.applyInitialItems  (base/pyWB/CvWBDesc.py:1617)  <- py>cpp CyPlot::setRevealed
 
-### level 3 (28)
+### level 3 (29)
 
 - Deal.turnsToCancel  (BUG/DealUtil.py:202)  <- py>cpp (name match) CyDeal::turnsToCancel
 - GoldPerTurnTrade.onBeginActivePlayerTurn  (Contrib/Civ4lerts.py:780)  <- py>cpp (only target) CyPlayer::AI_maxGoldPerTurnTrade
@@ -1040,8 +1216,9 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvWorldBuilderScreen.removeObject  (base/Screens/CvWorldBuilderScreen.py:931)  <- py>cpp (only target) CyPlot::setImprovementType
 - CvWorldBuilderScreen.setMultipleReveal  (base/Screens/CvWorldBuilderScreen.py:1909)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.RevealCurrentPlot
 - CvPlotDesc.apply  (base/pyWB/CvWBDesc.py:1118)  <- py>cpp CyPlot::setImprovementType
+- CvPlotDesc.preApply  (base/pyWB/CvWBDesc.py:1109)  <- py>cpp CyPlot::setPlotType
 
-### level 4 (50)
+### level 4 (56)
 
 - AbandonCityEventManager.__eventAbandonCityDestroyBuildingApply  (AbandonCityEventManager.py:221)  <- py>cpp CyCity::kill
 - Deal.getCannotCancelReason  (BUG/DealUtil.py:197)  <- py>cpp (name match) CyDeal::getCannotCancelReason
@@ -1049,16 +1226,19 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - Deal.kill  (BUG/DealUtil.py:208)  <- py>cpp (name match) CyCity::kill
 - finderRegenerate  (Contrib/MapFinder.py:248)  <- py>cpp CyGame::regenerateMap
 - regenerateForReal  (Contrib/MapFinder.py:67)  <- py>cpp CyGame::regenerateMap
+- BonusBalancer.normalizeAddExtras  (CvMapGeneratorUtil.py:1384)  <- py>cpp CyPlot::setBonusType
 - FeatureGenerator.addFeaturesAtPlot  (CvMapGeneratorUtil.py:1219)  <- py>cpp CyPlot::setFeatureType
 - FeatureGenerator.addForestsAtPlot  (CvMapGeneratorUtil.py:1257)  <- py>cpp CyPlot::setFeatureType
 - FeatureGenerator.addIceAtPlot  (CvMapGeneratorUtil.py:1238)  <- py>cpp CyPlot::setFeatureType
 - FeatureGenerator.addJunglesAtPlot  (CvMapGeneratorUtil.py:1251)  <- py>cpp CyPlot::setFeatureType
 - applyClassicLiteratureDone2  (EntryPoints/CvRandomEventInterface.py:2571)  <- py>cpp CyTeam::setHasTech
+- applyMasterBlacksmithDone1  (EntryPoints/CvRandomEventInterface.py:2723)  <- py>cpp CyPlot::setBonusType
 - applySilverRain3  (EntryPoints/CvRandomEventInterface.py:7162)  <- py>cpp CyPlot::nukeExplosion
 - applyTsunami1  (EntryPoints/CvRandomEventInterface.py:698)  <- py>cpp CyCity::kill
 - doNuclearProtest1  (EntryPoints/CvRandomEventInterface.py:4035)  <- py>cpp (name match) CyCity::kill
 - advanceEra  (ModTools/ModTools.py:110)  <- py>cpp CyTeam::setHasTech
 - clearMap  (ModTools/ModTools.py:12)  <- py>cpp CyPlayer::initCity
+- showUnitClass  (ModTools/ModTools.py:90)  <- py>cpp CyPlot::setTerrainType
 - showUnits  (ModTools/ModTools.py:25)  <- py>cpp CyPlot::erase
 - showUnitsTerrain  (ModTools/ModTools.py:58)  <- py>cpp CyPlot::erase
 - clearMap  (ModTools/ModToolsUtils.py:10)  <- py>cpp CyPlayer::initCity
@@ -1081,6 +1261,7 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - RoMEventManager.onProjectBuilt  (RoMEventManager.py:390)  <- py>cpp CyPlot::setFeatureType
 - CvForeignAdvisor.drawContents  (Screens/CvForeignAdvisor.py:165)  <- py>py Screens/CvForeignAdvisor.py CvForeignAdvisor.drawPossibleDeals
 - PLE.tempMove  (Screens/PLE.py:1283)  <- py>cpp (name match) CyUnit::setXY
+- CvDebugTools.allBonuses  (base/CvDebugTools.py:259)  <- py>cpp CyPlot::setBonusType
 - CvDebugTools.applyTechCheat  (base/CvDebugTools.py:206)  <- py>cpp (name match) CyTeam::setHasTech
 - CvFillMap.fillPlot  (base/CvPerfTest.py:52)  <- py>cpp CyPlayer::initCity
 - doGoody  (base/EntryPoints/CvGameInterface.py:216)  <- py>cpp (name match) CyPlayer::doGoody
@@ -1091,50 +1272,18 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - CvWorldBuilderScreen.placeMultipleObjects  (base/Screens/CvWorldBuilderScreen.py:1828)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.placeObject
 - CvWorldBuilderScreen.removeMultipleObjects  (base/Screens/CvWorldBuilderScreen.py:1866)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.removeObject
 - CvWorldBuilderScreen.rightMouseDown  (base/Screens/CvWorldBuilderScreen.py:285)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.setMultipleReveal
+- CvWorldBuilderScreen.setAllPlots  (base/Screens/CvWorldBuilderScreen.py:414)  <- py>cpp CyMap::setAllPlotTypes
 - CvWorldBuilderScreen.setCurrentNormalPlayerIndex  (base/Screens/CvWorldBuilderScreen.py:1622)  <- py>cpp CyTeam::setHasTech
 - CvCityDesc.apply  (base/pyWB/CvWBDesc.py:858)  <- py>cpp (name match) CyPlayer::initCity
+- CvWBDesc.applyMap  (base/pyWB/CvWBDesc.py:1559)  <- py>py (only target) base/pyWB/CvWBDesc.py CvPlotDesc.preApply
 
-### level 5 (31)
+### level 5 (82)
 
 - Scoreboard.addPlayer  (BUG/Scoreboard.py:207)  <- py>cpp (name match) CyGame::addPlayer
 - FeatureGenerator.addFeatures  (CvMapGeneratorUtil.py:1209)  <- py>py CvMapGeneratorUtil.py FeatureGenerator.addFeaturesAtPlot
-- Carnation2Callback  (EntryPoints/CvRandomEventInterface.py:4601)  <- py>cpp CyPlayer::forcePeace
-- doCarnation2  (EntryPoints/CvRandomEventInterface.py:4570)  <- py>cpp CyPlayer::forcePeace
-- doHeroicGesture2  (EntryPoints/CvRandomEventInterface.py:1616)  <- py>cpp CyPlayer::forcePeace
-- heroicGesture2Callback  (EntryPoints/CvRandomEventInterface.py:1642)  <- py>cpp CyPlayer::forcePeace
-- WorldBuilderHandleTechCB  (EntryPoints/CvScreensInterface.py:659)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.handleTechCB
-- WorldBuilderOnNormalPlayerBrushSelected  (EntryPoints/CvScreensInterface.py:696)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.setCurrentNormalPlayerIndex
-- leftMouseDown  (EntryPoints/CvScreensInterface.py:891)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.leftMouseDown
-- mouseOverPlot  (EntryPoints/CvScreensInterface.py:911)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.mouseOverPlot
-- rightMouseDown  (EntryPoints/CvScreensInterface.py:901)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.rightMouseDown
-- AIAutoPlay.doNewHuman  (Revolution/Gameready/AIAutoPlay.py:202)  <- py>cpp CyPlayer::setNewPlayerAlive
-- BarbarianCiv.checkBarbCities  (Revolution/Gameready/BarbarianCiv.py:878)  <- py>py Revolution/Gameready/BarbarianCiv.py BarbarianCiv.createMinorCiv
-- BarbarianCiv.checkMinorCivs  (Revolution/Gameready/BarbarianCiv.py:1224)  <- py>py Revolution/Gameready/BarbarianCiv.py BarbarianCiv.settleMinorCiv
-- forceBarbCityToMinor  (Revolution/Gameready/BarbarianCiv.py:2049)  <- py>py (only target) Revolution/Gameready/BarbarianCiv.py BarbarianCiv.createMinorCiv
-- Revolution.checkForRevolution  (Revolution/Gameready/Revolution.py:2137)  <- py>py Revolution/Gameready/Revolution.py Revolution.pickRevolutionStyle
-- Revolution.chooseRevolutionCiv  (Revolution/Gameready/Revolution.py:3787)  <- py>cpp CyGame::addPlayer
-- TechDiffusion.diffuseTech  (Revolution/Gameready/TechDiffusion.py:103)  <- py>cpp CyTeam::setResearchProgress
-- CvForeignAdvisor.drawActive  (Screens/CvForeignAdvisor.py:215)  <- py>cpp CyGameTextMgr::getDealString
-- CvForeignAdvisor.handleInput  (Screens/CvForeignAdvisor.py:804)  <- py>py Screens/CvForeignAdvisor.py CvForeignAdvisor.drawContents
-- CvForeignAdvisor.interfaceScreen  (Screens/CvForeignAdvisor.py:115)  <- py>py Screens/CvForeignAdvisor.py CvForeignAdvisor.drawContents
-- CvForeignAdvisor.update  (Screens/CvForeignAdvisor.py:825)  <- py>py Screens/CvForeignAdvisor.py CvForeignAdvisor.drawContents
-- PLE.selectGroup  (Screens/PLE.py:1297)  <- py>py Screens/PLE.py PLE.tempMove
-- CvDebugTools.applyUnitPicker  (base/CvDebugTools.py:152)  <- py>py PyHelpers.py PyPlayer.initCity
-- CvEventManager.__eventAwardTechsAndGoldApply  (base/CvEventManager.py:999)  <- py>py base/CvDebugTools.py CvDebugTools.applyTechCheat
-- CvFillMap.emptyMap  (base/CvPerfTest.py:24)  <- py>cpp CyPlayer::killCities
-- CvFillMap.fillMap  (base/CvPerfTest.py:30)  <- py>py base/CvPerfTest.py CvFillMap.fillPlot
-- CvWorldBuilderDiplomacyScreen.handleVassalPullDownCB  (base/Screens/CvWorldBuilderDiplomacyScreen.py:351)  <- py>cpp CyTeam::assignVassal
-- CvWorldBuilderScreen.handleInput  (base/Screens/CvWorldBuilderScreen.py:192)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.handleWorldBuilderTechByEraPullDownCB
-- CvPlotDesc.preApply  (base/pyWB/CvWBDesc.py:1109)  <- py>cpp CyPlot::setPlotType
-- CvWBDesc.applyMap  (base/pyWB/CvWBDesc.py:1559)  <- py>cpp CyMap::rebuild
-
-### level 6 (77)
-
-- PickReligionPopup.launchPopup  (Contrib/RevDCMReligionControl.py:194)  <- py>cpp CyGame::setAIAutoPlay
 - spawnUnit  (CvUtil.py:351)  <- py>cpp (name match) CyPlayer::initUnit
-- EnhancedTechConquest.onCityAcquired  (EnhancedTechConquestUtils/EnhancedTechConquest.py:79)  <- py>cpp CyTeam::changeResearchProgress
+- Carnation2Callback  (EntryPoints/CvRandomEventInterface.py:4601)  <- py>cpp CyPlayer::forcePeace
 - applyBlackbeard1  (EntryPoints/CvRandomEventInterface.py:5138)  <- py>cpp CyPlayer::initUnit
-- applyChampion  (EntryPoints/CvRandomEventInterface.py:1014)  <- py>cpp CyUnit::setHasPromotion
 - applyCityRuinsTreasure1  (EntryPoints/CvRandomEventInterface.py:7301)  <- py>cpp CyPlayer::initUnit
 - applyCrusadeDone1  (EntryPoints/CvRandomEventInterface.py:2961)  <- py>cpp CyPlayer::initUnit
 - applyGreedDone1  (EntryPoints/CvRandomEventInterface.py:3358)  <- py>cpp CyPlayer::initUnit
@@ -1152,7 +1301,6 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - applyPartisans1  (EntryPoints/CvRandomEventInterface.py:3162)  <- py>cpp CyPlayer::initUnit
 - applyPartisans2  (EntryPoints/CvRandomEventInterface.py:3208)  <- py>cpp CyPlayer::initUnit
 - applyPiratesoftheNeutralZones1  (EntryPoints/CvRandomEventInterface.py:5283)  <- py>cpp CyPlayer::initUnit
-- applyRubicon2  (EntryPoints/CvRandomEventInterface.py:4359)  <- py>cpp CyUnit::setHasPromotion
 - applySilverRain1  (EntryPoints/CvRandomEventInterface.py:7115)  <- py>cpp CyPlayer::initUnit
 - applyStedeBonnet1  (EntryPoints/CvRandomEventInterface.py:5756)  <- py>cpp CyPlayer::initUnit
 - applyTheBuccaneers1  (EntryPoints/CvRandomEventInterface.py:4996)  <- py>cpp CyPlayer::initUnit
@@ -1164,12 +1312,68 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - applyTheVandals1  (EntryPoints/CvRandomEventInterface.py:1988)  <- py>cpp CyPlayer::initUnit
 - applyTheVedicAryans1  (EntryPoints/CvRandomEventInterface.py:2321)  <- py>cpp CyPlayer::initUnit
 - doAssassinDiscovered3  (EntryPoints/CvRandomEventInterface.py:6914)  <- py>cpp CyPlayer::initUnit
+- doCarnation2  (EntryPoints/CvRandomEventInterface.py:4570)  <- py>cpp CyPlayer::forcePeace
+- doHeroicGesture2  (EntryPoints/CvRandomEventInterface.py:1616)  <- py>cpp CyPlayer::forcePeace
 - doSpyDiscovered3  (EntryPoints/CvRandomEventInterface.py:4001)  <- py>cpp CyPlayer::initUnit
-- handleWorldBuilderDiplomacyVassalPullDownCB  (EntryPoints/CvScreensInterface.py:861)  <- py>py base/Screens/CvWorldBuilderDiplomacyScreen.py CvWorldBuilderDiplomacyScreen.handleVassalPullDownCB
+- heroicGesture2Callback  (EntryPoints/CvRandomEventInterface.py:1642)  <- py>cpp CyPlayer::forcePeace
+- WorldBuilderHandleTechCB  (EntryPoints/CvScreensInterface.py:659)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.handleTechCB
+- WorldBuilderOnNormalPlayerBrushSelected  (EntryPoints/CvScreensInterface.py:696)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.setCurrentNormalPlayerIndex
+- leftMouseDown  (EntryPoints/CvScreensInterface.py:891)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.leftMouseDown
+- mouseOverPlot  (EntryPoints/CvScreensInterface.py:911)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.mouseOverPlot
+- rightMouseDown  (EntryPoints/CvScreensInterface.py:901)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.rightMouseDown
 - applyMapDesc  (EntryPoints/CvWBInterface.py:265)  <- py>py base/pyWB/CvWBDesc.py CvWBDesc.applyMap
-- showUnitClass  (ModTools/ModTools.py:90)  <- py>cpp CyPlayer::initUnit
 - PyCity.initUnit  (PyHelpers.py:620)  <- py>cpp CyPlayer::initUnit
 - PyPlayer.initUnit  (PyHelpers.py:284)  <- py>cpp CyPlayer::initUnit
+- AIAutoPlay.doNewHuman  (Revolution/Gameready/AIAutoPlay.py:202)  <- py>cpp CyPlayer::setNewPlayerAlive
+- BarbarianCiv.checkBarbCities  (Revolution/Gameready/BarbarianCiv.py:878)  <- py>py Revolution/Gameready/BarbarianCiv.py BarbarianCiv.createMinorCiv
+- BarbarianCiv.checkMinorCivs  (Revolution/Gameready/BarbarianCiv.py:1224)  <- py>py Revolution/Gameready/BarbarianCiv.py BarbarianCiv.settleMinorCiv
+- BarbarianCiv.onCityAcquired  (Revolution/Gameready/BarbarianCiv.py:2017)  <- py>cpp CyPlayer::initUnit
+- forceBarbCityToMinor  (Revolution/Gameready/BarbarianCiv.py:2049)  <- py>py (only target) Revolution/Gameready/BarbarianCiv.py BarbarianCiv.createMinorCiv
+- Revolution.checkForRevolution  (Revolution/Gameready/Revolution.py:2137)  <- py>py Revolution/Gameready/Revolution.py Revolution.pickRevolutionStyle
+- Revolution.chooseRevolutionCiv  (Revolution/Gameready/Revolution.py:3787)  <- py>cpp CyGame::addPlayer
+- Revolution.doRevReinforcement  (Revolution/Gameready/Revolution.py:659)  <- py>cpp (name match) CyPlayer::initUnit
+- onSetPlayerAlive  (Revolution/Gameready/StartAsMinors.py:97)  <- py>cpp CyPlayer::initUnit
+- TechDiffusion.diffuseTech  (Revolution/Gameready/TechDiffusion.py:103)  <- py>cpp CyTeam::setResearchProgress
+- checkRebelBonuses  (Revolution/RevEvents.py:451)  <- py>cpp CyPlayer::initUnit
+- changeCiv  (Revolution/RevUtils.py:1107)  <- py>cpp CyPlayer::changeCiv
+- RoMEventManager.onBeginPlayerTurn  (RoMEventManager.py:281)  <- py>cpp CyPlayer::initUnit
+- CvForeignAdvisor.drawActive  (Screens/CvForeignAdvisor.py:215)  <- py>cpp CyGameTextMgr::getDealString
+- CvForeignAdvisor.handleInput  (Screens/CvForeignAdvisor.py:804)  <- py>py Screens/CvForeignAdvisor.py CvForeignAdvisor.drawContents
+- CvForeignAdvisor.interfaceScreen  (Screens/CvForeignAdvisor.py:115)  <- py>py Screens/CvForeignAdvisor.py CvForeignAdvisor.drawContents
+- CvForeignAdvisor.update  (Screens/CvForeignAdvisor.py:825)  <- py>py Screens/CvForeignAdvisor.py CvForeignAdvisor.drawContents
+- PLE.doPromotion  (Screens/PLE.py:1653)  <- py>cpp (only target) CyUnit::promote
+- PLE.selectGroup  (Screens/PLE.py:1297)  <- py>py Screens/PLE.py PLE.tempMove
+- CvCameraControls.setDebugMode  (base/CvCameraControls.py:318)  <- py>cpp CyGame::toggleDebugMode
+- CvDebugTools.applyUnitPicker  (base/CvDebugTools.py:152)  <- py>py PyHelpers.py PyPlayer.initCity
+- CvDebugTools.putOneOfEveryUnit  (base/CvDebugTools.py:275)  <- py>cpp CyPlayer::initUnit
+- CvEventManager.__eventAwardTechsAndGoldApply  (base/CvEventManager.py:999)  <- py>py base/CvDebugTools.py CvDebugTools.applyTechCheat
+- CvFillMap.emptyMap  (base/CvPerfTest.py:24)  <- py>cpp CyPlayer::killCities
+- CvFillMap.fillMap  (base/CvPerfTest.py:30)  <- py>py base/CvPerfTest.py CvFillMap.fillPlot
+- CvWorldBuilderDiplomacyScreen.handleVassalPullDownCB  (base/Screens/CvWorldBuilderDiplomacyScreen.py:351)  <- py>cpp CyTeam::assignVassal
+- CvWorldBuilderScreen.handleAllPlotsCB  (base/Screens/CvWorldBuilderScreen.py:363)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.setAllPlots
+- CvWorldBuilderScreen.handleInput  (base/Screens/CvWorldBuilderScreen.py:192)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.handleWorldBuilderTechByEraPullDownCB
+- CvWorldBuilderScreen.placeRiverE  (base/Screens/CvWorldBuilderScreen.py:1162)  <- py>cpp CyPlot::setNOfRiver
+- CvWorldBuilderScreen.placeRiverN  (base/Screens/CvWorldBuilderScreen.py:1125)  <- py>cpp CyPlot::setWOfRiver
+- CvWorldBuilderScreen.placeRiverNE  (base/Screens/CvWorldBuilderScreen.py:1136)  <- py>cpp CyPlot::setNOfRiver
+- CvWorldBuilderScreen.placeRiverNW  (base/Screens/CvWorldBuilderScreen.py:1111)  <- py>cpp CyPlot::setNOfRiver
+- CvWorldBuilderScreen.placeRiverS  (base/Screens/CvWorldBuilderScreen.py:1184)  <- py>cpp CyPlot::setWOfRiver
+- CvWorldBuilderScreen.placeRiverSE  (base/Screens/CvWorldBuilderScreen.py:1195)  <- py>cpp CyPlot::setNOfRiver
+- CvWorldBuilderScreen.placeRiverSW  (base/Screens/CvWorldBuilderScreen.py:1173)  <- py>cpp CyPlot::setNOfRiver
+- CvWorldBuilderScreen.placeRiverW  (base/Screens/CvWorldBuilderScreen.py:1151)  <- py>cpp CyPlot::setNOfRiver
+- CvUnitDesc.apply  (base/pyWB/CvWBDesc.py:673)  <- py>cpp (name match) CyPlayer::initUnit
+
+### level 6 (48)
+
+- PickReligionPopup.__eventPickReligionApply  (Contrib/RevDCMReligionControl.py:225)  <- py>cpp CyPlayer::foundReligion
+- PickReligionPopup.launchPopup  (Contrib/RevDCMReligionControl.py:194)  <- py>cpp CyGame::setAIAutoPlay
+- ReligionControl.doHolyCity  (Contrib/RevDCMReligionControl.py:28)  <- py>cpp CyPlayer::foundReligion
+- EnhancedTechConquest.onCityAcquired  (EnhancedTechConquestUtils/EnhancedTechConquest.py:79)  <- py>cpp CyTeam::changeResearchProgress
+- applyChampion  (EntryPoints/CvRandomEventInterface.py:1014)  <- py>cpp CyUnit::setHasPromotion
+- applyRubicon2  (EntryPoints/CvRandomEventInterface.py:4359)  <- py>cpp CyUnit::setHasPromotion
+- WorldBuilderHandleAllPlotsCB  (EntryPoints/CvScreensInterface.py:605)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.handleAllPlotsCB
+- WorldBuilderOnAllPlotsBrushSelected  (EntryPoints/CvScreensInterface.py:741)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.handleAllPlotsCB
+- handleWorldBuilderDiplomacyVassalPullDownCB  (EntryPoints/CvScreensInterface.py:861)  <- py>py base/Screens/CvWorldBuilderDiplomacyScreen.py CvWorldBuilderDiplomacyScreen.handleVassalPullDownCB
+- changeCivHandler  (Revolution/Development/ChangePlayer.py:133)  <- py>py Revolution/RevUtils.py changeCiv
 - updateGraphics  (Revolution/Development/ChangePlayer.py:170)  <- py>cpp CyGame::setAIAutoPlay
 - Tester.waitingForHandler  (Revolution/Development/Tester.py:300)  <- py>cpp CyGame::setAIAutoPlay
 - AIAutoPlay.abdicate  (Revolution/Gameready/AIAutoPlay.py:581)  <- py>cpp CyGame::setAIAutoPlay
@@ -1182,33 +1386,34 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - AIAutoPlay.pickHumanHandler  (Revolution/Gameready/AIAutoPlay.py:227)  <- py>py Revolution/Gameready/AIAutoPlay.py AIAutoPlay.doNewHuman
 - BarbarianCiv.getScenario  (Revolution/Gameready/BarbarianCiv.py:209)  <- py>cpp CyGame::setAIAutoPlay
 - BarbarianCiv.onBeginGameTurn  (Revolution/Gameready/BarbarianCiv.py:144)  <- py>py Revolution/Gameready/BarbarianCiv.py BarbarianCiv.checkBarbCities
-- BarbarianCiv.onCityAcquired  (Revolution/Gameready/BarbarianCiv.py:2017)  <- py>cpp CyPlayer::initUnit
 - BarbarianCiv.onEndPlayerTurn  (Revolution/Gameready/BarbarianCiv.py:159)  <- py>py Revolution/Gameready/BarbarianCiv.py BarbarianCiv.checkMinorCivs
-- Revolution.doRevReinforcement  (Revolution/Gameready/Revolution.py:659)  <- py>cpp (name match) CyPlayer::initUnit
+- Revolution.checkForRevReinforcement  (Revolution/Gameready/Revolution.py:641)  <- py>py Revolution/Gameready/Revolution.py Revolution.doRevReinforcement
+- Revolution.controlLostNetworkHandler  (Revolution/Gameready/Revolution.py:5932)  <- py>py Revolution/RevUtils.py changeCiv
 - Revolution.prepareRevolution  (Revolution/Gameready/Revolution.py:6137)  <- py>cpp (only target) CyUnit::setDamage
 - Revolution.updatePlayerRevolution  (Revolution/Gameready/Revolution.py:1048)  <- py>py Revolution/Gameready/Revolution.py Revolution.checkForRevolution
-- onSetPlayerAlive  (Revolution/Gameready/StartAsMinors.py:97)  <- py>cpp CyPlayer::initUnit
+- init  (Revolution/Gameready/StartAsMinors.py:39)  <- py>py Revolution/Gameready/StartAsMinors.py onSetPlayerAlive
 - TechDiffusion.onBeginGameTurn  (Revolution/Gameready/TechDiffusion.py:77)  <- py>py Revolution/Gameready/TechDiffusion.py TechDiffusion.diffuseTech
-- checkRebelBonuses  (Revolution/RevEvents.py:451)  <- py>cpp CyPlayer::initUnit
+- onCityAcquired  (Revolution/RevEvents.py:433)  <- py>py Revolution/RevEvents.py checkRebelBonuses
 - onSetPlayerAlive  (Revolution/RevEvents.py:196)  <- py>cpp CyGame::setAIAutoPlay
+- changeHuman  (Revolution/RevUtils.py:1153)  <- py>cpp CyGame::changeHumanPlayer
 - giveCityCulture  (Revolution/RevUtils.py:903)  <- py>cpp (name match) CyPlot::setCulture
 - giveRebelUnitFreePromotion  (Revolution/RevUtils.py:651)  <- py>cpp (only target) CyUnit::setHasPromotion
-- RoMEventManager.onBeginPlayerTurn  (RoMEventManager.py:281)  <- py>cpp CyPlayer::initUnit
 - CvMainInterface.updateScoreStrings  (Screens/CvMainInterface.py:5148)  <- py>py BUG/Scoreboard.py Scoreboard.addPlayer
+- PLE.doUpgrade  (Screens/PLE.py:1706)  <- py>cpp (only target) CyUnit::doCommand
 - PLE.getPlotListButtonName  (Screens/PLE.py:815)  <- py>py Screens/PLE.py PLE.selectGroup
-- CvDebugTools.putOneOfEveryUnit  (base/CvDebugTools.py:275)  <- py>cpp CyPlayer::initUnit
+- PLE.unitPromotion  (Screens/PLE.py:766)  <- py>py Screens/PLE.py PLE.doPromotion
+- CvDebugTools.allUnits  (base/CvDebugTools.py:256)  <- py>py base/CvDebugTools.py CvDebugTools.putOneOfEveryUnit
 - CvEventManager.__eventPlaceObjectApply  (base/CvEventManager.py:990)  <- py>py base/CvDebugTools.py CvDebugTools.applyUnitPicker
+- CvEventManager.__eventWBAllPlotsPopupApply  (base/CvEventManager.py:1033)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.handleAllPlotsCB
 - CvEventManager.onCityRazed  (base/CvEventManager.py:825)  <- py>cpp CyPlayer::initTriggeredData
 - CvEventManager.onKbdEvent  (base/CvEventManager.py:218)  <- py>cpp CyUnit::setDamage
 - emptyMap  (base/CvPerfTest.py:11)  <- py>py base/CvPerfTest.py CvFillMap.emptyMap
 - fillMap  (base/CvPerfTest.py:7)  <- py>py base/CvPerfTest.py CvFillMap.fillMap
 - CvWorldBuilderScreen.handleCityEditCultureCB  (base/Screens/CvWorldBuilderScreen.py:446)  <- py>cpp (name match) CyPlot::setCulture
 - CvWorldBuilderScreen.handlePromotionCB  (base/Screens/CvWorldBuilderScreen.py:518)  <- py>cpp (only target) CyUnit::setHasPromotion
-- CvWorldBuilderScreen.setAllPlots  (base/Screens/CvWorldBuilderScreen.py:414)  <- py>cpp CyMap::setAllPlotTypes
 - CvWorldBuilderScreen.setEditButtonClicked  (base/Screens/CvWorldBuilderScreen.py:1650)  <- py>cpp (only target) CyUnit::setHasPromotion
-- CvUnitDesc.apply  (base/pyWB/CvWBDesc.py:673)  <- py>cpp (name match) CyPlayer::initUnit
 
-### level 7 (56)
+### level 7 (53)
 
 - getPossibleEmbargos  (BUG/PlayerUtil.py:365)  <- py>cpp (only target) CyPlayer::canTradeItem
 - getPossibleWars  (BUG/PlayerUtil.py:409)  <- py>cpp (only target) CyPlayer::canTradeItem
@@ -1224,9 +1429,7 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - MoreCiv4lertsEvent.getSurrenderTrades  (Contrib/MoreCiv4lerts.py:510)  <- py>cpp (only target) CyPlayer::canTradeItem
 - MoreCiv4lertsEvent.getTechTrades  (Contrib/MoreCiv4lerts.py:428)  <- py>cpp (only target) CyPlayer::canTradeItem
 - MoreCiv4lertsEvent.getVassalTrades  (Contrib/MoreCiv4lerts.py:498)  <- py>cpp (only target) CyPlayer::canTradeItem
-- PickReligionPopup.__eventPickReligionApply  (Contrib/RevDCMReligionControl.py:225)  <- py>cpp CyPlayer::foundReligion
 - PickReligionPopup.__eventPickReligionBegin  (Contrib/RevDCMReligionControl.py:189)  <- py>py Contrib/RevDCMReligionControl.py PickReligionPopup.launchPopup
-- ReligionControl.doHolyCity  (Contrib/RevDCMReligionControl.py:28)  <- py>cpp CyPlayer::foundReligion
 - CvAddBuilding  (CvUtil.py:114)  <- py>cpp (only target) CyCity::setNumRealBuilding
 - CvEnhancedTechConquestEventManager.onCityAcquired  (EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py:23)  <- py>py EnhancedTechConquestUtils/EnhancedTechConquest.py EnhancedTechConquest.onCityAcquired
 - applyBlessedSea2  (EntryPoints/CvRandomEventInterface.py:82)  <- py>cpp (only target) CyCity::setNumRealBuilding
@@ -1243,31 +1446,30 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - WorldBuilderOnWBEditBrushSelected  (EntryPoints/CvScreensInterface.py:711)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.setEditButtonClicked
 - PyCity.setNumRealBuildingIdx  (PyHelpers.py:694)  <- py>cpp CyCity::setNumRealBuilding
 - ChangePlayer.onKbdEvent  (Revolution/Development/ChangePlayer.py:60)  <- py>py Revolution/Development/ChangePlayer.py updateGraphics
+- changeHumanHandler  (Revolution/Development/ChangePlayer.py:220)  <- py>py Revolution/RevUtils.py changeHuman
 - updateGraphicsHandler  (Revolution/Development/ChangePlayer.py:165)  <- py>py Revolution/Development/ChangePlayer.py updateGraphics
 - Tester.onBeginPlayerTurn  (Revolution/Development/Tester.py:214)  <- py>cpp CyTeam::declareWar
 - AIAutoPlay.abdicateMultiCheck  (Revolution/Gameready/AIAutoPlay.py:537)  <- py>py Revolution/Gameready/AIAutoPlay.py AIAutoPlay.abdicate
 - AIAutoPlay.abdicateMultiCheckNoMessage  (Revolution/Gameready/AIAutoPlay.py:550)  <- py>py Revolution/Gameready/AIAutoPlay.py AIAutoPlay.abdicate
 - AIAutoPlay.onBeginGameTurn  (Revolution/Gameready/AIAutoPlay.py:408)  <- py>py Revolution/Gameready/AIAutoPlay.py AIAutoPlay.doCheckMultiplayerUpdate
 - AIAutoPlay.onGameStart  (Revolution/Gameready/AIAutoPlay.py:155)  <- py>py Revolution/Gameready/AIAutoPlay.py AIAutoPlay.onGameLoad
-- Revolution.checkForRevReinforcement  (Revolution/Gameready/Revolution.py:641)  <- py>py Revolution/Gameready/Revolution.py Revolution.doRevReinforcement
-- init  (Revolution/Gameready/StartAsMinors.py:39)  <- py>py Revolution/Gameready/StartAsMinors.py onSetPlayerAlive
+- BarbarianCiv.barbSettleHandler  (Revolution/Gameready/BarbarianCiv.py:129)  <- py>py Revolution/RevUtils.py changeHuman
+- Revolution.onBeginPlayerTurn  (Revolution/Gameready/Revolution.py:555)  <- py>py Revolution/Gameready/Revolution.py Revolution.checkForRevReinforcement
 - onTechAcquired  (Revolution/Gameready/StartAsMinors.py:127)  <- py>cpp CyMap::verifyUnitValidPlot
-- onCityAcquired  (Revolution/RevEvents.py:433)  <- py>py Revolution/RevEvents.py checkRebelBonuses
 - updateRevolutionIndices  (Revolution/RevEvents.py:601)  <- py>cpp CyCity::setNumRealBuilding
+- doRefortify  (Revolution/RevUtils.py:82)  <- py>cpp CySelectionGroup::setActivityType
+- RevolutionInit.onGameLoad  (Revolution/RevolutionInit.py:98)  <- py>py Revolution/Gameready/StartAsMinors.py init
 - RoMEventManager.addCityBuildings  (RoMEventManager.py:238)  <- py>cpp CyCity::setNumRealBuilding
 - CvExoticForeignAdvisor.drawTechDeals  (Screens/CvExoticForeignAdvisor.py:1336)  <- py>cpp CyPlayer::canTradeItem
 - CvMainInterface._setScrollingScoreboard  (Screens/CvMainInterface.py:6438)  <- py>py Screens/CvMainInterface.py CvMainInterface.updateScoreStrings
 - CvMainInterface.changeScoreboardDisplay  (Screens/CvMainInterface.py:6250)  <- py>py Screens/CvMainInterface.py CvMainInterface.updateScoreStrings
 - CvMainInterface.redraw  (Screens/CvMainInterface.py:1405)  <- py>py Screens/CvMainInterface.py CvMainInterface.updateScoreStrings
-- PLE.doPromotion  (Screens/PLE.py:1653)  <- py>cpp (only target) CyUnit::promote
-- PLE.doUpgrade  (Screens/PLE.py:1706)  <- py>cpp (only target) CyUnit::doCommand
-- CvDebugTools.allUnits  (base/CvDebugTools.py:256)  <- py>py base/CvDebugTools.py CvDebugTools.putOneOfEveryUnit
+- PLE.unitUpgrade  (Screens/PLE.py:837)  <- py>py Screens/PLE.py PLE.doUpgrade
 - CvWorldBuilderDiplomacyScreen.handleAtWarPullDownCB  (base/Screens/CvWorldBuilderDiplomacyScreen.py:368)  <- py>cpp CyTeam::declareWar
-- CvWorldBuilderScreen.handleAllPlotsCB  (base/Screens/CvWorldBuilderScreen.py:363)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.setAllPlots
 - CvWorldBuilderScreen.handleEditCityBuildingCB  (base/Screens/CvWorldBuilderScreen.py:552)  <- py>cpp (only target) CyCity::setNumRealBuilding
 - CvWorldBuilderScreen.setEditCorporationSelected  (base/Screens/CvWorldBuilderScreen.py:1684)  <- py>cpp (only target) CyCity::setHasCorporation
 
-### level 8 (28)
+### level 8 (23)
 
 - doUpdate  (Contrib/FavoriteCivicDetector.py:63)  <- py>py BUG/PlayerUtil.py isGivingFavoriteCivicDenial
 - ReInitInterceptorMision.doReInit  (Contrib/MonkeyTools.py:41)  <- py>cpp (only target) CySelectionGroup::pushMission
@@ -1278,27 +1480,22 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - applyRubicon3  (EntryPoints/CvRandomEventInterface.py:4378)  <- py>cpp CyPlayer::setCivics
 - doGreatMediator2  (EntryPoints/CvRandomEventInterface.py:1686)  <- py>cpp CyTeam::makePeace
 - greatMediator2Callback  (EntryPoints/CvRandomEventInterface.py:1712)  <- py>cpp CyTeam::makePeace
-- WorldBuilderHandleAllPlotsCB  (EntryPoints/CvScreensInterface.py:605)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.handleAllPlotsCB
 - WorldBuilderHandleEditCityBuildingCB  (EntryPoints/CvScreensInterface.py:665)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.handleEditCityBuildingCB
-- WorldBuilderOnAllPlotsBrushSelected  (EntryPoints/CvScreensInterface.py:741)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.handleAllPlotsCB
 - WorldBuilderOnWBEditCorporationSelected  (EntryPoints/CvScreensInterface.py:729)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.setEditCorporationSelected
 - forceScreenRedraw  (EntryPoints/CvScreensInterface.py:972)  <- py>py Screens/CvMainInterface.py CvMainInterface.redraw
 - handleWorldBuilderDiplomacyAtWarPullDownCB  (EntryPoints/CvScreensInterface.py:864)  <- py>py base/Screens/CvWorldBuilderDiplomacyScreen.py CvWorldBuilderDiplomacyScreen.handleAtWarPullDownCB
 - AIAutoPlay.AIChooserHandler  (Revolution/Gameready/AIAutoPlay.py:478)  <- py>py Revolution/Gameready/AIAutoPlay.py AIAutoPlay.abdicateMultiCheck
-- Revolution.controlLostNetworkHandler  (Revolution/Gameready/Revolution.py:5932)  <- py>py (only target) Revolution/Gameready/AIAutoPlay.py AIAutoPlay.abdicateMultiCheckNoMessage
-- Revolution.onBeginPlayerTurn  (Revolution/Gameready/Revolution.py:555)  <- py>py Revolution/Gameready/Revolution.py Revolution.checkForRevReinforcement
-- RevolutionInit.onGameLoad  (Revolution/RevolutionInit.py:98)  <- py>py Revolution/Gameready/StartAsMinors.py init
+- AIAutoPlay.onEndPlayerTurn  (Revolution/Gameready/AIAutoPlay.py:281)  <- py>py Revolution/RevUtils.py doRefortify
+- RevolutionInit.__init__  (Revolution/RevolutionInit.py:47)  <- py>py Revolution/RevolutionInit.py RevolutionInit.onGameLoad
+- RevolutionInit.onGameStart  (Revolution/RevolutionInit.py:92)  <- py>py Revolution/RevolutionInit.py RevolutionInit.onGameLoad
 - RoMEventManager.onModNetMessage  (RoMEventManager.py:151)  <- py>py RoMEventManager.py RoMEventManager.addCityBuildings
 - CvMilitaryAdvisor.showSituationReport  (Screens/CvBUGMilitaryAdvisor.py:257)  <- py>py BUG/PlayerUtil.py getPossibleEmbargos
 - CvMainInterface.handleInput  (Screens/CvMainInterface.py:6262)  <- py>py Screens/CvMainInterface.py CvMainInterface.changeScoreboardDisplay
 - CvMainInterface.setScrollingScoreboard  (Screens/CvMainInterface.py:6432)  <- py>py Screens/CvMainInterface.py CvMainInterface._setScrollingScoreboard
-- PLE.unitPromotion  (Screens/PLE.py:766)  <- py>py Screens/PLE.py PLE.doPromotion
-- PLE.unitUpgrade  (Screens/PLE.py:837)  <- py>py Screens/PLE.py PLE.doUpgrade
-- CvEventManager.__eventWBAllPlotsPopupApply  (base/CvEventManager.py:1033)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.handleAllPlotsCB
 - CvWorldBuilderDiplomacyScreen.handleAIWeightResetAll  (base/Screens/CvWorldBuilderDiplomacyScreen.py:380)  <- py>cpp CyTeam::makePeace
 - CvWorldBuilderScreen.setEditHeadquartersSelected  (base/Screens/CvWorldBuilderScreen.py:1694)  <- py>cpp CyGame::setHeadquarters
 
-### level 9 (23)
+### level 9 (22)
 
 - FavoriteCivicDetector.onBeginActivePlayerTurn  (Contrib/FavoriteCivicDetector.py:300)  <- py>py Contrib/FavoriteCivicDetector.py doUpdate
 - MoreCiv4lertsEvent.OnCityAcquired  (Contrib/MoreCiv4lerts.py:142)  <- py>py Contrib/MoreCiv4lerts.py MoreCiv4lertsEvent.CheckForAlerts
@@ -1314,33 +1511,31 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 - handleWorldBuilderDiplomacyAIWeightResetAllCB  (EntryPoints/CvScreensInterface.py:870)  <- py>py base/Screens/CvWorldBuilderDiplomacyScreen.py CvWorldBuilderDiplomacyScreen.handleAIWeightResetAll
 - doSmallRevolts  (Revolution/RevEvents.py:1173)  <- py>cpp (only target) CyCity::setOccupationTimer
 - onChangeWar  (Revolution/RevEvents.py:302)  <- py>cpp (only target) CyCity::setOccupationTimer
-- RevolutionInit.__init__  (Revolution/RevolutionInit.py:47)  <- py>py Revolution/RevolutionInit.py RevolutionInit.onGameLoad
-- RevolutionInit.onGameStart  (Revolution/RevolutionInit.py:92)  <- py>py Revolution/RevolutionInit.py RevolutionInit.onGameLoad
 - CvMilitaryAdvisor.handleInput  (Screens/CvBUGMilitaryAdvisor.py:1178)  <- py>py Screens/CvBUGMilitaryAdvisor.py CvMilitaryAdvisor.showSituationReport
 - CvMilitaryAdvisor.interfaceScreen  (Screens/CvBUGMilitaryAdvisor.py:179)  <- py>py Screens/CvBUGMilitaryAdvisor.py CvMilitaryAdvisor.showSituationReport
 - CvExoticForeignAdvisor.drawInfoImproved  (Screens/CvExoticForeignAdvisor.py:525)  <- py>py Contrib/FavoriteCivicDetector.py doUpdate
 - CvPediaBonus.placeSpecial  (base/Screens/CvPediaBonus.py:190)  <- py>cpp CyGameTextMgr::getBonusHelp
 - CvPediaTech.placeSpecial  (base/Screens/CvPediaTech.py:240)  <- py>cpp CyGameTextMgr::getTechHelp
 - CvTechSplashScreen.interfaceScreen  (base/Screens/CvTechSplashScreen.py:92)  <- py>cpp CyGameTextMgr::getTechHelp
+- CvWorldBuilderScreen.handleUnitAITypeEditPullDownCB  (base/Screens/CvWorldBuilderScreen.py:472)  <- py>cpp (only target) CyUnit::setUnitAIType
 - CvWBPopups.applyEditCity  (base/pyWB/CvWBPopups.py:104)  <- py>py CvUtil.py AdjustBuilding
 
 ### level 10 (10)
 
 - SevoPediaBonus.interfaceScreen  (Contrib/Sevopedia/SevoPediaBonus.py:85)  <- py>py Contrib/Sevopedia/SevoPediaBonus.py SevoPediaBonus.placeSpecial
 - SevoPediaTech.interfaceScreen  (Contrib/Sevopedia/SevoPediaTech.py:82)  <- py>py Contrib/Sevopedia/SevoPediaTech.py SevoPediaTech.placeSpecial
+- WorldBuilderHandleUnitAITypeEditPullDownCB  (EntryPoints/CvScreensInterface.py:641)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.handleUnitAITypeEditPullDownCB
 - PyCity.changeCulture  (PyHelpers.py:595)  <- py>cpp CyCity::changeCulture
 - PyCity.setCulture  (PyHelpers.py:598)  <- py>cpp CyCity::setCulture
 - onEndPlayerTurn  (Revolution/RevEvents.py:166)  <- py>py Revolution/RevEvents.py doSmallRevolts
-- changeCiv  (Revolution/RevUtils.py:1107)  <- py>cpp CyPlayer::changeCiv
 - CvExoticForeignAdvisor.drawInfo  (Screens/CvExoticForeignAdvisor.py:456)  <- py>py Screens/CvExoticForeignAdvisor.py CvExoticForeignAdvisor.drawInfoImproved
 - CvEventManager.__eventEditCityApply  (base/CvEventManager.py:981)  <- py>py base/pyWB/CvWBPopups.py CvWBPopups.applyEditCity
 - CvPediaBonus.interfaceScreen  (base/Screens/CvPediaBonus.py:79)  <- py>py base/Screens/CvPediaBonus.py CvPediaBonus.placeSpecial
 - CvPediaTech.interfaceScreen  (base/Screens/CvPediaTech.py:67)  <- py>py base/Screens/CvPediaTech.py CvPediaTech.placeSpecial
 
-### level 11 (3)
+### level 11 (2)
 
 - onBeginPlayerTurn  (Contrib/RevDCMReligionControl.py:87)  <- py>cpp CyGame::setWinner
-- changeCivHandler  (Revolution/Development/ChangePlayer.py:133)  <- py>py Revolution/RevUtils.py changeCiv
 - CvPediaMain.pediaJump  (Screens/CvPediaMain.py:900)  <- py>py base/Screens/CvPediaBonus.py CvPediaBonus.interfaceScreen
 
 ### level 12 (4)
@@ -1354,7 +1549,12 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 
 | start | reached | C++ | Python | members |
 |---|---|---|---|---|
-| PEACE_TREATY_LENGTH | 1135 | 825 | 310 | 0 |
+| CvPlot::updatePlotBuilder | 1178 | 901 | 277 | 0 |
+| PEACE_TREATY_LENGTH | 1139 | 829 | 310 | 0 |
+| CvPlot::updateFeatureSymbolEntity | 1066 | 807 | 259 | 0 |
+| GRAPHICS_PAGING_ACTIVE_UNITS | 1059 | 800 | 259 | 0 |
+| CvUnit::canPageGraphicsOut | 1058 | 799 | 259 | 0 |
+| CvPlot::updateRouteSymbol | 1043 | 781 | 262 | 0 |
 | CvGame::m_aiDeferredRevealPlots | 1036 | 778 | 258 | 0 |
 | CvPlot::m_bRevealedGraphicsDirty | 1031 | 773 | 258 | 0 |
 | CvGame::m_iBulkRevealDepth | 1030 | 772 | 258 | 0 |
@@ -1367,22 +1567,47 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_
 | CvCity::setRevealed | 1018 | 760 | 258 | 0 |
 | CvPlot::setRevealedImprovementType | 1017 | 759 | 258 | 0 |
 | CvPlot::setRevealed | 1016 | 758 | 258 | 0 |
-| CvPlayerAI::AI_goldPerTurnTradeVal | 1009 | 757 | 252 | 0 |
-| GRAPHICS_PAGING_LOG | 1008 | 756 | 252 | 0 |
+| CvPlayerAI::AI_goldPerTurnTradeVal | 1013 | 761 | 252 | 0 |
+| GRAPHICS_PAGING_ACTIVE_CITIES | 1010 | 758 | 252 | 0 |
+| GRAPHICS_PAGING_LOG | 1009 | 757 | 252 | 0 |
+| CvCity::canPageGraphicsOut | 1009 | 757 | 252 | 0 |
 | CvPlot::m_bRevealedRouteDirty | 1008 | 756 | 252 | 0 |
+| CvGame::m_iGraphicsMemoryPressure | 1008 | 756 | 252 | 0 |
 | GRAPHICS_PAGING_REVEAL_MAX | 1007 | 755 | 252 | 0 |
 | CvPlot::refreshRevealedGraphics | 1007 | 755 | 252 | 0 |
 | CvGame::processDeferredReveals | 1006 | 754 | 252 | 0 |
 | CvGame::endBulkReveal | 1004 | 752 | 252 | 0 |
 | CvGame::beginBulkReveal | 1004 | 752 | 252 | 0 |
 | CvDeal::startTrade | 1003 | 751 | 252 | 0 |
+| CvPlayerAI::AI_goldPerTurnCostVal | 120 | 67 | 53 | 0 |
+| CvPlayerAI::AI_tradeGiveVal | 119 | 66 | 53 | 0 |
+| CvPlayerAI::AI_considerOffer | 115 | 62 | 53 | 0 |
 | CvPlayerAI::AI_doDiplo | 113 | 60 | 53 | 0 |
 | CvPlot::reset | 16 | 13 | 3 | 0 |
 | CvGame::reset | 11 | 11 | 0 | 0 |
 | CvPlot::setupGraphical | 8 | 6 | 2 | 0 |
+| GRAPHICS_PAGING_MEMORY_RECOVER_SAMPLES | 4 | 4 | 0 | 0 |
+| GRAPHICS_PAGING_MEMORY_RECOVER_MB | 4 | 4 | 0 | 0 |
+| GRAPHICS_PAGING_MEMORY_CRITICAL_MB | 4 | 4 | 0 | 0 |
+| GRAPHICS_PAGING_MEMORY_CONTROL | 4 | 4 | 0 | 0 |
+| GRAPHICS_PAGING_MEMORY_CONSERVE_MB | 4 | 4 | 0 | 0 |
+| CvGame::m_iGraphicsMemoryRecoverySamples | 4 | 4 | 0 | 0 |
+| CvGame::m_iGraphicsMemoryAvailMB | 4 | 4 | 0 | 0 |
+| CvGame::m_dwGraphicsMemorySampleTime | 4 | 4 | 0 | 0 |
+| GRAPHICS_PAGING_MEMORY_CONSERVE_MAX_IN | 3 | 3 | 0 | 0 |
 | GRAPHICS_PAGING_MAX_OUT | 3 | 3 | 0 | 0 |
+| GRAPHICS_PAGING_MAX_IN | 3 | 3 | 0 | 0 |
+| GRAPHICS_PAGING_CRITICAL_SELECTED_IN | 3 | 3 | 0 | 0 |
+| CvGame::updateGraphicsMemoryPressure | 3 | 3 | 0 | 0 |
+| GRAPHICS_PAGING_SYMBOLS | 2 | 2 | 0 | 0 |
+| GRAPHICS_PAGING_PRESSURE_RANGE_X | 2 | 2 | 0 | 0 |
+| GRAPHICS_PAGING_PRESSURE_RANGE_SOUTH | 2 | 2 | 0 | 0 |
+| GRAPHICS_PAGING_PRESSURE_RANGE_NORTH | 2 | 2 | 0 | 0 |
+| GRAPHICS_PAGING_MARGIN | 2 | 2 | 0 | 0 |
+| CvPlayerAI::AI_dealNetVal | 2 | 2 | 0 | 0 |
 | CvGame::pageGraphics | 2 | 2 | 0 | 0 |
 | CvGame::m_bPagingPendingOut | 2 | 2 | 0 | 0 |
 | CvGame::m_bPagingPending | 2 | 2 | 0 | 0 |
+| CvPlayerAI::AI_isMutuallyBeneficialDeal | 1 | 1 | 0 | 0 |
 | CvGame::updateGraphicsPaging | 1 | 1 | 0 | 0 |
 | CvPlayerAI::AI_counterPropose | 0 | 0 | 0 | 0 |
