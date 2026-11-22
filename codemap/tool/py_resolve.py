@@ -177,8 +177,6 @@ class Resolver:
         return v
 
     def _lookup(self, m, scope, name, depth):
-        if depth > 12:
-            return None
         for s in self.scopes(scope):
             if s != '<module>':
                 if name in self.args.get((m, s), []):
@@ -254,7 +252,7 @@ class Resolver:
         return v
 
     def _eval(self, m, scope, e, depth):
-        if not e or '?' in e or depth > 12:
+        if not e or '?' in e:
             return None
         ops = re.findall(r'\(\)|\.?[A-Za-z_]\w*', e)
         if ''.join(ops) != e or not ops or ops[0] == '()':
@@ -310,7 +308,7 @@ class Resolver:
     def py_method(self, m, cls, name, depth, seen=None):
         """(module, qualname) of method name in Python class cls or its bases."""
         seen = seen or set()
-        if (m, cls) in seen or depth > 12:
+        if (m, cls) in seen:
             return None
         seen.add((m, cls))
         if self.defs[m].get(cls + '.' + name) == 'def':
@@ -463,4 +461,11 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # No depth cap: cycles end at the memo (a key being resolved reads as unknown) and at `seen` for class
+    # bases, so a chain is followed as far as it goes. A large stack lets deep chains recurse.
+    import threading
+    sys.setrecursionlimit(1000000)
+    threading.stack_size(512 * 1024 * 1024)
+    t = threading.Thread(target=main)
+    t.start()
+    t.join()

@@ -157,7 +157,7 @@ Group: interface, text and messages. Functions in line order: what each calls (i
   - called by (2): CvEventReporter::writeStatistics, CvStatistics::write
 - **459** `CvStatistics::getPlayerRecord(int)` (exported)
   - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlayerRecord::CvPlayerRecord, CvPlayerRecord::init, CvPlayerRecord::setPlayerID, operator delete(void*) [CvGameCoreDLL.cpp]
-  - called by (13): CvEventReporter::getPlayerStatistics, CvStatistics::buildingBuilt, CvStatistics::cityBuilt, CvStatistics::cityRazed, CvStatistics::goldenAge, CvStatistics::read, CvStatistics::religionFounded, CvStatistics::setLeader, CvStatistics::setTimePlayed, CvStatistics::setVictory, CvStatistics::unitBuilt, CvStatistics::unitKilled …
+  - called by (13): CvEventReporter::getPlayerStatistics, CvStatistics::buildingBuilt, CvStatistics::cityBuilt, CvStatistics::cityRazed, CvStatistics::goldenAge, CvStatistics::read, CvStatistics::religionFounded, CvStatistics::setLeader, CvStatistics::setTimePlayed, CvStatistics::setVictory, CvStatistics::unitBuilt, CvStatistics::unitKilled, CvStatistics::write
 - **477** `CvStatistics::getMapName() const`
   - calls: CvGameRecord::getMapName, CvString::GetCString [CvString.h]
   - called by (1): CvEventReporter::getGameStatistics

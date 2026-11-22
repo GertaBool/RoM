@@ -11,11 +11,11 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **23** `XYCoords::operator>=(struct XYCoords) const` (exported)
 - **24** `XYCoords::operator>(struct XYCoords) const` (exported)
 - **30** `IDInfo::IDInfo(PlayerTypes, int)` (exported)
-  - called by (13): CLLNode<IDInfo>::CLLNode<struct IDInfo>, CLinkList<IDInfo>::Read, CvCity::getIDInfo, CvCityAI::CvCityAI, CvPlayerAI::AI_unitUpdate, CvPlot::CvPlot, CvSelectionGroupAI::AI_setMissionAI, CvSelectionGroupAI::CvSelectionGroupAI, CvUnit::CvUnit, CvUnit::canDoCommand, CvUnit::doCommand, CvUnit::getIDInfo …
+  - called by (13): CLLNode<IDInfo>::CLLNode<struct IDInfo>, CLinkList<IDInfo>::Read, CvCity::getIDInfo, CvCityAI::CvCityAI, CvPlayerAI::AI_unitUpdate, CvPlot::CvPlot, CvSelectionGroupAI::AI_setMissionAI, CvSelectionGroupAI::CvSelectionGroupAI, CvUnit::CvUnit, CvUnit::canDoCommand, CvUnit::doCommand, CvUnit::getIDInfo, IDInfo::`default ctor closure'
 - **35** `IDInfo::operator==(IDInfo const&) const` (exported)
   - called by (1): CvSelectionGroupAI::AI_setMissionAI
 - **40** `IDInfo::reset()` (exported)
-  - called by (17): CvArea::reset, CvArea::setTargetCity, CvCity::clearTradeRoutes, CvCity::reset, CvCityAI::AI_reset, CvCityAI::AI_updateRouteToCity, CvGame::reset, CvGame::setHeadquarters, CvGame::setHolyCity, CvPlot::reset, CvPlot::setPlotCity, CvPlot::setWorkingCityOverride …
+  - called by (17): CvArea::reset, CvArea::setTargetCity, CvCity::clearTradeRoutes, CvCity::reset, CvCityAI::AI_reset, CvCityAI::AI_updateRouteToCity, CvGame::reset, CvGame::setHeadquarters, CvGame::setHolyCity, CvPlot::reset, CvPlot::setPlotCity, CvPlot::setWorkingCityOverride, CvPlot::updateWorkingCity, CvSelectionGroupAI::AI_reset, CvUnit::reset, CvUnit::setCombatUnit, CvUnit::setTransportUnit
 - **142** `EventMessage::getDescription() const` (Python: getDescription)
   - called by (1): CyStructsPythonInterface1
 - **194** `FOWVis::getOffsets(int) const` (exported; Python: getOffsets)
@@ -63,7 +63,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - calls: CvStatBase::CvStatBase(char const*)
 - **482** `CvWBData::CvWBData(int, unsigned short const*, char const*)` (exported)
   - calls: CvString::CvString(char const*) [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h]
-  - called by (15): CvGameTextMgr::getBonusDataForWB, CvGameTextMgr::getBuildingDataForWB, CvGameTextMgr::getCityDataForAS, CvGameTextMgr::getCorporationDataForWB, CvGameTextMgr::getImprovementDataForAS, CvGameTextMgr::getImprovementDataForWB, CvGameTextMgr::getPromotionDataForWB, CvGameTextMgr::getReligionDataForWB, CvGameTextMgr::getTechDataForAS, CvGameTextMgr::getTechDataForWB, CvGameTextMgr::getTerrainDataForWB, CvGameTextMgr::getTerritoryDataForWB …
+  - called by (15): CvGameTextMgr::getBonusDataForWB, CvGameTextMgr::getBuildingDataForWB, CvGameTextMgr::getCityDataForAS, CvGameTextMgr::getCorporationDataForWB, CvGameTextMgr::getImprovementDataForAS, CvGameTextMgr::getImprovementDataForWB, CvGameTextMgr::getPromotionDataForWB, CvGameTextMgr::getReligionDataForWB, CvGameTextMgr::getTechDataForAS, CvGameTextMgr::getTechDataForWB, CvGameTextMgr::getTerrainDataForWB, CvGameTextMgr::getTerritoryDataForWB, CvGameTextMgr::getUnitDataForAS, CvGameTextMgr::getUnitDataForWB, CvGameTextMgr::getVisibilityDataForAS
 - **·** `CvStatBase::CvStatBase(CvStatBase const&)` (exported; written by the compiler)
   - calls: CvString::CvString(CvString const&) [CvString.h]
   - called by (3): CvStatFloat::CvStatFloat(CvStatFloat const&), CvStatInt::CvStatInt(CvStatInt const&), CvStatString::CvStatString(CvStatString const&)
@@ -88,7 +88,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - called by (2): CvStatString::`scalar deleting dtor', CvStatString::`vector deleting dtor'
 - **·** `CvWBData::~CvWBData()` (exported; written by the compiler)
   - calls: CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
-  - called by (15): CvGameTextMgr::getBonusDataForWB, CvGameTextMgr::getBuildingDataForWB, CvGameTextMgr::getCityDataForAS, CvGameTextMgr::getCorporationDataForWB, CvGameTextMgr::getImprovementDataForAS, CvGameTextMgr::getImprovementDataForWB, CvGameTextMgr::getPromotionDataForWB, CvGameTextMgr::getReligionDataForWB, CvGameTextMgr::getTechDataForAS, CvGameTextMgr::getTechDataForWB, CvGameTextMgr::getTerrainDataForWB, CvGameTextMgr::getTerritoryDataForWB …
+  - called by (15): CvGameTextMgr::getBonusDataForWB, CvGameTextMgr::getBuildingDataForWB, CvGameTextMgr::getCityDataForAS, CvGameTextMgr::getCorporationDataForWB, CvGameTextMgr::getImprovementDataForAS, CvGameTextMgr::getImprovementDataForWB, CvGameTextMgr::getPromotionDataForWB, CvGameTextMgr::getReligionDataForWB, CvGameTextMgr::getTechDataForAS, CvGameTextMgr::getTechDataForWB, CvGameTextMgr::getTerrainDataForWB, CvGameTextMgr::getTerritoryDataForWB, CvGameTextMgr::getUnitDataForAS, CvGameTextMgr::getUnitDataForWB, CvGameTextMgr::getVisibilityDataForAS
 - **·** `PBGameSetupData::~PBGameSetupData()` (exported; written by the compiler)
 - **·** `PBPlayerAdminData::~PBPlayerAdminData()` (exported; written by the compiler)
 - **·** `PBPlayerSetupData::~PBPlayerSetupData()` (exported; written by the compiler)

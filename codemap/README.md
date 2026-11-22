@@ -38,7 +38,7 @@ python3 codemap/tool/query.py find 'AI_chooseProduction'          # find a funct
 python3 codemap/tool/query.py callees CvCityAI::AI_chooseProduction 2
 python3 codemap/tool/query.py callers CvUnitAI::AI_attackCityMove 3
 python3 codemap/tool/query.py path CvGame::update CvCityAI::AI_chooseProduction
-python3 codemap/tool/query.py rank 12                              # the functions that rank above the rest
+python3 codemap/tool/query.py rank                                 # the functions that rank above others (all; rank 12: the first 12)
 ```
 
 `rank`: function A ranks above function B when every call path from outside the DLL into B passes through A
@@ -132,6 +132,16 @@ python3 codemap/tool/impact.py file Units/CIV4UnitInfos.xml                    #
 python3 codemap/tool/graph_html.py                                             # rebuild graph.html
 ```
 
+Nothing is cut off. A report lists every node reached, level by level, with the node it was reached from and the
+link, and every list in it is complete. Three options narrow or extend it, and a narrowed list always says what it
+leaves out (`[5 of 73 shown: --limit 5; rerun without --limit for all]`):
+- `--depth N`: list nodes by name only up to level N (all levels are still counted);
+- `--limit N`: at most N entries per list;
+- `--tsv FILE`: also write the whole reach as data, one row per node (kind, label, file, line, level, via, link).
+
+The same rule holds for the other tools: `query.py find` and `rank` list every match (`rank 12` asks for the
+first 12), the file pages list every caller, and `py_resolve.py` follows a chain as far as it goes.
+
 A report lists, level by level, every node reached, with the node it was reached from and the link. It also
 gives the members reached (serialization, XML files), the tags and defines, the exits (C++ functions the exe
 calls, functions bound for Python, Python event handlers) and the C++ files and Python modules touched.
@@ -150,8 +160,11 @@ When the source has moved past the compiler map's commit, a C++ function newer t
   summed per pair of files. Click a file for what it depends on and what depends on it, its functions, members
   or tags, and what a change of it reaches.
 - **Impact**: search any C++ or Python function, member, `<tag>`, `#DEFINE` or file. The page shows every level
-  of the reach in columns across C++, Python, members, tags and defines, each node with the link that reached
-  it. For a member it shows its writers, readers, XML files and serialization.
+  of the reach in columns across C++, Python, members, tags and defines, every node of each level with its full
+  name and the link that reached it. For a member it shows its writers, readers, XML files and serialization.
+- Everything is shown: every search match (rows are added as the list scrolls), every file-to-file link, every
+  entry of each side list. The optional filter (name or file, and node kinds) narrows the impact columns, and each
+  column head then says how many of its nodes are shown.
 
 ### Python calls, resolved (`tool/py_resolve.py`)
 

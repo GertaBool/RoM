@@ -7,7 +7,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **22** `CvDLLFAStarIFaceBase::destroy(…)` (virtual; pure virtual, provided by the exe)
   - called by (5): CvPlot::calculatePathDistanceToPlot, CvPlot::isHasPathToEnemyCity, CvPlot::isHasPathToPlayerCity, CvPlot::updateIrrigated, CvSelectionGroup::releaseSecondaryPathFinder
 - **23** `CvDLLFAStarIFaceBase::GeneratePath(…)` (virtual; pure virtual, provided by the exe)
-  - called by (13): CvCityAI::AI_updateRouteToCity, CvGame::startFlyoutMenu, CvMap::calculateAreas, CvMap::calculatePathDistance, CvPlayer::countUnimprovedBonuses, CvPlayerAI::AI_advancedStartDoRoute, CvPlot::calculatePathDistanceToPlot, CvPlot::isHasPathToEnemyCity, CvPlot::isHasPathToPlayerCity, CvPlot::updateIrrigated, CvPlotGroup::recalculatePlots, CvUnitAI::AI_solveBlockageProblem …
+  - called by (13): CvCityAI::AI_updateRouteToCity, CvGame::startFlyoutMenu, CvMap::calculateAreas, CvMap::calculatePathDistance, CvPlayer::countUnimprovedBonuses, CvPlayerAI::AI_advancedStartDoRoute, CvPlot::calculatePathDistanceToPlot, CvPlot::isHasPathToEnemyCity, CvPlot::isHasPathToPlayerCity, CvPlot::updateIrrigated, CvPlotGroup::recalculatePlots, CvUnitAI::AI_solveBlockageProblem, `anonymous namespace'::generatePathOn
 - **24** `CvDLLFAStarIFaceBase::Initialize(…)` (virtual; pure virtual, provided by the exe)
   - called by (6): CvMap::setup, CvPlot::calculatePathDistanceToPlot, CvPlot::isHasPathToEnemyCity, CvPlot::isHasPathToPlayerCity, CvPlot::updateIrrigated, CvSelectionGroup::initSecondaryPathFinder
 - **25** `CvDLLFAStarIFaceBase::SetData(…)` (virtual; pure virtual, provided by the exe)

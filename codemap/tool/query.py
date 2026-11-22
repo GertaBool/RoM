@@ -5,7 +5,7 @@ usage: query.py find <regex>              functions whose Scope::name matches
        query.py callees <function> [depth]  what it calls, as a tree (default depth 1)
        query.py callers <function> [depth]  who calls it, as a tree
        query.py path <from> <to>          a shortest call path between two functions
-       query.py rank [n]                  the n functions (default 12) that rank above the most others
+       query.py rank [n]                  the functions that rank above others, most first (all; or the first n)
 A function is given as an id, as Scope::name, or as a regex matching exactly one Scope::name.
 Virtual calls are followed into the overriding methods of the object's class and its subclasses.
 rank: function A ranks above B when every call path from outside the DLL into B passes through A (A
@@ -96,10 +96,13 @@ def dominators():
     return idom, {n: size[n] - 1 for n in size if n}
 
 
-def rank(n=12):
-    """The n functions that dominate the most others, with their immediate dominators."""
+def rank(n=None):
+    """The functions that dominate others, most first, with their immediate dominators: all of them that
+    dominate at least one function, or the first n when n is given."""
     idom, size = dominators()
-    top = sorted(size, key=lambda i: (-size[i], i))[:n]
+    top = sorted((i for i in size if size[i] > 0), key=lambda i: (-size[i], i))
+    if n is not None:
+        top = top[:n]
     return [(i, size[i], idom[i]) for i in top]
 
 
@@ -109,7 +112,7 @@ def resolve(q):
     if len(exact) == 1: return exact[0]
     hits = exact or [i for i in F if re.search(q, name[i])]
     if len(hits) == 1: return hits[0]
-    for i in hits[:40]: print(f"{i}\t{name[i]}\t{F[i]['file']}:{F[i]['line']}")
+    for i in hits: print(f"{i}\t{name[i]}\t{F[i]['file']}:{F[i]['line']}")
     sys.exit(f'{len(hits)} functions match {q!r}; give one id')
 
 
@@ -128,7 +131,7 @@ def main():
     elif cmd in ('callees', 'callers'):
         tree(resolve(args[0]), down if cmd == 'callees' else up, int(args[1]) if len(args) > 1 else 1)
     elif cmd == 'rank':
-        top = rank(int(args[0]) if args else 12)
+        top = rank(int(args[0]) if args else None)
         chosen = {i for i, _, _ in top}
         idom, _ = dominators()
 

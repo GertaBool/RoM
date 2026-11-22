@@ -23,7 +23,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **38** `CvDLLFeatureIFaceBase::createFeature(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvPlot::updateFeatureSymbolEntity
 - **39** `CvDLLFeatureIFaceBase::init(…)` (virtual; pure virtual, provided by the exe)
-  - called by (14): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, CvPlot::updateFeatureSymbolEntity, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData> …
+  - called by (14): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, CvPlot::updateFeatureSymbolEntity, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
 - **40** `CvDLLFeatureIFaceBase::getFeature(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvPlot::updateFeatureSymbolEntity
 - **41** `CvDLLFeatureIFaceBase::setDummyVisibility(…)` (virtual; pure virtual, provided by the exe)
@@ -45,7 +45,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **57** `CvDLLRouteIFaceBase::createRoute(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvPlot::updateRouteSymbol
 - **58** `CvDLLRouteIFaceBase::init(…)` (virtual; pure virtual, provided by the exe)
-  - called by (14): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, CvPlot::updateRouteSymbol, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData> …
+  - called by (14): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, CvPlot::updateRouteSymbol, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
 - **59** `CvDLLRouteIFaceBase::getRoute(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvPlot::updateRouteSymbol
 - **62** `CvDLLRouteIFaceBase::destroy(…)` (virtual; declared, not defined in the source)
@@ -57,6 +57,6 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **73** `CvDLLRiverIFaceBase::createRiver(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvPlot::updateRiverSymbol
 - **74** `CvDLLRiverIFaceBase::init(…)` (virtual; pure virtual, provided by the exe)
-  - called by (14): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, CvPlot::updateRiverSymbol, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData> …
+  - called by (14): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, CvPlot::updateRiverSymbol, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
 - **77** `CvDLLRiverIFaceBase::destroy(…)` (virtual; declared, not defined in the source)
   - called by (2): CvPlot::uninit, CvPlot::updateRiverSymbol

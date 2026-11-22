@@ -157,15 +157,15 @@ def main():
     for a in gnames: S.append(f'| {a} | ' + ' | '.join(str(gl[(a, b)]) for b in gnames) + ' |')
     S.append('\n## Files\n')
     S.append('Calls are counted between files (calls inside a file are left out). "Calls most" and "called most by" '
-             'list up to three files with the count.\n')
+             'list every such file with the count, most first.\n')
     S.append('| file | group | functions defined | calls to other files | called from other files | calls most | called most by |')
     S.append('|---|---|---|---|---|---|---|')
     for f in sorted(files, key=lambda f: (gnames.index(group(f)), f)):
         out = sorted(((v, b) for (a, b), v in fl.items() if a == f), reverse=True)
         inn = sorted(((v, a) for (a, b), v in fl.items() if b == f), reverse=True)
         S.append(f'| [{f}](files/{f}.md) | {group(f)} | {sum(1 for i in defs if F[i]["file"] == f)} | {sum(v for v, _ in out)} | '
-                 f'{sum(v for v, _ in inn)} | ' + ', '.join(f'{b} {v}' for v, b in out[:3]) + ' | '
-                 + ', '.join(f'{a} {v}' for v, a in inn[:3]) + ' |')
+                 f'{sum(v for v, _ in inn)} | ' + ', '.join(f'{b} {v}' for v, b in out) + ' | '
+                 + ', '.join(f'{a} {v}' for v, a in inn) + ' |')
     S.append('\n## Class hierarchy\n')
     S.append('Classes of the source with their base classes (bases outside the source in parentheses).\n')
     kids = collections.defaultdict(list); has_base = set(); known = {c['class'] for c in classes}
@@ -282,7 +282,7 @@ def main():
             rs = list(dict.fromkeys(refs.get(i, [])))
             if rs: L.append('  - takes the address of: ' + ', '.join(name(b, True) for b in rs))
             cl = sorted(callers.get(i, ()), key=short)
-            if cl: L.append(f'  - called by ({len(cl)}): ' + ', '.join(short(a) for a in cl[:12]) + (' …' if len(cl) > 12 else ''))
+            if cl: L.append(f'  - called by ({len(cl)}): ' + ', '.join(short(a) for a in cl))
         open(os.path.join(root, 'files', f + '.md'), 'w', encoding='utf-8').write('\n'.join(L) + '\n')
     print(f'{len(files)} file pages; {len(ct_only)} ctags-only and {len(compiled_only)} compiled-only definitions', file=sys.stderr)
 

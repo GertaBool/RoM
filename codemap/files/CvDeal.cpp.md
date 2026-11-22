@@ -56,9 +56,9 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **573** `CvDeal::setInitialGameTurn(int)`
   - called by (1): CvDeal::init
 - **579** `CvDeal::getFirstPlayer() const` (exported)
-  - called by (20): CvDeal::addTrades, CvDeal::doTurn, CvDeal::endTeamTrade, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvDeal::verify, CvGameTextMgr::getActiveDealsString, CvGameTextMgr::getDealString(CvWStringBuffer&, CvDeal&, PlayerTypes), CvPlayer::getNumTradeBonusImports, CvPlayer::isTradingWithTeam, CvPlayer::killAllDeals, CvPlayer::stopTradingWithTeam …
+  - called by (20): CvDeal::addTrades, CvDeal::doTurn, CvDeal::endTeamTrade, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvDeal::verify, CvGameTextMgr::getActiveDealsString, CvGameTextMgr::getDealString(CvWStringBuffer&, CvDeal&, PlayerTypes), CvPlayer::getNumTradeBonusImports, CvPlayer::isTradingWithTeam, CvPlayer::killAllDeals, CvPlayer::stopTradingWithTeam, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_stopTradingTradeVal, CvTeam::addTeam, CvTeam::cancelDefensivePacts, CvTeam::declareWar, CvTeam::freeVassal, CvTeam::setVassal, CyDeal::getFirstPlayer
 - **585** `CvDeal::getSecondPlayer() const` (exported)
-  - called by (20): CvDeal::addTrades, CvDeal::doTurn, CvDeal::endTeamTrade, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvDeal::verify, CvGameTextMgr::getActiveDealsString, CvGameTextMgr::getDealString(CvWStringBuffer&, CvDeal&, PlayerTypes), CvPlayer::getNumTradeBonusImports, CvPlayer::isTradingWithTeam, CvPlayer::killAllDeals, CvPlayer::stopTradingWithTeam …
+  - called by (20): CvDeal::addTrades, CvDeal::doTurn, CvDeal::endTeamTrade, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvDeal::verify, CvGameTextMgr::getActiveDealsString, CvGameTextMgr::getDealString(CvWStringBuffer&, CvDeal&, PlayerTypes), CvPlayer::getNumTradeBonusImports, CvPlayer::isTradingWithTeam, CvPlayer::killAllDeals, CvPlayer::stopTradingWithTeam, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_stopTradingTradeVal, CvTeam::addTeam, CvTeam::cancelDefensivePacts, CvTeam::declareWar, CvTeam::freeVassal, CvTeam::setVassal, CyDeal::getSecondPlayer
 - **591** `CvDeal::clearFirstTrades()`
   - calls: CLinkList<TradeData>::clear [LinkedList.h]
 - **597** `CvDeal::insertAtEndFirstTrades(TradeData)`

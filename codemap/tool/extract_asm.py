@@ -410,7 +410,7 @@ def main():
             if not cands:
                 why = ('virtual destructor (delete)' if sl == 0 and re.search(r'\bdelete\b|SAFE_DELETE', s['text']) else
                        'virtual call: no class has a method named in the statement at its slot')
-                unres.append((c, s['file'], s['line'], why, f'slot {sl // 4}: ' + s['text'][:150])); continue
+                unres.append((c, s['file'], s['line'], why, f'slot {sl // 4}: ' + s['text'])); continue
             st = static_class(s)
             if st:
                 ch = set(chain(st))
@@ -444,9 +444,9 @@ def main():
                                     s['file'], s['line']))
             if len(cands) > 1:
                 unres.append((c, s['file'], s['line'], 'virtual call: several candidate methods',
-                              f'{len(cands)} candidates: ' + s['text'][:150]))
+                              f'{len(cands)} candidates: ' + s['text']))
         elif s['kind'] == 'pointer':
-            unres.append((c, s['file'], s['line'], 'through a function pointer', s['text'][:160]))
+            unres.append((c, s['file'], s['line'], 'through a function pointer', s['text']))
 
     over = set()   # a class's table against its primary base's: a different function overrides the base's
     for cl, entries in vft_of.items():

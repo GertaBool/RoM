@@ -155,7 +155,7 @@ def main(path, src):
     print('Python attribute calls: ' + ', '.join('%s %d' % kv for kv in count.most_common()))
     print("check: %d missing, %d added; missing names that some Python call spells (a name match: the object may be another class): %d"
           % (sum(1 for r in chk if r[2] == 'missing'), sum(1 for r in chk if r[2] == 'added'), len(miss_used)))
-    for c, m in miss_used[:40]:
+    for c, m in miss_used:
         print('   %s.%s  called %d times' % (c, m, used[m]))
 
 

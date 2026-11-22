@@ -9,7 +9,11 @@ usage: impact.py diff <rise-of-mankind checkout> <base> [<head>]   a change betw
        impact.py tag <XML element>                                  an XML tag: the members it fills, and on
        impact.py define <NAME>                                      a global define
        impact.py file <file.cpp | module.py | XML path>             every function of a file; for XML, every tag in it
-options: --depth N    levels listed by name (default 3; all levels are always counted)
+options: everything is listed unless one of these narrows it; a narrowed list says what it leaves out
+         --depth N    list nodes by name only up to level N (all levels are always counted)
+         --limit N    list at most N entries per list
+         --tsv FILE   also write the whole reach as data, one row per node (node, kind, label, file, line,
+                      level, via, link)
          --src DIR    CvGameCoreDLL dir to read the syntactic layer from live (default: codemap/map tables)
 
 The reach follows the links of graph.py: C++ callers, Python callers of a C++ function, Python callers of a
@@ -90,12 +94,29 @@ def label(g, n):
     return i['label']
 
 
+LIMIT = None      # --limit N: list at most N entries per list (None: all); a limited list says what it omits
+
+
+def cap(items, limit=None):
+    """(the items to show, a note on what is omitted). Everything unless a limit was asked for."""
+    items = list(items)
+    limit = LIMIT if limit is None else limit
+    if limit is None or len(items) <= limit:
+        return items, ''
+    return items[:limit], ' [%d of %d shown: --limit %d; rerun without --limit for all]' % (limit, len(items), limit)
+
+
+def joined(items):
+    shown, note = cap(items)
+    return ', '.join(shown) + note
+
+
 def xml_where(g, tag):
     rows = g.xml.get(tag, [])
     loaded = ['%s [%s]' % (r['file'], r['layer']) for r in rows if r['loaded'] == '1']
     shadow = sum(1 for r in rows if r['loaded'] != '1')
-    return ', '.join(loaded[:8]) + (' ...' if len(loaded) > 8 else '') + \
-        ('; %d shadowed copies in the base game' % shadow if shadow else '') if rows else 'in no XML file of the scan'
+    return joined(loaded) + ('; %d shadowed copies in the base game' % shadow if shadow else '') if rows \
+        else 'in no XML file of the scan'
 
 
 def member_line(g, m):
@@ -108,14 +129,24 @@ def member_line(g, m):
         if known:
             ld = ['%s [%s]' % (r['file'], r['layer']) for r in rows if r['loaded'] == '1']
             sh = ['%s [%s]' % (r['file'], r['layer']) for r in rows if r['loaded'] != '1']
-            bits.append('filled from XML <%s> in %s%s' % (t, ', '.join(ld) or 'no loaded file holding the tag',
-                                                        (' (shadowed: %s)' % ', '.join(sh)) if sh else ''))
+            bits.append('filled from XML <%s> in %s%s' % (t, joined(ld) or 'no loaded file holding the tag',
+                                                        (' (shadowed: %s)' % joined(sh)) if sh else ''))
         else:
             bits.append('filled from XML <%s> (loader of the class not found; files holding the tag: %s)' % (t, xml_where(g, t)))
     return '- %s (%s:%s): %s' % (i['label'], i['file'], i['line'], '; '.join(bits))
 
 
-def report(g, seeds, out, depth, follow_writes=True, title=None):
+def write_tsv(g, lv, path):
+    """The whole reach as data: one row per node."""
+    with open(path, 'w', encoding='utf-8') as o:
+        o.write('node\tkind\tlabel\tfile\tline\tlevel\tvia\tlink\n')
+        for n, (d, via, link) in sorted(lv.items(), key=lambda kv: (kv[1][0], kv[0])):
+            i = g.info[n]
+            o.write('\t'.join(str(x) for x in (n, i['kind'], i['label'], i.get('file', ''), i.get('line', ''), d,
+                                                via or '', link or '')) + '\n')
+
+
+def report(g, seeds, out, depth=None, follow_writes=True, title=None, tsv=None):
     seeds = [s for s in dict.fromkeys(seeds) if s in g.info]
     if title:
         out.append(title)
@@ -123,6 +154,9 @@ def report(g, seeds, out, depth, follow_writes=True, title=None):
         out.append('\nNothing in the map to start from.')
         return {}
     lv = g.reach(seeds, follow_writes)
+    if tsv:
+        write_tsv(g, lv, tsv)
+        out.append('\n_The whole reach (%d nodes) is in %s._' % (len(lv), tsv))
     by = collections.defaultdict(lambda: collections.defaultdict(list))
     for n, (d, via, link) in lv.items():
         by[g.info[n]['kind']][d].append(n)
@@ -135,47 +169,51 @@ def report(g, seeds, out, depth, follow_writes=True, title=None):
             out.append('| %s | %d | %d | %s |' % (name, len(lvls.get(0, [])), sum(len(v) for d, v in lvls.items() if d),
                                                  ', '.join('%d: %d' % (d, len(lvls[d])) for d in sorted(lvls) if d)))
     nodes = list(lv)
-    ex = [n for n in nodes if g.info[n].get('exported')]
-    pb = [n for n in nodes if g.info[n].get('bound')]
-    ev = [n for n in nodes if g.info[n].get('events')]
+    ex = sorted(g.info[n]['label'] for n in nodes if g.info[n].get('exported'))
+    pb = sorted(g.info[n]['label'] for n in nodes if g.info[n].get('bound'))
+    ev = sorted('%s (%s)' % (g.info[n]['label'].split(' ', 1)[1], ','.join(sorted(g.info[n]['events'])))
+                for n in nodes if g.info[n].get('events'))
     mods = collections.Counter(g.info[n]['file'] for n in nodes if g.info[n]['kind'] == 'py')
     cfiles = collections.Counter(g.info[n]['file'] for n in nodes if g.info[n]['kind'] == 'cpp')
-    out.append('\n- C++ functions the exe calls (exported): %d%s' % (len(ex), (': ' + ', '.join(sorted(g.info[n]['label'] for n in ex)[:12]) + (' ...' if len(ex) > 12 else '')) if ex else ''))
-    out.append('- C++ functions bound for Python: %d' % len(pb))
-    out.append('- Python event handlers: %d%s' % (len(ev), (': ' + ', '.join(sorted('%s (%s)' % (g.info[n]['label'].split(' ', 1)[1], ','.join(sorted(g.info[n]['events']))) for n in ev)[:12])) if ev else ''))
-    out.append('- C++ files: ' + (', '.join('%s %d' % kv for kv in cfiles.most_common(25)) or 'none'))
-    out.append('- Python modules: ' + (', '.join('%s %d' % kv for kv in mods.most_common(25)) or 'none'))
+    out.append('\n- C++ functions the exe calls (exported): %d%s' % (len(ex), (': ' + joined(ex)) if ex else ''))
+    out.append('- C++ functions bound for Python: %d%s' % (len(pb), (': ' + joined(pb)) if pb else ''))
+    out.append('- Python event handlers: %d%s' % (len(ev), (': ' + joined(ev)) if ev else ''))
+    out.append('- C++ files: ' + (joined('%s %d' % kv for kv in cfiles.most_common()) or 'none'))
+    out.append('- Python modules: ' + (joined('%s %d' % kv for kv in mods.most_common()) or 'none'))
     mem = sorted((n for n in nodes if g.info[n]['kind'] == 'member'), key=lambda n: (lv[n][0], n))
     if mem:
         out.append('\n## Member variables (%d)\n' % len(mem))
-        for n in mem[:80]:
+        shown, note = cap(mem)
+        for n in shown:
             d, via, link = lv[n]
             out.append(member_line(g, n) + ('' if d == 0 else '  [level %d, %s %s]' % (d, link, g.info[via]['label'])))
-        if len(mem) > 80:
-            out.append('- ... %d more' % (len(mem) - 80))
+        if note:
+            out.append('-' + note)
     tags = [n for n in nodes if g.info[n]['kind'] in ('tag', 'define')]
     if tags:
         out.append('\n## XML tags and defines\n')
         for n in sorted(tags):
             i = g.info[n]
             where = xml_where(g, i['label'][1:-1]) if i['kind'] == 'tag' else \
-                ', '.join('%s [%s]' % (r['file'], r['layer']) for r in i['files'] if r['loaded'] == '1') or 'in no XML file of the scan'
+                joined('%s [%s]' % (r['file'], r['layer']) for r in i['files'] if r['loaded'] == '1') or 'in no XML file of the scan'
             out.append('- %s %s: %s' % (i['kind'], i['label'], where))
     for k, name in (('cpp', 'C++ functions'), ('new', 'C++ functions newer than the map'), ('py', 'Python functions')):
         if k not in by:
             continue
         out.append('\n## %s, level by level\n' % name)
         for d in sorted(by[k]):
-            if d > depth:
-                out.append('\n(levels above %d: %d more)' % (depth, sum(len(v) for dd, v in by[k].items() if dd > depth)))
+            if depth is not None and d > depth:
+                out.append('\n[levels above %d: %d more nodes, not listed: --depth %d; rerun without --depth for all]'
+                           % (depth, sum(len(v) for dd, v in by[k].items() if dd > depth), depth))
                 break
             ns = sorted(by[k][d], key=lambda n: g.info[n]['label'])
             out.append('\n### level %d (%d)\n' % (d, len(ns)))
-            for n in ns[:50]:
+            shown, note = cap(ns)
+            for n in shown:
                 _, via, link = lv[n]
                 out.append('- %s%s' % (label(g, n), '' if via is None else '  <- %s %s' % (link, g.info[via]['label'])))
-            if len(ns) > 50:
-                out.append('- ... %d more' % (len(ns) - 50))
+            if note:
+                out.append('-' + note)
     if len(seeds) > 1:
         out.append('\n## Reach per start node\n')
         out.append('| start | reached | C++ | Python | members |')
@@ -185,8 +223,11 @@ def report(g, seeds, out, depth, follow_writes=True, title=None):
             r = g.reach([s], follow_writes)
             c = collections.Counter(g.info[n]['kind'] for n in r if n != s)
             rows.append((len(r) - 1, g.info[s]['label'], c['cpp'] + c['new'], c['py'], c['member']))
-        for n, lab, c, p, m in sorted(rows, reverse=True)[:60]:
+        shown, note = cap(sorted(rows, reverse=True))
+        for n, lab, c, p, m in shown:
             out.append('| %s | %d | %d | %d | %d |' % (lab, n, c, p, m))
+        if note:
+            out.append('\n' + note.strip())
     return lv
 
 
@@ -267,7 +308,7 @@ def fid(f):
     return (f['scope'] + '::' if f['scope'] else '') + f['name']
 
 
-def diff(repo, base, head, depth):
+def diff(repo, base, head, depth=None, tsv=None):
     out = []
     hb = git(repo, 'rev-parse', '--short=12', base).decode().strip()
     hh = git(repo, 'rev-parse', '--short=12', head).decode().strip()
@@ -385,26 +426,31 @@ def diff(repo, base, head, depth):
             out.append('- %s: tags on changed lines: %s%s' % (path, ', '.join(sorted(tags)) or 'none',
                                                               ('; defines: ' + ', '.join(sorted(defs))) if defs else ''))
             seeds += ['t:' + t for t in sorted(tags) if 't:' + t in g.info] + ['d:' + d for d in sorted(defs) if 'd:' + d in g.info]
-    report(g, seeds, out, depth, follow_writes=False)
+    report(g, seeds, out, depth, follow_writes=False, tsv=tsv)
     if removed:
         out.append('\n## Callers of removed C++ functions\n')
         for f in removed:
             cs = sorted({g.info[c]['label'] for n in g.cnodes(f) for c in g.dep.get(n, {})})
-            out.append('- %s <- %s' % (f, ', '.join(cs[:15]) or 'none'))
+            out.append('- %s <- %s' % (f, joined(cs) or 'none'))
     return '\n'.join(out)
 
 
 def main(argv):
-    depth, src = 3, None
+    global LIMIT
+    depth, src, tsv = None, None, None
     if '--depth' in argv:
         k = argv.index('--depth'); depth = int(argv[k + 1]); del argv[k:k + 2]
+    if '--limit' in argv:
+        k = argv.index('--limit'); LIMIT = int(argv[k + 1]); del argv[k:k + 2]
+    if '--tsv' in argv:
+        k = argv.index('--tsv'); tsv = argv[k + 1]; del argv[k:k + 2]
     if '--src' in argv:
         k = argv.index('--src'); src = argv[k + 1]; del argv[k:k + 2]
     if len(argv) < 2:
         sys.exit(__doc__)
     cmd, args = argv[0], argv[1:]
     if cmd == 'diff':
-        print(diff(args[0], args[1], args[2] if len(args) > 2 else 'HEAD', depth))
+        print(diff(args[0], args[1], args[2] if len(args) > 2 else 'HEAD', depth, tsv))
         return
     L = Layer(src=src)
     g = graph(L)
@@ -429,7 +475,7 @@ def main(argv):
             seeds = [n for n, i in g.info.items() if i['kind'] in ('cpp', 'py') and (i['file'] == q or i['file'].endswith('/' + q))]
     else:
         sys.exit(__doc__)
-    report(g, seeds, out, depth, follow_writes=cmd in ('func', 'py', 'file'),
+    report(g, seeds, out, depth, follow_writes=cmd in ('func', 'py', 'file'), tsv=tsv,
            title='# Impact of %s %s (%d start node%s)' % (cmd, q, len(seeds), '' if len(seeds) == 1 else 's'))
     print('\n'.join(out))
 

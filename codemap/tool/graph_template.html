@@ -59,6 +59,13 @@ text { fill:var(--text-primary); font-size:11px; }
   <button id="theme">Dark</button>
 </header>
 <div class="legend" id="legend"></div>
+<div class="legend" id="filters">Impact view, optional filter: <input id="ftext" placeholder="name or file contains" oninput="setFilter()" style="font:inherit;padding:1px 6px;border:1px solid var(--line);border-radius:4px;background:var(--surface-1);color:var(--text-primary)">
+  <label><input type="checkbox" class="fkind" value="cpp" checked onchange="setFilter()">C++</label>
+  <label><input type="checkbox" class="fkind" value="new" checked onchange="setFilter()">C++ (newer)</label>
+  <label><input type="checkbox" class="fkind" value="py" checked onchange="setFilter()">Python</label>
+  <label><input type="checkbox" class="fkind" value="member" checked onchange="setFilter()">members</label>
+  <label><input type="checkbox" class="fkind" value="tag" checked onchange="setFilter()">XML tags</label>
+  <label><input type="checkbox" class="fkind" value="define" checked onchange="setFilter()">defines</label></div>
 <main><div id="viz"><svg id="svg"></svg></div><aside id="side"></aside></main>
 <div class="tip" id="tip"></div>
 <script>
@@ -93,12 +100,21 @@ $('#q').addEventListener('input', () => {
   const q = $('#q').value.trim().toLowerCase(); act = -1;
   if (!q) { $('#sugg').style.display = 'none'; return; }
   hits = [];
-  for (let k = 0; k < index.length && hits.length < 500; k++) if (lower[k].includes(q)) hits.push(k);
+  for (let k = 0; k < index.length; k++) if (lower[k].includes(q)) hits.push(k);
   hits.sort((a, b) => (lower[a].startsWith(q) || lower[a].includes('::' + q) ? 0 : 1) - (lower[b].startsWith(q) || lower[b].includes('::' + q) ? 0 : 1) || lower[a].length - lower[b].length);
-  hits = hits.slice(0, 50);
-  $('#sugg').innerHTML = hits.map((k, n) => `<div data-n="${n}">${esc(index[k][0])}<small>${index[k][1]}</small></div>`).join('') || '<div class="muted">no match</div>';
+  shownHits = 0;
+  $('#sugg').innerHTML = hits.length ? `<div class="muted small" style="cursor:default">${hits.length} match${hits.length === 1 ? '' : 'es'}</div>` : '<div class="muted">no match</div>';
+  moreHits();
   $('#sugg').style.display = 'block';
 });
+// every match is in the list; rows are added as it scrolls, so a long list costs nothing until it is read
+let shownHits = 0;
+function moreHits() {
+  const n = Math.min(hits.length, shownHits + 300);
+  $('#sugg').insertAdjacentHTML('beforeend', hits.slice(shownHits, n).map((k, j) => `<div data-n="${shownHits + j}">${esc(index[k][0])}<small>${index[k][1]}</small></div>`).join(''));
+  shownHits = n;
+}
+$('#sugg').addEventListener('scroll', () => { const e = $('#sugg'); if (shownHits < hits.length && e.scrollTop + e.clientHeight > e.scrollHeight - 200) moreHits(); });
 $('#sugg').addEventListener('mousedown', e => { const d = e.target.closest('[data-n]'); if (d) pick(hits[+d.dataset.n]); });
 $('#q').addEventListener('keydown', e => {
   const items = [...$('#sugg').querySelectorAll('[data-n]')];
@@ -123,7 +139,8 @@ $('#bImpact').onclick = () => { setMode('impact'); if (lastImpact) impact(...las
 
 // ---------- file graph ----------
 const FN = D.fnodes.length, fsize = D.fnodes.map(f => f[3]);
-const strong = D.fedges.slice().sort((a, b) => b[2] - a[2]).slice(0, 900);
+const strong = D.fedges.slice().sort((a, b) => b[2] - a[2]);   // every file-to-file link
+let allLabels = false;
 let pos = null, selFile = -1;
 const fcol = k => D.fnodes[k][1] === 'xml' ? 'var(--neutral)' : col(D.fnodes[k][2]);
 function layout(W, H) {
@@ -160,7 +177,7 @@ function drawFiles() {
       : el('circle', {cx: pos[k].x, cy: pos[k].y, r, fill: c, class: 'nodebox', opacity: dim ? 0.15 : 1, style: 'cursor:pointer'}, gn);
     node.onmouseenter = ev => showTip(ev, `<b>${esc(f[0])}</b><br>${f[1] === 'xml' ? 'XML file' : f[1] === 'py' ? 'Python module, ' + fsize[k] + ' functions' : esc(D.groups[f[2]]) + ', ' + fsize[k] + ' functions'}`);
     node.onmouseleave = hideTip; node.onclick = () => selectFile(k);
-    if (fsize[k] > 300 || k === selFile || (selFile >= 0 && nb.has(k)))
+    if (allLabels || fsize[k] > 300 || k === selFile || (selFile >= 0 && nb.has(k)))
       el('text', {x: pos[k].x + r + 3, y: pos[k].y + 4, opacity: dim ? 0.3 : 1, 'font-weight': k === selFile ? 700 : 400}, gn).textContent = f[0];
   });
 }
@@ -168,7 +185,7 @@ function selectFile(k) { selFile = k; drawFiles(); fileSide(); }
 function fileSide() {
   if (selFile < 0) {
     const c = {cpp: 0, py: 0, xml: 0}; D.fnodes.forEach(f => c[f[1]]++);
-    side.innerHTML = `<h2>Files and what connects them</h2><p class="small">${c.cpp} C++ files, ${c.py} Python modules and ${c.xml} loaded XML files. Lines: the ${strong.length} strongest file-to-file links, counted in function-level links: C++ calls, Python calls into C++ and back, event handlers, Python calls between modules, and XML files to the C++ files whose functions read the members they fill. Click a file; search for anything to see what a change of it reaches.</p><p class="small muted">${esc(D.commit)}</p>`;
+    side.innerHTML = `<h2>Files and what connects them</h2><p class="small">${c.cpp} C++ files, ${c.py} Python modules and ${c.xml} loaded XML files. Lines: all ${strong.length} file-to-file links, counted in function-level links: C++ calls, Python calls into C++ and back, event handlers, Python calls between modules, and XML files to the C++ files whose functions read the members they fill. Click a file; search for anything to see what a change of it reaches. Names are written on the largest files and on a selected file's neighbours; <a class="l" onclick="allLabels=!allLabels; drawFiles(); fileSide()">${allLabels ? 'write them on large files only' : 'write every name'}</a>.</p><p class="small muted">${esc(D.commit)}</p>`;
     return;
   }
   const f = D.fnodes[selFile];
@@ -181,8 +198,8 @@ function fileSide() {
   const tags = []; if (f[1] === 'xml') for (let i = 0; i < N; i++) if (kind(i) === 'tag' && D.extra[i] && D.extra[i].files.some(r => r[0] === f[0] && r[2])) tags.push(i);
   side.innerHTML = `<h2>${esc(f[0])}</h2><div class="small muted">${f[1] === 'xml' ? 'XML file' : f[1] === 'py' ? 'Python module' : 'C++ file, ' + esc(D.groups[f[2]])}</div>
    <p><a class="l" onclick="impactFile(${selFile})">What a change of this file reaches</a></p>
-   <h3>Depends on (links)</h3><table>${outE.slice(0, 30).map(e => row(e[1], e[2], e[3])).join('')}</table>${outE.length > 30 ? `<div class="muted small">+${outE.length - 30} more</div>` : ''}
-   <h3>Depended on by</h3><table>${inE.slice(0, 30).map(e => row(e[0], e[2], e[3])).join('')}</table>${inE.length > 30 ? `<div class="muted small">+${inE.length - 30} more</div>` : ''}
+   <h3>Depends on (${outE.length} files)</h3><table>${outE.map(e => row(e[1], e[2], e[3])).join('')}</table>
+   <h3>Depended on by (${inE.length} files)</h3><table>${inE.map(e => row(e[0], e[2], e[3])).join('')}</table>
    ${fns.length ? `<h3>Functions (${fns.length})</h3><div class="small">${fns.map(i => `${link(i)} <span class="muted">${D.LN[i]}</span>`).join('<br>')}</div>` : ''}
    ${mems.length ? `<h3>Members declared (${mems.length})</h3><div class="small">${mems.map(i => link(i)).join('<br>')}</div>` : ''}
    ${tags.length ? `<h3>Tags the DLL reads from it (${tags.length})</h3><div class="small">${tags.map(i => link(i)).join(', ')}</div>` : ''}`;
@@ -229,40 +246,51 @@ function impact(seeds, title) {
       head += `<h3>In XML files</h3><div class="small">${xmlRows(x.files || []) || '<span class="muted">none in the scan</span>'}</div>`;
       head += `<h3>${k === 'tag' ? 'Fills' : 'Read by'}</h3><div class="small">${dep[i].map(e => link(e[0])).join('<br>')}</div>`;
     } else {
-      head += `<h3>Depends on (${rdep[i].length})</h3><div class="small">${rdep[i].slice(0, 80).map(e => link(e[0]) + ` <span class="muted">${LINK[e[1]]}</span>`).join('<br>')}</div>`;
+      head += `<h3>Depends on (${rdep[i].length})</h3><div class="small">${rdep[i].map(e => link(e[0]) + ` <span class="muted">${LINK[e[1]]}</span>`).join('<br>')}</div>`;
       if (x.events) head += `<div class="small">handles event(s): ${x.events.map(esc).join(', ')}</div>`;
     }
   }
   side.innerHTML = `<h2>${esc(title)}</h2>${head}
     <h3>What a change reaches</h3><table>${Object.entries(byKind).map(([k, v]) => `<tr><td>${kindName[k]}</td><td class="n">${v[0]} start</td><td class="n">${v[1]} reached</td></tr>`).join('')}</table>
     <div class="small">per level: ${levels.map((l, d) => d + ': ' + (l ? l.length : 0)).join(', ')}</div>
-    <h3>Exits</h3><div class="small">C++ functions the exe calls: ${ex}<br>C++ functions bound for Python: ${pb}<br>Python event handlers: ${ev.length}${ev.length ? ' &mdash; ' + ev.slice(0, 20).map(i => esc(D.L[i])).join(', ') : ''}</div>
-    <h3>Files reached</h3><table>${Object.entries(fc).sort((a, b) => b[1] - a[1]).slice(0, 40).map(([f, n]) => `<tr><td>${esc(f)}</td><td class="n">${n}</td></tr>`).join('')}</table>
+    <h3>Exits</h3><div class="small">C++ functions the exe calls: ${ex}<br>C++ functions bound for Python: ${pb}<br>Python event handlers: ${ev.length}${ev.length ? ' &mdash; ' + ev.map(i => esc(D.L[i])).join(', ') : ''}</div>
+    <h3>Files reached (${Object.keys(fc).length})</h3><table>${Object.entries(fc).sort((a, b) => b[1] - a[1]).map(([f, n]) => `<tr><td>${esc(f)}</td><td class="n">${n}</td></tr>`).join('')}</table>
     <p class="small muted">Links: ${LINK.join(', ')}. ${followWrites ? 'Members the start functions write are followed. ' : ''}${esc(D.commit)}</p>`;
 }
+let filterText = '', filterKinds = new Set(KIND);   // optional narrowing; the column heads say how much it hides
+function setFilter() { filterText = $('#ftext').value.trim().toLowerCase(); filterKinds = new Set([...document.querySelectorAll('.fkind')].filter(x => x.checked).map(x => x.value)); if (lastImpact) drawImpact(lastLevels, lastLv); }
+let lastLevels = null, lastLv = null;
 function drawImpact(levels, lv) {
-  const W0 = $('#viz').clientWidth || 900, H0 = $('#viz').clientHeight || 700, MAXN = 40, colW = 230, rowH = 18;
-  const cols = levels.length, W = Math.max(W0, cols * colW + 40), H = Math.max(H0, 50 + (MAXN + 1) * rowH);
+  lastLevels = levels; lastLv = lv;
+  const keep = i => filterKinds.has(kind(i)) && (!filterText || D.L[i].toLowerCase().includes(filterText) || file(i).toLowerCase().includes(filterText));
+  const cols = levels.length, rowH = 18, lists = [], widths = [];
+  for (let d = 0; d < cols; d++) {
+    const all = (levels[d] || []), list = all.filter(keep).sort((a, b) => D.K[a] - D.K[b] || D.L[a].localeCompare(D.L[b]));
+    lists.push([list, all.length]);
+    widths.push(Math.max(180, 50 + 6.3 * Math.max(0, ...list.map(i => D.L[i].length))));
+  }
+  const xs = []; let x0 = 20; widths.forEach(w => { xs.push(x0); x0 += w; });
+  const longest = Math.max(1, ...lists.map(l => l[0].length));
+  const W = Math.max($('#viz').clientWidth || 900, x0 + 20), H = Math.max($('#viz').clientHeight || 700, 50 + (longest + 1) * rowH);
   svg.innerHTML = ''; svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   const ge = el('g', {}, svg), gn = el('g', {}, svg), P = new Map();
   for (let d = 0; d < cols; d++) {
-    const x = 20 + d * colW, list = (levels[d] || []).slice().sort((a, b) => D.K[a] - D.K[b] || D.L[a].localeCompare(D.L[b]));
-    el('text', {x, y: 18, class: 'colhead'}, gn).textContent = d === 0 ? `start (${list.length})` : `level ${d} (${list.length})`;
-    list.slice(0, MAXN).forEach((i, n) => {
-      const y = 38 + n * rowH; P.set(i, [x, y]); const k = kind(i);
+    const x = xs[d], [list, total] = lists[d];
+    el('text', {x, y: 18, class: 'colhead'}, gn).textContent = (d === 0 ? 'start' : `level ${d}`) + (list.length === total ? ` (${total})` : ` (${list.length} of ${total} shown by the filter)`);
+    list.forEach((i, n) => {
+      const y = 38 + n * rowH; P.set(i, [x, y, d]); const k = kind(i);
       if (k === 'cpp' || k === 'new' || k === 'py') el('circle', {cx: x + 4, cy: y, r: 4, fill: nodeCol(i)}, gn);
       else el('rect', {x, y: y - 4, width: 8, height: 8, fill: 'var(--neutral)'}, gn);
       el('text', {x: x + 12, y: y + 4, class: 'kind'}, gn).textContent = kindShort[k];
-      const t = el('text', {x: x + 34, y: y + 4, style: 'cursor:pointer'}, gn), nm = D.L[i], max = Math.floor((colW - 40) / 6.1);
-      t.textContent = nm.length > max ? '…' + nm.slice(-max) : nm;
+      const t = el('text', {x: x + 34, y: y + 4, style: 'cursor:pointer'}, gn), nm = D.L[i];
+      t.textContent = nm;
       const v = lv.get(i);
       t.onmouseenter = ev => showTip(ev, `<b>${esc(nm)}</b><br>${kindName[k]}${file(i) ? '<br>' + esc(file(i)) + (D.LN[i] ? ':' + D.LN[i] : '') : ''}${v[1] >= 0 ? '<br>reached by <i>' + LINK[v[2]] + '</i> from ' + esc(D.L[v[1]]) : ''}`);
       t.onmouseleave = hideTip; t.onclick = () => go(i);
     });
-    if (list.length > MAXN) el('text', {x: x + 12, y: 38 + MAXN * rowH + 4, class: 'colhead'}, gn).textContent = `+${list.length - MAXN} more`;
   }
-  P.forEach(([x, y], i) => { const v = lv.get(i); if (v[1] < 0) return; const q = P.get(v[1]); if (!q) return;
-    const x1 = q[0] + colW - 12, x2 = x - 2; el('path', {d: `M${x1},${q[1]} C${(x1 + x2) / 2},${q[1]} ${(x1 + x2) / 2},${y} ${x2},${y}`, class: 'edge', 'stroke-opacity': 0.35}, ge); });
+  P.forEach(([x, y, d], i) => { const v = lv.get(i); if (v[1] < 0) return; const q = P.get(v[1]); if (!q) return;
+    const x1 = q[0] + widths[q[2]] - 12, x2 = x - 2; el('path', {d: `M${x1},${q[1]} C${(x1 + x2) / 2},${q[1]} ${(x1 + x2) / 2},${y} ${x2},${y}`, class: 'edge', 'stroke-opacity': 0.35}, ge); });
   if (!levels.length) el('text', {x: 20, y: 40}, gn).textContent = 'Nothing in the map to start from.';
 }
 function showTip(ev, html) { tip.innerHTML = html; tip.style.display = 'block'; tip.style.left = Math.min(ev.clientX + 12, innerWidth - 460) + 'px'; tip.style.top = (ev.clientY + 12) + 'px'; }

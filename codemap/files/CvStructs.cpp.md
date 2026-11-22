@@ -57,7 +57,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - calls: FDataStreamBase::Write [FDataStreamBase.h]
   - called by (2): CvCity::write, CvEventInfo::write
 - **207** `checkBattleUnitType(BattleUnitTypes)`
-  - called by (16): CvAirMissionDefinition::getDamage, CvAirMissionDefinition::isDead, CvAirMissionDefinition::setDamage, CvBattleDefinition::addDamage, CvBattleDefinition::addFirstStrikes, CvBattleDefinition::getDamage, CvBattleDefinition::getFirstStrikes, CvBattleDefinition::setDamage, CvBattleDefinition::setFirstStrikes, CvBattleRound::addNumKilled, CvBattleRound::getNumAlive, CvBattleRound::getNumKilled …
+  - called by (16): CvAirMissionDefinition::getDamage, CvAirMissionDefinition::isDead, CvAirMissionDefinition::setDamage, CvBattleDefinition::addDamage, CvBattleDefinition::addFirstStrikes, CvBattleDefinition::getDamage, CvBattleDefinition::getFirstStrikes, CvBattleDefinition::setDamage, CvBattleDefinition::setFirstStrikes, CvBattleRound::addNumKilled, CvBattleRound::getNumAlive, CvBattleRound::getNumKilled, CvBattleRound::setNumAlive, CvBattleRound::setNumKilled, CvMissionDefinition::getUnit, CvMissionDefinition::setUnit
 - **214** `CvBattleRound::CvBattleRound()` (exported)
   - called by (1): CvUnit::planBattle
 - **220** `CvBattleRound::isValid() const` (exported)
@@ -84,23 +84,23 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - calls: checkBattleUnitType
   - called by (1): CvUnit::planBattle
 - **288** `CvMissionDefinition::CvMissionDefinition()` (exported)
-  - called by (15): CvAirMissionDefinition::CvAirMissionDefinition(), CvAirMissionDefinition::CvAirMissionDefinition(CvAirMissionDefinition const&), CvBattleDefinition::CvBattleDefinition(), CvBattleDefinition::CvBattleDefinition(CvBattleDefinition const&), CvSelectionGroup::startMission, CvUnit::archerBombard, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::doOpportunityFire, CvUnit::kill, CvUnit::nuke, CvUnit::pillage …
+  - called by (15): CvAirMissionDefinition::CvAirMissionDefinition(), CvAirMissionDefinition::CvAirMissionDefinition(CvAirMissionDefinition const&), CvBattleDefinition::CvBattleDefinition(), CvBattleDefinition::CvBattleDefinition(CvBattleDefinition const&), CvSelectionGroup::startMission, CvUnit::archerBombard, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::doOpportunityFire, CvUnit::kill, CvUnit::nuke, CvUnit::pillage, CvUnit::rangeStrike, CvUnit::updateCombat, CvUnit::updateStackCombat
 - **294** `CvMissionDefinition::getMissionType() const` (exported)
 - **299** `CvMissionDefinition::setMissionType(MissionTypes)` (exported)
-  - called by (24): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::doActiveDefense …
+  - called by (24): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::doActiveDefense, CvUnit::doOpportunityFire, CvUnit::fighterEngage, CvUnit::kill, CvUnit::nuke, CvUnit::paradrop, CvUnit::pillage, CvUnit::rangeStrike, CvUnit::recon, CvUnit::updateAirCombat, CvUnit::updateAirStrike, CvUnit::updateCombat, CvUnit::updateStackCombat
 - **304** `CvMissionDefinition::getMissionTime() const` (exported)
 - **309** `CvMissionDefinition::setMissionTime(float)` (exported)
-  - called by (25): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombard, CvUnit::bombardRanged …
+  - called by (25): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::doActiveDefense, CvUnit::doOpportunityFire, CvUnit::fighterEngage, CvUnit::kill, CvUnit::nuke, CvUnit::paradrop, CvUnit::pillage, CvUnit::rangeStrike, CvUnit::recon, CvUnit::updateAirCombat, CvUnit::updateAirStrike, CvUnit::updateCombat, CvUnit::updateStackCombat
 - **314** `CvMissionDefinition::getUnit(BattleUnitTypes) const` (exported)
   - calls: checkBattleUnitType
   - called by (5): CvAirMissionDefinition::isDead, CvUnit::computeUnitsToDie, CvUnit::increaseBattleRounds, CvUnit::planBattle, addEntityMission
 - **320** `CvMissionDefinition::setUnit(BattleUnitTypes, CvUnit*)` (exported)
   - calls: checkBattleUnitType
-  - called by (25): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombard, CvUnit::bombardRanged …
+  - called by (25): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::doActiveDefense, CvUnit::doOpportunityFire, CvUnit::fighterEngage, CvUnit::kill, CvUnit::nuke, CvUnit::paradrop, CvUnit::pillage, CvUnit::rangeStrike, CvUnit::recon, CvUnit::updateAirCombat, CvUnit::updateAirStrike, CvUnit::updateCombat, CvUnit::updateStackCombat
 - **326** `CvMissionDefinition::getPlot() const` (exported)
   - called by (1): addEntityMission
 - **331** `CvMissionDefinition::setPlot(CvPlot const*)` (exported)
-  - called by (24): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::doActiveDefense …
+  - called by (24): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::doActiveDefense, CvUnit::doOpportunityFire, CvUnit::fighterEngage, CvUnit::kill, CvUnit::nuke, CvUnit::paradrop, CvUnit::pillage, CvUnit::rangeStrike, CvUnit::recon, CvUnit::updateAirCombat, CvUnit::updateAirStrike, CvUnit::updateCombat, CvUnit::updateStackCombat
 - **342** `CvBattleDefinition::CvBattleDefinition()` (exported)
   - calls: CvMissionDefinition::CvMissionDefinition
   - called by (3): CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat
@@ -157,7 +157,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - called by (2): CvBattleDefinition::getBattleRound(int), CvBattleDefinition::getBattleRound(int) const
 - **508** `CvAirMissionDefinition::CvAirMissionDefinition()` (exported)
   - calls: CvMissionDefinition::CvMissionDefinition
-  - called by (14): CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::doActiveDefense, CvUnit::fighterEngage, CvUnit::nuke, CvUnit::paradrop, CvUnit::recon …
+  - called by (14): CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::doActiveDefense, CvUnit::fighterEngage, CvUnit::nuke, CvUnit::paradrop, CvUnit::recon, CvUnit::updateAirCombat, CvUnit::updateAirStrike
 - **519** `CvAirMissionDefinition::CvAirMissionDefinition(CvAirMissionDefinition const&)` (exported)
   - calls: CvMissionDefinition::CvMissionDefinition
 - **532** `CvAirMissionDefinition::getDamage(BattleUnitTypes) const` (exported)
