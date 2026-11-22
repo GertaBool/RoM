@@ -1,7 +1,9 @@
 # Debt: loans and bonds between civilizations and with an open market
 
-A plan, not an implementation. Nothing is built until the design is approved. Every code change it
-describes is gated by a registered prediction (CLAUDE.md, rules 9–10).
+The plan for the debt mechanic. It has since been implemented: `fixes/debt.patch`, on top of GitLab
+`Graphics-Paging-Fix-Test` `8587217`; what was built, how it differs from this plan, and how it was checked are in
+`fixes/debt/README.md` (section 11 below summarises). Every code change is gated by prediction P14 (CLAUDE.md,
+rules 9–10).
 
 Written from the source at `1d9a473` (branch `Graphics-Paging-Fix-Test`), the commit the map was built from.
 Line numbers refer to it. This plan replaces the earlier version of this guide, which was written at
@@ -490,3 +492,16 @@ The mutual-benefit check of 1d9a473 then applies unchanged.
 | Speed distortions | fact 11 | 3.3 |
 | Turn time | 5.1, 5.3 | constant hot path; one pass over contracts per game turn |
 | Revolution component misses debt | `Revolution.py:1849–1858` repeats the AI's funded-percent test from `getGoldPerTurn()` and `calculateInflatedCosts()`, with a threshold of 75% (lowered by wars), as a stability factor. Debt kept outside `getGoldPerTurn` would not reach it | add `getDebtDuePerTurn() − getDebtIncomePerTurn()` to `iNetExpenses` there in phase 1; other gold reads in Revolution (`RevUtils.py:967`, `Revolution.py:473, 2076–2132`, buy-off costs at 2974, 3028) see the gold held, which a loan raises: **open** whether that lets a ruler borrow out of a revolt |
+
+## 11. As built
+
+`fixes/debt/README.md` has the details. Differences from the plan above:
+- **Loans between civilizations use route C only** (the Debt screen and network messages). The trade-window
+  item of route B (phase 0) needs the game and is not built.
+- **The Python events** of section 6.3 (`debtSigned`, a default event) are not posted; the DLL writes each
+  contract, payment shortfall, default, repayment and sale to the BBAI log instead.
+- **Texts are English** in all five language tags.
+- **The annuity** includes the game's rounding of each turn's interest, so equal payments clear a loan
+  exactly at maturity (the closed formula alone left a remainder; found by the native tests).
+- **A borrower's caches are refreshed at the start of its `doGold`**, so that the gold rate and the payment
+  use the same amounts when a contract has matured since the last update.

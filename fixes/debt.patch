@@ -1,9 +1,9 @@
 diff --git a/Assets/CvGameCoreDLL/AIDebtPolicy.h b/Assets/CvGameCoreDLL/AIDebtPolicy.h
 new file mode 100644
-index 0000000..97407c5
+index 0000000..5e297e7
 --- /dev/null
 +++ b/Assets/CvGameCoreDLL/AIDebtPolicy.h
-@@ -0,0 +1,234 @@
+@@ -0,0 +1,268 @@
 +// Added: deterministic, engine-independent arithmetic for debt contracts (loans and bonds).
 +// Every quantity is an integer: gold, turns, and rates in parts per million per turn (ppm).
 +// Floating point is avoided so that every machine of a network game computes the same numbers.
@@ -56,10 +56,25 @@ index 0000000..97407c5
 +	return factor;
 +}
 +
++// What is still owed after a number of turns of equal payments, interest charged each turn
++// first and rounded up as interestFor does (the rule CvGame::recordDebtPayments applies).
++inline long long residualAfter(int principal, int ratePpm, int turns, long long payment)
++{
++	long long owed = principal;
++	for (int i = 0; i < turns && owed > 0; ++i)
++	{
++		owed += interestFor(clampInt(owed), ratePpm);
++		owed -= (owed < payment) ? owed : payment;
++	}
++	return owed;
++}
++
 +// Equal payment per turn that repays a principal with interest over a term (an annuity):
-+// A = P r / (1 - (1+r)^-T) = P r F / (F - 1), F = (1+r)^T. Rounded up; never below the
-+// interest of the first turn, so the principal never grows while every payment is made.
-+inline int annuityPayment(int principal, int ratePpm, int turns)
++// A = P r / (1 - (1+r)^-T) = P r F / (F - 1), F = (1+r)^T, rounded up; never below the
++// interest of the first turn plus one, so the principal falls with every payment. The formula
++// assumes exact interest; the game rounds each turn's interest up, so the payment is then
++// raised until the last payment clears the debt within the term.
++inline int annuityPaymentFormula(int principal, int ratePpm, int turns)
 +{
 +	if (principal <= 0)
 +	{
@@ -87,6 +102,25 @@ index 0000000..97407c5
 +	if (payment < firstInterest + 1)
 +	{
 +		payment = firstInterest + 1;
++	}
++	return clampInt(payment);
++}
++
++inline int annuityPayment(int principal, int ratePpm, int turns)
++{
++	long long payment = annuityPaymentFormula(principal, ratePpm, turns);
++	if (principal <= 0 || turns <= 0)
++	{
++		return clampInt(payment);
++	}
++	for (int i = 0; i < 64; ++i)
++	{
++		const long long residual = residualAfter(principal, ratePpm, turns, payment);
++		if (residual <= 0)
++		{
++			break;
++		}
++		payment += (residual + turns - 1) / turns;
 +	}
 +	return clampInt(payment);
 +}
@@ -240,10 +274,10 @@ index 0000000..97407c5
 +#endif
 diff --git a/Assets/CvGameCoreDLL/CvDebt.cpp b/Assets/CvGameCoreDLL/CvDebt.cpp
 new file mode 100644
-index 0000000..55eaa15
+index 0000000..fb46b2c
 --- /dev/null
 +++ b/Assets/CvGameCoreDLL/CvDebt.cpp
-@@ -0,0 +1,1696 @@
+@@ -0,0 +1,1723 @@
 +// Debt contracts: loans and bonds between civilizations and with the open market.
 +// Design: codemap/guides/loans-and-bonds.md in the analysis repository (written at 1d9a473).
 +//
@@ -265,6 +299,7 @@ index 0000000..55eaa15
 +#include "CvTeamAI.h"
 +#include "CvGlobals.h"
 +#include "CvDLLInterfaceIFaceBase.h"
++#include "BetterBTSAI.h"
 +
 +// ---------------------------------------------------------------------------------------------
 +// Records
@@ -926,6 +961,10 @@ index 0000000..55eaa15
 +		{
 +			kDebt.iOutstanding += AIDebtPolicy::interestFor(iShort, iPenaltyPpm);
 +			++kDebt.iMissedTurns;
++			if (gPlayerLogLevel >= 1)
++			{
++				logBBAI("    Debt %d: borrower %d paid %d of %d (missed turns %d)", kDebt.iID, eBorrower, iPay, iDue, kDebt.iMissedTurns);
++			}
 +		}
 +		else
 +		{
@@ -1035,6 +1074,11 @@ index 0000000..55eaa15
 +	m_aDebts.push_back(kDebt);
 +	updateDebtCaches((PlayerTypes)eBorrower);
 +	updateDebtCaches((PlayerTypes)eLender);
++	if (gPlayerLogLevel >= 1)
++	{
++		logBBAI("    Debt %d signed: kind %d, borrower %d, lender %d, principal %d, rate %d ppm, payment %d, turns %d, collateral %d, conditions %d",
++			kDebt.iID, eKind, eBorrower, eLender, iAmount, kDebt.iRatePpm, kDebt.iPayment, iTurns, eCollateral, iConditions);
++	}
 +
 +	if (isCivPlayer(eBorrower))
 +	{
@@ -1096,6 +1140,10 @@ index 0000000..55eaa15
 +	}
 +	GET_PLAYER(eBorrower).changeGold(-iCost);
 +	const int eLender = pDebt->eLender;
++	if (gPlayerLogLevel >= 1)
++	{
++		logBBAI("    Debt %d repaid early by %d for %d", iID, eBorrower, iCost);
++	}
 +	creditDebtLender(eLender, iCost);
 +	pDebt->iOutstanding = 0;
 +	removeEndedDebts();
@@ -1121,6 +1169,10 @@ index 0000000..55eaa15
 +	}
 +	m_iMarketCapital -= iPrice;
 +	GET_PLAYER(eLender).changeGold(iPrice);
++	if (gPlayerLogLevel >= 1)
++	{
++		logBBAI("    Debt %d sold to the market by %d for %d", iID, eLender, iPrice);
++	}
 +	const int eBorrower = pDebt->eBorrower;
 +	if (isCivPlayer(eBorrower))
 +	{
@@ -1148,6 +1200,10 @@ index 0000000..55eaa15
 +	}
 +	const CvDebtContract kDebt = *pDebt;
 +	pDebt->iOutstanding = 0;
++	if (gPlayerLogLevel >= 1)
++	{
++		logBBAI("    Debt %d defaulted: borrower %d, lender %d, outstanding %d, collateral %d", kDebt.iID, kDebt.eBorrower, kDebt.eLender, kDebt.iOutstanding, kDebt.eCollateral);
++	}
 +
 +	if (isLivingCiv(kDebt.eBorrower))
 +	{
@@ -1610,6 +1666,11 @@ index 0000000..55eaa15
 +		}
 +	}
 +	updateAllDebtCaches();
++	if (gPlayerLogLevel >= 1)
++	{
++		logBBAI("Debt market turn %d: base rate %d ppm, capital %d, inflow %d, contracts %d, offers %d",
++			GC.getGameINLINE().getGameTurn(), m_iMarketBaseRatePpm, m_iMarketCapital, iInflow, (int)m_aDebts.size(), (int)m_aDebtOffers.size());
++	}
 +}
 +
 +void CvGame::resetDebt()
@@ -2091,7 +2152,7 @@ index 0000000..9b58b07
 +
 +#endif
 diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
-index ba78de4..de03408 100644
+index 888e340..23e671e 100644
 --- a/Assets/CvGameCoreDLL/CvGame.cpp
 +++ b/Assets/CvGameCoreDLL/CvGame.cpp
 @@ -543,6 +543,7 @@ void CvGame::reset(HandicapTypes eHandicap, bool bConstructorCall)
@@ -2102,7 +2163,7 @@ index ba78de4..de03408 100644
  	m_bPbemTurnSent = false;
  	m_bHotPbemBetweenTurns = false;
  	m_bPlayerOptionsSent = false;
-@@ -6823,6 +6824,7 @@ void CvGame::doTurn()
+@@ -6890,6 +6891,7 @@ void CvGame::doTurn()
  	updateScore();
  
  	doDeals();
@@ -2110,7 +2171,7 @@ index ba78de4..de03408 100644
  
  	for (iI = 0; iI < MAX_TEAMS; iI++)
  	{
-@@ -9406,6 +9408,12 @@ void CvGame::read(FDataStreamBase* pStream)
+@@ -9473,6 +9475,12 @@ void CvGame::read(FDataStreamBase* pStream)
  	pStream->Read(GC.getNumBuildingInfos(), m_aiShrineReligion);
  	pStream->Read(&m_iNumCultureVictoryCities);
  	pStream->Read(&m_eCultureVictoryCultureLevel);
@@ -2123,7 +2184,7 @@ index ba78de4..de03408 100644
  }
  
  
-@@ -9413,7 +9421,7 @@ void CvGame::write(FDataStreamBase* pStream)
+@@ -9480,7 +9488,7 @@ void CvGame::write(FDataStreamBase* pStream)
  {
  	int iI;
  
@@ -2132,7 +2193,7 @@ index ba78de4..de03408 100644
  	pStream->Write(uiFlag);		// flag for expansion
  
  	pStream->Write(m_iElapsedGameTurns);
-@@ -9580,6 +9588,8 @@ void CvGame::write(FDataStreamBase* pStream)
+@@ -9647,6 +9655,8 @@ void CvGame::write(FDataStreamBase* pStream)
  	pStream->Write(GC.getNumBuildingInfos(), m_aiShrineReligion);
  	pStream->Write(m_iNumCultureVictoryCities);
  	pStream->Write(m_eCultureVictoryCultureLevel);
@@ -3268,7 +3329,7 @@ index b80ad1a..8a40705 100644
  MAIN_INTERFACE = 99
  DEBUG_INFO_SCREEN = 100
 diff --git a/Assets/XML/GlobalDefinesAlt.xml b/Assets/XML/GlobalDefinesAlt.xml
-index b16e844..be15cc1 100644
+index 975cfe4..70f2755 100644
 --- a/Assets/XML/GlobalDefinesAlt.xml
 +++ b/Assets/XML/GlobalDefinesAlt.xml
 @@ -1037,4 +1037,137 @@

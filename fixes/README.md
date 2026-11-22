@@ -1,5 +1,20 @@
 # Tested source fixes
 
+## Debt: loans and bonds between civilizations and with the open market
+
+[debt.patch](debt.patch) applies to GitLab `Graphics-Paging-Fix-Test` `8587217`. It is not on GitLab yet.
+It adds debt contracts held by the game:
+- loans and bonds with a market that prices them from a base rate and each borrower's credit;
+- loans between civilizations;
+- payments that a broke borrower cannot fake;
+- default with collateral and memory;
+- AI borrowing and lending;
+- a Debt screen opened from the Finance Advisor.
+
+The release DLL builds with no warnings and the arithmetic passes its native tests. All ten headless
+300-turn runs, five with debt and five without, reached their end (P14). In-game result: open. See the
+[design, checks and open points](debt/README.md) and the [build](../builds/debt/).
+
 ## Graphics paging coherence: the crash on moving a unit
 
 [graphics-paging-coherence.patch](graphics-paging-coherence.patch) applies to GitLab `main`

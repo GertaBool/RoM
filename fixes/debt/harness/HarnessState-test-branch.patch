@@ -1,0 +1,28 @@
+--- HarnessState.cpp.orig	2026-11-22 13:23:59.671859454 +0000
++++ HarnessState.cpp	2026-11-22 13:23:59.687847552 +0000
+@@ -242,14 +242,14 @@
+ 		(iPlans == 0 || iEnemyPowerPercent < 45) ? 1 : 0, iPlans, iEnemyPowerPercent, bChecks ? 1 : 0,
+ 		GC.getHandicapInfo(g.getHandicapType()).getAIDeclareWarProb(), iOurPower, pTotal, pLimited, pDogpile,
+ 		HH_teamLeaderField(kT, HH_NEARBY), HH_teamLeaderField(kT, HH_DISTANT), HH_teamLeaderField(kT, HH_LIMITED),
+-		HH_teamLeaderField(kT, HH_MINADJ), (int)kT.AI_balanceHegemon());
++		HH_teamLeaderField(kT, HH_MINADJ), -1);
+ 	bool bFirst = true;
+ 	for (int t = 0; t < MAX_CIV_TEAMS; ++t)
+ 	{
+ 		CvTeamAI& kE = GET_TEAM((TeamTypes)t);
+ 		if (t == kT.getID() || !kE.isAlive() || kE.isBarbarian() || !kT.isHasMet((TeamTypes)t)) continue;
+ 		const AttitudeTypes eAtt = kT.AI_getAttitude((TeamTypes)t);
+-		const int iNoWar = kT.AI_balanceNoWarProb((TeamTypes)t);
++		const int iNoWar = -1;
+ 		const int iCmp = bReach ? (int)(((__int64)kT.AI_getReachablePower((TeamTypes)t) * iOurPower) / std::max(1, kT.getPower(true))) : iOurPower;
+ 		// total war: pass 0 and 1 against the nearby ratio, pass 2 against the distant one (CvTeamAI.cpp:5259)
+ 		const int iTotalDef = bReach ? kE.AI_getReachableDefence() : kE.getDefensivePower() * 2 / 3;
+@@ -502,7 +502,7 @@
+ 				// flag (AI_isDanger), and the owner's staged-forecast threshold. Reads only.
+ 				CvCityAI* pAI = static_cast<CvCityAI*>(c);
+ 				fprintf(f, ",\"def\":[%d,%d,%d,%d,%d,%d]", c->plot()->plotCount(PUF_canDefend, -1, -1, c->getOwnerINLINE(), NO_TEAM, PUF_isDomainType, DOMAIN_LAND),
+-					pAI->AI_neededDefenders(), pAI->AI_stagedForecast(false), pAI->AI_stagedForecast(true), pAI->AI_isDanger() ? 1 : 0,
++					pAI->AI_neededDefenders(), -1, -1, pAI->AI_isDanger() ? 1 : 0,
+ 					GC.getDefineINT("AI_STAGED_FORECAST", 0) + 10 * GET_PLAYER(c->getOwnerINLINE()).AI_getAttackOddsChange());
+ 			}
+ 			fprintf(f, "}");

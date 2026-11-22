@@ -1,0 +1,21 @@
+{
+ "serves": [
+  "P14"
+ ],
+ "patch": "fixes/debt.patch",
+ "build_id": "085403232830",
+ "source": "GitLab Graphics-Paging-Fix-Test 8587217 plus fixes/debt.patch: loans and bonds between civilizations and with the open market (codemap/guides/loans-and-bonds.md)",
+ "source_commit": "af47b07 (local commit on 8587217)",
+ "source_tree": "2d9f7500b16dff0aea02d7a89e2835c747aefa33",
+ "dll_source_tree": "08540323283000afe391e1770b1fbfb30076593f",
+ "base_commit": "8587217eeb94cb26809d310c6bf5f7d5c7062d55",
+ "dll_sha256": "ff172b2ed18b23165ffacdde296a51cf3e2b3d1afcdec0e4e32d59b7a7015a87",
+ "dll_size": 6217728,
+ "exports": 2452,
+ "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release, CLEAN=1; 0 errors, 0 warnings",
+ "files": "the DLL only; the patch also changes Python (Assets/Python/Screens/CvDebtScreen.py and others) and XML (GlobalDefinesAlt.xml, XML/Text/Debt_CIV4GameText.xml), which the game needs from the patched mod",
+ "tests": "fixes/debt/tests/test_debt_policy.cpp (all pass); Python 2.4.4 compile of the five changed Python files",
+ "tested_headless": "P14: 5 runs per arm, 300 turns, generated scenario (fixes/debt/harness/make_scenario.py); all 10 reached their result line (fixes/debt/README.md)",
+ "tested_in_game": false,
+ "previous": "none (first debt build)"
+}
