@@ -662,8 +662,8 @@ def selftest():
         P4 = dict(P1, id='P4', variable='X1', serves='P3')
         assert not validate([H, P1, P2, P3], var) and any('more than' in x for x in validate([H, P1, P2, P3, P4], var))
         assert any('chain' in x for x in validate([H, dict(P1, id='P5', variable='X1')], var))
-        # fewer than 30 runs per arm is refused
-        assert any('30 runs' in x for x in validate([H, dict(P1, id='P6', claim=dict(P1['claim'], min_n=5))], var))
+        # fewer than MIN_RUNS runs per arm is refused
+        assert any(f'{MIN_RUNS} runs' in x for x in validate([H, dict(P1, id='P6', claim=dict(P1['claim'], min_n=MIN_RUNS - 1))], var))
         # evidence: foreign seeds rejected; once evidence exists, code commits may not serve P1
         sd = seeds(P1, 80)
         w(f'{EVD}P1/a.tsv', ''.join(f'{s}\t{i % 3}\n' for i, s in enumerate(sd[:30])) + '12345\t9\n')

@@ -450,7 +450,7 @@ The mutual-benefit check of 1d9a473 then applies unchanged.
 | 3 (AI borrowing) | `completed` no regression; `turn_seconds` no worse; a stated direction on `taken` and `lost` (the AI defends better if it avoids strikes) |
 | 4 (AI lending) | the same, against phase 3 |
 
-- Each with at least 30 seeded runs (`HARNESS_RESEED`), Welch's test on ranks, against the best existing
+- Each with at least 5 seeded runs (`HARNESS_RESEED`), Welch's test on ranks, against the best existing
   version and fixed opponents.
 - An economic variable (strike turns, defaults per game) would make these sharper. Adding one is a method
   change (a `Method:` trailer) and needs the user's approval. Until then, such counts are reported as

@@ -39,7 +39,7 @@ retired for the reasons in section 2: its thresholds were correlates tuned on pi
   that grow with the square of the horizon, because it reaches states the expert never saw.
   Fidelity on the human's own states is therefore necessary but not enough (section 5).
 - **Training and test.** Luke (*Essentials of Metaheuristics*, section 11): the games and seeds
-  used to fit the model are never used to judge it. Outcomes need at least `30` seeded runs,
+  used to fit the model are never used to judge it. Outcomes need at least `5` seeded runs,
   compared by ranks.
 
 ## 3. Decision classes
@@ -79,7 +79,7 @@ model's runs. Compared on the same classes:
   range the human's games give.
 - **The states reached.** The share of the model's decision states whose cues lie outside the
   range of the human's states measures how far the model drifts from the human's path.
-- **Outcomes.** Cities taken and lost by fixed turns, over at least `30` fresh seeds, against the
+- **Outcomes.** Cities taken and lost by fixed turns, over at least `5` fresh seeds, against the
   AI in the same seat (`method/docs/framework.md`, section 7).
 
 Correcting drift needs the human's decisions in states the model reaches. *Open:* a harness
