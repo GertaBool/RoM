@@ -34,6 +34,10 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **239** `CvMap::plotSorenINLINE(int, int) const`
   - calls: CvMap::plotNumINLINE
   - called by (35): CvCity::getRallyPlot, CvCity::plot, CvMap::combinePlotGroups, CvMap::init, CvMap::syncRandPlot, CvPlayer::getStartingPlot, CvPlayerAI::AI_advancedStartDoRoute, CvPlot::calculateImprovementYieldChange, CvPlot::getInlandCorner, CvPlotGroup::changeNumBonuses, CvPlotGroup::recalculatePlots, CvPlotGroup::removePlot …
+- **·** `PlotExtraYield::PlotExtraYield()` (written by the compiler)
+  - called by (2): CvGame::read, CvGame::setPlotExtraYield
+- **·** `PlotExtraYield::~PlotExtraYield()` (written by the compiler)
+  - called by (2): CvGame::read, CvGame::setPlotExtraYield
 - **·** `CvGame::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: CvGame::~CvGame [CvGame.cpp], operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
   - takes the address of: CvGame::~CvGame [CvGame.cpp]

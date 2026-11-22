@@ -1255,7 +1255,7 @@ DefensivePactRefuseAttitudeThreshold	Civilizations/CIV4LeaderHeadInfos.xml	civ4	
 Define	BBAI_AI_Variables_GlobalDefines.xml	mod	1	10
 Define	BBAI_Game_Options_GlobalDefines.xml	mod	1	10
 Define	GlobalDefines.xml	mod	1	405
-Define	GlobalDefinesAlt.xml	mod	1	206
+Define	GlobalDefinesAlt.xml	mod	1	207
 Define	LeadFromBehind_GlobalDefines.xml	mod	1	9
 Define	PythonCallbackDefines.xml	mod	1	41
 Define	TechDiffusion_GlobalDefines.xml	mod	1	7
@@ -1266,7 +1266,7 @@ Define	PythonCallbackDefines.xml	bts	0	25
 DefineName	BBAI_AI_Variables_GlobalDefines.xml	mod	1	10
 DefineName	BBAI_Game_Options_GlobalDefines.xml	mod	1	10
 DefineName	GlobalDefines.xml	mod	1	405
-DefineName	GlobalDefinesAlt.xml	mod	1	206
+DefineName	GlobalDefinesAlt.xml	mod	1	207
 DefineName	LeadFromBehind_GlobalDefines.xml	mod	1	9
 DefineName	PythonCallbackDefines.xml	mod	1	41
 DefineName	TechDiffusion_GlobalDefines.xml	mod	1	7
@@ -7379,7 +7379,7 @@ iDefensivePactAttitudeDivisor	Civilizations/CIV4LeaderHeadInfos.xml	civ4	0	27
 iDefineIntVal	BBAI_AI_Variables_GlobalDefines.xml	mod	1	10
 iDefineIntVal	BBAI_Game_Options_GlobalDefines.xml	mod	1	10
 iDefineIntVal	GlobalDefines.xml	mod	1	328
-iDefineIntVal	GlobalDefinesAlt.xml	mod	1	186
+iDefineIntVal	GlobalDefinesAlt.xml	mod	1	187
 iDefineIntVal	LeadFromBehind_GlobalDefines.xml	mod	1	9
 iDefineIntVal	PythonCallbackDefines.xml	mod	1	41
 iDefineIntVal	TechDiffusion_GlobalDefines.xml	mod	1	7

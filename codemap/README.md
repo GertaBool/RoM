@@ -219,21 +219,24 @@ python3 codemap/tool/pyapi.py /tmp/AllClasses.html <checkout>/Assets/CvGameCoreD
   and methods it binds that the reference lacks (`added`, mostly the mod's own, e.g. the Revolution getters of
   `CvCivicInfo`).
 
-## The build at 9627e508 (GitLab Graphics-Paging-Fix-Test)
+## The build at cdda5b6 (GitLab Graphics-Paging-Fix-Test)
 
-The whole map was rebuilt at `9627e508fedc` on a cloud machine, with `build.sh`'s steps run one by one.
+The whole map was rebuilt at `cdda5b65d3da` (first at `9627e508fedc`) on a cloud machine, with `build.sh`'s steps run one by one.
 
 | input | source | check |
 |---|---|---|
 | Visual C++ Toolkit 2003, Platform SDK | the user's Drive folder `platformsdk` | SHA-256 as in `builds/0009/provenance.json` |
 | Boost 1.32, Python 2.4 headers | `beyond-the-sword-sdk-develop-functional.tar.gz`, GitLab repository root | SHA-256 as in the provenance |
 | Python 2.4 (`python.exe` for `py24_scan.py`) | python.org `python-2.4.4.msi` | good PGP signature, key 0EDDC5F26A45C816 (Anthony Baxter) |
-| mod's Python, XML, Config | GitLab `9627e508` | |
+| mod's Python, XML, Config | GitLab `cdda5b6` (Python unchanged since `9627e508`) | |
 | Beyond the Sword's Python | the user's Drive folder `prereq_original_files_civ4_bts/Python (2)` | has `Screens/CvCorporationScreen.py` and the corporation events; the scan gives the same tables as github `max-zanko/civ4-beyond-the-sword-sdk` (code identical, whitespace aside) |
 | Civilization IV's Python | the user's Drive folder `prereq_original_files_civ4_bts/Python (1)` | scanned with the mod at `2a8b9a83`, it reproduces the previous map's Python tables row for row |
 
 Results:
-- **DLL:** all 105 units compiled, with 0 warnings and 0 errors.
+- **DLL:** all 105 units compiled, with 0 warnings and 0 errors. A release build of the same commit
+  (`toolchain/build_dll.sh`, SHA-256 `f85b9428…`) has 0 warnings and 0 errors and exports 2,452 names. These are the
+  map's 2,447 exported functions, all of them, plus 5 virtual-function tables, and the same list as
+  `builds/graphics-paging-fix`.
 - **Python:** the game imports by module name, from the mod's folder, then Beyond the Sword's, then Civilization
   IV's. The previous map had no Beyond the Sword layer: its base modules, `CvEventManager.py` among them, were
   Civilization IV's. That layer is now in place. `map/py_modules.tsv` gives each module's layer: 189 mod,

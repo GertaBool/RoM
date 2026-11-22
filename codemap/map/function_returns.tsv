@@ -3518,7 +3518,7 @@ CvGame::normalizeStartingPlotLocations	void
 CvGame::normalizeStartingPlots	void
 CvGame::pageGraphics	bool
 CvGame::processBuilding	void
-CvGame::processDeferredReveals	void
+CvGame::processDeferredReveals	bool
 CvGame::processVote	void
 CvGame::pythonIsBonusIgnoreLatitudes	bool
 CvGame::read	void
@@ -6824,7 +6824,7 @@ CvPlot::plotMinimapColor	ColorTypes
 CvPlot::prevUnitNode	CLLNode<IDInfo> *
 CvPlot::processArea	void
 CvPlot::read	void
-CvPlot::refreshRevealedGraphics	void
+CvPlot::refreshRevealedGraphics	bool
 CvPlot::removeGoody	void
 CvPlot::removeUnit	void
 CvPlot::reset	void

@@ -597,30 +597,30 @@ CvFeatureInfo::read	CvFeatureInfo	m_pi3DAudioScriptFootstepIndex	FootstepSounds	
 CvFeatureInfo::read	CvFeatureInfo	m_szEffectType	EffectType	GetChildXmlValByName	CvInfos.cpp	17625
 CvFeatureInfo::read	CvFeatureInfo	m_szOnUnitChangeTo	OnUnitChangeTo	GetChildXmlValByName	CvInfos.cpp	17600
 CvForceControlInfo::read	CvForceControlInfo	m_bDefault	bDefault	GetChildXmlValByName	CvInfos.cpp	26983
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_ASSIGN_CITY	getText	CvGame.cpp	10078
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_ASSIGN_CITY	operator=	CvGame.cpp	10078
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_DEFENSIVE_PACT	getText	CvGame.cpp	10002
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_DEFENSIVE_PACT	operator=	CvGame.cpp	10002
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_NO_TRADE	getText	CvGame.cpp	10036
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_NO_TRADE	operator=	CvGame.cpp	10036
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_PEACE	getText	CvGame.cpp	10018
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_PEACE	operator=	CvGame.cpp	10018
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_WAR	getText	CvGame.cpp	10054
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_WAR	operator=	CvGame.cpp	10054
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPEN_BORDERS	getText	CvGame.cpp	9994
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPEN_BORDERS	operator=	CvGame.cpp	9994
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPTION	getText	CvGame.cpp	10087
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPTION	operator=	CvGame.cpp	10087
-CvGame::doVoteResults	VoteSelectionSubData	szText	TXT_KEY_VOTE_RESULTS	getText	CvGame.cpp	10376
-CvGame::pageGraphics	CvGame	m_iPagingX	turn %d look (%d,%d) %s: in plots %d units %d cities %d, out plots %d units %d cities %d; paged out plots %d units %d cities %d	Format	CvGame.cpp	2869
-CvGame::processDeferredReveals	CvGame	m_aiDeferredRevealPlots	turn %d bulk reveal: refreshed %d, queued %d	Format	CvGame.cpp	2387
-CvGame::processVote	VoteSelectionSubData	eOtherPlayer	  Vote for assigning %S to %d (%S) passes	logBBAI	CvGame.cpp	8604
-CvGame::read	CvGame	m_iNumSessions	TXT_KEY_MISC_RELOAD	addReplayMessage	CvGame.cpp	9176
-CvGame::read	CvGame	m_iNumSessions	TXT_KEY_MISC_RELOAD	getText	CvGame.cpp	9176
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_ASSIGN_CITY	getText	CvGame.cpp	10097
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_ASSIGN_CITY	operator=	CvGame.cpp	10097
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_DEFENSIVE_PACT	getText	CvGame.cpp	10021
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_DEFENSIVE_PACT	operator=	CvGame.cpp	10021
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_NO_TRADE	getText	CvGame.cpp	10055
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_NO_TRADE	operator=	CvGame.cpp	10055
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_PEACE	getText	CvGame.cpp	10037
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_PEACE	operator=	CvGame.cpp	10037
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_WAR	getText	CvGame.cpp	10073
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_WAR	operator=	CvGame.cpp	10073
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPEN_BORDERS	getText	CvGame.cpp	10013
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPEN_BORDERS	operator=	CvGame.cpp	10013
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPTION	getText	CvGame.cpp	10106
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPTION	operator=	CvGame.cpp	10106
+CvGame::doVoteResults	VoteSelectionSubData	szText	TXT_KEY_VOTE_RESULTS	getText	CvGame.cpp	10395
+CvGame::pageGraphics	CvGame	m_iPagingX	turn %d look (%d,%d) %s: in plots %d units %d cities %d, out plots %d units %d cities %d; paged out plots %d units %d cities %d	Format	CvGame.cpp	2888
+CvGame::processDeferredReveals	CvGame	m_aiDeferredRevealPlots	turn %d bulk reveal: refreshed %d, queued %d	Format	CvGame.cpp	2399
+CvGame::processVote	VoteSelectionSubData	eOtherPlayer	  Vote for assigning %S to %d (%S) passes	logBBAI	CvGame.cpp	8623
+CvGame::read	CvGame	m_iNumSessions	TXT_KEY_MISC_RELOAD	addReplayMessage	CvGame.cpp	9195
+CvGame::read	CvGame	m_iNumSessions	TXT_KEY_MISC_RELOAD	getText	CvGame.cpp	9195
 CvGame::startFlyoutMenu	FAStarNode	m_iData2	TXT_KEY_FLYOUT_MENU_MOVE_TO	getText	CvGameInterface.cpp	2240
 CvGame::startFlyoutMenu	FAStarNode	m_iData2	TXT_KEY_FLYOUT_MENU_MOVE_TO	operator=	CvGameInterface.cpp	2240
 CvGame::update	CvGame	m_iNumGameTurnActive	Turn-active count repaired from %d to %d on turn %d	logBBAI	CvGame.cpp	2204
-CvGame::updateGraphicsPaging	CvGame	m_iPagingX	turn %d look (%d,%d) %s: window west %d east %d north %d south %d margin %d	Format	CvGame.cpp	2532
+CvGame::updateGraphicsPaging	CvGame	m_iPagingX	turn %d look (%d,%d) %s: window west %d east %d north %d south %d margin %d	Format	CvGame.cpp	2551
 CvGameOptionInfo::read	CvGameOptionInfo	m_bDefault	bDefault	GetChildXmlValByName	CvInfos.cpp	26873
 CvGameOptionInfo::read	CvGameOptionInfo	m_bVisible	bVisible	GetChildXmlValByName	CvInfos.cpp	26874
 CvGameSpeedInfo::read	CvGameSpeedInfo	m_iAnarchyPercent	iAnarchyPercent	GetChildXmlValByName	CvInfos.cpp	14754

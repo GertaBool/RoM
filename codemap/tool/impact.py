@@ -373,6 +373,10 @@ def diff(repo, base, head, depth):
                     if 1 <= x <= len(text):
                         tags.update(m.group(1) for m in tag_re.finditer(text[x - 1] + ' '))
                         for k in range(x - 1, max(-1, x - 8), -1):   # the <DefineName> of a changed define value
+                            if k < x - 1 and re.search(r'</Define>|<Define>', text[k]):
+                                if '<Define>' in text[k]:   # the block's start: its name is below, on a changed line
+                                    pass
+                                break                       # another block: not this line's define
                             m = re.search(r'<DefineName>\s*([^<\s]+)', text[k])
                             if m:
                                 defs.add(m.group(1))

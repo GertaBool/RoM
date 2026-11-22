@@ -4,18 +4,14 @@ Group: game objects. Functions in line order: what each calls (in order of first
 
 - **63** `CvPlot::isGraphicsPagedOut() const`
   - called by (1): CvGame::pageGraphics
-- **67** `CvPlot::isRevealedGraphicsDirty() const`
+- **68** `CvPlot::isRevealedGraphicsDirty() const`
   - called by (2): CvGame::deferRevealedGraphics, CvGame::processDeferredReveals
-- **68** `CvPlot::setRevealedGraphicsDirty(bool)`
+- **69** `CvPlot::setRevealedGraphicsDirty(bool)`
   - called by (1): CvGame::deferRevealedGraphics
-- **258** `CvPlot::getX_INLINE() const`
-  - called by (334): CvCity::applyEvent, CvCity::init, CvCity::kill, CvCity::popOrder, CvCity::setRallyPlot, CvCityAI::AI_bestPlotBuild, CvDLLButtonPopup::launchEventPopup, CvDLLWidgetData::parseActionHelp, CvGame::createAnimals, CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvGame::deferRevealedGraphics …
-- **265** `CvPlot::getY_INLINE() const`
-  - called by (334): CvCity::applyEvent, CvCity::init, CvCity::kill, CvCity::popOrder, CvCity::setRallyPlot, CvCityAI::AI_bestPlotBuild, CvDLLButtonPopup::launchEventPopup, CvDLLWidgetData::parseActionHelp, CvGame::createAnimals, CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvGame::deferRevealedGraphics …
-- **353** `CvPlot::getOwnerINLINE() const`
+- **259** `CvPlot::getX_INLINE() const`
+  - called by (335): CvCity::applyEvent, CvCity::init, CvCity::kill, CvCity::popOrder, CvCity::setRallyPlot, CvCityAI::AI_bestPlotBuild, CvDLLButtonPopup::launchEventPopup, CvDLLWidgetData::parseActionHelp, CvGame::createAnimals, CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvGame::deferRevealedGraphics …
+- **266** `CvPlot::getY_INLINE() const`
+  - called by (335): CvCity::applyEvent, CvCity::init, CvCity::kill, CvCity::popOrder, CvCity::setRallyPlot, CvCityAI::AI_bestPlotBuild, CvDLLButtonPopup::launchEventPopup, CvDLLWidgetData::parseActionHelp, CvGame::createAnimals, CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvGame::deferRevealedGraphics …
+- **354** `CvPlot::getOwnerINLINE() const`
   - called by (133): CvCity::alterWorkingPlot, CvCity::applyEvent, CvCity::canApplyEvent, CvCity::cultureStrength, CvCityAI::AI_calculateCulturePressure, CvCityAI::AI_countNumBonuses, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_stealPlots, CvDLLButtonPopup::launchDeclareWarMovePopup, CvDLLButtonPopup::launchDoEspionagePopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseActionHelp …
-- **514** `CvPlot::getPlotBuilder()` (exported)
-- **·** `PlotExtraYield::PlotExtraYield()` (written by the compiler)
-  - called by (2): CvGame::read, CvGame::setPlotExtraYield
-- **·** `PlotExtraYield::~PlotExtraYield()` (written by the compiler)
-  - called by (2): CvGame::read, CvGame::setPlotExtraYield
+- **515** `CvPlot::getPlotBuilder()` (exported)

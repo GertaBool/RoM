@@ -52,7 +52,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (2): CvGame::setActivePlayer, CvGame::toggleDebugMode
 - **407** `CvMap::updateMinimapColor()` (exported)
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateMinimapColor [CvPlot.cpp]
-  - called by (3): CvGame::setActivePlayer, CvGame::toggleDebugMode, CyMap::updateMinimapColor
+  - called by (4): CvGame::endBulkReveal, CvGame::setActivePlayer, CvGame::toggleDebugMode, CyMap::updateMinimapColor
 - **418** `CvMap::updateSight(bool)`
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateSight [CvPlot.cpp], CvGame::updatePlotGroups [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h]
   - called by (1): CvTeam::changeExtraWaterSeeFromCount

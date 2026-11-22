@@ -1330,7 +1330,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **4206** `CvGlobals::getGamePointer()` (exported)
 - **4209** `CvGlobals::getMaxCivPlayers() const` (exported)
 - **4213** `CvGlobals::IsGraphicsInitialized() const` (exported)
-  - called by (37): CvCity::pageGraphics, CvCity::setupGraphical, CvCity::updateVisibility, CvGame::deferRevealedGraphics, CvGame::processDeferredReveals, CvGame::setActivePlayer, CvGame::updateGraphicsPaging, CvMap::setupGraphical, CvPlayer::setupGraphical, CvPlot::pageGraphics, CvPlot::refreshRevealedGraphics, CvPlot::setLayoutDirty …
+  - called by (38): CvCity::pageGraphics, CvCity::setupGraphical, CvCity::updateVisibility, CvGame::deferRevealedGraphics, CvGame::endBulkReveal, CvGame::processDeferredReveals, CvGame::setActivePlayer, CvGame::updateGraphicsPaging, CvMap::setupGraphical, CvPlayer::setupGraphical, CvPlot::pageGraphics, CvPlot::refreshRevealedGraphics …
 - **4214** `CvGlobals::SetGraphicsInitialized(bool)` (exported)
 - **4215** `CvGlobals::setInterface(CvInterface*)` (exported)
 - **4216** `CvGlobals::setDiplomacyScreen(CvDiplomacyScreen*)` (exported)

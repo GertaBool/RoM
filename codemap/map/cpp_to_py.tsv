@@ -64,7 +64,7 @@ caller	module	python_function	file	line	python_file	python_line
 1760	CvAppInterface	getModNameAndVersion	CvDLLWidgetData.cpp	4864	EntryPoints/CvAppInterface.py	273
 1851	CvScreensInterface	refreshMilitaryAdvisor	CvDLLWidgetData.cpp	6001	EntryPoints/CvScreensInterface.py	1017
 2003	CvEventInterface	onEvent	CvDllPythonEvents.cpp	24	EntryPoints/CvEventInterface.py	28
-2183	?	isBonusIgnoreLatitude	CvGame.cpp	10600		
+2183	?	isBonusIgnoreLatitude	CvGame.cpp	10619		
 2198	?	normalizeAddExtras	CvGame.cpp	2099		
 2198	?	normalizeAddFoodBonuses	CvGame.cpp	2089		
 2198	?	normalizeAddGoodTerrain	CvGame.cpp	2094		
@@ -74,19 +74,19 @@ caller	module	python_function	file	line	python_file	python_line
 2198	?	normalizeRemoveBadTerrain	CvGame.cpp	2084		
 2198	?	normalizeRemovePeaks	CvGame.cpp	2069		
 2198	?	normalizeStartingPlotLocations	CvGame.cpp	2053		
-2211	CvScreensInterface	getCameraView	CvGame.cpp	2556	EntryPoints/CvScreensInterface.py	1200
-2211	CvScreensInterface	getCameraView	CvGame.cpp	2566	EntryPoints/CvScreensInterface.py	1200
-2237	CvAppInterface	gameStartSave	CvGame.cpp	410	EntryPoints/CvAppInterface.py	282
-2270	CvGameInterface	doReviveActivePlayer	CvGame.cpp	4070	base/EntryPoints/CvGameInterface.py	248
-2271	CvGameInterface	doReviveActivePlayer	CvGame.cpp	4096	base/EntryPoints/CvGameInterface.py	248
-2389	CvAppInterface	gameEndSave	CvGame.cpp	5592	EntryPoints/CvAppInterface.py	287
-2469	CvGameInterface	doHolyCity	CvGame.cpp	7005	base/EntryPoints/CvGameInterface.py	200
-2470	CvGameInterface	doHeadquarters	CvGame.cpp	7130		
-2472	CvGameInterface	createBarbarianCities	CvGame.cpp	7286	base/EntryPoints/CvGameInterface.py	41
-2474	CvGameInterface	createBarbarianUnits	CvGame.cpp	7526	base/EntryPoints/CvGameInterface.py	45
-2483	CvGameInterface	isVictory	CvGame.cpp	8325	base/EntryPoints/CvGameInterface.py	30
-2484	CvGameInterface	isVictoryTest	CvGame.cpp	8356	base/EntryPoints/CvGameInterface.py	26
-2489	?	assignStartingPlots	CvGame.cpp	933		
+2211	CvScreensInterface	getCameraView	CvGame.cpp	2575	EntryPoints/CvScreensInterface.py	1200
+2211	CvScreensInterface	getCameraView	CvGame.cpp	2585	EntryPoints/CvScreensInterface.py	1200
+2236	CvAppInterface	gameStartSave	CvGame.cpp	410	EntryPoints/CvAppInterface.py	282
+2270	CvGameInterface	doReviveActivePlayer	CvGame.cpp	4089	base/EntryPoints/CvGameInterface.py	248
+2271	CvGameInterface	doReviveActivePlayer	CvGame.cpp	4115	base/EntryPoints/CvGameInterface.py	248
+2389	CvAppInterface	gameEndSave	CvGame.cpp	5611	EntryPoints/CvAppInterface.py	287
+2469	CvGameInterface	doHolyCity	CvGame.cpp	7024	base/EntryPoints/CvGameInterface.py	200
+2470	CvGameInterface	doHeadquarters	CvGame.cpp	7149		
+2472	CvGameInterface	createBarbarianCities	CvGame.cpp	7305	base/EntryPoints/CvGameInterface.py	41
+2474	CvGameInterface	createBarbarianUnits	CvGame.cpp	7545	base/EntryPoints/CvGameInterface.py	45
+2483	CvGameInterface	isVictory	CvGame.cpp	8344	base/EntryPoints/CvGameInterface.py	30
+2484	CvGameInterface	isVictoryTest	CvGame.cpp	8375	base/EntryPoints/CvGameInterface.py	26
+2487	?	assignStartingPlots	CvGame.cpp	933		
 2681	CvGameInterface	getExperienceNeeded	CvGameCoreUtils.cpp	3310	base/EntryPoints/CvGameInterface.py	290
 2766	CvGameInterface	cannotSelectionListMove	CvGameInterface.cpp	1021	base/EntryPoints/CvGameInterface.py	112
 2767	CvGameInterface	cannotSelectionListGameNetMessage	CvGameInterface.cpp	1096	base/EntryPoints/CvGameInterface.py	116
@@ -119,55 +119,55 @@ caller	module	python_function	file	line	python_file	python_line
 6557	?	getWrapX	CvMap.cpp	212		
 6557	?	getWrapY	CvMap.cpp	214		
 6592	?	beforeInit	CvMap.cpp	75		
-6631	?	generatePlotTypes	CvMapGenerator.cpp	1028		
-6632	?	generateTerrainTypes	CvMapGenerator.cpp	1055		
-6633	?	afterGeneration	CvMapGenerator.cpp	1074		
-6635	?	getRiverAltitude	CvMapGenerator.cpp	1126		
-6637	?	canPlaceGoodyAt	CvMapGenerator.cpp	192		
-6640	?	addLakes	CvMapGenerator.cpp	265		
-6641	?	addRivers	CvMapGenerator.cpp	303		
-6643	?	getRiverStartCardinalDirection	CvMapGenerator.cpp	468		
-6645	?	canPlaceBonusAt	CvMapGenerator.cpp	68		
-6647	?	addFeatures	CvMapGenerator.cpp	647		
-6648	?	addBonusType	CvMapGenerator.cpp	695		
-6648	?	addBonuses	CvMapGenerator.cpp	678		
-6651	?	addGoodies	CvMapGenerator.cpp	891		
-6656	?	beforeGeneration	CvMapGenerator.cpp	1002		
-6656	?	generateRandomMap	CvMapGenerator.cpp	1004		
-6770	CvAppInterface	netAddReminder	CvMessageData.cpp	1172		
-7098	PbMain	sendEmail	CvPlayer.cpp	11772	base/EntryPoints/PbMain.py	95
-7338	CvGameInterface	doGold	CvPlayer.cpp	15303	base/EntryPoints/CvGameInterface.py	208
-7340	CvGameInterface	doResearch	CvPlayer.cpp	15372	base/EntryPoints/CvGameInterface.py	212
-7394	?	CvRandomEventInterface	CvPlayer.cpp	19746		
-7395	?	CvRandomEventInterface	CvPlayer.cpp	20246		
-7396	?	startHumansOnSameTile	CvPlayer.cpp	2031		
-7397	?	CvRandomEventInterface	CvPlayer.cpp	20643		
-7398	?	CvRandomEventInterface	CvPlayer.cpp	21239		
-7399	?	minStartingDistanceModifier	CvPlayer.cpp	2089		
-7406	?	findStartingArea	CvPlayer.cpp	2161		
-7408	?	CvRandomEventInterface	CvPlayer.cpp	21712		
-7415	?	findStartingPlot	CvPlayer.cpp	2221		
-7445	CvGameInterface	canRazeCity	CvPlayer.cpp	2865	base/EntryPoints/CvGameInterface.py	69
-7445	CvGameInterface	doCityCaptureGold	CvPlayer.cpp	2523	base/EntryPoints/CvGameInterface.py	254
-7549	CvGameInterface	calculateScore	CvPlayer.cpp	4582	base/EntryPoints/CvGameInterface.py	197
-7582	CvGameInterface	canRazeCity	CvPlayer.cpp	6136	base/EntryPoints/CvGameInterface.py	69
-7588	CvGameInterface	doGoody	CvPlayer.cpp	6555	base/EntryPoints/CvGameInterface.py	216
-7589	CvGameInterface	canFoundCitiesOnWater	CvPlayer.cpp	6691	base/EntryPoints/CvGameInterface.py	260
-7589	CvGameInterface	cannotFoundCity	CvPlayer.cpp	6606	base/EntryPoints/CvGameInterface.py	108
-7600	CvGameInterface	getUnitCostMod	CvPlayer.cpp	7518	base/EntryPoints/CvGameInterface.py	275
-7625	CvGameInterface	getExtraCost	CvPlayer.cpp	8250	base/EntryPoints/CvGameInterface.py	37
-7636	CvGameInterface	isPlayerResearch	CvPlayer.cpp	8546	base/EntryPoints/CvGameInterface.py	33
-7637	CvGameInterface	cannotResearch	CvPlayer.cpp	8581	base/EntryPoints/CvGameInterface.py	128
-7638	CvGameInterface	canResearch	CvPlayer.cpp	8605	base/EntryPoints/CvGameInterface.py	124
-7645	CvGameInterface	canDoCivic	CvPlayer.cpp	8843	base/EntryPoints/CvGameInterface.py	132
-7645	CvGameInterface	cannotDoCivic	CvPlayer.cpp	8861	base/EntryPoints/CvGameInterface.py	136
-7788	CvGameInterface	getCityFoundValue	CvPlayerAI.cpp	1272	base/EntryPoints/CvGameInterface.py	269
-7894	CvGameInterface	AI_doDiplo	CvPlayerAI.cpp	17286	base/EntryPoints/CvGameInterface.py	192
-7955	CvGameInterface	getCityFoundValue	CvPlayerAI.cpp	24341	base/EntryPoints/CvGameInterface.py	269
-8046	CvGameInterface	AI_chooseTech	CvPlayerAI.cpp	7113	base/EntryPoints/CvGameInterface.py	172
-8047	CvGameInterface	AI_chooseTech	CvPlayerAI.cpp	7166	base/EntryPoints/CvGameInterface.py	172
-8161	CvGameInterface	canBuild	CvPlot.cpp	2437	base/EntryPoints/CvGameInterface.py	104
-8357	CvGameInterface	getCityFoundValue	CvPlot.cpp	6843	base/EntryPoints/CvGameInterface.py	269
+6633	?	generatePlotTypes	CvMapGenerator.cpp	1028		
+6634	?	generateTerrainTypes	CvMapGenerator.cpp	1055		
+6635	?	afterGeneration	CvMapGenerator.cpp	1074		
+6637	?	getRiverAltitude	CvMapGenerator.cpp	1126		
+6639	?	canPlaceGoodyAt	CvMapGenerator.cpp	192		
+6642	?	addLakes	CvMapGenerator.cpp	265		
+6643	?	addRivers	CvMapGenerator.cpp	303		
+6645	?	getRiverStartCardinalDirection	CvMapGenerator.cpp	468		
+6647	?	canPlaceBonusAt	CvMapGenerator.cpp	68		
+6649	?	addFeatures	CvMapGenerator.cpp	647		
+6650	?	addBonusType	CvMapGenerator.cpp	695		
+6650	?	addBonuses	CvMapGenerator.cpp	678		
+6653	?	addGoodies	CvMapGenerator.cpp	891		
+6658	?	beforeGeneration	CvMapGenerator.cpp	1002		
+6658	?	generateRandomMap	CvMapGenerator.cpp	1004		
+6772	CvAppInterface	netAddReminder	CvMessageData.cpp	1172		
+7100	PbMain	sendEmail	CvPlayer.cpp	11772	base/EntryPoints/PbMain.py	95
+7340	CvGameInterface	doGold	CvPlayer.cpp	15303	base/EntryPoints/CvGameInterface.py	208
+7342	CvGameInterface	doResearch	CvPlayer.cpp	15372	base/EntryPoints/CvGameInterface.py	212
+7396	?	CvRandomEventInterface	CvPlayer.cpp	19746		
+7397	?	CvRandomEventInterface	CvPlayer.cpp	20246		
+7398	?	startHumansOnSameTile	CvPlayer.cpp	2031		
+7399	?	CvRandomEventInterface	CvPlayer.cpp	20643		
+7400	?	CvRandomEventInterface	CvPlayer.cpp	21239		
+7401	?	minStartingDistanceModifier	CvPlayer.cpp	2089		
+7408	?	findStartingArea	CvPlayer.cpp	2161		
+7410	?	CvRandomEventInterface	CvPlayer.cpp	21712		
+7417	?	findStartingPlot	CvPlayer.cpp	2221		
+7447	CvGameInterface	canRazeCity	CvPlayer.cpp	2865	base/EntryPoints/CvGameInterface.py	69
+7447	CvGameInterface	doCityCaptureGold	CvPlayer.cpp	2523	base/EntryPoints/CvGameInterface.py	254
+7551	CvGameInterface	calculateScore	CvPlayer.cpp	4582	base/EntryPoints/CvGameInterface.py	197
+7584	CvGameInterface	canRazeCity	CvPlayer.cpp	6136	base/EntryPoints/CvGameInterface.py	69
+7590	CvGameInterface	doGoody	CvPlayer.cpp	6555	base/EntryPoints/CvGameInterface.py	216
+7591	CvGameInterface	canFoundCitiesOnWater	CvPlayer.cpp	6691	base/EntryPoints/CvGameInterface.py	260
+7591	CvGameInterface	cannotFoundCity	CvPlayer.cpp	6606	base/EntryPoints/CvGameInterface.py	108
+7602	CvGameInterface	getUnitCostMod	CvPlayer.cpp	7518	base/EntryPoints/CvGameInterface.py	275
+7627	CvGameInterface	getExtraCost	CvPlayer.cpp	8250	base/EntryPoints/CvGameInterface.py	37
+7638	CvGameInterface	isPlayerResearch	CvPlayer.cpp	8546	base/EntryPoints/CvGameInterface.py	33
+7639	CvGameInterface	cannotResearch	CvPlayer.cpp	8581	base/EntryPoints/CvGameInterface.py	128
+7640	CvGameInterface	canResearch	CvPlayer.cpp	8605	base/EntryPoints/CvGameInterface.py	124
+7647	CvGameInterface	canDoCivic	CvPlayer.cpp	8843	base/EntryPoints/CvGameInterface.py	132
+7647	CvGameInterface	cannotDoCivic	CvPlayer.cpp	8861	base/EntryPoints/CvGameInterface.py	136
+7790	CvGameInterface	getCityFoundValue	CvPlayerAI.cpp	1272	base/EntryPoints/CvGameInterface.py	269
+7896	CvGameInterface	AI_doDiplo	CvPlayerAI.cpp	17286	base/EntryPoints/CvGameInterface.py	192
+7957	CvGameInterface	getCityFoundValue	CvPlayerAI.cpp	24341	base/EntryPoints/CvGameInterface.py	269
+8048	CvGameInterface	AI_chooseTech	CvPlayerAI.cpp	7113	base/EntryPoints/CvGameInterface.py	172
+8049	CvGameInterface	AI_chooseTech	CvPlayerAI.cpp	7166	base/EntryPoints/CvGameInterface.py	172
+8163	CvGameInterface	canBuild	CvPlot.cpp	2442	base/EntryPoints/CvGameInterface.py	104
+8359	CvGameInterface	getCityFoundValue	CvPlot.cpp	6848	base/EntryPoints/CvGameInterface.py	269
 8704	CvGameInterface	doCombat	CvSelectionGroup.cpp	4651	base/EntryPoints/CvGameInterface.py	263
 8775	CvGameInterface	doCombat	CvSelectionGroup.cpp	6518	base/EntryPoints/CvGameInterface.py	263
 9245	CvGameInterface	canDeclareWar	CvTeam.cpp	1331	base/EntryPoints/CvGameInterface.py	73

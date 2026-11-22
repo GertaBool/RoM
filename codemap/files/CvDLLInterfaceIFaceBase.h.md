@@ -115,7 +115,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **102** `CvDLLInterfaceIFaceBase::setDiploQueue(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvPlayer::contact
 - **105** `CvDLLInterfaceIFaceBase::setDirty(…)` (virtual; pure virtual, provided by the exe)
-  - called by (120): CvArea::changeCleanPowerCount, CvArea::changeYieldRateModifier, CvCity::hurry, CvCity::kill, CvCity::popOrder, CvCity::pushOrder, CvCity::setBaseYieldRate, CvCity::setBuildingProduction, CvCity::setCitizensAutomated, CvCity::setForceSpecialistCount, CvCity::setFreeSpecialistCount, CvCity::setName …
+  - called by (121): CvArea::changeCleanPowerCount, CvArea::changeYieldRateModifier, CvCity::hurry, CvCity::kill, CvCity::popOrder, CvCity::pushOrder, CvCity::setBaseYieldRate, CvCity::setBuildingProduction, CvCity::setCitizensAutomated, CvCity::setForceSpecialistCount, CvCity::setFreeSpecialistCount, CvCity::setName …
 - **106** `CvDLLInterfaceIFaceBase::makeInterfaceDirty(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvPlayer::changeCiv
 - **107** `CvDLLInterfaceIFaceBase::updateCursorType(…)` (virtual; pure virtual, provided by the exe)

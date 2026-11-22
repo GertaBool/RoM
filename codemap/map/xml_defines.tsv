@@ -613,6 +613,7 @@ GRAPHICS_PAGING_CAMERA	GlobalDefinesAlt.xml	mod	1
 GRAPHICS_PAGING_SHRINK_MS	GlobalDefinesAlt.xml	mod	1
 GRAPHICS_PAGING_MAX_IN	GlobalDefinesAlt.xml	mod	1
 GRAPHICS_PAGING_MAX_OUT	GlobalDefinesAlt.xml	mod	1
+GRAPHICS_PAGING_REVEAL_MAX	GlobalDefinesAlt.xml	mod	1
 GRAPHICS_PAGING_UNITS	GlobalDefinesAlt.xml	mod	1
 GRAPHICS_PAGING_CITIES	GlobalDefinesAlt.xml	mod	1
 GRAPHICS_PAGING_PLOTS	GlobalDefinesAlt.xml	mod	1

@@ -1,22 +1,23 @@
-# Impact of 71de0abe5dc8..9627e508fedc
+# Impact of 71de0abe5dc8..cdda5b65d3da
 
 Commits:
 
+- cdda5b6 2026-11-21 Map trading fix 2
 - 9627e50 2026-11-21 Map trade fix, GPT fix also
 - 9b85482 2026-11-20 Update 3 files
 
 ```
  Assets/CvGameCoreDLL/CvCity.cpp     |  26 +++-
  Assets/CvGameCoreDLL/CvDeal.cpp     |   6 +-
- Assets/CvGameCoreDLL/CvGame.cpp     | 232 ++++++++++++++++++++++++++++++++----
- Assets/CvGameCoreDLL/CvGame.h       |  11 +-
- Assets/CvGameCoreDLL/CvPlayerAI.cpp |  55 ++++-----
- Assets/CvGameCoreDLL/CvPlot.cpp     |  69 +++++++++--
- Assets/CvGameCoreDLL/CvPlot.h       |   7 ++
- Assets/XML/GlobalDefinesAlt.xml     |   7 +-
- 8 files changed, 345 insertions(+), 68 deletions(-)
+ Assets/CvGameCoreDLL/CvGame.cpp     | 251 ++++++++++++++++++++++++++++++++----
+ Assets/CvGameCoreDLL/CvGame.h       |  12 +-
+ Assets/CvGameCoreDLL/CvPlayerAI.cpp |  55 ++++----
+ Assets/CvGameCoreDLL/CvPlot.cpp     |  90 ++++++++++++-
+ Assets/CvGameCoreDLL/CvPlot.h       |   8 ++
+ Assets/XML/GlobalDefinesAlt.xml     |  12 +-
+ 8 files changed, 393 insertions(+), 67 deletions(-)
 ```
-_Members, XML fills and defines at 9627e508fedc: the map's clang tables (exact)._
+_Members, XML fills and defines at cdda5b65d3da: the map's clang tables (exact)._
 
 ## C++ functions
 
@@ -24,24 +25,24 @@ _Members, XML fills and defines at 9627e508fedc: the map's clang tables (exact).
   - changed CvCity::setRevealed  (CvCity.cpp:10862-10905)
   - changed CvDeal::startTrade  (CvDeal.cpp:695-1094)
   - changed CvGame::reset  (CvGame.cpp:482-726)
-  - changed CvGame::updateGraphicsPaging  (CvGame.cpp:2393-2539)
-  - changed CvGame::pageGraphics  (CvGame.cpp:2677-2877)
+  - changed CvGame::updateGraphicsPaging  (CvGame.cpp:2406-2558)
+  - changed CvGame::pageGraphics  (CvGame.cpp:2696-2896)
   - changed CvPlayerAI::AI_counterPropose  (CvPlayerAI.cpp:9090-9641)
   - changed CvPlayerAI::AI_goldPerTurnTradeVal  (CvPlayerAI.cpp:9702-9708)
   - changed CvPlayerAI::AI_doDiplo  (CvPlayerAI.cpp:17242-19180)
   - changed CvPlot::reset  (CvPlot.cpp:179-266)
   - changed CvPlot::setupGraphical  (CvPlot.cpp:272-294)
-  - changed CvPlot::setRevealed  (CvPlot.cpp:7695-7810)
-  - changed CvPlot::setRevealedImprovementType  (CvPlot.cpp:7876-7904)
-  - changed CvPlot::setRevealedRouteType  (CvPlot.cpp:7928-7959)
+  - changed CvPlot::setRevealed  (CvPlot.cpp:7700-7822)
+  - changed CvPlot::setRevealedImprovementType  (CvPlot.cpp:7888-7916)
+  - changed CvPlot::setRevealedRouteType  (CvPlot.cpp:7940-7982)
   - added CvGame::beginBulkReveal  (CvGame.cpp:2295-2306)
-  - added CvGame::endBulkReveal  (CvGame.cpp:2308-2323)
-  - added CvGame::deferRevealedGraphics  (CvGame.cpp:2325-2340)
-  - added CvGame::processDeferredReveals  (CvGame.cpp:2342-2391)
+  - added CvGame::endBulkReveal  (CvGame.cpp:2308-2334)
+  - added CvGame::deferRevealedGraphics  (CvGame.cpp:2336-2351)
+  - added CvGame::processDeferredReveals  (CvGame.cpp:2353-2404)
   - added CvPlot::deferRevealedGraphics  (CvPlot.cpp:296-299)
-  - added CvPlot::refreshRevealedGraphics  (CvPlot.cpp:304-332)
-  - added CvPlot::isRevealedGraphicsDirty  (CvPlot.h:67-67)
-  - added CvPlot::setRevealedGraphicsDirty  (CvPlot.h:68-68)
+  - added CvPlot::refreshRevealedGraphics  (CvPlot.cpp:305-337)
+  - added CvPlot::isRevealedGraphicsDirty  (CvPlot.h:68-68)
+  - added CvPlot::setRevealedGraphicsDirty  (CvPlot.h:69-69)
 
 ## Member declarations
 
@@ -58,43 +59,42 @@ CvGame::m_aiDeferredRevealPlots, CvGame::m_bPagingPending, CvGame::m_bPagingPend
 
 ## Defines read on changed lines
 
-GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT, PEACE_TREATY_LENGTH
+GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX, PEACE_TREATY_LENGTH
 
 ## XML
 
-- GlobalDefinesAlt.xml: tags on changed lines: none; defines: BILLBOARD_ACTIVE_TEAM_ONLY, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT
+- GlobalDefinesAlt.xml: tags on changed lines: none; defines: GRAPHICS_PAGING_MAX_OUT, GRAPHICS_PAGING_REVEAL_MAX
 
 ## Reach
 
 | | start | reached | per level |
 |---|---|---|---|
 | member variables | 7 | 0 |  |
-| C++ functions | 21 | 845 | 1: 38, 2: 74, 3: 105, 4: 124, 5: 128, 6: 99, 7: 203, 8: 46, 9: 17, 10: 8, 11: 3 |
-| Python functions | 0 | 319 | 2: 6, 3: 28, 4: 51, 5: 35, 6: 77, 7: 54, 8: 28, 9: 23, 10: 10, 11: 3, 12: 4 |
-| defines | 5 | 0 |  |
+| C++ functions | 21 | 841 | 1: 37, 2: 71, 3: 104, 4: 124, 5: 129, 6: 99, 7: 203, 8: 46, 9: 17, 10: 8, 11: 3 |
+| Python functions | 0 | 316 | 2: 6, 3: 28, 4: 50, 5: 31, 6: 77, 7: 56, 8: 28, 9: 23, 10: 10, 11: 3, 12: 4 |
+| defines | 4 | 0 |  |
 
-- C++ functions the exe calls (exported): 102: CvCity::cheat, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchButtonPopup, CvDLLWidgetData::executeAction, CvDLLWidgetData::isLink, CvDLLWidgetData::parseHelp, CvDeal::isCancelable, CvDeal::kill, CvDeal::turnsToCancel, CvEventReporter::gameStart, CvEventReporter::kbdEvent, CvEventReporter::reportModNetMessage ...
-- C++ functions bound for Python: 145
+- C++ functions the exe calls (exported): 101: CvCity::cheat, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchButtonPopup, CvDLLWidgetData::executeAction, CvDLLWidgetData::isLink, CvDLLWidgetData::parseHelp, CvDeal::isCancelable, CvDeal::kill, CvDeal::turnsToCancel, CvEventReporter::gameStart, CvEventReporter::kbdEvent, CvEventReporter::reportModNetMessage ...
+- C++ functions bound for Python: 143
 - Python event handlers: 35: AIAutoPlay.onBeginGameTurn (BeginGameTurn), AIAutoPlay.onGameStart (GameStart), AIAutoPlay.onKbdEvent (kbdEvent), AIAutoPlay.onModNetMessage (ModNetMessage), AIAutoPlay.onVictory (victory), BarbarianCiv.onBeginGameTurn (BeginGameTurn), BarbarianCiv.onCityAcquired (cityAcquired), BarbarianCiv.onEndPlayerTurn (EndPlayerTurn), ChangePlayer.onKbdEvent (kbdEvent), CvEnhancedTechConquestEventManager.onCityAcquired (cityAcquired), CvEventManager.onCityRazed (cityRazed), CvEventManager.onKbdEvent (kbdEvent)
-- C++ files: CvUnitAI.cpp 165, CvUnit.cpp 80, CvPlayer.cpp 75, CvGame.cpp 67, CvCity.cpp 39, CvPlot.cpp 39, CvTeam.cpp 37, CyPlayer.cpp 37, CvPlayerAI.cpp 33, CvSelectionGroup.cpp 21, CyCity.cpp 19, CvMessageData.cpp 19, CyTeam.cpp 18, CyUnit.cpp 18, CvDLLWidgetData.cpp 17, CvDllPythonEvents.cpp 17, CvEventReporter.cpp 17, CyPlot.cpp 15, CvMap.cpp 13, CvGameTextMgr.cpp 13, CvCityAI.cpp 13, CvDeal.cpp 10, CvMapGenerator.cpp 10, CyMapGenerator.cpp 10, CyGame.cpp 9
-- Python modules: EntryPoints/CvRandomEventInterface.py 60, base/Screens/CvWorldBuilderScreen.py 23, EntryPoints/CvScreensInterface.py 19, Revolution/Gameready/Revolution.py 17, Contrib/MoreCiv4lerts.py 15, Revolution/Gameready/AIAutoPlay.py 14, Revolution/Gameready/BarbarianCiv.py 12, Revolution/RevEvents.py 11, Revolution/RevUtils.py 8, PyHelpers.py 7, Screens/PLE.py 7, base/pyWB/CvWBDesc.py 6, RoMEventManager.py 6, Screens/CvForeignAdvisor.py 6, base/CvEventManager.py 6, Screens/CvMainInterface.py 6, base/CvDebugTools.py 5, Screens/CvExoticForeignAdvisor.py 5, ModTools/ModTools.py 5, base/CvPerfTest.py 5, CvMapGeneratorUtil.py 5, Revolution/Development/ChangePlayer.py 5, Contrib/RevDCMReligionControl.py 5, Screens/CvPediaMain.py 5, BUG/DealUtil.py 4
+- C++ files: CvUnitAI.cpp 165, CvUnit.cpp 80, CvPlayer.cpp 75, CvGame.cpp 65, CvCity.cpp 39, CvPlot.cpp 39, CvTeam.cpp 37, CyPlayer.cpp 37, CvPlayerAI.cpp 33, CvSelectionGroup.cpp 21, CyCity.cpp 19, CvMessageData.cpp 19, CyTeam.cpp 18, CyUnit.cpp 18, CvDLLWidgetData.cpp 17, CvDllPythonEvents.cpp 17, CvEventReporter.cpp 17, CyPlot.cpp 15, CvMap.cpp 13, CvGameTextMgr.cpp 13, CvCityAI.cpp 13, CvDeal.cpp 10, CvMapGenerator.cpp 10, CyMapGenerator.cpp 10, CyMap.cpp 7
+- Python modules: EntryPoints/CvRandomEventInterface.py 60, base/Screens/CvWorldBuilderScreen.py 23, EntryPoints/CvScreensInterface.py 19, Revolution/Gameready/Revolution.py 17, Contrib/MoreCiv4lerts.py 15, Revolution/Gameready/AIAutoPlay.py 14, Revolution/RevEvents.py 11, Revolution/Gameready/BarbarianCiv.py 11, PyHelpers.py 7, Revolution/RevUtils.py 7, Screens/PLE.py 7, base/pyWB/CvWBDesc.py 6, RoMEventManager.py 6, Screens/CvForeignAdvisor.py 6, base/CvEventManager.py 6, Screens/CvMainInterface.py 6, base/CvDebugTools.py 5, Screens/CvExoticForeignAdvisor.py 5, ModTools/ModTools.py 5, base/CvPerfTest.py 5, CvMapGeneratorUtil.py 5, Contrib/RevDCMReligionControl.py 5, Screens/CvPediaMain.py 5, BUG/DealUtil.py 4, Revolution/Development/ChangePlayer.py 4
 
 ## Member variables (7)
 
-- CvGame::m_aiDeferredRevealPlots (CvGame.h:687): std::vector<int>
-- CvGame::m_bPagingPending (CvGame.h:683): bool
-- CvGame::m_bPagingPendingOut (CvGame.h:684): bool
-- CvGame::m_eBulkRevealTeam (CvGame.h:686): TeamTypes
-- CvGame::m_iBulkRevealDepth (CvGame.h:685): int
-- CvPlot::m_bRevealedGraphicsDirty (CvPlot.h:610): bool
-- CvPlot::m_bRevealedRouteDirty (CvPlot.h:611): bool
+- CvGame::m_aiDeferredRevealPlots (CvGame.h:688): std::vector<int>
+- CvGame::m_bPagingPending (CvGame.h:684): bool
+- CvGame::m_bPagingPendingOut (CvGame.h:685): bool
+- CvGame::m_eBulkRevealTeam (CvGame.h:687): TeamTypes
+- CvGame::m_iBulkRevealDepth (CvGame.h:686): int
+- CvPlot::m_bRevealedGraphicsDirty (CvPlot.h:611): bool
+- CvPlot::m_bRevealedRouteDirty (CvPlot.h:612): bool
 
 ## XML tags and defines
 
-- define BILLBOARD_ACTIVE_TEAM_ONLY: GlobalDefinesAlt.xml [mod]
 - define GRAPHICS_PAGING_LOG: GlobalDefinesAlt.xml [mod]
-- define GRAPHICS_PAGING_MAX_IN: GlobalDefinesAlt.xml [mod]
 - define GRAPHICS_PAGING_MAX_OUT: GlobalDefinesAlt.xml [mod]
+- define GRAPHICS_PAGING_REVEAL_MAX: GlobalDefinesAlt.xml [mod]
 - define PEACE_TREATY_LENGTH: GlobalDefines.xml [mod]
 
 ## C++ functions, level by level
@@ -105,26 +105,26 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT, PEACE_TREA
 - CvCity::setRevealed  (CvCity.cpp:10863)
 - CvDeal::startTrade  (CvDeal.cpp:696)
 - CvGame::beginBulkReveal  (CvGame.cpp:2296)
-- CvGame::deferRevealedGraphics  (CvGame.cpp:2326)
+- CvGame::deferRevealedGraphics  (CvGame.cpp:2337)
 - CvGame::endBulkReveal  (CvGame.cpp:2309)
-- CvGame::pageGraphics  (CvGame.cpp:2678)
-- CvGame::processDeferredReveals  (CvGame.cpp:2343)
+- CvGame::pageGraphics  (CvGame.cpp:2697)
+- CvGame::processDeferredReveals  (CvGame.cpp:2354)
 - CvGame::reset  (CvGame.cpp:483)
-- CvGame::updateGraphicsPaging  (CvGame.cpp:2394)
+- CvGame::updateGraphicsPaging  (CvGame.cpp:2407)
 - CvPlayerAI::AI_counterPropose  (CvPlayerAI.cpp:9091)
 - CvPlayerAI::AI_doDiplo  (CvPlayerAI.cpp:17243)
 - CvPlayerAI::AI_goldPerTurnTradeVal  (CvPlayerAI.cpp:9703)
 - CvPlot::deferRevealedGraphics  (CvPlot.cpp:297)
-- CvPlot::isRevealedGraphicsDirty  (CvPlot.h:67)
-- CvPlot::refreshRevealedGraphics  (CvPlot.cpp:305)
+- CvPlot::isRevealedGraphicsDirty  (CvPlot.h:68)
+- CvPlot::refreshRevealedGraphics  (CvPlot.cpp:306)
 - CvPlot::reset  (CvPlot.cpp:180)
-- CvPlot::setRevealed  (CvPlot.cpp:7696)
-- CvPlot::setRevealedGraphicsDirty  (CvPlot.h:68)
-- CvPlot::setRevealedImprovementType  (CvPlot.cpp:7877)
-- CvPlot::setRevealedRouteType  (CvPlot.cpp:7929)
+- CvPlot::setRevealed  (CvPlot.cpp:7701)
+- CvPlot::setRevealedGraphicsDirty  (CvPlot.h:69)
+- CvPlot::setRevealedImprovementType  (CvPlot.cpp:7889)
+- CvPlot::setRevealedRouteType  (CvPlot.cpp:7941)
 - CvPlot::setupGraphical  (CvPlot.cpp:273)
 
-### level 1 (38)
+### level 1 (37)
 
 - CvCity::init  (CvCity.cpp:157)  <- call CvCity::setRevealed
 - CvDLLWidgetData::parseTradeItem  (CvDLLWidgetData.cpp:4631)  <- define PEACE_TREATY_LENGTH
@@ -133,8 +133,7 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT, PEACE_TREA
 - CvDeal::turnsToCancel  (CvDeal.cpp:1299)  <- define PEACE_TREATY_LENGTH
 - CvGame::CvGame  (CvGame.cpp:50)  <- call CvGame::reset
 - CvGame::init  (CvGame.cpp:108)  <- call CvGame::reset
-- CvGame::read  (CvGame.cpp:8952)  <- call CvGame::reset
-- CvGame::setActivePlayer  (CvGame.cpp:5344)  <- define BILLBOARD_ACTIVE_TEAM_ONLY
+- CvGame::read  (CvGame.cpp:8971)  <- call CvGame::reset
 - CvGame::update  (CvGame.cpp:2171)  <- call CvGame::updateGraphicsPaging
 - CvGameTextMgr::getTradeString  (CvGameTextMgr.cpp:15442)  <- define PEACE_TREATY_LENGTH
 - CvGameTextMgr::getTurnTimerText  (CvGameTextMgr.cpp:19628)  <- define PEACE_TREATY_LENGTH
@@ -154,18 +153,18 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT, PEACE_TREA
 - CvPlayerAI::AI_eventValue  (CvPlayerAI.cpp:19602)  <- define PEACE_TREATY_LENGTH
 - CvPlayerAI::AI_maxGoldPerTurnTrade  (CvPlayerAI.cpp:9679)  <- define PEACE_TREATY_LENGTH
 - CvPlot::CvPlot  (CvPlot.cpp:44)  <- call CvPlot::reset
-- CvPlot::changeStolenVisibilityCount  (CvPlot.cpp:7281)  <- call CvPlot::setRevealed
-- CvPlot::changeVisibilityCount  (CvPlot.cpp:7184)  <- call CvPlot::setRevealed
+- CvPlot::changeStolenVisibilityCount  (CvPlot.cpp:7286)  <- call CvPlot::setRevealed
+- CvPlot::changeVisibilityCount  (CvPlot.cpp:7189)  <- call CvPlot::setRevealed
 - CvPlot::init  (CvPlot.cpp:108)  <- call CvPlot::reset
-- CvPlot::read  (CvPlot.cpp:9181)  <- call CvPlot::reset
-- CvPlot::setImprovementType  (CvPlot.cpp:5813)  <- call CvPlot::setRevealedImprovementType
-- CvPlot::setRouteType  (CvPlot.cpp:5934)  <- call CvPlot::setRevealedRouteType
+- CvPlot::read  (CvPlot.cpp:9204)  <- call CvPlot::reset
+- CvPlot::setImprovementType  (CvPlot.cpp:5818)  <- call CvPlot::setRevealedImprovementType
+- CvPlot::setRouteType  (CvPlot.cpp:5939)  <- call CvPlot::setRevealedRouteType
 - CvTeam::addTeam  (CvTeam.cpp:520)  <- call CvPlot::setRevealed
 - CvTeam::resetPlotAndCityData  (CvTeam.cpp:433)  <- call CvCity::setRevealed
 - CyCity::setRevealed  (CyCity.cpp:2236)  <- call CvCity::setRevealed
 - CyPlot::setRevealed  (CyPlot.cpp:967)  <- call CvPlot::setRevealed
 
-### level 2 (74)
+### level 2 (71)
 
 - CvCity::applyEvent  (CvCity.cpp:15236)  <- call CvPlot::setImprovementType
 - CvCity::doTask  (CvCity.cpp:1504)  <- call CvPlayer::acquireCity
@@ -173,14 +172,12 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT, PEACE_TREA
 - CvCity::liberate  (CvCity.cpp:15930)  <- call CvPlayer::acquireCity
 - CvDLLWidgetData::parseHelp  (CvDLLWidgetData.cpp:53)  <- call CvDLLWidgetData::parseTradeItem
 - CvDeal::isCancelable  (CvDeal.cpp:1280)  <- call CvDeal::turnsToCancel
-- CvGame::changeHumanPlayer  (CvGame.cpp:9590)  <- call CvGame::setActivePlayer
-- CvGame::doDeals  (CvGame.cpp:6735)  <- call CvDeal::doTurn
-- CvGame::doGlobalWarming  (CvGame.cpp:6749)  <- call CvPlot::setImprovementType
-- CvGame::implementDeal  (CvGame.cpp:3270)  <- call CvDeal::addTrades
+- CvGame::doDeals  (CvGame.cpp:6754)  <- call CvDeal::doTurn
+- CvGame::doGlobalWarming  (CvGame.cpp:6768)  <- call CvPlot::setImprovementType
+- CvGame::implementDeal  (CvGame.cpp:3289)  <- call CvDeal::addTrades
 - CvGame::initFreeState  (CvGame.cpp:786)  <- call CvMap::setRevealedPlots
 - CvGame::initFreeUnits  (CvGame.cpp:846)  <- call CvPlayer::initFreeUnits
-- CvGame::nextActivePlayer  (CvGameInterface.cpp:2691)  <- call CvGame::setActivePlayer
-- CvGame::processVote  (CvGame.cpp:8448)  <- call CvPlayer::acquireCity
+- CvGame::processVote  (CvGame.cpp:8467)  <- call CvPlayer::acquireCity
 - CvGame::regenerateMap  (CvGame.cpp:348)  <- call CvMap::setupGraphical
 - CvGameAI::CvGameAI  (CvGameAI.cpp:13)  <- call CvGame::CvGame
 - CvGameAI::read  (CvGameAI.cpp:113)  <- call CvGame::read
@@ -206,20 +203,22 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT, PEACE_TREA
 - CvPlayerAI::AI_considerOffer  (CvPlayerAI.cpp:8937)  <- call CvPlayerAI::AI_dealVal
 - CvPlayerAI::AI_doSplit  (CvPlayerAI.cpp:20180)  <- call CvPlayer::splitEmpire
 - CvPlayerAI::AI_stopTradingTradeVal  (CvPlayerAI.cpp:10641)  <- call CvPlayerAI::AI_dealVal
-- CvPlot::applyEvent  (CvPlot.cpp:10189)  <- call CvPlot::setImprovementType
-- CvPlot::changeAdjacentSight  (CvPlot.cpp:1849)  <- call CvPlot::changeVisibilityCount
-- CvPlot::changeBuildProgress  (CvPlot.cpp:7975)  <- call CvPlot::setImprovementType
-- CvPlot::doImprovementUpgrade  (CvPlot.cpp:688)  <- call CvPlot::setImprovementType
-- CvPlot::erase  (CvPlot.cpp:444)  <- call CvPlot::setImprovementType
-- CvPlot::nukeExplosion  (CvPlot.cpp:1053)  <- call CvPlot::setImprovementType
-- CvPlot::removeGoody  (CvPlot.cpp:3692)  <- call CvPlot::setImprovementType
-- CvPlot::setFeatureType  (CvPlot.cpp:5592)  <- call CvPlot::setImprovementType
-- CvPlot::setOwner  (CvPlot.cpp:4997)  <- call CvPlayer::acquireCity
-- CvPlot::updateCityRoute  (CvPlot.cpp:5981)  <- call CvPlot::setRouteType
+- CvPlot::applyEvent  (CvPlot.cpp:10212)  <- call CvPlot::setImprovementType
+- CvPlot::changeAdjacentSight  (CvPlot.cpp:1854)  <- call CvPlot::changeVisibilityCount
+- CvPlot::changeBuildProgress  (CvPlot.cpp:7998)  <- call CvPlot::setImprovementType
+- CvPlot::doImprovementUpgrade  (CvPlot.cpp:693)  <- call CvPlot::setImprovementType
+- CvPlot::erase  (CvPlot.cpp:449)  <- call CvPlot::setImprovementType
+- CvPlot::nukeExplosion  (CvPlot.cpp:1058)  <- call CvPlot::setImprovementType
+- CvPlot::removeGoody  (CvPlot.cpp:3697)  <- call CvPlot::setImprovementType
+- CvPlot::setFeatureType  (CvPlot.cpp:5597)  <- call CvPlot::setImprovementType
+- CvPlot::setOwner  (CvPlot.cpp:5002)  <- call CvPlayer::acquireCity
+- CvPlot::updateCityRoute  (CvPlot.cpp:5986)  <- call CvPlot::setRouteType
 - CvTeam::setHasTech  (CvTeam.cpp:5947)  <- call CvMap::setRevealedPlots
-- ... 24 more
+- CvTeam::setStolenVisibilityTimer  (CvTeam.cpp:4270)  <- call CvPlot::changeStolenVisibilityCount
+- CvUnit::airBomb  (CvUnit.cpp:4895)  <- call CvPlot::setImprovementType
+- ... 21 more
 
-### level 3 (105)
+### level 3 (104)
 
 - CvCity::doMeltdown  (CvCity.cpp:14052)  <- call CvPlot::nukeExplosion
 - CvDLLButtonPopup::OnOkClicked  (CvDLLButtonPopup.cpp:75)  <- call CvPlayerAI::AI_considerOffer
@@ -228,16 +227,17 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT, PEACE_TREA
 - CvDLLWidgetData::parseKillDealHelp  (CvDLLWidgetData.cpp:5906)  <- call CvDeal::isCancelable
 - CvDeal::startTeamTrade  (CvDeal.cpp:1198)  <- call CvGame::implementDeal
 - CvDeal::verify  (CvDeal.cpp:336)  <- call CvDeal::isCancelable
-- CvGame::addPlayer  (CvGame.cpp:9514)  <- call CvPlayer::initInGame
+- CvGame::addPlayer  (CvGame.cpp:9533)  <- call CvPlayer::initInGame
 - CvGame::cheatSpaceship  (CvGameInterface.cpp:2561)  <- call CvTeam::setHasTech
-- CvGame::doTurn  (CvGame.cpp:6587)  <- call CvPlayer::setTurnActive
+- CvGame::doTurn  (CvGame.cpp:6606)  <- call CvPlayer::setTurnActive
 - CvGame::initDiplomacy  (CvGame.cpp:730)  <- call CvGame::implementDeal
+- CvGame::nextActivePlayer  (CvGameInterface.cpp:2691)  <- call CvPlayer::setTurnActive
 - CvGame::normalizeAddExtras  (CvGame.cpp:1748)  <- call CvPlot::setFeatureType
 - CvGame::normalizeAddGoodTerrain  (CvGame.cpp:1643)  <- call CvPlot::setFeatureType
 - CvGame::normalizeAddRiver  (CvGame.cpp:1206)  <- call CvPlot::setFeatureType
 - CvGame::normalizeRemoveBadFeatures  (CvGame.cpp:1370)  <- call CvPlot::setFeatureType
 - CvGame::setInitialItems  (CvGame.cpp:293)  <- call CvGame::initFreeState
-- CvGame::setVoteOutcome  (CvGame.cpp:6000)  <- call CvGame::processVote
+- CvGame::setVoteOutcome  (CvGame.cpp:6019)  <- call CvGame::processVote
 - CvGameTextMgr::getDealString  (CvGameTextMgr.cpp:15060)  <- call CvGameTextMgr::getDealString
 - CvGlobals::init  (CvGlobals.cpp:384)  <- call CvGameAI::CvGameAI
 - CvMap::erasePlots  (CvMap.cpp:280)  <- call CvPlot::erase
@@ -262,18 +262,17 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT, PEACE_TREA
 - CvPlayer::setNewPlayerAlive  (CvPlayer.cpp:11916)  <- call CvPlayer::setTurnActive
 - CvPlayer::stopTradingWithTeam  (CvPlayer.cpp:5963)  <- call CvDeal::isCancelable
 - CvPlayer::trigger  (CvPlayer.cpp:21805)  <- call CvPlayer::applyEvent
-- CvPlayer::verifyAlive  (CvPlayer.cpp:12013)  <- call CvGame::changeHumanPlayer
 - CvPlayerAI::AI_chooseFreeTech  (CvPlayerAI.cpp:7103)  <- call CvTeam::setHasTech
 - CvPlayerAI::AI_conquerCity  (CvPlayerAI.cpp:1744)  <- call CvCity::doTask
 - CvPlayerAI::AI_doPeace  (CvPlayerAI.cpp:862)  <- call CvGame::implementDeal
 - CvPlayerAI::AI_doTurnUnitsPost  (CvPlayerAI.cpp:625)  <- call CvPlayerAI::AI_doSplit
-- CvPlot::doCulture  (CvPlot.cpp:8923)  <- call CvPlot::setOwner
-- CvPlot::doFeature  (CvPlot.cpp:8765)  <- call CvPlot::setFeatureType
-- CvPlot::doImprovement  (CvPlot.cpp:625)  <- call CvPlot::doImprovementUpgrade
-- CvPlot::setPlotType  (CvPlot.cpp:5287)  <- call CvPlot::erase
-- ... 55 more
+- CvPlot::doCulture  (CvPlot.cpp:8946)  <- call CvPlot::setOwner
+- CvPlot::doFeature  (CvPlot.cpp:8788)  <- call CvPlot::setFeatureType
+- CvPlot::doImprovement  (CvPlot.cpp:630)  <- call CvPlot::doImprovementUpgrade
+- CvPlot::setPlotType  (CvPlot.cpp:5292)  <- call CvPlot::erase
+- ... 54 more
 
-(levels above 3: 628 more)
+(levels above 3: 629 more)
 
 ## Python functions, level by level
 
@@ -318,7 +317,7 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT, PEACE_TREA
 - CvWorldBuilderScreen.setMultipleReveal  (base/Screens/CvWorldBuilderScreen.py:1909)  <- py>py base/Screens/CvWorldBuilderScreen.py CvWorldBuilderScreen.RevealCurrentPlot
 - CvPlotDesc.apply  (base/pyWB/CvWBDesc.py:1118)  <- py>cpp CyPlot::setImprovementType
 
-(levels above 3: 285 more)
+(levels above 3: 282 more)
 
 ## Reach per start node
 
@@ -329,19 +328,18 @@ GRAPHICS_PAGING_LOG, GRAPHICS_PAGING_MAX_IN, GRAPHICS_PAGING_MAX_OUT, PEACE_TREA
 | CvPlot::m_bRevealedGraphicsDirty | 1031 | 773 | 258 | 0 |
 | CvGame::m_iBulkRevealDepth | 1030 | 772 | 258 | 0 |
 | CvPlot::isRevealedGraphicsDirty | 1029 | 771 | 258 | 0 |
+| CvGame::m_eBulkRevealTeam | 1027 | 769 | 258 | 0 |
 | CvPlot::setRevealedGraphicsDirty | 1026 | 768 | 258 | 0 |
-| CvGame::m_eBulkRevealTeam | 1026 | 768 | 258 | 0 |
 | CvGame::deferRevealedGraphics | 1025 | 767 | 258 | 0 |
 | CvPlot::deferRevealedGraphics | 1024 | 766 | 258 | 0 |
 | CvPlot::setRevealedRouteType | 1020 | 762 | 258 | 0 |
 | CvCity::setRevealed | 1018 | 760 | 258 | 0 |
 | CvPlot::setRevealedImprovementType | 1017 | 759 | 258 | 0 |
 | CvPlot::setRevealed | 1016 | 758 | 258 | 0 |
-| BILLBOARD_ACTIVE_TEAM_ONLY | 1013 | 758 | 255 | 0 |
 | CvPlayerAI::AI_goldPerTurnTradeVal | 1009 | 757 | 252 | 0 |
-| GRAPHICS_PAGING_MAX_IN | 1008 | 756 | 252 | 0 |
 | GRAPHICS_PAGING_LOG | 1008 | 756 | 252 | 0 |
 | CvPlot::m_bRevealedRouteDirty | 1008 | 756 | 252 | 0 |
+| GRAPHICS_PAGING_REVEAL_MAX | 1007 | 755 | 252 | 0 |
 | CvPlot::refreshRevealedGraphics | 1007 | 755 | 252 | 0 |
 | CvGame::processDeferredReveals | 1006 | 754 | 252 | 0 |
 | CvGame::endBulkReveal | 1004 | 752 | 252 | 0 |
