@@ -13,8 +13,9 @@
 - `USE_USE_CANNOT_SPREAD_RELIGION_CALLBACK` define typo in `CvGlobals::cacheGlobals`.
 
 The release DLL builds with MSVC 2003 with 0 warnings and 0 errors (2,452 exports), `clang-gate`
-reports 0 errors/warnings on changed lines, and the native C++98 diplomacy tests pass. Seeded
-headless runs (P15) and in-game verification are open. See the
+reports 0 errors/warnings on changed lines, and the native C++98 diplomacy tests pass. All ten
+seeded 300-turn headless harness runs with graphics paging enabled (five arm `a`, five arm `b`)
+completed cleanly (**P15 corroborated**); in-game verification is open. See the
 [details and checks](test-branch-fixes/README.md).
 
 ## Debt: loans and bonds between civilizations and with the open market

@@ -83,8 +83,26 @@ Save format is unchanged and 100% compatible with `8587217`.
 64-bit gold/GPT overflow, `goldPerTurnCostVal`, `maxAffordableGoldPerTurn`, midpoint spare-resource
 ask pricing, and zero-gain swap rejection).
 
+### Seeded headless harness runs (`P15`)
+
+Ten 300-turn runs (`GAMESPEED_NORMAL`, `HANDICAP_NOBLE`, 6 AI civilizations, `HARNESS_GRAPHICS=1`, `HARNESS_ACTIVE=0`, `HARNESS_CAMERA_FOLLOW=1`, `HARNESS_CAMERA_VIEW=2200,45,0,1920,1080`) on the `fixes/debt/harness/make_scenario.py` scenario using the seeds from `python3 method/ledger.py seeds P15 10` (harness built with `fixes/debt/harness/HarnessState-test-branch.patch` and original Civ4 + BTS XML):
+
+| arm | seed | result | trades | check passes | flagless live units | routes w/o symbol | on-screen units w/o gfx | on-screen cities w/o gfx |
+|---|---|---|---:|---:|---:|---:|---:|---:|
+| a | 926387420 | turn 300 (state 0) | 45 | 459 | 0 | 0 | 0 | 13 |
+| a | 695102974 | turn 300 (state 0) | 103 | 516 | 0 | 0 | 117 | 50 |
+| a | 213696118 | turn 300 (state 0) | 65 | 460 | 0 | 0 | 0 | 20 |
+| a | 969297610 | turn 300 (state 0) | 71 | 396 | 0 | 1271 | 91 | 126 |
+| a | 930289227 | turn 262 (state 2) | 57 | 435 | 0 | 0 | 10 | 35 |
+| b | 1262442612 | turn 300 (state 0) | 63 | 515 | 0 | 0 | 17 | 32 |
+| b | 1526083124 | turn 300 (state 0) | 73 | 482 | 0 | 237 | 24 | 52 |
+| b | 1570079469 | turn 300 (state 0) | 95 | 460 | 0 | 709 | 17 | 45 |
+| b | 765479592 | turn 300 (state 0) | 89 | 612 | 0 | 0 | 53 | 55 |
+| b | 206128253 | turn 300 (state 0) | 58 | 501 | 0 | 556 | 5 | 1 |
+
+All 10/10 runs reached `RESULT` cleanly (5/5 arm `a`, 5/5 arm `b`, **P15 corroborated**; evidence recorded in `method/mission/evidence/P15/{a,b}.tsv`, run logs in [`runs/`](runs/)). Both arms had 0 flagless live units and 0 on-screen units without flags across all 4,836 check passes; the runs also surfaced two pre-existing scheduling issues in `8587217` (on-screen bare units/cities under map-order `iMaxIn` throttling, and off-window `routes without symbol` after `TRADE_MAPS` bulk reveal) tracked for follow-up.
+
 ### Open checks
-- **Seeded headless harness runs (`P15`)**: not yet run; `method/mission/evidence/P15/` is open.
 - **In-game Civ4 executable verification**: selection cycling across paged-out units/cities,
   multi-city selection, bulk map reveal routes, and human-AI `AI_counterPropose` trade screen
   negotiations require testing in the Civ4 BTS executable.
