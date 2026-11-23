@@ -1,0 +1,793 @@
+From 1a5390d000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: GertaBool <67003432+GertaBool@users.noreply.github.com>
+Date: Mon, 23 Nov 2026 15:35:00 +0000
+Subject: [PATCH] Graphics-Paging-Fix-Test (8587217): paging selection, diplomacy valuation, and callback define fixes
+
+Cumulative patch over GitLab Graphics-Paging-Fix-Test 8587217eeb94:
+1. Graphics paging selection restoration, multi-selected cities, and bulk-reveal routes
+   (CvGame.cpp, CvCity.cpp, CvGameInterface.cpp, CvDLLButtonPopup.cpp, CvPlot.cpp).
+2. AI_counterPropose false rejections, 64-bit gold/GPT overflow, AI-AI strictly positive
+   swap gains, and AI_DIPLOMACY_NET_VALUE flag contract
+   (AIDiplomacyPolicy.h, CvGameCoreUtils.h, CvPlayerAI.cpp, BBAI_AI_Variables_GlobalDefines.xml).
+3. USE_CANNOT_SPREAD_RELIGION_CALLBACK define typo in CvGlobals::cacheGlobals
+   (CvGlobals.cpp).
+
+Serves: P15
+---
+diff --git a/Assets/CvGameCoreDLL/AIDiplomacyPolicy.h b/Assets/CvGameCoreDLL/AIDiplomacyPolicy.h
+index 9bc2bf8..4c48a8b 100644
+--- a/Assets/CvGameCoreDLL/AIDiplomacyPolicy.h
++++ b/Assets/CvGameCoreDLL/AIDiplomacyPolicy.h
+@@ -53,6 +53,55 @@ inline int saturatingAdd(int left, int right)
+ 	const long long sum = (long long)left + right;
+ 	return sum < INT_MIN ? INT_MIN : (sum > INT_MAX ? INT_MAX : (int)sum);
+ }
++
++// Payer cost of a gold-per-turn commitment over ``horizon`` turns. Payments
++// covered by net income or spendable treasury above ``goldTarget`` keep their
++// ordinary value; uncovered GPT scales up to 2x to reflect deficit/strike risk.
++inline int goldPerTurnCostVal(int goldPerTurn, int goldValuePercent, int horizon,
++	int goldRate, int gold, int goldTarget)
++{
++	if (goldPerTurn <= 0 || goldValuePercent <= 0)
++	{
++		return 0;
++	}
++	const int iHorizon = (horizon > 0) ? horizon : 1;
++	const int iBaseCost = valueFromGold(goldPerTurn, goldValuePercent * iHorizon);
++	const long long iSpendableGold = (long long)gold - goldTarget;
++	const long long iSustainablePayment = ((goldRate > 0) ? (long long)goldRate : (long long)0) +
++		((iSpendableGold > 0) ? (iSpendableGold / iHorizon) : (long long)0);
++	const int iUncoveredPayment = (iSustainablePayment >= goldPerTurn) ? 0 :
++		(goldPerTurn - (int)iSustainablePayment);
++	const long long iCost = (long long)iBaseCost +
++		(((long long)iBaseCost * iUncoveredPayment) / goldPerTurn);
++	return iCost > INT_MAX ? INT_MAX : (int)iCost;
++}
++
++// Largest GPT in [0, maxGoldPerTurn] whose payer cost satisfies (< maxValue)
++// when strictLess is true, or (<= maxValue) when strictLess is false.
++inline int maxAffordableGoldPerTurn(int maxValue, int maxGoldPerTurn, int goldValuePercent,
++	int horizon, int goldRate, int gold, int goldTarget, bool strictLess)
++{
++	if (maxValue <= 0 || maxGoldPerTurn <= 0 || goldValuePercent <= 0)
++	{
++		return 0;
++	}
++	int iLow = 0;
++	int iHigh = maxGoldPerTurn;
++	while (iLow < iHigh)
++	{
++		const int iMiddle = iLow + ((iHigh - iLow) / 2) + ((iHigh - iLow) % 2);
++		const int iCost = goldPerTurnCostVal(iMiddle, goldValuePercent, horizon, goldRate, gold, goldTarget);
++		if (strictLess ? (iCost < maxValue) : (iCost <= maxValue))
++		{
++			iLow = iMiddle;
++		}
++		else
++		{
++			iHigh = iMiddle - 1;
++		}
++	}
++	return iLow;
++}
+ }
+ 
+ #endif
+diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
+index 1c7b347..fabf5dd 100644
+--- a/Assets/CvGameCoreDLL/CvCity.cpp
++++ b/Assets/CvGameCoreDLL/CvCity.cpp
+@@ -759,8 +759,8 @@ void CvCity::setupGraphical()
+ 	setLayoutDirty(true);
+ }
+ 
+-// Graphics paging. Offscreen active-player cities may be paged out too. The
+-// head-selected city stays fully restored for selection and the city screen.
++// Graphics paging. Offscreen active-player cities may be paged out too. Any
++// selected city stays fully restored for selection and the city screen.
+ bool CvCity::canPageGraphicsOut() const
+ {
+ 	if (getOwnerINLINE() == NO_PLAYER || plot() == NULL)
+@@ -774,6 +774,15 @@ bool CvCity::canPageGraphicsOut() const
+ 		{
+ 			return false;
+ 		}
++		for (CLLNode<IDInfo>* pNode = gDLL->getInterfaceIFace()->headSelectedCitiesNode();
++			pNode != NULL;
++			pNode = gDLL->getInterfaceIFace()->nextSelectedCitiesNode(pNode))
++		{
++			if (::getCity(pNode->m_data) == this)
++			{
++				return false;
++			}
++		}
+ 	}
+ 	return true;
+ }
+diff --git a/Assets/CvGameCoreDLL/CvDLLButtonPopup.cpp b/Assets/CvGameCoreDLL/CvDLLButtonPopup.cpp
+index 538dc30..4e1fd5c 100644
+--- a/Assets/CvGameCoreDLL/CvDLLButtonPopup.cpp
++++ b/Assets/CvGameCoreDLL/CvDLLButtonPopup.cpp
+@@ -323,6 +323,7 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
+ 			CvCity* pCity = GET_PLAYER(GC.getGameINLINE().getActivePlayer()).getCity(info.getData1());
+ 			if (NULL != pCity)
+ 			{
++				pCity->pageGraphics(true);
+ 				gDLL->getInterfaceIFace()->selectCity(pCity, false);
+ 			}
+ 
+@@ -360,6 +361,7 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
+ 			CvCity* pCity = GET_PLAYER(GC.getGameINLINE().getActivePlayer()).getCity(info.getData1());
+ 			if (NULL != pCity)
+ 			{
++				pCity->pageGraphics(true);
+ 				gDLL->getInterfaceIFace()->selectCity(pCity, false);
+ 			}
+ 
+@@ -381,6 +383,7 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
+ 			CvCity* pCity = GET_PLAYER(GC.getGameINLINE().getActivePlayer()).getCity(info.getData1());
+ 			if (pCity != NULL)
+ 			{
++				pCity->pageGraphics(true);
+ 				gDLL->getInterfaceIFace()->selectCity(pCity, true);
+ 			}
+ 		}
+@@ -717,6 +720,7 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
+ 				CvCity* pCity = kActivePlayer.getCity(pTriggeredData->m_iCityId);
+ 				if (NULL != pCity)
+ 				{
++					pCity->pageGraphics(true);
+ 					gDLL->getInterfaceIFace()->selectCity(pCity, true);
+ 				}
+ 			}
+diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
+index 888e340..fb48d4b 100644
+--- a/Assets/CvGameCoreDLL/CvGame.cpp
++++ b/Assets/CvGameCoreDLL/CvGame.cpp
+@@ -3040,7 +3040,7 @@ bool CvGame::pageGraphics(bool bAllIn)
+ 				if (!bSelected && iMaxIn > 0 && iTotalIn >= iMaxIn)
+ 				{
+ 					bMoreIn = true;
+-					break;
++					continue;
+ 				}
+ 				if (iLog > 1)
+ 				{
+@@ -3054,19 +3054,35 @@ bool CvGame::pageGraphics(bool bAllIn)
+ 				}
+ 			}
+ 		}
++		CvCity* pHeadSelectedCity = gDLL->getInterfaceIFace()->getHeadSelectedCity();
+ 		for (CvCity* pLoopCity = kActive.firstCity(&iLoop); pLoopCity != NULL; pLoopCity = kActive.nextCity(&iLoop))
+ 		{
+-			const bool bSelected = (gDLL->getInterfaceIFace()->getHeadSelectedCity() == pLoopCity);
+-			// Nearby cities likewise remain subject to the ordinary page-in budget.
++			const bool bHeadSelected = (pHeadSelectedCity == pLoopCity);
++			bool bSelected = bHeadSelected;
++			if (!bSelected)
++			{
++				for (CLLNode<IDInfo>* pCityNode = gDLL->getInterfaceIFace()->headSelectedCitiesNode();
++					pCityNode != NULL;
++					pCityNode = gDLL->getInterfaceIFace()->nextSelectedCitiesNode(pCityNode))
++				{
++					if (::getCity(pCityNode->m_data) == pLoopCity)
++					{
++						bSelected = true;
++						break;
++					}
++				}
++			}
++			// Selected cities restore immediately (matching active units); non-head
++			// multi-selected cities remain capped under critical memory pressure.
+ 			const bool bNeeded = bSelected || (bAllowIn && !bPageActiveCities);
+ 			if (bNeeded && pLoopCity->isGraphicsPagedOut())
+ 			{
+ 				const int iTotalIn = aiIn[0] + aiIn[1] + aiIn[2];
+-				if ((iMaxIn > 0 && iTotalIn >= iMaxIn) ||
+-					(m_iGraphicsMemoryPressure == 2 && iEssentialIn >= iMaxEssentialIn))
++				if ((!bSelected && iMaxIn > 0 && iTotalIn >= iMaxIn) ||
++					(!bHeadSelected && m_iGraphicsMemoryPressure == 2 && iEssentialIn >= iMaxEssentialIn))
+ 				{
+ 					bMoreIn = true;
+-					break;
++					continue;
+ 				}
+ 				if (iLog > 1)
+ 				{
+@@ -3077,7 +3093,10 @@ bool CvGame::pageGraphics(bool bAllIn)
+ 				{
+ 					aiIn[2]++;
+ 					aiPagedOut[2]--;
+-					++iEssentialIn;
++					if (bSelected)
++					{
++						++iEssentialIn;
++					}
+ 				}
+ 			}
+ 		}
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.h b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+index fc321cd..c154487 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.h
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+@@ -416,13 +416,15 @@ bool isAICunning(int iFlag);
+ // 1 a tech's trade value is its remaining research at the receiver's own research rate, 2 a
+ // resource's trade value is its effect in the valuer's own cities, 4 offers ask for what is worth
+ // most to the AI and give what is worth least to it (no tech sold to a higher-ranked team), 8 tech
+-// purchases the AI proposes keep its gold target.
++// purchases the AI proposes keep its gold target, 16 bilateral net-value economics (AI_tradeGiveVal,
++// payer GPT cost curve, and net-value deal checks).
+ enum
+ {
+ 	AI_DIPLOMACY_TECH_COST = 1,
+ 	AI_DIPLOMACY_RESOURCE_VALUE = 2,
+ 	AI_DIPLOMACY_OFFERS = 4,
+-	AI_DIPLOMACY_RESERVE = 8
++	AI_DIPLOMACY_RESERVE = 8,
++	AI_DIPLOMACY_NET_VALUE = 16
+ };
+ bool isAIDiplomacy(int iFlag);
+ int effectiveCollateral(const CvUnit* pUnit);
+diff --git a/Assets/CvGameCoreDLL/CvGameInterface.cpp b/Assets/CvGameCoreDLL/CvGameInterface.cpp
+index 0606e60..f9d835d 100644
+--- a/Assets/CvGameCoreDLL/CvGameInterface.cpp
++++ b/Assets/CvGameCoreDLL/CvGameInterface.cpp
+@@ -785,6 +785,7 @@ void CvGame::cycleCities(bool bForward, bool bAdd) const
+ 
+ 	if (pSelectCity != NULL)
+ 	{
++		pSelectCity->pageGraphics(true);
+ 		if (bAdd)
+ 		{
+ 			gDLL->getInterfaceIFace()->clearSelectedCities();
+@@ -854,6 +855,18 @@ bool CvGame::cyclePlotUnits(CvPlot* pPlot, bool bForward, bool bAuto, int iCount
+ 
+ 	if (iCount == -1)
+ 	{
++		if (GC.getDefineINT("GRAPHICS_PAGING_ACTIVE_UNITS") > 0)
++		{
++			for (pUnitNode = pPlot->headUnitNode(); pUnitNode != NULL; pUnitNode = pPlot->nextUnitNode(pUnitNode))
++			{
++				CvUnit* pActiveUnit = ::getUnit(pUnitNode->m_data);
++				if (pActiveUnit != NULL && pActiveUnit->getOwnerINLINE() == getActivePlayer())
++				{
++					pActiveUnit->pageGraphics(true);
++				}
++			}
++		}
++
+ 		pUnitNode = pPlot->headUnitNode();
+ 
+ 		while (pUnitNode != NULL)
+@@ -945,6 +958,7 @@ bool CvGame::cyclePlotUnits(CvPlot* pPlot, bool bForward, bool bAuto, int iCount
+ 				}
+ 				else
+ 				{
++					pLoopUnit->pageGraphics(true);
+ 					gDLL->getInterfaceIFace()->insertIntoSelectionList(pLoopUnit, true, false);
+ 					return true;
+ 				}
+@@ -967,6 +981,8 @@ bool CvGame::selectCity(CvCity* pSelectCity, bool bCtrl, bool bAlt, bool bShift)
+ 		return false;
+ 	}
+ 
++	pSelectCity->pageGraphics(true);
++
+ 	if (!bShift)
+ 	{
+ 		gDLL->getInterfaceIFace()->clearSelectedCities();
+@@ -977,6 +993,7 @@ bool CvGame::selectCity(CvCity* pSelectCity, bool bCtrl, bool bAlt, bool bShift)
+ 		int iLoop;
+ 		for (CvCity* pLoopCity = GET_PLAYER(pSelectCity->getOwnerINLINE()).firstCity(&iLoop); pLoopCity != NULL; pLoopCity = GET_PLAYER(pSelectCity->getOwnerINLINE()).nextCity(&iLoop))
+ 		{
++			pLoopCity->pageGraphics(true);
+ 			gDLL->getInterfaceIFace()->addSelectedCity(pLoopCity);
+ 		}
+ 	}
+@@ -987,6 +1004,7 @@ bool CvGame::selectCity(CvCity* pSelectCity, bool bCtrl, bool bAlt, bool bShift)
+ 		{
+ 			if (pLoopCity->getArea() == pSelectCity->getArea())
+ 			{
++				pLoopCity->pageGraphics(true);
+ 				gDLL->getInterfaceIFace()->addSelectedCity(pLoopCity);
+ 			}
+ 		}
+@@ -1654,6 +1672,14 @@ void CvGame::doControl(ControlTypes eControl)
+ 				CvPlot* pPlot = pHeadSelectedUnit->plot();
+ 				std::vector<CvUnit *> plotUnits;
+ 				getPlotUnits(pPlot, plotUnits);
++				for (int iPre = 0; iPre < (int) plotUnits.size(); iPre++)
++				{
++					pUnit = plotUnits[iPre];
++					if (pUnit->getOwnerINLINE() == getActivePlayer() && pUnit->isHurt())
++					{
++						pUnit->pageGraphics(true);
++					}
++				}
+ 				gDLL->getInterfaceIFace()->selectionListPreChange();
+ 				for (int iI = 0; iI < (int) plotUnits.size(); iI++)
+ 				{
+@@ -1700,6 +1726,7 @@ void CvGame::doControl(ControlTypes eControl)
+ 		pCapitalCity = GET_PLAYER(getActivePlayer()).getCapitalCity();
+ 		if (pCapitalCity != NULL)
+ 		{
++			pCapitalCity->pageGraphics(true);
+ 			gDLL->getInterfaceIFace()->selectCity(pCapitalCity);
+ 		}
+ 		break;
+diff --git a/Assets/CvGameCoreDLL/CvGlobals.cpp b/Assets/CvGameCoreDLL/CvGlobals.cpp
+index 5e2e993..03d33a7 100644
+--- a/Assets/CvGameCoreDLL/CvGlobals.cpp
++++ b/Assets/CvGameCoreDLL/CvGlobals.cpp
+@@ -2980,7 +2980,7 @@ void CvGlobals::cacheGlobals()
+ 	m_iUSE_CANNOT_TRAIN_CALLBACK = getDefineINT("USE_CANNOT_TRAIN_CALLBACK");
+ 	m_iUSE_CAN_TRAIN_CALLBACK = getDefineINT("USE_CAN_TRAIN_CALLBACK");
+ 	m_iUSE_UNIT_CANNOT_MOVE_INTO_CALLBACK = getDefineINT("USE_UNIT_CANNOT_MOVE_INTO_CALLBACK");
+-	m_iUSE_USE_CANNOT_SPREAD_RELIGION_CALLBACK = getDefineINT("USE_USE_CANNOT_SPREAD_RELIGION_CALLBACK");
++	m_iUSE_USE_CANNOT_SPREAD_RELIGION_CALLBACK = getDefineINT("USE_CANNOT_SPREAD_RELIGION_CALLBACK");
+ 	m_iUSE_FINISH_TEXT_CALLBACK = getDefineINT("USE_FINISH_TEXT_CALLBACK");
+ 	m_iUSE_ON_UNIT_SET_XY_CALLBACK = getDefineINT("USE_ON_UNIT_SET_XY_CALLBACK");
+ 	m_iUSE_ON_UNIT_SELECTED_CALLBACK = getDefineINT("USE_ON_UNIT_SELECTED_CALLBACK");
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index 569c45d..6f51e9d 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -8857,7 +8857,8 @@ int CvPlayerAI::AI_dealVal(PlayerTypes ePlayer, const CLinkList<TradeData>* pLis
+ 			}
+ 			break;
+ 		case TRADE_GOLD:
+-			iValue += (pNode->m_data.m_iData * AI_goldTradeValuePercent()) / 100;
++			iValue = AIDiplomacyPolicy::saturatingAdd(iValue,
++				AIDiplomacyPolicy::valueFromGold(pNode->m_data.m_iData, AI_goldTradeValuePercent()));
+ 			break;
+ 		case TRADE_GOLD_PER_TURN:
+ 			if (!bIgnoreAnnual)
+@@ -9063,12 +9064,28 @@ bool CvPlayerAI::AI_considerOffer(PlayerTypes ePlayer, const CLinkList<TradeData
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/
+ 
+-	// New deals compare our gain with our own loss. Cancellation keeps the
++	// New deals compare our gain with our own loss under switch 16. Cancellation keeps the
+ 	// legacy perspective because both sides are already receiving these terms.
+-	int iOurValue = (iChange > -1) ? AI_tradeGiveVal(ePlayer, pOurList, iChange) :
++	int iOurValue = (iChange > -1 && isAIDiplomacy(AI_DIPLOMACY_NET_VALUE)) ?
++		AI_tradeGiveVal(ePlayer, pOurList, iChange) :
+ 		GET_PLAYER(ePlayer).AI_dealVal(getID(), pOurList, false, iChange);
+ 	int iTheirValue = AI_dealVal(ePlayer, pTheirList, false, iChange);
+ 
++	// Diplomacy switch 2 (pre-net-value path): what we give is valued as they value it; for a new deal,
++	// a resource we give must not cost our own cities more than that (AI_bonusTradeVal of losing it).
++	if (!isAIDiplomacy(AI_DIPLOMACY_NET_VALUE) && isAIDiplomacy(AI_DIPLOMACY_RESOURCE_VALUE) && iChange > -1)
++	{
++		int iOurLoss = 0;
++		for (pNode = pOurList->head(); pNode; pNode = pOurList->next(pNode))
++		{
++			if (pNode->m_data.m_eItemType == TRADE_RESOURCES)
++			{
++				iOurLoss += AI_bonusTradeVal((BonusTypes)(pNode->m_data.m_iData), ePlayer, -1);
++			}
++		}
++		iOurValue = std::max(iOurValue, iOurLoss);
++	}
++
+ 	if (iOurValue > 0 && 0 == pTheirList->getLength() && 0 == iTheirValue)
+ 	{
+ 		if (GET_TEAM(getTeam()).isVassal(GET_PLAYER(ePlayer).getTeam()) && CvDeal::isVassalTributeDeal(pOurList))
+@@ -9166,8 +9183,34 @@ bool CvPlayerAI::AI_counterPropose(PlayerTypes ePlayer, const CLinkList<TradeDat
+ 	pGoldPerTurnNode = NULL;
+ 	pGoldNode = NULL;
+ 
++	const bool bNetValue = isAIDiplomacy(AI_DIPLOMACY_NET_VALUE);
++
+ 	iHumanDealWeight = AI_dealVal(ePlayer, pTheirList);
+-	iAIDealWeight = GET_PLAYER(ePlayer).AI_dealVal(getID(), pOurList);
++	if (bNetValue)
++	{
++		// Start from what giving pOurList actually costs us; for spare resources where the buyer
++		// values the resource above our loss, ask for the midpoint so spare copies are not given
++		// away for free while leaving surplus for mutually beneficial trades.
++		long long iAskVal = AI_tradeGiveVal(ePlayer, pOurList, 1);
++		for (pNode = pOurList->head(); pNode != NULL; pNode = pOurList->next(pNode))
++		{
++			if (pNode->m_data.m_eItemType == TRADE_RESOURCES)
++			{
++				const BonusTypes eBonus = (BonusTypes)(pNode->m_data.m_iData);
++				const int iOurLoss = AI_bonusTradeVal(eBonus, ePlayer, -1);
++				const int iBuyerVal = GET_PLAYER(ePlayer).AI_bonusTradeVal(eBonus, getID(), 1);
++				if (iBuyerVal > iOurLoss)
++				{
++					iAskVal += ((long long)(iBuyerVal - iOurLoss) + 1) / 2;
++				}
++			}
++		}
++		iAIDealWeight = (iAskVal >= MAX_INT) ? MAX_INT : (int)iAskVal;
++	}
++	else
++	{
++		iAIDealWeight = GET_PLAYER(ePlayer).AI_dealVal(getID(), pOurList);
++	}
+ 
+ 	int iGoldValuePercent = AI_goldTradeValuePercent();
+ 	const int iTheirGoldValuePercent = GET_PLAYER(ePlayer).AI_goldTradeValuePercent();
+@@ -9539,15 +9582,16 @@ bool CvPlayerAI::AI_counterPropose(PlayerTypes ePlayer, const CLinkList<TradeDat
+ 		{
+ 			if (pGoldNode)
+ 			{
+-				// Added block-local value: preserve this branch's legacy floor rule.
++				// Under bilateral net-value economics, price our gold offer at what giving gold
++				// costs us so the resulting deal satisfies AI_dealNetVal >= 0.
+ 				int iGoldData = AIDiplomacyPolicy::goldForValueGap(
+-					iGoldWeight, iTheirGoldValuePercent, false);
++					iGoldWeight, iGoldValuePercent, false);
+ 
+ 				if (AI_maxGoldTrade(ePlayer) >= iGoldData)
+ 				{
+ 					pGoldNode->m_data.m_iData = iGoldData;
+ 					iAIDealWeight = AIDiplomacyPolicy::saturatingAdd(iAIDealWeight,
+-						AIDiplomacyPolicy::valueFromGold(iGoldData, iTheirGoldValuePercent));
++						AIDiplomacyPolicy::valueFromGold(iGoldData, iGoldValuePercent));
+ 					pOurCounter->insertAtEnd(pGoldNode->m_data);
+ 					pGoldNode = NULL;
+ 				}
+@@ -9635,9 +9679,8 @@ bool CvPlayerAI::AI_counterPropose(PlayerTypes ePlayer, const CLinkList<TradeDat
+ 		{
+ 			if (pGoldNode)
+ 			{
+-				// Removed: repeated unchecked floor conversion.
+ 				iGoldData = AIDiplomacyPolicy::goldForValueGap(
+-					iGoldWeight, iTheirGoldValuePercent, false);
++					iGoldWeight, iGoldValuePercent, false);
+ 
+ 				iGoldData = std::min(iGoldData, AI_maxGoldTrade(ePlayer));
+ 
+@@ -9645,7 +9688,7 @@ bool CvPlayerAI::AI_counterPropose(PlayerTypes ePlayer, const CLinkList<TradeDat
+ 				{
+ 					pGoldNode->m_data.m_iData = iGoldData;
+ 					iAIDealWeight = AIDiplomacyPolicy::saturatingAdd(iAIDealWeight,
+-						AIDiplomacyPolicy::valueFromGold(iGoldData, iTheirGoldValuePercent));
++						AIDiplomacyPolicy::valueFromGold(iGoldData, iGoldValuePercent));
+ 					pOurCounter->insertAtEnd(pGoldNode->m_data);
+ 					pGoldNode = NULL;
+ 				}
+@@ -9656,22 +9699,38 @@ bool CvPlayerAI::AI_counterPropose(PlayerTypes ePlayer, const CLinkList<TradeDat
+ 		{
+ 			if (pGoldPerTurnNode)
+ 			{
+-				// The receiving player values our annual payment. Floor conversion
+-				// preserves the legacy largest-affordable-GPT rounding rule.
+-				const int iAnnualGoldPercent = GET_PLAYER(ePlayer).AI_goldTradeValuePercent() *
+-					std::max(1, GC.getDefineINT("PEACE_TREATY_LENGTH"));
+-				iGoldData = std::min(
+-					AIDiplomacyPolicy::goldForValueGap(iHumanDealWeight - iAIDealWeight,
+-						iAnnualGoldPercent, false),
+-					AI_maxGoldPerTurnTrade(ePlayer));
+-
+-				if (iGoldData > 0)
++				const int iHorizon = std::max(1, GC.getDefineINT("PEACE_TREATY_LENGTH"));
++				if (bNetValue)
+ 				{
+-					pGoldPerTurnNode->m_data.m_iData = iGoldData;
+-					iAIDealWeight = AIDiplomacyPolicy::saturatingAdd(iAIDealWeight,
+-						AIDiplomacyPolicy::valueFromGold(iGoldData, iAnnualGoldPercent));
+-					pOurCounter->insertAtEnd(pGoldPerTurnNode->m_data);
+-					pGoldPerTurnNode = NULL;
++					// Largest GPT payment we can offer whose payer cost stays within our gain.
++					iGoldData = AIDiplomacyPolicy::maxAffordableGoldPerTurn(
++						iHumanDealWeight - iAIDealWeight, AI_maxGoldPerTurnTrade(ePlayer),
++						iGoldValuePercent, iHorizon, calculateGoldRate(), getGold(), AI_goldTarget(), false);
++					if (iGoldData > 0)
++					{
++						pGoldPerTurnNode->m_data.m_iData = iGoldData;
++						iAIDealWeight = AIDiplomacyPolicy::saturatingAdd(iAIDealWeight,
++							AI_goldPerTurnCostVal(iGoldData));
++						pOurCounter->insertAtEnd(pGoldPerTurnNode->m_data);
++						pGoldPerTurnNode = NULL;
++					}
++				}
++				else
++				{
++					const int iAnnualGoldPercent = iTheirGoldValuePercent * iHorizon;
++					iGoldData = std::min(
++						AIDiplomacyPolicy::goldForValueGap(iHumanDealWeight - iAIDealWeight,
++							iAnnualGoldPercent, false),
++						AI_maxGoldPerTurnTrade(ePlayer));
++
++					if (iGoldData > 0)
++					{
++						pGoldPerTurnNode->m_data.m_iData = iGoldData;
++						iAIDealWeight = AIDiplomacyPolicy::saturatingAdd(iAIDealWeight,
++							AIDiplomacyPolicy::valueFromGold(iGoldData, iAnnualGoldPercent));
++						pOurCounter->insertAtEnd(pGoldPerTurnNode->m_data);
++						pGoldPerTurnNode = NULL;
++					}
+ 				}
+ 			}
+ 		}
+@@ -9684,39 +9743,54 @@ bool CvPlayerAI::AI_counterPropose(PlayerTypes ePlayer, const CLinkList<TradeDat
+ 		return false;
+ 	}
+ 
+-	// Running additive weights do not prove that the completed package is good.
+-	// Recalculate both sides after all additions, but leave pure war/political
+-	// counteroffers on their established path.
++	if (!bNetValue)
++	{
++		return true;
++	}
++
++	// Verify the completed package against our own bilateral valuation (consistent
++	// with AI_considerOffer). For human counterparties, do not reject a counter-offer
++	// because our heuristic estimates the human's net as negative (e.g. +1 ceiling
++	// gold rounding or asymmetric financial trouble): the human decides on screen.
+ 	CLinkList<TradeData> theirFinal;
+ 	CLinkList<TradeData> ourFinal;
+ 	bool bEconomicDeal = false;
+-	for (CLLNode<TradeData>* pNode = pTheirList->head(); pNode != NULL; pNode = pTheirList->next(pNode))
++	CLLNode<TradeData>* pFinalNode = NULL;
++	for (pFinalNode = pTheirList->head(); pFinalNode != NULL; pFinalNode = pTheirList->next(pFinalNode))
++	{
++		theirFinal.insertAtEnd(pFinalNode->m_data);
++	}
++	for (pFinalNode = pTheirCounter->head(); pFinalNode != NULL; pFinalNode = pTheirCounter->next(pFinalNode))
++	{
++		theirFinal.insertAtEnd(pFinalNode->m_data);
++	}
++	for (pFinalNode = pOurList->head(); pFinalNode != NULL; pFinalNode = pOurList->next(pFinalNode))
+ 	{
+-		theirFinal.insertAtEnd(pNode->m_data);
++		ourFinal.insertAtEnd(pFinalNode->m_data);
+ 	}
+-	for (CLLNode<TradeData>* pNode = pTheirCounter->head(); pNode != NULL; pNode = pTheirCounter->next(pNode))
++	for (pFinalNode = pOurCounter->head(); pFinalNode != NULL; pFinalNode = pOurCounter->next(pFinalNode))
+ 	{
+-		theirFinal.insertAtEnd(pNode->m_data);
++		ourFinal.insertAtEnd(pFinalNode->m_data);
+ 	}
+-	for (CLLNode<TradeData>* pNode = pOurList->head(); pNode != NULL; pNode = pOurList->next(pNode))
++	for (pFinalNode = theirFinal.head(); pFinalNode != NULL; pFinalNode = theirFinal.next(pFinalNode))
+ 	{
+-		ourFinal.insertAtEnd(pNode->m_data);
++		bEconomicDeal = bEconomicDeal || pFinalNode->m_data.m_eItemType == TRADE_RESOURCES ||
++			pFinalNode->m_data.m_eItemType == TRADE_GOLD || pFinalNode->m_data.m_eItemType == TRADE_GOLD_PER_TURN;
+ 	}
+-	for (CLLNode<TradeData>* pNode = pOurCounter->head(); pNode != NULL; pNode = pOurCounter->next(pNode))
++	for (pFinalNode = ourFinal.head(); pFinalNode != NULL; pFinalNode = ourFinal.next(pFinalNode))
+ 	{
+-		ourFinal.insertAtEnd(pNode->m_data);
++		bEconomicDeal = bEconomicDeal || pFinalNode->m_data.m_eItemType == TRADE_RESOURCES ||
++			pFinalNode->m_data.m_eItemType == TRADE_GOLD || pFinalNode->m_data.m_eItemType == TRADE_GOLD_PER_TURN;
+ 	}
+-	for (CLLNode<TradeData>* pNode = theirFinal.head(); pNode != NULL; pNode = theirFinal.next(pNode))
++	if (!bEconomicDeal)
+ 	{
+-		bEconomicDeal = bEconomicDeal || pNode->m_data.m_eItemType == TRADE_RESOURCES ||
+-			pNode->m_data.m_eItemType == TRADE_GOLD || pNode->m_data.m_eItemType == TRADE_GOLD_PER_TURN;
++		return true;
+ 	}
+-	for (CLLNode<TradeData>* pNode = ourFinal.head(); pNode != NULL; pNode = ourFinal.next(pNode))
++	if (GET_PLAYER(ePlayer).isHuman())
+ 	{
+-		bEconomicDeal = bEconomicDeal || pNode->m_data.m_eItemType == TRADE_RESOURCES ||
+-			pNode->m_data.m_eItemType == TRADE_GOLD || pNode->m_data.m_eItemType == TRADE_GOLD_PER_TURN;
++		return AI_dealNetVal(ePlayer, &theirFinal, &ourFinal) >= 0;
+ 	}
+-	return !bEconomicDeal || AI_isMutuallyBeneficialDeal(ePlayer, &theirFinal, &ourFinal);
++	return AI_isMutuallyBeneficialDeal(ePlayer, &theirFinal, &ourFinal);
+ }
+ 
+ 
+@@ -9788,25 +9862,10 @@ int CvPlayerAI::AI_goldPerTurnTradeVal(int iGoldPerTurn) const
+ 
+ int CvPlayerAI::AI_goldPerTurnCostVal(int iGoldPerTurn) const
+ {
+-	if (iGoldPerTurn <= 0)
+-	{
+-		return 0;
+-	}
+-
+-	const int iBaseCost = AI_goldPerTurnTradeVal(iGoldPerTurn);
+-	const int iHorizon = std::max(1, GC.getDefineINT("PEACE_TREATY_LENGTH"));
+-	const long long iSpendableGold = (long long)getGold() - AI_goldTarget();
+-	const long long iSustainablePayment = std::max(0, calculateGoldRate()) +
+-		((iSpendableGold > 0) ? (iSpendableGold / iHorizon) : 0);
+-	const int iUncoveredPayment = (iSustainablePayment >= iGoldPerTurn) ? 0 :
+-		(iGoldPerTurn - (int)iSustainablePayment);
+-
+-	// A payment covered by income or spendable treasury has its ordinary cost.
+-	// An uncovered commitment can cost up to twice that, reflecting lost research,
+-	// unit strikes and forced deficit spending without an unbounded multiplier.
+-	const long long iCost = (long long)iBaseCost +
+-		(((long long)iBaseCost * iUncoveredPayment) / iGoldPerTurn);
+-	return (iCost >= MAX_INT) ? MAX_INT : (int)iCost;
++	return AIDiplomacyPolicy::goldPerTurnCostVal(
++		iGoldPerTurn, AI_goldTradeValuePercent(),
++		std::max(1, GC.getDefineINT("PEACE_TREATY_LENGTH")),
++		calculateGoldRate(), getGold(), AI_goldTarget());
+ }
+ 
+ int CvPlayerAI::AI_bonusVal(BonusTypes eBonus, int iChange) const
+@@ -18678,16 +18737,17 @@ void CvPlayerAI::AI_doDiplo()
+ 															if (GET_PLAYER((PlayerTypes)iI).canTradeItem(getID(), item, true))
+ 															{
+ 																iReceiveGold = iGold;
+-																iOurValue += (iGold * iGoldValuePercent) / 100;
++																iOurValue = AIDiplomacyPolicy::saturatingAdd(iOurValue,
++																	AIDiplomacyPolicy::valueFromGold(iGold, iGoldValuePercent));
+ 															}
+ 														}
+ 													}
+ 													else if (iOurValue > iTheirValue)
+ 													{
+-														
+-														const int iTheirGoldValuePercent = GET_PLAYER((PlayerTypes)iI).AI_goldTradeValuePercent();
++														const int iOfferGoldPercent = isAIDiplomacy(AI_DIPLOMACY_NET_VALUE) ?
++															GET_PLAYER((PlayerTypes)iI).AI_goldTradeValuePercent() : iGoldValuePercent;
+ 														iGoldData = AIDiplomacyPolicy::goldForValueGap(iOurValue - iTheirValue,
+-															iTheirGoldValuePercent, false);
++															iOfferGoldPercent, false);
+ 														iGold = std::min(iGoldData, AI_maxGoldTrade((PlayerTypes)iI));
+ 														// Diplomacy switch 8: a purchase we propose keeps our gold target
+ 														if (isAIDiplomacy(AI_DIPLOMACY_RESERVE))
+@@ -18702,7 +18762,8 @@ void CvPlayerAI::AI_doDiplo()
+ 															if (canTradeItem(((PlayerTypes)iI), item, true))
+ 															{
+ 																iGiveGold = iGold;
+-																iTheirValue += AIDiplomacyPolicy::valueFromGold(iGold, iTheirGoldValuePercent);
++																iTheirValue = AIDiplomacyPolicy::saturatingAdd(iTheirValue,
++																	AIDiplomacyPolicy::valueFromGold(iGold, iOfferGoldPercent));
+ 															}
+ 														}
+ 													}
+@@ -18908,18 +18969,30 @@ void CvPlayerAI::AI_doDiplo()
+ 												if (eBestGiveBonus != NO_BONUS)
+ 												{
+ 													// Changed: receiving a resource is iChange +1 (it was -1, the
+-													// value of a spare copy, a fifth of the real one). Between AIs
+-													// each side must gain at least two thirds of what the other
+-													// gains. Net benefit on both sides now replaces that gross-value ratio.
++													// value of a spare copy, a fifth of the real one). Under switch 16
++													// net benefit on both sides replaces the 2/3 gross-value ratio,
++													// requiring strictly positive net gain between AIs so zero-value
++													// swaps cannot farm free peacetime trade attitude.
+ 													const int iReceiveBonusValue = AI_bonusTradeVal(eBestReceiveBonus, ((PlayerTypes)iI), 1);
+ 													const int iGiveBonusValue = GET_PLAYER((PlayerTypes)iI).AI_bonusTradeVal(eBestGiveBonus, getID(), 1);
+-													const int iOurNetValue = iReceiveBonusValue -
+-														AI_bonusTradeVal(eBestGiveBonus, ((PlayerTypes)iI), -1);
+-													const int iTheirNetValue = iGiveBonusValue -
+-														GET_PLAYER((PlayerTypes)iI).AI_bonusTradeVal(eBestReceiveBonus, getID(), -1);
+-													// Complementary gains need not be equal. Both parties must, however,
+-													// be compensated for what they surrender.
+-													if (iOurNetValue >= 0 && iTheirNetValue >= 0)
++													bool bAcceptSwap = false;
++													if (isAIDiplomacy(AI_DIPLOMACY_NET_VALUE))
++													{
++														const int iOurNetValue = iReceiveBonusValue -
++															AI_bonusTradeVal(eBestGiveBonus, ((PlayerTypes)iI), -1);
++														const int iTheirNetValue = iGiveBonusValue -
++															GET_PLAYER((PlayerTypes)iI).AI_bonusTradeVal(eBestReceiveBonus, getID(), -1);
++														bAcceptSwap = GET_PLAYER((PlayerTypes)iI).isHuman() ?
++															(iOurNetValue >= 0 && iTheirNetValue >= 0) :
++															(iOurNetValue > 0 && iTheirNetValue > 0);
++													}
++													else
++													{
++														bAcceptSwap = (GET_PLAYER((PlayerTypes)iI).isHuman() ? (iReceiveBonusValue >= iGiveBonusValue) :
++															(3 * iReceiveBonusValue > 2 * iGiveBonusValue && 3 * iGiveBonusValue > 2 * iReceiveBonusValue))
++															&& (!isAIDiplomacy(AI_DIPLOMACY_OFFERS) || iReceiveBonusValue > AI_bonusTradeVal(eBestGiveBonus, ((PlayerTypes)iI), -1));
++													}
++													if (bAcceptSwap)
+ 													{
+ 														ourList.clear();
+ 														theirList.clear();
+@@ -18970,39 +19043,48 @@ void CvPlayerAI::AI_doDiplo()
+ 												else
+ 												{
+ 													const int iReceiveBonusValue = AI_bonusTradeVal(eBestReceiveBonus, ((PlayerTypes)iI), 1);
+-													const int iTheirBonusLoss = GET_PLAYER((PlayerTypes)iI).AI_bonusTradeVal(eBestReceiveBonus, getID(), -1);
+-													const int iTheirGoldPercent = GET_PLAYER((PlayerTypes)iI).AI_goldTradeValuePercent() *
+-														std::max(1, GC.getDefineINT("PEACE_TREATY_LENGTH"));
+-													const int iMinimumGoldPerTurn = AIDiplomacyPolicy::goldForValueGap(
+-														AIDiplomacyPolicy::saturatingAdd(iTheirBonusLoss, 1), iTheirGoldPercent, true);
+-
+-													// Find the largest payment that leaves us a positive net gain.
+-													// Binary search is bounded and also accommodates the payer-cost curve.
+-													int iLow = 0;
+-													int iHigh = AI_maxGoldPerTurnTrade((PlayerTypes)iI);
+-													while (iLow < iHigh)
++													const int iHorizon = std::max(1, GC.getDefineINT("PEACE_TREATY_LENGTH"));
++													const int iTheirGoldPercent = GET_PLAYER((PlayerTypes)iI).AI_goldTradeValuePercent() * iHorizon;
++													int iGoldPerTurn = 0;
++													int iTheirBonusLoss = 0;
++													if (isAIDiplomacy(AI_DIPLOMACY_NET_VALUE))
+ 													{
+-														const int iMiddle = iLow + ((iHigh - iLow) / 2) + ((iHigh - iLow) % 2);
+-														if (AI_goldPerTurnCostVal(iMiddle) < iReceiveBonusValue)
+-														{
+-															iLow = iMiddle;
+-														}
+-														else
+-														{
+-															iHigh = iMiddle - 1;
+-														}
++														iTheirBonusLoss = GET_PLAYER((PlayerTypes)iI).AI_bonusTradeVal(eBestReceiveBonus, getID(), -1);
++														const int iMinimumGoldPerTurn = AIDiplomacyPolicy::goldForValueGap(
++															AIDiplomacyPolicy::saturatingAdd(iTheirBonusLoss, 1), iTheirGoldPercent, true);
++														const int iMaximumGoldPerTurn = AIDiplomacyPolicy::maxAffordableGoldPerTurn(
++															iReceiveBonusValue, AI_maxGoldPerTurnTrade((PlayerTypes)iI),
++															AI_goldTradeValuePercent(), iHorizon, calculateGoldRate(), getGold(), AI_goldTarget(), true);
++														iGoldPerTurn = (iMinimumGoldPerTurn <= iMaximumGoldPerTurn) ?
++															(iMinimumGoldPerTurn + ((iMaximumGoldPerTurn - iMinimumGoldPerTurn) / 2)) : 0;
++													}
++													else
++													{
++														iGoldPerTurn = std::min(AIDiplomacyPolicy::goldForValueGap(iReceiveBonusValue, iTheirGoldPercent, true),
++															AI_maxGoldPerTurnTrade((PlayerTypes)iI));
+ 													}
+-													const int iMaximumGoldPerTurn = iLow;
+-													const int iGoldPerTurn = (iMinimumGoldPerTurn <= iMaximumGoldPerTurn) ?
+-														(iMinimumGoldPerTurn + ((iMaximumGoldPerTurn - iMinimumGoldPerTurn) / 2)) : 0;
+ 													setTradeItem(&item, TRADE_GOLD_PER_TURN, iGoldPerTurn);
+ 
+ 													if (iGoldPerTurn > 0 && canTradeItem(((PlayerTypes)iI), item, true))
+ 													{
+-														iOurValue = iReceiveBonusValue - AI_goldPerTurnCostVal(iGoldPerTurn);
+-														iTheirValue = GET_PLAYER((PlayerTypes)iI).AI_goldPerTurnTradeVal(iGoldPerTurn) - iTheirBonusLoss;
++														bool bAcceptGptDeal = false;
++														if (isAIDiplomacy(AI_DIPLOMACY_NET_VALUE))
++														{
++															iOurValue = iReceiveBonusValue - AI_goldPerTurnCostVal(iGoldPerTurn);
++															iTheirValue = GET_PLAYER((PlayerTypes)iI).AI_goldPerTurnTradeVal(iGoldPerTurn) - iTheirBonusLoss;
++															bAcceptGptDeal = GET_PLAYER((PlayerTypes)iI).isHuman() ?
++																(iOurValue >= 0 && iTheirValue >= 0) :
++																(iOurValue > 0 && iTheirValue > 0);
++														}
++														else
++														{
++															iOurValue = iReceiveBonusValue;
++															iTheirValue = GET_PLAYER((PlayerTypes)iI).AI_goldPerTurnTradeVal(iGoldPerTurn);
++															bAcceptGptDeal = GET_PLAYER((PlayerTypes)iI).isHuman() ? (iOurValue >= iTheirValue) :
++																((iOurValue > ((int)(((long long)iTheirValue * 2) / 3))) && (iTheirValue > ((int)(((long long)iOurValue * 2) / 3))));
++														}
+ 
+-														if (iOurValue >= 0 && iTheirValue >= 0)
++														if (bAcceptGptDeal)
+ 														{
+ 															ourList.clear();
+ 															theirList.clear();
+diff --git a/Assets/CvGameCoreDLL/CvPlot.cpp b/Assets/CvGameCoreDLL/CvPlot.cpp
+index 36e2fcf..2ac82d8 100644
+--- a/Assets/CvGameCoreDLL/CvPlot.cpp
++++ b/Assets/CvGameCoreDLL/CvPlot.cpp
+@@ -321,9 +321,9 @@ bool CvPlot::refreshRevealedGraphics()
+ 	if (m_bRevealedRouteDirty)
+ 	{
+ 		m_bRevealedRouteDirty = false;
+-		// Null or type-changed routes still recreate inside updateRouteSymbol.
+-		// Valid entities are reused, avoiding needless late-game heap churn.
+-		updateRouteSymbol(false, false);
++		// Neighbors were already marked dirty by setRevealedRouteType, so force
++		// this plot's route mesh to reconnect without recursing to neighbors.
++		updateRouteSymbol(true, false);
+ 	}
+ 	else
+ 	{
+diff --git a/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml b/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml
+index 4ef5319..e230531 100644
+--- a/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml
++++ b/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml
+@@ -66,9 +66,10 @@
+ 		them, building yield bonuses (Town Essentials, Forge, ...) on each city's production and
+ 		commerce, plus the units, buildings and routes it unlocks; 4 offers ask for the tech or
+ 		resource worth most to the AI and give the one worth least to it, and no tech is sold to a
+-		team ranked above it; 8 tech purchases the AI proposes keep its gold target. Default: 15,
+-		all of them. 0 restores the old AI. -->
++		team ranked above it; 8 tech purchases the AI proposes keep its gold target; 16 bilateral
++		net-value economics (AI_tradeGiveVal, payer GPT cost curve, and net-value checks). Default:
++		31, all of them. 15 restores pre-bilateral AI; 0 restores the old AI. -->
+ 		<DefineName>AI_DIPLOMACY_FLAGS</DefineName>
+-		<iDefineIntVal>15</iDefineIntVal>
++		<iDefineIntVal>31</iDefineIntVal>
+ 	</Define>
+ </Civ4Defines>
+\ No newline at end of file
