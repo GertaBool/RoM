@@ -654,5 +654,46 @@
    "fixes/test-branch-fixes.patch",
    "fixes/test-branch-fixes/"
   ]
+ },
+ {
+  "id": "H11",
+  "type": "hypothesis",
+  "line": "ai-and-paging-pass2",
+  "text": "Post-merge semantic audit of GitLab main (c08a472) identified three classes of defects that weaken AI play and leave paging gaps: (1) diplomacy and resource valuation bugs (1-GPT spare-resource exploit and creation/renewal mismatch under AI_DIPLOMACY_NET_VALUE, AI_maxGoldPerTurnTrade clamping human GPT under deficit research, AI-AI zero-value map-trade spam without CONTACT_TRADE_MAP cooldown, AI_counterPropose missing corp guard and midpoint spare-resource weight, and AI_bonusCityValue ignoring imminent growth-cap headroom); (2) AI strategy, economy, combat, and Revolution bugs (32-bit power overflows across 10+ sites in CvTeamAI/CvPlayerAI/CvCityAI, AI_doCommerce overwriting its own culture slider and using SAFE_DELETE on new[], AI_civicValue dividing Inquisition civic score by 5, AI_RbombardNaval mis-nested loop and zero-multiplying RNG plus AI_Abombard null-defender dereference, AI_buildingValueThreshold ignoring Revolution RevIdx modifiers, and assignment typos in hasStateReligionHolyCity/Shrine); and (3) graphics paging gaps (south-to-north scan starving camera center of iMaxIn, stale camera during m_bPagingPending, 5s delay on critical-pressure shrink, off-window deferred route symbols never draining after bulk reveals, and asymmetric m_bGraphicsPagedOut clearing in CvCity/CvUnit). Fixing all three without changing the save format closes the exploits and overflows while eliminating on-screen bare entities and persistent missing route symbols."
+ },
+ {
+  "id": "P16",
+  "type": "prediction",
+  "line": "ai-and-paging-pass2",
+  "hypotheses": [
+   "H11"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "On GitLab main c08a472 (save-compatible, 2,452 exports): (1) AIDiplomacyPolicy.h/CvPlayerAI.h/CvPlayerAI.cpp: unified 40%/50%/30% surplus-sharing resource reservation floor and renewal alignment with AI-AI outgoing GPT cancellation, AI-only calculateGoldRate() clamp in AI_maxGoldPerTurnTrade, positive AI_mapTradeVal + CONTACT_TRADE_MAP cooldown on AI-AI map trades, symmetric AI_counterPropose corp guard/midpoint weight and 64-bit goldForValueGap, and growth-cap luxury headroom in AI_bonusCityValue; (2) CvTeamAI.cpp/CvPlayerAI.cpp/CvCityAI.cpp/CvPlayer.cpp/CvUnitAI.cpp: 64-bit power arithmetic across all 10+ war/surrender/threat sites, AI_doCommerce culture preservation/solvency guard/stack arrays, AI_civicValue Inquisition addition fix, deterministic AI_RbombardNaval loop fix and AI_Abombard null guard, Revolution-index-scaled RevIdx building scoring in AI_buildingValueThreshold, and == fix in hasStateReligionHolyCity/Shrine; (3) CvGame.h/CvGame.cpp/CvPlot.h/CvPlot.cpp/CvUnit.cpp/CvCity.cpp: center-out Chebyshev ring page-in + cursor-resumed round-robin page-out, live camera recenter and immediate critical-pressure shrink, bounded off-window deferred route draining via refreshRevealedRouteOnly(), and symmetric post-setup m_bGraphicsPagedOut clearing with post-setup unit sync. Arm a: patched c08a472; arm b: unmodified c08a472, in the headless harness with graphics paging enabled. Runs complete no less often with the fixes than without while reducing on-screen bare entities and converging off-window routes without symbol to 0.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/AIDiplomacyPolicy.h",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCityAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayer.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvTeamAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnitAI.cpp",
+   "fixes/ai-and-paging-pass2.patch",
+   "fixes/ai-and-paging-pass2/"
+  ]
  }
 ]
