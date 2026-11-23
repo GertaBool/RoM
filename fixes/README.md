@@ -1,5 +1,42 @@
 # Tested source fixes
 
+## 5-pass RoM AI transformation (Passes 3–7 over pass 2 `f0d5629`)
+
+[ai-transformation.patch](ai-transformation.patch) applies on top of pass 2 (`f0d5629`, apply with
+`git am --keep-cr` on Windows to preserve CRLF). It is not on GitLab yet. It delivers five
+save-compatible AI passes (`2,452` exports unchanged):
+- **Pass 3 (unconditional bug fixes & AI parity)**: deterministic C++ `Colonist`/`Pioneer`/`Roman
+  Colonist` founding packages in `CvUnit::found()` (removing UI-dependent `RoMEventManager.py`
+  `getHeadSelectedUnit` code and adding `AI_unitValue` parity), luxury/general resource
+  trade-denial fix in `AI_bonusTrade`, slider-diverted commerce in `AI_isFinancialTrouble`,
+  `AI_getTotalFloatingDefenders` filter, `setUpgradeAnywhere`/`processCivics` fixes, 1-move
+  `AI_assaultForecast` capture fix, 64-bit `AI_specialistValue` GPP + `FreeBonus`/Pass-0
+  `BonusYield`/`isProductionProject` fixes, `AI_makePeaceTrade`/`AI_getTechMonopolyValue`/64-bit
+  `AI_doWar` fixes, and settler/worker/road/inquisition/nuke/DCM bombard fixes;
+- **Pass 4 (`AI_ECONOMY_FLAGS=15`, `AIBuildingLinePolicy.h`)**: net-delta valuation across RoM's 29
+  building replacement lines, per-city `BuildingClassNeededs` chain lookahead, obsolescence decay,
+  Golden Age/military/Python-scripted Wonders (`World Bank`, `Crusade`, `Djenne`, `Himeji Castle`,
+  `Nanite Defuser`), `Peasantry`/`Coastal`/`RevIdx`/`zCivics` civic co-evaluation, `GameSpeed`
+  civic horizon, inflation-adjusted corporation net profit, and multi-pair surplus luxury swaps;
+- **Pass 5 (`AI_CUNNING_FLAGS=1023`, `AIStrategicDefensePolicy.h`)**: peacetime border & offshore
+  staged-army garrison deterrence, proactive Open Borders cancellation on lethal staging,
+  prospective anti-hegemon coalitions & Victory-Level-3 prevention, defensive counterstroke posture,
+  and deterministic `AI_doPeace` demands;
+- **Pass 6**: active City Governor specialization, 50% `Process` parity, negative-food Slave
+  starvation guard, `Financial`/`Agricultural` yield thresholds, `FirstFreeUnitClass`/
+  `TechCityTrade`/`DisableTechs` tech valuation, and depth-5/6 research lookahead;
+- **Pass 7**: priority-ranked unit upgrades, 65% hero odds floor, non-stall siege bombard, wartime
+  promotion banking for +50% field heal, transport cargo promotions (`PROMOTION_TRANSPORT1/2/3`),
+  and idle combat engineer road building.
+
+The release DLL builds with MSVC 2003 with 0 warnings and 0 errors (`2,452` exports), `clang-gate`
+reports 0 new errors/warnings across all 9 modified `.cpp` files, the native C++98 unit tests pass,
+cross-DLL Turn-250 binary save/load round-trips cleanly (`6,606,272` bytes), and a 300-turn
+headless A/B soak on `p15.scn` (`s1570079469`, Noble) raises Turn-300 top-3 civ techs from
+`90/84/77` to `108/104/99`, total research rate by `+127%`, total production by `+70%`, and total
+pop by `+66%` while running `35%` faster late-game; full P17 seeded evidence and in-game
+verification are open. See the [details and checks](ai-transformation/README.md).
+
 ## Post-merge AI strength, overflow, and graphics paging fixes (pass 2 over `c08a472`)
 
 [ai-and-paging-pass2.patch](ai-and-paging-pass2.patch) applies to GitLab `main` `c08a472`
