@@ -21,59 +21,59 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **35** `FFreeListArrayBase<CvUnitAI>::~FFreeListArrayBase<class CvUnitAI>()` (virtual)
   - called by (2): FFreeListArrayBase<CvUnitAI>::`scalar deleting dtor', FFreeListTrashArray<CvUnitAI>::~FFreeListTrashArray<class CvUnitAI>
 - **36** `FFreeListArrayBase<CvArea>::init(…)` (virtual; pure virtual)
-  - called by (13): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
+  - called by (10): CvMap::init, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
 - **36** `FFreeListArrayBase<CvCityAI>::init(…)` (virtual; pure virtual)
-  - called by (13): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
+  - called by (11): CvPlayer::init, CvPlayer::initInGame, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
 - **36** `FFreeListArrayBase<CvDeal>::init(…)` (virtual; pure virtual)
-  - called by (13): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
+  - called by (10): CvGame::init, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
 - **36** `FFreeListArrayBase<CvPlotGroup>::init(…)` (virtual; pure virtual)
-  - called by (13): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
+  - called by (11): CvPlayer::init, CvPlayer::initInGame, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
 - **36** `FFreeListArrayBase<CvSelectionGroupAI>::init(…)` (virtual; pure virtual)
-  - called by (13): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
+  - called by (11): CvPlayer::init, CvPlayer::initInGame, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
 - **36** `FFreeListArrayBase<CvUnitAI>::init(…)` (virtual; pure virtual)
-  - called by (13): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
+  - called by (11): CvPlayer::init, CvPlayer::initInGame, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
 - **36** `FFreeListArrayBase<EventTriggeredData>::init(…)` (virtual; pure virtual)
-  - called by (13): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
+  - called by (11): CvPlayer::init, CvPlayer::initInGame, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
 - **36** `FFreeListArrayBase<VoteSelectionData>::init(…)` (virtual; pure virtual)
-  - called by (13): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
+  - called by (10): CvGame::init, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
 - **36** `FFreeListArrayBase<VoteTriggeredData>::init(…)` (virtual; pure virtual)
-  - called by (13): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
+  - called by (10): CvGame::init, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>, ReadStreamableFFreeListTrashArray<struct VoteSelectionData>, ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
 - **37** `FFreeListArrayBase<CvArea>::uninit(…)` (virtual; pure virtual)
-  - called by (3): CvGame::uninit, CvMap::uninit, CvPlayer::uninit
+  - called by (1): CvMap::uninit
 - **37** `FFreeListArrayBase<CvCityAI>::uninit(…)` (virtual; pure virtual)
-  - called by (3): CvGame::uninit, CvMap::uninit, CvPlayer::uninit
+  - called by (1): CvPlayer::uninit
 - **37** `FFreeListArrayBase<CvDeal>::uninit(…)` (virtual; pure virtual)
-  - called by (3): CvGame::uninit, CvMap::uninit, CvPlayer::uninit
+  - called by (1): CvGame::uninit
 - **37** `FFreeListArrayBase<CvPlotGroup>::uninit(…)` (virtual; pure virtual)
-  - called by (3): CvGame::uninit, CvMap::uninit, CvPlayer::uninit
+  - called by (1): CvPlayer::uninit
 - **37** `FFreeListArrayBase<CvSelectionGroupAI>::uninit(…)` (virtual; pure virtual)
-  - called by (3): CvGame::uninit, CvMap::uninit, CvPlayer::uninit
+  - called by (1): CvPlayer::uninit
 - **37** `FFreeListArrayBase<CvUnitAI>::uninit(…)` (virtual; pure virtual)
-  - called by (3): CvGame::uninit, CvMap::uninit, CvPlayer::uninit
+  - called by (1): CvPlayer::uninit
 - **37** `FFreeListArrayBase<EventTriggeredData>::uninit(…)` (virtual; pure virtual)
-  - called by (3): CvGame::uninit, CvMap::uninit, CvPlayer::uninit
+  - called by (1): CvPlayer::uninit
 - **37** `FFreeListArrayBase<VoteSelectionData>::uninit(…)` (virtual; pure virtual)
-  - called by (3): CvGame::uninit, CvMap::uninit, CvPlayer::uninit
+  - called by (1): CvGame::uninit
 - **37** `FFreeListArrayBase<VoteTriggeredData>::uninit(…)` (virtual; pure virtual)
-  - called by (3): CvGame::uninit, CvMap::uninit, CvPlayer::uninit
+  - called by (1): CvGame::uninit
 - **38** `FFreeListArrayBase<CvArea>::getAt(…)` (virtual; pure virtual)
-  - called by (12): CvGame::getDeal, CvGame::getVoteSelection, CvGame::getVoteTriggered, CvMap::getArea, CvPlayer::getCity, CvPlayer::getEventTriggered, CvPlayer::getPlotGroup, CvPlayer::getSelectionGroup, CvPlayer::getUnit, FFreeListArrayBase<CvArea>::nextIter, FFreeListArrayBase<CvArea>::operator[], FFreeListArrayBase<CvArea>::prevIter
+  - called by (4): CvMap::getArea, FFreeListArrayBase<CvArea>::nextIter, FFreeListArrayBase<CvArea>::operator[], FFreeListArrayBase<CvArea>::prevIter
 - **38** `FFreeListArrayBase<CvCityAI>::getAt(…)` (virtual; pure virtual)
-  - called by (12): CvGame::getDeal, CvGame::getVoteSelection, CvGame::getVoteTriggered, CvMap::getArea, CvPlayer::getCity, CvPlayer::getEventTriggered, CvPlayer::getPlotGroup, CvPlayer::getSelectionGroup, CvPlayer::getUnit, FFreeListArrayBase<CvCityAI>::nextIter, FFreeListArrayBase<CvCityAI>::operator[], FFreeListArrayBase<CvCityAI>::prevIter
+  - called by (4): CvPlayer::getCity, FFreeListArrayBase<CvCityAI>::nextIter, FFreeListArrayBase<CvCityAI>::operator[], FFreeListArrayBase<CvCityAI>::prevIter
 - **38** `FFreeListArrayBase<CvDeal>::getAt(…)` (virtual; pure virtual)
-  - called by (12): CvGame::getDeal, CvGame::getVoteSelection, CvGame::getVoteTriggered, CvMap::getArea, CvPlayer::getCity, CvPlayer::getEventTriggered, CvPlayer::getPlotGroup, CvPlayer::getSelectionGroup, CvPlayer::getUnit, FFreeListArrayBase<CvDeal>::nextIter, FFreeListArrayBase<CvDeal>::operator[], FFreeListArrayBase<CvDeal>::prevIter
+  - called by (4): CvGame::getDeal, FFreeListArrayBase<CvDeal>::nextIter, FFreeListArrayBase<CvDeal>::operator[], FFreeListArrayBase<CvDeal>::prevIter
 - **38** `FFreeListArrayBase<CvPlotGroup>::getAt(…)` (virtual; pure virtual)
-  - called by (12): CvGame::getDeal, CvGame::getVoteSelection, CvGame::getVoteTriggered, CvMap::getArea, CvPlayer::getCity, CvPlayer::getEventTriggered, CvPlayer::getPlotGroup, CvPlayer::getSelectionGroup, CvPlayer::getUnit, FFreeListArrayBase<CvPlotGroup>::nextIter, FFreeListArrayBase<CvPlotGroup>::operator[], FFreeListArrayBase<CvPlotGroup>::prevIter
+  - called by (4): CvPlayer::getPlotGroup, FFreeListArrayBase<CvPlotGroup>::nextIter, FFreeListArrayBase<CvPlotGroup>::operator[], FFreeListArrayBase<CvPlotGroup>::prevIter
 - **38** `FFreeListArrayBase<CvSelectionGroupAI>::getAt(…)` (virtual; pure virtual)
-  - called by (12): CvGame::getDeal, CvGame::getVoteSelection, CvGame::getVoteTriggered, CvMap::getArea, CvPlayer::getCity, CvPlayer::getEventTriggered, CvPlayer::getPlotGroup, CvPlayer::getSelectionGroup, CvPlayer::getUnit, FFreeListArrayBase<CvSelectionGroupAI>::nextIter, FFreeListArrayBase<CvSelectionGroupAI>::operator[], FFreeListArrayBase<CvSelectionGroupAI>::prevIter
+  - called by (4): CvPlayer::getSelectionGroup, FFreeListArrayBase<CvSelectionGroupAI>::nextIter, FFreeListArrayBase<CvSelectionGroupAI>::operator[], FFreeListArrayBase<CvSelectionGroupAI>::prevIter
 - **38** `FFreeListArrayBase<CvUnitAI>::getAt(…)` (virtual; pure virtual)
-  - called by (12): CvGame::getDeal, CvGame::getVoteSelection, CvGame::getVoteTriggered, CvMap::getArea, CvPlayer::getCity, CvPlayer::getEventTriggered, CvPlayer::getPlotGroup, CvPlayer::getSelectionGroup, CvPlayer::getUnit, FFreeListArrayBase<CvUnitAI>::nextIter, FFreeListArrayBase<CvUnitAI>::operator[], FFreeListArrayBase<CvUnitAI>::prevIter
+  - called by (4): CvPlayer::getUnit, FFreeListArrayBase<CvUnitAI>::nextIter, FFreeListArrayBase<CvUnitAI>::operator[], FFreeListArrayBase<CvUnitAI>::prevIter
 - **38** `FFreeListArrayBase<EventTriggeredData>::getAt(…)` (virtual; pure virtual)
-  - called by (12): CvGame::getDeal, CvGame::getVoteSelection, CvGame::getVoteTriggered, CvMap::getArea, CvPlayer::getCity, CvPlayer::getEventTriggered, CvPlayer::getPlotGroup, CvPlayer::getSelectionGroup, CvPlayer::getUnit, FFreeListArrayBase<EventTriggeredData>::nextIter, FFreeListArrayBase<EventTriggeredData>::operator[], FFreeListArrayBase<EventTriggeredData>::prevIter
+  - called by (4): CvPlayer::getEventTriggered, FFreeListArrayBase<EventTriggeredData>::nextIter, FFreeListArrayBase<EventTriggeredData>::operator[], FFreeListArrayBase<EventTriggeredData>::prevIter
 - **38** `FFreeListArrayBase<VoteSelectionData>::getAt(…)` (virtual; pure virtual)
-  - called by (10): CvGame::getDeal, CvGame::getVoteSelection, CvGame::getVoteTriggered, CvMap::getArea, CvPlayer::getCity, CvPlayer::getEventTriggered, CvPlayer::getPlotGroup, CvPlayer::getSelectionGroup, CvPlayer::getUnit, FFreeListArrayBase<VoteSelectionData>::operator[]
+  - called by (2): CvGame::getVoteSelection, FFreeListArrayBase<VoteSelectionData>::operator[]
 - **38** `FFreeListArrayBase<VoteTriggeredData>::getAt(…)` (virtual; pure virtual)
-  - called by (11): CvGame::getDeal, CvGame::getVoteSelection, CvGame::getVoteTriggered, CvMap::getArea, CvPlayer::getCity, CvPlayer::getEventTriggered, CvPlayer::getPlotGroup, CvPlayer::getSelectionGroup, CvPlayer::getUnit, FFreeListArrayBase<VoteTriggeredData>::nextIter, FFreeListArrayBase<VoteTriggeredData>::operator[]
+  - called by (3): CvGame::getVoteTriggered, FFreeListArrayBase<VoteTriggeredData>::nextIter, FFreeListArrayBase<VoteTriggeredData>::operator[]
 - **54** `FFreeListArrayBase<EventTriggeredData>::getIndexAfterLast() const`
   - called by (3): FFreeListArrayBase<EventTriggeredData>::endIter, FFreeListArrayBase<EventTriggeredData>::nextIter, WriteStreamableFFreeListTrashArray<struct EventTriggeredData>
 - **54** `FFreeListArrayBase<VoteSelectionData>::getIndexAfterLast() const`
@@ -111,23 +111,23 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **57** `FFreeListArrayBase<CvUnitAI>::getCount() const`
   - called by (2): CvPlayer::getNumUnits, WriteStreamableFFreeListTrashArray<class CvUnitAI>
 - **59** `FFreeListArrayBase<CvArea>::removeAll(…)` (virtual; pure virtual)
-  - called by (4): CvGame::reset, CvMap::recalculateAreas, CvMap::reset, CvPlayer::reset
+  - called by (2): CvMap::recalculateAreas, CvMap::reset
 - **59** `FFreeListArrayBase<CvCityAI>::removeAll(…)` (virtual; pure virtual)
-  - called by (4): CvGame::reset, CvMap::recalculateAreas, CvMap::reset, CvPlayer::reset
+  - called by (1): CvPlayer::reset
 - **59** `FFreeListArrayBase<CvDeal>::removeAll(…)` (virtual; pure virtual)
-  - called by (4): CvGame::reset, CvMap::recalculateAreas, CvMap::reset, CvPlayer::reset
+  - called by (1): CvGame::reset
 - **59** `FFreeListArrayBase<CvPlotGroup>::removeAll(…)` (virtual; pure virtual)
-  - called by (4): CvGame::reset, CvMap::recalculateAreas, CvMap::reset, CvPlayer::reset
+  - called by (1): CvPlayer::reset
 - **59** `FFreeListArrayBase<CvSelectionGroupAI>::removeAll(…)` (virtual; pure virtual)
-  - called by (4): CvGame::reset, CvMap::recalculateAreas, CvMap::reset, CvPlayer::reset
+  - called by (1): CvPlayer::reset
 - **59** `FFreeListArrayBase<CvUnitAI>::removeAll(…)` (virtual; pure virtual)
-  - called by (4): CvGame::reset, CvMap::recalculateAreas, CvMap::reset, CvPlayer::reset
+  - called by (1): CvPlayer::reset
 - **59** `FFreeListArrayBase<EventTriggeredData>::removeAll(…)` (virtual; pure virtual)
-  - called by (4): CvGame::reset, CvMap::recalculateAreas, CvMap::reset, CvPlayer::reset
+  - called by (1): CvPlayer::reset
 - **59** `FFreeListArrayBase<VoteSelectionData>::removeAll(…)` (virtual; pure virtual)
-  - called by (4): CvGame::reset, CvMap::recalculateAreas, CvMap::reset, CvPlayer::reset
+  - called by (1): CvGame::reset
 - **59** `FFreeListArrayBase<VoteTriggeredData>::removeAll(…)` (virtual; pure virtual)
-  - called by (4): CvGame::reset, CvMap::recalculateAreas, CvMap::reset, CvPlayer::reset
+  - called by (1): CvGame::reset
 - **66** `FFreeListArrayBase<CvArea>::growArray(…)` (virtual; pure virtual)
 - **66** `FFreeListArrayBase<CvCityAI>::growArray(…)` (virtual; pure virtual)
 - **66** `FFreeListArrayBase<CvDeal>::growArray(…)` (virtual; pure virtual)

@@ -1,0 +1,81 @@
+callback	module	handler	kind	config_file	line
+AI_chooseProduction	base/CvGameUtils.py	CvGameUtils.AI_chooseProduction	base		0
+AI_chooseTech	base/CvGameUtils.py	CvGameUtils.AI_chooseTech	base		0
+AI_doDiplo	base/CvGameUtils.py	CvGameUtils.AI_doDiplo	base		0
+AI_doWar	base/CvGameUtils.py	CvGameUtils.AI_doWar	base		0
+AI_unitUpdate	base/CvGameUtils.py	CvGameUtils.AI_unitUpdate	base		0
+calculateScore	base/CvGameUtils.py	CvGameUtils.calculateScore	base		0
+canBuild	base/CvGameUtils.py	CvGameUtils.canBuild	base		0
+canConstruct	base/CvGameUtils.py	CvGameUtils.canConstruct	base		0
+canCreate	base/CvGameUtils.py	CvGameUtils.canCreate	base		0
+canDeclareWar	base/CvGameUtils.py	CvGameUtils.canDeclareWar	base		0
+canDoCivic	base/CvGameUtils.py	CvGameUtils.canDoCivic	base		0
+canFoundCitiesOnWater	base/CvGameUtils.py	CvGameUtils.canFoundCitiesOnWater	base		0
+canMaintain	base/CvGameUtils.py	CvGameUtils.canMaintain	base		0
+canPickPlot	base/CvGameUtils.py	CvGameUtils.canPickPlot	base		0
+canRazeCity	base/CvGameUtils.py	CvGameUtils.canRazeCity	base		0
+canResearch	base/CvGameUtils.py	CvGameUtils.canResearch	base		0
+canTrain	base/CvGameUtils.py	CvGameUtils.canTrain	base		0
+cannotConstruct	RoMGameUtils.py	RoMGameUtils.cannotConstruct	class	Config/RoMSettings.xml	16
+cannotConstruct	base/CvGameUtils.py	CvGameUtils.cannotConstruct	base		0
+cannotCreate	base/CvGameUtils.py	CvGameUtils.cannotCreate	base		0
+cannotDoCivic	RoMGameUtils.py	RoMGameUtils.cannotDoCivic	class	Config/RoMSettings.xml	16
+cannotDoCivic	base/CvGameUtils.py	CvGameUtils.cannotDoCivic	base		0
+cannotDoControl	base/CvGameUtils.py	CvGameUtils.cannotDoControl	base		0
+cannotFoundCity	base/CvGameUtils.py	CvGameUtils.cannotFoundCity	base		0
+cannotHandleAction	base/CvGameUtils.py	CvGameUtils.cannotHandleAction	base		0
+cannotMaintain	base/CvGameUtils.py	CvGameUtils.cannotMaintain	base		0
+cannotResearch	base/CvGameUtils.py	CvGameUtils.cannotResearch	base		0
+cannotSelectionListGameNetMessage	base/CvGameUtils.py	CvGameUtils.cannotSelectionListGameNetMessage	base		0
+cannotSelectionListMove	base/CvGameUtils.py	CvGameUtils.cannotSelectionListMove	base		0
+cannotSpreadReligion	base/CvGameUtils.py	CvGameUtils.cannotSpreadReligion	base		0
+cannotTrain	base/CvGameUtils.py	CvGameUtils.cannotTrain	base		0
+citiesDestroyFeatures	base/CvGameUtils.py	CvGameUtils.citiesDestroyFeatures	base		0
+createBarbarianCities	base/CvGameUtils.py	CvGameUtils.createBarbarianCities	base		0
+createBarbarianUnits	base/CvGameUtils.py	CvGameUtils.createBarbarianUnits	base		0
+doCityCaptureGold	RoMGameUtils.py	RoMGameUtils.doCityCaptureGold	class	Config/RoMSettings.xml	16
+doCityCaptureGold	base/CvGameUtils.py	CvGameUtils.doCityCaptureGold	base		0
+doCombat	base/CvGameUtils.py	CvGameUtils.doCombat	base		0
+doCulture	base/CvGameUtils.py	CvGameUtils.doCulture	base		0
+doGold	base/CvGameUtils.py	CvGameUtils.doGold	base		0
+doGoody	base/CvGameUtils.py	CvGameUtils.doGoody	base		0
+doGreatPeople	base/CvGameUtils.py	CvGameUtils.doGreatPeople	base		0
+doGrowth	base/CvGameUtils.py	CvGameUtils.doGrowth	base		0
+doHolyCity	Contrib/RevDCMReligionControl.py	ReligionControl.doHolyCity	class	Config/RevDCM.xml	15
+doHolyCity	base/CvGameUtils.py	CvGameUtils.doHolyCity	base		0
+doHolyCityTech	Contrib/RevDCMReligionControl.py	ReligionControl.doHolyCityTech	class	Config/RevDCM.xml	15
+doHolyCityTech	base/CvGameUtils.py	CvGameUtils.doHolyCityTech	base		0
+doMeltdown	base/CvGameUtils.py	CvGameUtils.doMeltdown	base		0
+doPillageGold	Contrib/autologEventManager.py	doPillageGoldListener	listener	Config/Autolog.xml	260
+doPillageGold	RoMGameUtils.py	RoMGameUtils.doPillageGold	class	Config/RoMSettings.xml	16
+doPillageGold	base/CvGameUtils.py	CvGameUtils.doPillageGold	base		0
+doPlotCulture	base/CvGameUtils.py	CvGameUtils.doPlotCulture	base		0
+doProduction	base/CvGameUtils.py	CvGameUtils.doProduction	base		0
+doReligion	base/CvGameUtils.py	CvGameUtils.doReligion	base		0
+doResearch	base/CvGameUtils.py	CvGameUtils.doResearch	base		0
+doReviveActivePlayer	base/CvGameUtils.py	CvGameUtils.doReviveActivePlayer	base		0
+getBuildingCostMod	RoMGameUtils.py	RoMGameUtils.getBuildingCostMod	class	Config/RoMSettings.xml	16
+getBuildingCostMod	base/CvGameUtils.py	CvGameUtils.getBuildingCostMod	base		0
+getCityFoundValue	base/CvGameUtils.py	CvGameUtils.getCityFoundValue	base		0
+getConscriptUnitType	base/CvGameUtils.py	CvGameUtils.getConscriptUnitType	base		0
+getExperienceNeeded	base/CvGameUtils.py	CvGameUtils.getExperienceNeeded	base		0
+getExtraCost	base/CvGameUtils.py	CvGameUtils.getExtraCost	base		0
+getFirstRecommendedTech	base/CvGameUtils.py	CvGameUtils.getFirstRecommendedTech	base		0
+getRecommendedBuilding	base/CvGameUtils.py	CvGameUtils.getRecommendedBuilding	base		0
+getRecommendedUnit	base/CvGameUtils.py	CvGameUtils.getRecommendedUnit	base		0
+getSecondRecommendedTech	base/CvGameUtils.py	CvGameUtils.getSecondRecommendedTech	base		0
+getUnitCostMod	RoMGameUtils.py	RoMGameUtils.getUnitCostMod	class	Config/RoMSettings.xml	16
+getUnitCostMod	base/CvGameUtils.py	CvGameUtils.getUnitCostMod	base		0
+getUpgradePriceOverride	RoMGameUtils.py	RoMGameUtils.getUpgradePriceOverride	class	Config/RoMSettings.xml	16
+getUpgradePriceOverride	base/CvGameUtils.py	CvGameUtils.getUpgradePriceOverride	base		0
+getWidgetHelp	BUG/WidgetUtil.py	getWidgetHelp	handler	Config/init.xml	124
+isActionRecommended	base/CvGameUtils.py	CvGameUtils.isActionRecommended	base		0
+isPlayerResearch	base/CvGameUtils.py	CvGameUtils.isPlayerResearch	base		0
+isVictory	base/CvGameUtils.py	CvGameUtils.isVictory	base		0
+isVictoryTest	base/CvGameUtils.py	CvGameUtils.isVictoryTest	base		0
+showExamineCityButton	base/CvGameUtils.py	CvGameUtils.showExamineCityButton	base		0
+showTechChooserButton	base/CvGameUtils.py	CvGameUtils.showTechChooserButton	base		0
+skipProductionPopup	base/CvGameUtils.py	CvGameUtils.skipProductionPopup	base		0
+skipResearchPopup	base/CvGameUtils.py	CvGameUtils.skipResearchPopup	base		0
+unitCannotMoveInto	base/CvGameUtils.py	CvGameUtils.unitCannotMoveInto	base		0
+updateColoredPlots	base/CvGameUtils.py	CvGameUtils.updateColoredPlots	base		0

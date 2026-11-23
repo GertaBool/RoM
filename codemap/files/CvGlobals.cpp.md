@@ -3,182 +3,271 @@
 Group: game data and XML loading. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
 - **60** `deleteInfoArray<class CvActionInfo>(std::vector<CvActionInfo*, std::allocator<CvActionInfo*>>&)`
+  - calls: CvActionInfo::`vector deleting dtor' [CvInfos.h]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvAdvisorInfo>(std::vector<CvAdvisorInfo*, std::allocator<CvAdvisorInfo*>>&)`
+  - calls: CvAdvisorInfo::~CvAdvisorInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvAnimationCategoryInfo>(std::vector<CvAnimationCategoryInfo*, std::allocator<CvAnimationCategoryInfo*>>&)`
+  - calls: CvAnimationCategoryInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvAnimationPathInfo>(std::vector<CvAnimationPathInfo*, std::allocator<CvAnimationPathInfo*>>&)`
+  - calls: CvAnimationPathInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvAttachableInfo>(std::vector<CvAttachableInfo*, std::allocator<CvAttachableInfo*>>&)`
+  - calls: CvAttachableInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvAutomateInfo>(std::vector<CvAutomateInfo*, std::allocator<CvAutomateInfo*>>&)`
+  - calls: CvAutomateInfo::`vector deleting dtor' [CvInfos.h]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvBonusClassInfo>(std::vector<CvBonusClassInfo*, std::allocator<CvBonusClassInfo*>>&)`
+  - calls: CvBonusClassInfo::~CvBonusClassInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvBonusInfo>(std::vector<CvBonusInfo*, std::allocator<CvBonusInfo*>>&)`
+  - calls: CvBonusInfo::~CvBonusInfo [CvInfos.cpp]
   - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvBonusInfo>
 - **60** `deleteInfoArray<class CvBuildInfo>(std::vector<CvBuildInfo*, std::allocator<CvBuildInfo*>>&)`
+  - calls: CvBuildInfo::~CvBuildInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvBuildingClassInfo>(std::vector<CvBuildingClassInfo*, std::allocator<CvBuildingClassInfo*>>&)`
+  - calls: CvBuildingClassInfo::~CvBuildingClassInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvBuildingInfo>(std::vector<CvBuildingInfo*, std::allocator<CvBuildingInfo*>>&)`
+  - calls: CvBuildingInfo::~CvBuildingInfo [CvInfos.cpp]
   - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvBuildingInfo>
 - **60** `deleteInfoArray<class CvCameraInfo>(std::vector<CvCameraInfo*, std::allocator<CvCameraInfo*>>&)`
+  - calls: CvCameraInfo::`vector deleting dtor' [CvInfos.h]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvCameraOverlayInfo>(std::vector<CvCameraOverlayInfo*, std::allocator<CvCameraOverlayInfo*>>&)`
+  - calls: CvCameraOverlayInfo::`vector deleting dtor' [CvInfoWater.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvCivicInfo>(std::vector<CvCivicInfo*, std::allocator<CvCivicInfo*>>&)`
+  - calls: CvCivicInfo::~CvCivicInfo [CvInfos.cpp]
   - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvCivicInfo>
 - **60** `deleteInfoArray<class CvCivicOptionInfo>(std::vector<CvCivicOptionInfo*, std::allocator<CvCivicOptionInfo*>>&)`
+  - calls: CvCivicOptionInfo::~CvCivicOptionInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvCivilizationInfo>(std::vector<CvCivilizationInfo*, std::allocator<CvCivilizationInfo*>>&)`
+  - calls: CvCivilizationInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvCivilizationInfo>
 - **60** `deleteInfoArray<class CvClimateInfo>(std::vector<CvClimateInfo*, std::allocator<CvClimateInfo*>>&)`
+  - calls: CvClimateInfo::~CvClimateInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvColorInfo>(std::vector<CvColorInfo*, std::allocator<CvColorInfo*>>&)`
+  - calls: CvColorInfo::`vector deleting dtor' [CvGameCoreDLL.h]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvCommandInfo>(std::vector<CvCommandInfo*, std::allocator<CvCommandInfo*>>&)`
+  - calls: CvCommandInfo::`vector deleting dtor' [CvInfos.h]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvCommerceInfo>(std::vector<CvCommerceInfo*, std::allocator<CvCommerceInfo*>>&)`
+  - calls: CvCommerceInfo::~CvCommerceInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvControlInfo>(std::vector<CvControlInfo*, std::allocator<CvControlInfo*>>&)`
+  - calls: CvControlInfo::`vector deleting dtor' [CvInfos.h]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvCorporationInfo>(std::vector<CvCorporationInfo*, std::allocator<CvCorporationInfo*>>&)`
+  - calls: CvCorporationInfo::~CvCorporationInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvCultureLevelInfo>(std::vector<CvCultureLevelInfo*, std::allocator<CvCultureLevelInfo*>>&)`
+  - calls: CvCultureLevelInfo::~CvCultureLevelInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvCursorInfo>(std::vector<CvCursorInfo*, std::allocator<CvCursorInfo*>>&)`
+  - calls: CvCursorInfo::~CvCursorInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvDiplomacyInfo>(std::vector<CvDiplomacyInfo*, std::allocator<CvDiplomacyInfo*>>&)`
+  - calls: CvDiplomacyInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvDiplomacyInfo>
 - **60** `deleteInfoArray<class CvEffectInfo>(std::vector<CvEffectInfo*, std::allocator<CvEffectInfo*>>&)`
+  - calls: CvEffectInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvEmphasizeInfo>(std::vector<CvEmphasizeInfo*, std::allocator<CvEmphasizeInfo*>>&)`
+  - calls: CvEmphasizeInfo::~CvEmphasizeInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvEntityEventInfo>(std::vector<CvEntityEventInfo*, std::allocator<CvEntityEventInfo*>>&)`
+  - calls: CvEntityEventInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvEraInfo>(std::vector<CvEraInfo*, std::allocator<CvEraInfo*>>&)`
+  - calls: CvEraInfo::~CvEraInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvEspionageMissionInfo>(std::vector<CvEspionageMissionInfo*, std::allocator<CvEspionageMissionInfo*>>&)`
+  - calls: CvEspionageMissionInfo::~CvEspionageMissionInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvEventInfo>(std::vector<CvEventInfo*, std::allocator<CvEventInfo*>>&)`
+  - calls: CvEventInfo::~CvEventInfo [CvInfos.cpp]
   - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvEventInfo>
 - **60** `deleteInfoArray<class CvEventTriggerInfo>(std::vector<CvEventTriggerInfo*, std::allocator<CvEventTriggerInfo*>>&)`
+  - calls: CvEventTriggerInfo::~CvEventTriggerInfo [CvInfos.cpp]
   - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvEventTriggerInfo>
 - **60** `deleteInfoArray<class CvFeatureInfo>(std::vector<CvFeatureInfo*, std::allocator<CvFeatureInfo*>>&)`
+  - calls: CvFeatureInfo::~CvFeatureInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvForceControlInfo>(std::vector<CvForceControlInfo*, std::allocator<CvForceControlInfo*>>&)`
+  - calls: CvForceControlInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvGameOptionInfo>(std::vector<CvGameOptionInfo*, std::allocator<CvGameOptionInfo*>>&)`
+  - calls: CvGameOptionInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvGameSpeedInfo>(std::vector<CvGameSpeedInfo*, std::allocator<CvGameSpeedInfo*>>&)`
+  - calls: CvGameSpeedInfo::~CvGameSpeedInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvGoodyInfo>(std::vector<CvGoodyInfo*, std::allocator<CvGoodyInfo*>>&)`
+  - calls: CvGoodyInfo::~CvGoodyInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvGraphicOptionInfo>(std::vector<CvGraphicOptionInfo*, std::allocator<CvGraphicOptionInfo*>>&)`
+  - calls: CvGraphicOptionInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvHandicapInfo>(std::vector<CvHandicapInfo*, std::allocator<CvHandicapInfo*>>&)`
+  - calls: CvHandicapInfo::~CvHandicapInfo [CvInfos.cpp]
   - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvHandicapInfo>
 - **60** `deleteInfoArray<class CvHurryInfo>(std::vector<CvHurryInfo*, std::allocator<CvHurryInfo*>>&)`
+  - calls: CvHurryInfo::~CvHurryInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvImprovementInfo>(std::vector<CvImprovementInfo*, std::allocator<CvImprovementInfo*>>&)`
+  - calls: CvImprovementInfo::~CvImprovementInfo [CvInfos.cpp]
   - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvImprovementInfo>
 - **60** `deleteInfoArray<class CvInfoBase>(std::vector<CvInfoBase*, std::allocator<CvInfoBase*>>&)`
+  - calls: CvInfoBase::`vector deleting dtor' [CvInfos.h] ⇢ CvColorInfo::`vector deleting dtor', CvUnitFormationInfo::`vector deleting dtor', CvCameraOverlayInfo::`vector deleting dtor', CvTerrainPlaneInfo::`vector deleting dtor', CvWaterPlaneInfo::`vector deleting dtor', CvAnimationCategoryInfo::`vector deleting dtor', CvAnimationPathInfo::`vector deleting dtor', CvArtInfoBuilding::`vector deleting dtor', CvArtInfoCivilization::`vector deleting dtor', CvArtInfoFeature::`vector deleting dtor', CvArtInfoImprovement::`vector deleting dtor', CvArtInfoTerrain::`vector deleting dtor', CvArtInfoUnit::`vector deleting dtor', CvAttachableInfo::`vector deleting dtor', CvCivilizationInfo::`vector deleting dtor', CvDiplomacyInfo::`vector deleting dtor', CvDiplomacyTextInfo::`vector deleting dtor', CvEffectInfo::`vector deleting dtor', CvEntityEventInfo::`vector deleting dtor', CvForceControlInfo::`vector deleting dtor', CvGameOptionInfo::`vector deleting dtor', CvGraphicOptionInfo::`vector deleting dtor', CvImprovementBonusInfo::`vector deleting dtor', CvInterfaceModeInfo::`vector deleting dtor', CvLandscapeInfo::`vector deleting dtor', CvMPOptionInfo::`vector deleting dtor', CvMainMenuInfo::`vector deleting dtor', CvPlayerColorInfo::`vector deleting dtor', CvPlayerOptionInfo::`vector deleting dtor', CvQuestInfo::`vector deleting dtor', CvRiverModelInfo::`vector deleting dtor', CvRouteModelInfo::`vector deleting dtor', CvSlideShowInfo::`vector deleting dtor', CvSlideShowRandomInfo::`vector deleting dtor', CvSpaceShipInfo::`vector deleting dtor', CvThroneRoomInfo::`vector deleting dtor', CvThroneRoomStyleInfo::`vector deleting dtor', CvTutorialInfo::`vector deleting dtor', CvWorldPickerInfo::`vector deleting dtor', CvArtInfoAsset::`vector deleting dtor', CvArtInfoBonus::`vector deleting dtor', CvArtInfoInterface::`vector deleting dtor', CvArtInfoLeaderhead::`vector deleting dtor', CvArtInfoMisc::`vector deleting dtor', CvArtInfoMovie::`vector deleting dtor', CvAssetInfoBase::`vector deleting dtor', CvAutomateInfo::`vector deleting dtor', CvCameraInfo::`vector deleting dtor', CvCommandInfo::`vector deleting dtor', CvControlInfo::`vector deleting dtor', CvHotkeyInfo::`vector deleting dtor', CvMissionInfo::`vector deleting dtor'
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvInterfaceModeInfo>(std::vector<CvInterfaceModeInfo*, std::allocator<CvInterfaceModeInfo*>>&)`
+  - calls: CvInterfaceModeInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvLandscapeInfo>(std::vector<CvLandscapeInfo*, std::allocator<CvLandscapeInfo*>>&)`
+  - calls: CvLandscapeInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvLeaderHeadInfo>(std::vector<CvLeaderHeadInfo*, std::allocator<CvLeaderHeadInfo*>>&)`
+  - calls: CvLeaderHeadInfo::~CvLeaderHeadInfo [CvInfos.cpp]
   - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvLeaderHeadInfo>
 - **60** `deleteInfoArray<class CvMPOptionInfo>(std::vector<CvMPOptionInfo*, std::allocator<CvMPOptionInfo*>>&)`
+  - calls: CvMPOptionInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvMainMenuInfo>(std::vector<CvMainMenuInfo*, std::allocator<CvMainMenuInfo*>>&)`
+  - calls: CvMainMenuInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvMissionInfo>(std::vector<CvMissionInfo*, std::allocator<CvMissionInfo*>>&)`
+  - calls: CvMissionInfo::`vector deleting dtor' [CvInfos.h]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvModLoadControlInfo>(std::vector<CvModLoadControlInfo*, std::allocator<CvModLoadControlInfo*>>&)`
+  - calls: CvModLoadControlInfo::~CvModLoadControlInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvPlayerColorInfo>(std::vector<CvPlayerColorInfo*, std::allocator<CvPlayerColorInfo*>>&)`
+  - calls: CvPlayerColorInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvPlayerOptionInfo>(std::vector<CvPlayerOptionInfo*, std::allocator<CvPlayerOptionInfo*>>&)`
+  - calls: CvPlayerOptionInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvProcessInfo>(std::vector<CvProcessInfo*, std::allocator<CvProcessInfo*>>&)`
+  - calls: CvProcessInfo::~CvProcessInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvProjectInfo>(std::vector<CvProjectInfo*, std::allocator<CvProjectInfo*>>&)`
+  - calls: CvProjectInfo::~CvProjectInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvPromotionInfo>(std::vector<CvPromotionInfo*, std::allocator<CvPromotionInfo*>>&)`
+  - calls: CvPromotionInfo::~CvPromotionInfo [CvInfos.cpp]
   - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvPromotionInfo>
 - **60** `deleteInfoArray<class CvPythonModulesInfo>(std::vector<CvPythonModulesInfo*, std::allocator<CvPythonModulesInfo*>>&)`
+  - calls: CvPythonModulesInfo::~CvPythonModulesInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvQuestInfo>(std::vector<CvQuestInfo*, std::allocator<CvQuestInfo*>>&)`
+  - calls: CvQuestInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvReligionInfo>(std::vector<CvReligionInfo*, std::allocator<CvReligionInfo*>>&)`
+  - calls: CvReligionInfo::~CvReligionInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvRiverInfo>(std::vector<CvRiverInfo*, std::allocator<CvRiverInfo*>>&)`
+  - calls: CvRiverInfo::~CvRiverInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvRiverModelInfo>(std::vector<CvRiverModelInfo*, std::allocator<CvRiverModelInfo*>>&)`
+  - calls: CvRiverModelInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvRouteInfo>(std::vector<CvRouteInfo*, std::allocator<CvRouteInfo*>>&)`
+  - calls: CvRouteInfo::~CvRouteInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvRouteModelInfo>(std::vector<CvRouteModelInfo*, std::allocator<CvRouteModelInfo*>>&)`
+  - calls: CvRouteModelInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvSeaLevelInfo>(std::vector<CvSeaLevelInfo*, std::allocator<CvSeaLevelInfo*>>&)`
+  - calls: CvSeaLevelInfo::~CvSeaLevelInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvSlideShowInfo>(std::vector<CvSlideShowInfo*, std::allocator<CvSlideShowInfo*>>&)`
+  - calls: CvSlideShowInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvSlideShowRandomInfo>(std::vector<CvSlideShowRandomInfo*, std::allocator<CvSlideShowRandomInfo*>>&)`
+  - calls: CvSlideShowRandomInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvSpaceShipInfo>(std::vector<CvSpaceShipInfo*, std::allocator<CvSpaceShipInfo*>>&)`
+  - calls: CvSpaceShipInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvSpecialBuildingInfo>(std::vector<CvSpecialBuildingInfo*, std::allocator<CvSpecialBuildingInfo*>>&)`
+  - calls: CvSpecialBuildingInfo::~CvSpecialBuildingInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvSpecialUnitInfo>(std::vector<CvSpecialUnitInfo*, std::allocator<CvSpecialUnitInfo*>>&)`
+  - calls: CvSpecialUnitInfo::~CvSpecialUnitInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvSpecialistInfo>(std::vector<CvSpecialistInfo*, std::allocator<CvSpecialistInfo*>>&)`
+  - calls: CvSpecialistInfo::~CvSpecialistInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvTechInfo>(std::vector<CvTechInfo*, std::allocator<CvTechInfo*>>&)`
+  - calls: CvTechInfo::~CvTechInfo [CvInfos.cpp]
   - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvTechInfo>
 - **60** `deleteInfoArray<class CvTerrainInfo>(std::vector<CvTerrainInfo*, std::allocator<CvTerrainInfo*>>&)`
+  - calls: CvTerrainInfo::~CvTerrainInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvTerrainPlaneInfo>(std::vector<CvTerrainPlaneInfo*, std::allocator<CvTerrainPlaneInfo*>>&)`
+  - calls: CvTerrainPlaneInfo::`vector deleting dtor' [CvInfoWater.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvThroneRoomCamera>(std::vector<CvThroneRoomCamera*, std::allocator<CvThroneRoomCamera*>>&)`
+  - calls: CvThroneRoomCamera::~CvThroneRoomCamera [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvThroneRoomInfo>(std::vector<CvThroneRoomInfo*, std::allocator<CvThroneRoomInfo*>>&)`
+  - calls: CvThroneRoomInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvThroneRoomStyleInfo>(std::vector<CvThroneRoomStyleInfo*, std::allocator<CvThroneRoomStyleInfo*>>&)`
+  - calls: CvThroneRoomStyleInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvTraitInfo>(std::vector<CvTraitInfo*, std::allocator<CvTraitInfo*>>&)`
+  - calls: CvTraitInfo::~CvTraitInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvTurnTimerInfo>(std::vector<CvTurnTimerInfo*, std::allocator<CvTurnTimerInfo*>>&)`
+  - calls: CvTurnTimerInfo::~CvTurnTimerInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvTutorialInfo>(std::vector<CvTutorialInfo*, std::allocator<CvTutorialInfo*>>&)`
+  - calls: CvTutorialInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvUnitArtStyleTypeInfo>(std::vector<CvUnitArtStyleTypeInfo*, std::allocator<CvUnitArtStyleTypeInfo*>>&)`
+  - calls: CvUnitArtStyleTypeInfo::~CvUnitArtStyleTypeInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvUnitClassInfo>(std::vector<CvUnitClassInfo*, std::allocator<CvUnitClassInfo*>>&)`
+  - calls: CvUnitClassInfo::~CvUnitClassInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvUnitFormationInfo>(std::vector<CvUnitFormationInfo*, std::allocator<CvUnitFormationInfo*>>&)`
+  - calls: CvUnitFormationInfo::`vector deleting dtor' [CvGameCoreDLL.h]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvUnitInfo>(std::vector<CvUnitInfo*, std::allocator<CvUnitInfo*>>&)`
+  - calls: CvUnitInfo::~CvUnitInfo [CvInfos.cpp]
   - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvUnitInfo>
 - **60** `deleteInfoArray<class CvUpkeepInfo>(std::vector<CvUpkeepInfo*, std::allocator<CvUpkeepInfo*>>&)`
+  - calls: CvUpkeepInfo::~CvUpkeepInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvVictoryInfo>(std::vector<CvVictoryInfo*, std::allocator<CvVictoryInfo*>>&)`
+  - calls: CvVictoryInfo::~CvVictoryInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvVoteInfo>(std::vector<CvVoteInfo*, std::allocator<CvVoteInfo*>>&)`
+  - calls: CvVoteInfo::~CvVoteInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvVoteSourceInfo>(std::vector<CvVoteSourceInfo*, std::allocator<CvVoteSourceInfo*>>&)`
+  - calls: CvVoteSourceInfo::~CvVoteSourceInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvWaterPlaneInfo>(std::vector<CvWaterPlaneInfo*, std::allocator<CvWaterPlaneInfo*>>&)`
+  - calls: CvWaterPlaneInfo::`vector deleting dtor' [CvInfoWater.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvWorldInfo>(std::vector<CvWorldInfo*, std::allocator<CvWorldInfo*>>&)`
+  - calls: CvWorldInfo::~CvWorldInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvWorldPickerInfo>(std::vector<CvWorldPickerInfo*, std::allocator<CvWorldPickerInfo*>>&)`
+  - calls: CvWorldPickerInfo::`vector deleting dtor' [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvYieldInfo>(std::vector<CvYieldInfo*, std::allocator<CvYieldInfo*>>&)`
+  - calls: CvYieldInfo::~CvYieldInfo [CvInfos.cpp]
   - called by (1): CvGlobals::deleteInfoArrays
 - **71** `readInfoArray<class CvBonusInfo>(FDataStreamBase*, std::vector<CvBonusInfo*, std::allocator<CvBonusInfo*>>&, char const*)`
   - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read [FDataStreamBase.h], deleteInfoArray<class CvBonusInfo>, operator new(unsigned int) [CvGameCoreDLL.cpp], CvBonusInfo::CvBonusInfo() [CvInfos.cpp], CvInfoBase::read(FDataStreamBase*) [CvInfos.cpp] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType [CvInfos.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
@@ -270,7 +359,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **384** `CvGlobals::init()` (exported)
   - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], FVariableSystem::FVariableSystem [FVariableSystem.inl], CvRandom::CvRandom [CvRandom.cpp], CvInitCore::CvInitCore [CvInitCore.cpp], CvDLLUtilityIFaceBase::initGlobals [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGameAI::CvGameAI [CvGameAI.cpp], CvMap::CvMap [CvMap.cpp], CvPlayerAI::initStatics [CvPlayerAI.cpp], CvTeamAI::initStatics [CvTeamAI.cpp], NiPoint3::NiPoint3(float, float, float) [CvGameCoreDLL.h], operator new[](unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
 - **529** `CvGlobals::uninit()` (exported)
-  - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvPlayerAI::freeStatics [CvPlayerAI.cpp], CvTeamAI::freeStatics [CvTeamAI.cpp], CvSelectionGroup::releaseSecondaryPathFinder [CvSelectionGroup.cpp], CvDLLUtilityIFaceBase::uninitGlobals [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
+  - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvGameAI::~CvGameAI [CvGameAI.cpp], CvMap::`vector deleting dtor' [CvMap.h], CvPlayerAI::freeStatics [CvPlayerAI.cpp], CvTeamAI::freeStatics [CvTeamAI.cpp], CvRandom::`vector deleting dtor' [CvGlobals.h], CvInitCore::`vector deleting dtor' [CvInitCore.cpp], CvSelectionGroup::releaseSecondaryPathFinder [CvSelectionGroup.cpp], CvDLLUtilityIFaceBase::uninitGlobals [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], FVariableSystem::~FVariableSystem [FVariableSystem.inl]
 - **582** `CvGlobals::clearTypesMap()` (exported)
   - calls: FVariableSystem::UnInit [FVariableSystem.inl]
   - called by (1): CvGlobals::deleteInfoArrays

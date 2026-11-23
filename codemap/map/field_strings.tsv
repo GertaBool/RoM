@@ -597,26 +597,26 @@ CvFeatureInfo::read	CvFeatureInfo	m_pi3DAudioScriptFootstepIndex	FootstepSounds	
 CvFeatureInfo::read	CvFeatureInfo	m_szEffectType	EffectType	GetChildXmlValByName	CvInfos.cpp	17625
 CvFeatureInfo::read	CvFeatureInfo	m_szOnUnitChangeTo	OnUnitChangeTo	GetChildXmlValByName	CvInfos.cpp	17600
 CvForceControlInfo::read	CvForceControlInfo	m_bDefault	bDefault	GetChildXmlValByName	CvInfos.cpp	26983
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_ASSIGN_CITY	getText	CvGame.cpp	10295
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_ASSIGN_CITY	operator=	CvGame.cpp	10295
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_DEFENSIVE_PACT	getText	CvGame.cpp	10219
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_DEFENSIVE_PACT	operator=	CvGame.cpp	10219
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_NO_TRADE	getText	CvGame.cpp	10253
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_NO_TRADE	operator=	CvGame.cpp	10253
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_PEACE	getText	CvGame.cpp	10235
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_PEACE	operator=	CvGame.cpp	10235
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_WAR	getText	CvGame.cpp	10271
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_WAR	operator=	CvGame.cpp	10271
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPEN_BORDERS	getText	CvGame.cpp	10211
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPEN_BORDERS	operator=	CvGame.cpp	10211
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPTION	getText	CvGame.cpp	10304
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPTION	operator=	CvGame.cpp	10304
-CvGame::doVoteResults	VoteSelectionSubData	szText	TXT_KEY_VOTE_RESULTS	getText	CvGame.cpp	10593
-CvGame::pageGraphics	CvGame	m_iPagingX	turn %d look (%d,%d) %s: in plots %d units %d cities %d, out plots %d units %d cities %d; paged out plots %d units %d cities %d	Format	CvGame.cpp	3086
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_ASSIGN_CITY	getText	CvGame.cpp	10362
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_ASSIGN_CITY	operator=	CvGame.cpp	10362
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_DEFENSIVE_PACT	getText	CvGame.cpp	10286
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_DEFENSIVE_PACT	operator=	CvGame.cpp	10286
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_NO_TRADE	getText	CvGame.cpp	10320
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_NO_TRADE	operator=	CvGame.cpp	10320
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_PEACE	getText	CvGame.cpp	10302
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_PEACE	operator=	CvGame.cpp	10302
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_WAR	getText	CvGame.cpp	10338
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_WAR	operator=	CvGame.cpp	10338
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPEN_BORDERS	getText	CvGame.cpp	10278
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPEN_BORDERS	operator=	CvGame.cpp	10278
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPTION	getText	CvGame.cpp	10371
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPTION	operator=	CvGame.cpp	10371
+CvGame::doVoteResults	VoteSelectionSubData	szText	TXT_KEY_VOTE_RESULTS	getText	CvGame.cpp	10660
+CvGame::pageGraphics	CvGame	m_iPagingX	turn %d look (%d,%d) %s: in plots %d units %d cities %d, out plots %d units %d cities %d; paged out plots %d units %d cities %d	Format	CvGame.cpp	3088
 CvGame::processDeferredReveals	CvGame	m_aiDeferredRevealPlots	turn %d bulk reveal: refreshed %d, queued %d	Format	CvGame.cpp	2407
-CvGame::processVote	VoteSelectionSubData	eOtherPlayer	  Vote for assigning %S to %d (%S) passes	logBBAI	CvGame.cpp	8821
-CvGame::read	CvGame	m_iNumSessions	TXT_KEY_MISC_RELOAD	addReplayMessage	CvGame.cpp	9393
-CvGame::read	CvGame	m_iNumSessions	TXT_KEY_MISC_RELOAD	getText	CvGame.cpp	9393
+CvGame::processVote	VoteSelectionSubData	eOtherPlayer	  Vote for assigning %S to %d (%S) passes	logBBAI	CvGame.cpp	8888
+CvGame::read	CvGame	m_iNumSessions	TXT_KEY_MISC_RELOAD	addReplayMessage	CvGame.cpp	9460
+CvGame::read	CvGame	m_iNumSessions	TXT_KEY_MISC_RELOAD	getText	CvGame.cpp	9460
 CvGame::startFlyoutMenu	FAStarNode	m_iData2	TXT_KEY_FLYOUT_MENU_MOVE_TO	getText	CvGameInterface.cpp	2240
 CvGame::startFlyoutMenu	FAStarNode	m_iData2	TXT_KEY_FLYOUT_MENU_MOVE_TO	operator=	CvGameInterface.cpp	2240
 CvGame::update	CvGame	m_iNumGameTurnActive	Turn-active count repaired from %d to %d on turn %d	logBBAI	CvGame.cpp	2208
@@ -1356,9 +1356,9 @@ CvTurnTimerInfo::read	CvTurnTimerInfo	m_iBaseTime	iBaseTime	GetChildXmlValByName
 CvTurnTimerInfo::read	CvTurnTimerInfo	m_iCityBonus	iCityBonus	GetChildXmlValByName	CvInfos.cpp	14912
 CvTurnTimerInfo::read	CvTurnTimerInfo	m_iFirstTurnMultiplier	iFirstTurnMultiplier	GetChildXmlValByName	CvInfos.cpp	14914
 CvTurnTimerInfo::read	CvTurnTimerInfo	m_iUnitBonus	iUnitBonus	GetChildXmlValByName	CvInfos.cpp	14913
-CvUnit::getName	CvUnit	m_szName	%s (%s)	Format	CvUnit.cpp	12409
-CvUnit::performInquisition	CvUnit	m_pUnitInfo	AS2D_PLAGUE	addMessage	CvUnit.cpp	17279
-CvUnit::performInquisition	CvUnit	m_pUnitInfo	AS2D_SABOTAGE	addMessage	CvUnit.cpp	17308
+CvUnit::getName	CvUnit	m_szName	%s (%s)	Format	CvUnit.cpp	12416
+CvUnit::performInquisition	CvUnit	m_pUnitInfo	AS2D_PLAGUE	addMessage	CvUnit.cpp	17286
+CvUnit::performInquisition	CvUnit	m_pUnitInfo	AS2D_SABOTAGE	addMessage	CvUnit.cpp	17315
 CvUnitClassInfo::read	CvUnitClassInfo	m_iInstanceCostModifier	iInstanceCostModifier	GetChildXmlValByName	CvInfos.cpp	9080
 CvUnitClassInfo::read	CvUnitClassInfo	m_iMaxGlobalInstances	iMaxGlobalInstances	GetChildXmlValByName	CvInfos.cpp	9077
 CvUnitClassInfo::read	CvUnitClassInfo	m_iMaxPlayerInstances	iMaxPlayerInstances	GetChildXmlValByName	CvInfos.cpp	9079

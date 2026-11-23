@@ -7,7 +7,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (2): FFreeListTrashArray<CvDeal>::add, ReadStreamableFFreeListTrashArray<class CvDeal>
 - **34** `CvDeal::~CvDeal()` (virtual)
   - calls: CvDeal::uninit, CLinkList<TradeData>::~CLinkList<struct TradeData> [LinkedList.h]
-  - called by (1): CvDeal::`scalar deleting dtor'
+  - called by (3): CvDeal::`scalar deleting dtor', FFreeListTrashArray<CvDeal>::removeAll, FFreeListTrashArray<CvDeal>::removeAt
 - **40** `CvDeal::init(int, PlayerTypes, PlayerTypes)`
   - calls: CvDeal::reset, CvDeal::setInitialGameTurn, CvGame::getGameTurn [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h]
   - called by (1): CvGame::implementDeal

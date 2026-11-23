@@ -94,16 +94,94 @@ def link(mapdir, listed, config):
             for ln, line in enumerate(open(path, encoding='latin-1'), 1):
                 for k, h in re.findall(r"""['"](\w+)['"]\s*:\s*self\.(\w+)""", line):
                     handlers.setdefault(k, []).append(('EventHandlerMap', 'CvEventManager.' + h, em, ln))
-    for dp, dn, fn in os.walk(config):
-        for f in sorted(fn):
-            if not f.endswith('.xml'): continue
-            p = os.path.join(dp, f)
-            for ln, line in enumerate(open(p, encoding='latin-1'), 1):
-                for ev in re.finditer(r'<event\s+([^>]*)>', line):
-                    at = dict(re.findall(r'(\w+)="([^"]*)"', ev.group(1)))
-                    if 'type' in at:
+    # Known event names (from DLL events.tsv and EventHandlerMap) for matching BUG <events> classes
+    known_events = {r['event'].lower(): r['event'] for r in read(os.path.join(mapdir, 'events.tsv'))}
+    known_events.update({ev.lower(): ev for ev in handlers})
+    # Known CvGameInterface callbacks called by the DLL (for matching BUG <gameutils> classes/handlers/listeners)
+    gi_callbacks = sorted({r['python_function'] for r in read(os.path.join(mapdir, 'python_calls.tsv'))
+                           if r['module'] == 'CvGameInterface'})
+    gi_cb_set = set(gi_callbacks)
+    gameutils_rows = []
+    # Base CvGameUtils class methods
+    for d in mods.get('CvGameUtils', []):
+        if d['kind'] == 'def' and '.' in d['name']:
+            mname = d['name'].split('.')[-1]
+            if mname in gi_cb_set:
+                gameutils_rows.append((mname, d['module'], d['name'], 'base', '', 0))
+    bug_opts = []
+    if config and os.path.isdir(config):
+        for dp, dn, fn in os.walk(config):
+            for f in sorted(fn):
+                if not f.endswith('.xml'): continue
+                p = os.path.join(dp, f)
+                rel_cfg = 'Config/' + os.path.relpath(p, config)
+                text = open(p, encoding='latin-1').read()
+                mod_m = re.search(r'<mod\s+([^>]*)>', text, re.S)
+                mod_at = dict(re.findall(r'(\w+)\s*=\s*"([^"]*)"', mod_m.group(1))) if mod_m else {}
+                default_mod = mod_at.get('module', '')
+                cur_opt_mod = mod_at.get('id', '')
+                # BUG options blocks (<options id="ModId"> ... <option id="..." get="..." set="..."/>)
+                for m_opt in re.finditer(r'<(options|option)\s+([^>]*)>', text, re.S):
+                    tag, body = m_opt.group(1), m_opt.group(2)
+                    at = dict(re.findall(r'(\w+)\s*=\s*"([^"]*)"', body))
+                    ln = text.count('\n', 0, m_opt.start()) + 1
+                    if tag == 'options':
+                        cur_opt_mod = at.get('id', cur_opt_mod)
+                    elif tag == 'option' and cur_opt_mod and 'id' in at:
+                        oid = at['id']
+                        getter = at.get('get', ('is' if at.get('type') == 'boolean' else 'get') + oid)
+                        setter = at.get('set', 'set' + oid)
+                        bug_opts.append((cur_opt_mod, oid, getter, setter, rel_cfg, ln))
+                for m_ev in re.finditer(r'<(event|events|gameutils)\s+([^>]*)>', text, re.S):
+                    tag, body = m_ev.group(1), m_ev.group(2)
+                    at = dict(re.findall(r'(\w+)\s*=\s*"([^"]*)"', body))
+                    ln = text.count('\n', 0, m_ev.start()) + 1
+                    if tag == 'event' and 'type' in at:
+                        mname = at.get('module') or default_mod or '?'
                         handlers.setdefault(at['type'], []).append(
-                            ('BUG config', at.get('module', '?') + '.' + at.get('function', '?'), 'Config/' + os.path.relpath(p, config), ln))
+                            ('BUG config', mname + '.' + at.get('function', '?'), rel_cfg, ln))
+                    elif tag == 'events':
+                        mname = at.get('module') or default_mod
+                        cname = at.get('class') or mname
+                        if mname and mname in mods:
+                            existing = {(h[1], h[2]) for hs in handlers.values() for h in hs}
+                            for d in mods[mname]:
+                                if d['kind'] != 'def': continue
+                                short = d['name'].split('.')[-1]
+                                if not short.startswith('on') or len(short) <= 2: continue
+                                if cname and '.' in d['name'] and d['name'].split('.')[0] != cname: continue
+                                ev_key = short[2:].lower()
+                                ev_name = known_events.get(ev_key)
+                                if ev_name and not any(d['module'] == ex[1] and short in ex[0] for ex in existing):
+                                    handlers.setdefault(ev_name, []).append(
+                                        ('BUG config', mname + '.' + d['name'], rel_cfg, ln))
+                    elif tag == 'gameutils':
+                        mname = at.get('module') or default_mod
+                        cname = at.get('class', '')
+                        hname = at.get('handler', '')
+                        lname = at.get('listener', '')
+                        if not mname or mname not in mods: continue
+                        if hname:
+                            hit = next((d for d in mods[mname] if d['kind'] == 'def' and d['name'].split('.')[-1] == hname), None)
+                            cb = at.get('callback') or hname
+                            if hit:
+                                gameutils_rows.append((cb, hit['module'], hit['name'], 'handler', rel_cfg, ln))
+                        if lname:
+                            hit = next((d for d in mods[mname] if d['kind'] == 'def' and d['name'].split('.')[-1] == lname), None)
+                            cb = at.get('callback') or (lname[:-8] if lname.endswith('Listener') else lname)
+                            if hit:
+                                gameutils_rows.append((cb, hit['module'], hit['name'], 'listener', rel_cfg, ln))
+                        if cname or (not hname and not lname):
+                            for d in mods[mname]:
+                                if d['kind'] != 'def': continue
+                                if cname and not d['name'].startswith(cname + '.'): continue
+                                short = d['name'].split('.')[-1]
+                                if short in gi_cb_set:
+                                    gameutils_rows.append((short, d['module'], d['name'], 'class', rel_cfg, ln))
+    write(os.path.join(mapdir, 'py_gameutils.tsv'), ['callback', 'module', 'handler', 'kind', 'config_file', 'line'],
+          sorted(set(gameutils_rows)))
+    write(os.path.join(mapdir, 'py_bug_options.tsv'), ['mod_id', 'option_id', 'getter', 'setter', 'config_file', 'line'],
+          sorted(set(bug_opts)))
     write(os.path.join(mapdir, 'py_event_registrations.tsv'), ['event', 'source', 'handler', 'file', 'line'],
           sorted(((ev,) + h for ev, hs in handlers.items() for h in hs), key=lambda r: r[:4] + (int(r[4]),)))
     rows = []

@@ -1,0 +1,470 @@
+mod_id	option_id	getter	setter	config_file	line
+ACO	Debug	isDebug	setDebug	Config/Advanced Combat Odds.xml	19
+ACO	Enabled	isEnabled	setEnabled	Config/Advanced Combat Odds.xml	18
+ACO	ForceOriginalOdds	isForceOriginalOdds	setForceOriginalOdds	Config/Advanced Combat Odds.xml	21
+ACO	IgnoreBarbFreeWins	isIgnoreBarbFreeWins	setIgnoreBarbFreeWins	Config/Advanced Combat Odds.xml	23
+ACO	MergeShortBars	isMergeShortBars	setMergeShortBars	Config/Advanced Combat Odds.xml	28
+ACO	ShowModifierLabels	isShowModifierLabels	setShowModifierLabels	Config/Advanced Combat Odds.xml	30
+ACO	SwapViews	isSwapViews	setSwapViews	Config/Advanced Combat Odds.xml	26
+AbandonCity	Autolog	isAutolog	setAutolog	Config/Abandon City Mod.xml	30
+AbandonCity	Enabled	isEnabled	setEnabled	Config/Abandon City Mod.xml	18
+Actions	AskDeclareWarUnits	isAskDeclareWarUnits	setAskDeclareWarUnits	Config/BULL Actions.xml	19
+Actions	IgnoreHarmlessBarbarians	isIgnoreHarmlessBarbarians	setIgnoreHarmlessBarbarians	Config/BULL Actions.xml	29
+Actions	PreChopForests	isPreChopForests	setPreChopForests	Config/BULL Actions.xml	35
+Actions	PreChopImprovements	isPreChopImprovements	setPreChopImprovements	Config/BULL Actions.xml	37
+Actions	SentryHealing	isSentryHealing	setSentryHealing	Config/BULL Actions.xml	23
+Actions	SentryHealingOnlyNeutral	isSentryHealingOnlyNeutral	setSentryHealingOnlyNeutral	Config/BULL Actions.xml	25
+AdvUnitNaming	ByEraAndClass	getByEraAndClass	setByEraAndClass	Config/Unit Naming.xml	104
+Advisors	BugFinanceAdvisor	isBugFinanceAdvisor	setBugFinanceAdvisor	Config/BUG Advisors.xml	20
+Advisors	BugGraphsLogScale	isGraphsLogScale	setBugGraphsLogScale	Config/BUG Advisors.xml	81
+Advisors	BugGraphsTab	isGraphs	setBugGraphsTab	Config/BUG Advisors.xml	78
+Advisors	BugInfoWonders	isShowInfoWonders	setBugInfoWonders	Config/BUG Advisors.xml	87
+Advisors	BugInfoWondersPlayerColor	isWonderListUsePlayerColor	setBugInfoWondersPlayerColor	Config/BUG Advisors.xml	90
+Advisors	BugMA	isBUG_MA	setBugMA	Config/BUG Advisors.xml	42
+Advisors	BugMembersTab	isMembers	setBugMembersTab	Config/BUG Advisors.xml	73
+Advisors	BugReligiousTab	isReligious	setBugReligiousTab	Config/BUG Advisors.xml	58
+Advisors	BugStatsTab	isShowImprovements	setBugStatsTab	Config/BUG Advisors.xml	84
+Advisors	BugVictoriesTab	isVictories	setBugVictoriesTab	Config/BUG Advisors.xml	70
+Advisors	EFADealTurnsLeft	isShowDealTurnsLeft	setEFADealTurnsLeft	Config/BUG Advisors.xml	37
+Advisors	EFAGlanceTab	isShowGlance	setEFAGlanceTab	Config/BUG Advisors.xml	25
+Advisors	EFAImprovedInfo	isUseImprovedEFAInfo	setEFAImprovedInfo	Config/BUG Advisors.xml	34
+Advisors	GPTechPrefs	isShowGPTechPrefs	setGPTechPrefs	Config/BUG Advisors.xml	47
+Advisors	Sevopedia	isSevopedia	setSevopedia	Config/BUG Advisors.xml	95
+Advisors	SevopediaSortItemList	isSortSevopedia	setSevopediaSortItemList	Config/BUG Advisors.xml	98
+Advisors	ShowTechEra	isShowTechEra	setShowTechEra	Config/BUG Advisors.xml	53
+Advisors	WideTechScreen	isWideTechScreen	setWideTechScreen	Config/BUG Advisors.xml	50
+AutoSave	CreateEndSave	isCreateEndSave	setCreateEndSave	Config/AutoSave.xml	22
+AutoSave	CreateExitSave	isCreateExitSave	setCreateExitSave	Config/AutoSave.xml	25
+AutoSave	CreateStartSave	isCreateStartSave	setCreateStartSave	Config/AutoSave.xml	19
+AutoSave	UsePlayerName	isUsePlayerName	setUsePlayerName	Config/AutoSave.xml	28
+Autolog	ColorCoding	isColorCoding	setColorCoding	Config/Autolog.xml	62
+Autolog	DefaultFileName	isUseDefaultFileName	setUseDefaultFileName	Config/Autolog.xml	33
+Autolog	Enabled	isEnabled	setEnabled	Config/Autolog.xml	21
+Autolog	FileName	getFileName	setFileName	Config/Autolog.xml	47
+Autolog	FilePath	getFilePath	setFilePath	Config/Autolog.xml	40
+Autolog	IBT	isShowIBT	setShowIBT	Config/Autolog.xml	73
+Autolog	LogAttitude	isLogAttitude	setLogAttitude	Config/Autolog.xml	183
+Autolog	LogBuildCompleted	isLogBuildCompleted	setLogBuildCompleted	Config/Autolog.xml	97
+Autolog	LogBuildStarted	isLogBuildStarted	setLogBuildStarted	Config/Autolog.xml	92
+Autolog	LogCityBorders	isLogCityBorders	setLogCityBorders	Config/Autolog.xml	129
+Autolog	LogCityFounded	isLogCityFounded	setLogCityFounded	Config/Autolog.xml	119
+Autolog	LogCityGrowth	isLogCityGrowth	setLogCityGrowth	Config/Autolog.xml	124
+Autolog	LogCityOwner	isLogCityOwner	setLogCityOwner	Config/Autolog.xml	134
+Autolog	LogCityRazed	isLogCityRazed	setLogCityRazed	Config/Autolog.xml	139
+Autolog	LogCityWhipStatus	isLogCityWhipStatus	setLogCityWhipStatus	Config/Autolog.xml	144
+Autolog	LogCivicDemand	isLogCivicDemand	setLogCivicDemand	Config/Autolog.xml	237
+Autolog	LogCivics	isLogCivics	setLogCivics	Config/Autolog.xml	198
+Autolog	LogCombat	isLogCombat	setLogCombat	Config/Autolog.xml	205
+Autolog	LogContact	isLogContact	setLogContact	Config/Autolog.xml	178
+Autolog	LogCorporation	isLogCorporation	setLogCorporation	Config/Autolog.xml	161
+Autolog	LogEmbargoDemand	isLogEmbargoDemand	setLogEmbargoDemand	Config/Autolog.xml	247
+Autolog	LogGA	isLogGoldenAge	setLogGoldenAge	Config/Autolog.xml	171
+Autolog	LogGP	isLogGreatPeople	setLogGreatPeople	Config/Autolog.xml	166
+Autolog	LogGoodies	isLogTribalVillage	setLogTribalVillage	Config/Autolog.xml	151
+Autolog	LogImprovements	isLogImprovements	setLogImprovements	Config/Autolog.xml	107
+Autolog	LogPillage	isLogPillage	setLogPillage	Config/Autolog.xml	215
+Autolog	LogProjects	isLogProjectCompleted	setLogProjectCompleted	Config/Autolog.xml	102
+Autolog	LogPromotions	isLogPromotion	setLogPromotion	Config/Autolog.xml	210
+Autolog	LogReligion	isLogReligion	setLogReligion	Config/Autolog.xml	156
+Autolog	LogReligionDemand	isLogReligionDemand	setLogReligionDemand	Config/Autolog.xml	232
+Autolog	LogSliders	isLogSliders	setLogSliders	Config/Autolog.xml	112
+Autolog	LogTech	isLogTechnology	setLogTechnology	Config/Autolog.xml	87
+Autolog	LogTradeOffer	isLogTradeOffer	setLogTradeOffer	Config/Autolog.xml	222
+Autolog	LogTributeDemand	isLogTributeDemand	setLogTributeDemand	Config/Autolog.xml	227
+Autolog	LogVassals	isLogVassals	setLogVassals	Config/Autolog.xml	193
+Autolog	LogWar	isLogWar	setLogWar	Config/Autolog.xml	188
+Autolog	LogWarDemand	isLogWarDemand	setLogWarDemand	Config/Autolog.xml	242
+Autolog	LoggingOn	isLoggingOn	setLoggingOn	Config/Autolog.xml	19
+Autolog	Prefix	getPrefix	setPrefix	Config/Autolog.xml	78
+Autolog	Silent	isSilent	setSilent	Config/Autolog.xml	26
+BUFFY	Enabled	isEnabled	setEnabled	Config/BUFFY.xml	15
+BUFFY	WarningsDawnOfMan	isWarningsDawnOfMan	setWarningsDawnOfMan	Config/BUFFY.xml	19
+BUFFY	WarningsSettings	isWarningsSettings	setWarningsSettings	Config/BUFFY.xml	21
+BetterEspionage	BadRatioColor	getBadRatioColor	setBadRatioColor	Config/Better Espionage.xml	52
+BetterEspionage	CloseMissionColor	getCloseMissionColor	setCloseMissionColor	Config/Better Espionage.xml	69
+BetterEspionage	DefaultRatioColor	getDefaultRatioColor	setDefaultRatioColor	Config/Better Espionage.xml	30
+BetterEspionage	Enabled	isEnabled	setEnabled	Config/Better Espionage.xml	18
+BetterEspionage	GoodRatioColor	getGoodRatioColor	setGoodRatioColor	Config/Better Espionage.xml	41
+BetterEspionage	PossibleMissionColor	getPossibleMissionColor	setPossibleMissionColor	Config/Better Espionage.xml	58
+BetterEspionage	ShowCalculatedInformation	isShowCalculatedInformation	setShowCalculatedInformation	Config/Better Espionage.xml	24
+CityBar	AirportIcons	isAirportIcons	setAirportIcons	Config/BULL City Bar.xml	18
+CityBar	BaseProduction	isBaseProduction	setBaseProduction	Config/BULL City Bar.xml	40
+CityBar	BaseValues	isBaseValues	setBaseValues	Config/BULL City Bar.xml	38
+CityBar	BuildingActualEffects	isBuildingActualEffects	setBuildingActualEffects	Config/BULL City Bar.xml	42
+CityBar	BuildingIcons	isBuildingIcons	setBuildingIcons	Config/BULL City Bar.xml	55
+CityBar	Commerce	isCommerce	setCommerce	Config/BULL City Bar.xml	52
+CityBar	CultureTurns	isCultureTurns	setCultureTurns	Config/BULL City Bar.xml	58
+CityBar	DraftAnger	isDraftAnger	setDraftAnger	Config/BULL City Bar.xml	33
+CityBar	FoodAssist	isFoodAssist	setFoodAssist	Config/BULL City Bar.xml	36
+CityBar	GreatPersonTurns	isGreatPersonTurns	setGreatPersonTurns	Config/BULL City Bar.xml	60
+CityBar	Happiness	isHappiness	setHappiness	Config/BULL City Bar.xml	28
+CityBar	Health	isHealth	setHealth	Config/BULL City Bar.xml	26
+CityBar	HideInstructions	isHideInstructions	setHideInstructions	Config/BULL City Bar.xml	68
+CityBar	HurryAnger	isHurryAnger	setHurryAnger	Config/BULL City Bar.xml	31
+CityBar	HurryAssist	isHurryAssist	setHurryAssist	Config/BULL City Bar.xml	45
+CityBar	HurryAssistIncludeCurrent	isHurryAssistIncludeCurrent	setHurryAssistIncludeCurrent	Config/BULL City Bar.xml	47
+CityBar	RevoltChance	isRevoltChance	setRevoltChance	Config/BULL City Bar.xml	65
+CityBar	Specialists	isSpecialists	setSpecialists	Config/BULL City Bar.xml	63
+CityBar	StarvationTurns	isStarvationTurns	setStarvationTurns	Config/BULL City Bar.xml	21
+CityBar	TradeDetail	isTradeDetail	setTradeDetail	Config/BULL City Bar.xml	50
+CityScreen	Anger_Counter	isShowAngerCounter	setAnger_Counter	Config/BUG City Screen.xml	69
+CityScreen	CultureTurns	isShowCultureTurns	setCultureTurns	Config/BUG City Screen.xml	56
+CityScreen	FoodAssist	isShowFoodAssist	setFoodAssist	Config/BUG City Screen.xml	43
+CityScreen	GreatPersonInfo	isShowCityGreatPersonInfo	setGreatPersonInfo	Config/BUG City Screen.xml	64
+CityScreen	GreatPersonTurns	isShowGreatPersonTurns	setGreatPersonTurns	Config/BUG City Screen.xml	61
+CityScreen	OnlyPresentCorporations	isShowOnlyPresentCorporations	setOnlyPresentCorporations	Config/BUG City Screen.xml	77
+CityScreen	OnlyPresentReligions	isShowOnlyPresentReligions	setOnlyPresentReligions	Config/BUG City Screen.xml	74
+CityScreen	ProductionDecayHover	isShowProductionDecayHover	setProductionDecayHover	Config/BUG City Screen.xml	107
+CityScreen	ProductionDecayQueue	isShowProductionDecayQueue	setProductionDecayQueue	Config/BUG City Screen.xml	98
+CityScreen	ProductionPopupTrainCivilianUnitsForever	isProductionPopupTrainCivilianUnitsForever	setProductionPopupTrainCivilianUnitsForever	Config/BUG City Screen.xml	117
+CityScreen	ProductionPopupTrainMilitaryUnitsForever	isProductionPopupTrainMilitaryUnitsForever	setProductionPopupTrainMilitaryUnitsForever	Config/BUG City Screen.xml	119
+CityScreen	ProductionStarted	isShowProductionStarted	setProductionStarted	Config/BUG City Screen.xml	93
+CityScreen	RawYields	isShowRawYields	setRawYields	Config/BUG City Screen.xml	20
+CityScreen	WhipAssist	isShowWhipAssist	setWhipAssist	Config/BUG City Screen.xml	48
+CityScreen	WhipAssistOverflowCountCurrentProduction	isWhipAssistOverflowCountCurrentProduction	setWhipAssistOverflowCountCurrentProduction	Config/BUG City Screen.xml	51
+Civ4lerts	CityCanHurryGold	isShowCityCanHurryGoldAlert	setShowCityCanHurryGoldAlert	Config/Civ4lerts.xml	74
+Civ4lerts	CityCanHurryPop	isShowCityCanHurryPopAlert	setShowCityCanHurryPopAlert	Config/Civ4lerts.xml	69
+Civ4lerts	CityGrowth	isShowCityGrowthAlert	setShowCityGrowthAlert	Config/Civ4lerts.xml	33
+Civ4lerts	CityHappiness	isShowCityHappinessAlert	setShowCityHappinessAlert	Config/Civ4lerts.xml	43
+Civ4lerts	CityHealthiness	isShowCityHealthinessAlert	setShowCityHealthinessAlert	Config/Civ4lerts.xml	53
+Civ4lerts	CityOccupation	isShowCityOccupationAlert	setShowCityOccupationAlert	Config/Civ4lerts.xml	63
+Civ4lerts	CityPendingGrowth	isShowCityPendingGrowthAlert	setShowCityPendingGrowthAlert	Config/Civ4lerts.xml	28
+Civ4lerts	CityPendingHappiness	isShowCityPendingHappinessAlert	setShowCityPendingHappinessAlert	Config/Civ4lerts.xml	38
+Civ4lerts	CityPendingHealthiness	isShowCityPendingHealthinessAlert	setShowCityPendingHealthinessAlert	Config/Civ4lerts.xml	48
+Civ4lerts	CityPendingOccupation	isShowCityPendingOccupationAlert	setShowCityPendingOccupationAlert	Config/Civ4lerts.xml	58
+Civ4lerts	Enabled	isEnabled	setEnabled	Config/Civ4lerts.xml	21
+Civ4lerts	GoldPerTurnTrade	isShowGoldPerTurnTradeAlert	setShowGoldPerTurnTradeAlert	Config/Civ4lerts.xml	92
+Civ4lerts	GoldTrade	isShowGoldTradeAlert	setShowGoldTradeAlert	Config/Civ4lerts.xml	81
+Civ4lerts	RefusesToTalk	isShowRefusesToTalkAlert	setShowRefusesToTalkAlert	Config/Civ4lerts.xml	105
+Civ4lerts	WorstEnemy	isShowWorstEnemyAlert	setShowWorstEnemyAlert	Config/Civ4lerts.xml	108
+Core	CheckForUpdates	isCheckForUpdates	setCheckForUpdates	Config/BUG Core.xml	43
+Core	LastSvnCheck	getLastSvnCheck	setLastSvnCheck	Config/BUG Core.xml	68
+Core	LocalRoot	getLocalRoot	setLocalRoot	Config/BUG Core.xml	49
+Core	LocalVersion	getLocalVersion	setLocalVersion	Config/BUG Core.xml	54
+Core	LogTime	isLogTime	setLogTime	Config/BUG Core.xml	36
+Core	OptionsScreenOpened	isOptionsScreenOpened	setOptionsScreenOpened	Config/BUG Core.xml	20
+Core	RepositoryUrl	getRepositoryUrl	setRepositoryUrl	Config/BUG Core.xml	58
+Core	RepositoryVersion	getRepositoryVersion	setRepositoryVersion	Config/BUG Core.xml	63
+CustDomAdv	Enabled	isEnabled	setEnabled	Config/Customizable Domestic Advisor.xml	21
+EnhancedTechConquest	BaseTechnologyTransferPercent	getBaseTechnologyTransferPercent	setBaseTechnologyTransferPercent	Config/EnhancedTechConquest.new.xml	23
+EnhancedTechConquest	CompleteTechnologyDiscovery	isCompleteTechnologyDiscovery	setCompleteTechnologyDiscovery	Config/EnhancedTechConquest.new.xml	18
+EnhancedTechConquest	DisableFullTechnologyTransfer	isDisableFullTechnologyTransfer	setDisableFullTechnologyTransfer	Config/EnhancedTechConquest.new.xml	22
+EnhancedTechConquest	PercentagePerCityPopulation	getPercentagePerCityPopulation	setPercentagePerCityPopulation	Config/EnhancedTechConquest.new.xml	24
+EnhancedTechConquest	RandomTechnologyTransferAmount	isRandomTechnologyTransferAmount	setRandomTechnologyTransferAmount	Config/EnhancedTechConquest.new.xml	20
+EnhancedTechConquest	TechnologyTransferCount	getTechnologyTransferCount	setTechnologyTransferCount	Config/EnhancedTechConquest.new.xml	19
+EnhancedTechConquest	TechnologyTransferIgnorePrereq	isTechnologyTransferIgnorePrereq	setTechnologyTransferIgnorePrereq	Config/EnhancedTechConquest.new.xml	21
+EventSigns	Enabled	isEnabled	setEnabled	Config/EventSigns.xml	18
+MainInterface	CityArrows	isShowCityCycleArrows	setCityArrows	Config/BUG Main Interface.xml	60
+MainInterface	Combat_Counter	isShowGGProgressBar	setCombat_Counter	Config/BUG Main Interface.xml	48
+MainInterface	FieldOfView	isShowFieldOfView	setFieldOfView	Config/BUG Main Interface.xml	70
+MainInterface	FieldOfView_Remember	isRememberFieldOfView	setFieldOfView_Remember	Config/BUG Main Interface.xml	73
+MainInterface	FieldOfView_Value	getFieldOfView	setFieldOfView	Config/BUG Main Interface.xml	76
+MainInterface	GPBar	isShowGPProgressBar	setGPBar	Config/BUG Main Interface.xml	35
+MainInterface	GoldRateWarning	isGoldRateWarning	setGoldRateWarning	Config/BUG Main Interface.xml	30
+MainInterface	MinMax_Commerce	isShowMinMaxCommerceButtons	setMinMax_Commerce	Config/BUG Main Interface.xml	53
+MainInterface	OptionsButton	isShowOptionsButton	setShowOptionsButton	Config/BUG Main Interface.xml	25
+MainInterface	OptionsKey	isShowOptionsKeyReminder	setShowOptionsKeyReminder	Config/BUG Main Interface.xml	20
+MainInterface	ProgressBarsTickMarks	isShowpBarTickMarks	setProgressBarsTickMarks	Config/BUG Main Interface.xml	65
+MainInterface	StackMovementPoints	isShowStackMovementPoints	setStackMovementPoints	Config/BUG Main Interface.xml	84
+MainInterface	StackPromotionCounts	isShowStackPromotionCounts	setStackPromotionCounts	Config/BUG Main Interface.xml	92
+MainInterface	StackPromotions	isShowStackPromotions	setStackPromotions	Config/BUG Main Interface.xml	89
+MainInterface	UnitMovementPointsFraction	isShowUnitMovementPointsFraction	setUnitMovementPointsFraction	Config/BUG Main Interface.xml	81
+MapFinder	Enabled	isEnabled	setEnabled	Config/MapFinder.xml	18
+MapFinder	Path	getPath	setPath	Config/MapFinder.xml	21
+MapFinder	RegenerationLimit	getRegenerationLimit	setRegenerationLimit	Config/MapFinder.xml	38
+MapFinder	RuleFile	getRuleFile	setRuleFile	Config/MapFinder.xml	25
+MapFinder	SaveLimit	getSaveLimit	setSaveLimit	Config/MapFinder.xml	40
+MapFinder	SavePath	getSavePath	setSavePath	Config/MapFinder.xml	23
+MiscHover	BaseCommerce	isBaseCommerce	setBaseCommerce	Config/BULL Misc Hovers.xml	61
+MiscHover	BonusTradeDenial	isBonusTradeDenial	setBonusTradeDenial	Config/BULL Misc Hovers.xml	55
+MiscHover	BuildingActualEffects	isBuildingActualEffects	setBuildingActualEffects	Config/BULL Misc Hovers.xml	43
+MiscHover	BuildingAdditionalCommerce	isBuildingAdditionalCommerce	setBuildingAdditionalCommerce	Config/BULL Misc Hovers.xml	72
+MiscHover	BuildingAdditionalDefense	isBuildingAdditionalDefense	setBuildingAdditionalDefense	Config/BULL Misc Hovers.xml	80
+MiscHover	BuildingAdditionalFood	isBuildingAdditionalFood	setBuildingAdditionalFood	Config/BULL Misc Hovers.xml	68
+MiscHover	BuildingAdditionalGreatPeople	isBuildingAdditionalGreatPeople	setBuildingAdditionalGreatPeople	Config/BULL Misc Hovers.xml	78
+MiscHover	BuildingAdditionalHappiness	isBuildingAdditionalHappiness	setBuildingAdditionalHappiness	Config/BULL Misc Hovers.xml	76
+MiscHover	BuildingAdditionalHealth	isBuildingAdditionalHealth	setBuildingAdditionalHealth	Config/BULL Misc Hovers.xml	74
+MiscHover	BuildingAdditionalProduction	isBuildingAdditionalProduction	setBuildingAdditionalProduction	Config/BULL Misc Hovers.xml	70
+MiscHover	BuildingSavedMaintenance	isBuildingSavedMaintenance	setBuildingSavedMaintenance	Config/BULL Misc Hovers.xml	66
+MiscHover	CDAZoomCityDetails	isCDAZoomCityDetails	setCDAZoomCityDetails	Config/BULL Misc Hovers.xml	99
+MiscHover	ConscriptLimit	isConscriptLimit	setConscriptLimit	Config/BULL Misc Hovers.xml	88
+MiscHover	ConscriptUnit	isConscriptUnit	setConscriptUnit	Config/BULL Misc Hovers.xml	86
+MiscHover	GreatPeopleRateBreakdown	isGreatPeopleRateBreakdown	setGreatPeopleRateBreakdown	Config/BULL Misc Hovers.xml	63
+MiscHover	HurryOverflow	isHurryOverflow	setHurryOverflow	Config/BULL Misc Hovers.xml	91
+MiscHover	HurryOverflowIncludeCurrent	isHurryOverflowIncludeCurrent	setHurryOverflowIncludeCurrent	Config/BULL Misc Hovers.xml	93
+MiscHover	LatLongCoords	isLatLongCoords	setLatLongCoords	Config/BULL Misc Hovers.xml	27
+MiscHover	LeaderheadDefensivePacts	isLeaderheadDefensivePacts	setLeaderheadDefensivePacts	Config/BULL Misc Hovers.xml	22
+MiscHover	LeaderheadHiddenAttitude	isLeaderheadHiddenAttitude	setLeaderheadHiddenAttitude	Config/BULL Misc Hovers.xml	18
+MiscHover	LeaderheadWorstEnemy	isLeaderheadWorstEnemy	setLeaderheadWorstEnemy	Config/BULL Misc Hovers.xml	20
+MiscHover	PartialBuilds	isPartialBuilds	setPartialBuilds	Config/BULL Misc Hovers.xml	29
+MiscHover	RemoveSpecialist	isRemoveSpecialist	setRemoveSpecialist	Config/BULL Misc Hovers.xml	96
+MiscHover	SpedUpTechs	isSpedUpTechs	setSpedUpTechs	Config/BULL Misc Hovers.xml	48
+MiscHover	TechTradeDenial	isTechTradeDenial	setTechTradeDenial	Config/BULL Misc Hovers.xml	50
+MiscHover	UnitExperience	isUnitExperience	setUnitExperience	Config/BULL Misc Hovers.xml	36
+MiscHover	UnitExperienceModifiers	isUnitExperienceModifiers	setUnitExperienceModifiers	Config/BULL Misc Hovers.xml	38
+MiscHover	UpdateUnitNameOnUpgrade	isUpdateUnitNameOnUpgrade	setUpdateUnitNameOnUpgrade	Config/BULL Misc Hovers.xml	34
+MoreCiv4lerts	BonusTrade	isShowBonusTradeAlert	setShowBonusTradeAlert	Config/MoreCiv4lerts.xml	35
+MoreCiv4lerts	CityFounded	isShowCityFoundedAlert	setShowCityFoundedAlert	Config/MoreCiv4lerts.xml	25
+MoreCiv4lerts	CityPendingBorderExpansion	isShowCityPendingExpandBorderAlert	setShowCityPendingExpandBorderAlert	Config/MoreCiv4lerts.xml	20
+MoreCiv4lerts	DefensivePactTrade	isShowDefensivePactTradeAlert	setShowDefensivePactTradeAlert	Config/MoreCiv4lerts.xml	46
+MoreCiv4lerts	DomLand	isShowDomLandAlert	setShowDomLandAlert	Config/MoreCiv4lerts.xml	74
+MoreCiv4lerts	DomPop	isShowDomPopAlert	setShowDomPopAlert	Config/MoreCiv4lerts.xml	63
+MoreCiv4lerts	MapTrade	isShowMapTradeAlert	setShowMapTradeAlert	Config/MoreCiv4lerts.xml	38
+MoreCiv4lerts	OpenBordersTrade	isShowOpenBordersTradeAlert	setShowOpenBordersTradeAlert	Config/MoreCiv4lerts.xml	43
+MoreCiv4lerts	PeaceTrade	isShowPeaceTradeAlert	setShowPeaceTradeAlert	Config/MoreCiv4lerts.xml	58
+MoreCiv4lerts	PermanentAllianceTrade	isShowPermanentAllianceTradeAlert	setShowPermanentAllianceTradeAlert	Config/MoreCiv4lerts.xml	49
+MoreCiv4lerts	SurrenderTrade	isShowSurrenderTradeAlert	setShowSurrenderTradeAlert	Config/MoreCiv4lerts.xml	55
+MoreCiv4lerts	TechTrade	isShowTechTradeAlert	setShowTechTradeAlert	Config/MoreCiv4lerts.xml	32
+MoreCiv4lerts	VassalTrade	isShowVassalTradeAlert	setShowVassalTradeAlert	Config/MoreCiv4lerts.xml	52
+NJAGC	AlternateText	isAlternateTimeText	setAlternateTimeText	Config/Not Just Another Game Clock.xml	101
+NJAGC	Enabled	isEnabled	setEnabled	Config/Not Just Another Game Clock.xml	17
+NJAGC	ShowAltCompletedPercent	isShowAltPercentComplete	setShowAltPercentComplete	Config/Not Just Another Game Clock.xml	128
+NJAGC	ShowAltCompletedTurns	isShowAltGameTurn	setShowAltGameTurn	Config/Not Just Another Game Clock.xml	118
+NJAGC	ShowAltDate	isShowAltDateGA	setShowAltDateGA	Config/Not Just Another Game Clock.xml	133
+NJAGC	ShowAltTime	isShowAltTime	setShowAltTime	Config/Not Just Another Game Clock.xml	113
+NJAGC	ShowAltTotalTurns	isShowAltTotalTurns	setShowAltTotalTurns	Config/Not Just Another Game Clock.xml	123
+NJAGC	ShowCompletedPercent	isShowPercentComplete	setShowPercentComplete	Config/Not Just Another Game Clock.xml	90
+NJAGC	ShowCompletedTurns	isShowGameTurn	setShowGameTurn	Config/Not Just Another Game Clock.xml	80
+NJAGC	ShowDate	isShowDateGA	setShowDateGA	Config/Not Just Another Game Clock.xml	95
+NJAGC	ShowEra	isShowEra	setShowEra	Config/Not Just Another Game Clock.xml	22
+NJAGC	ShowEraColor	isUseEraColor	setUseEraColor	Config/Not Just Another Game Clock.xml	27
+NJAGC	ShowTime	isShowTime	setShowTime	Config/Not Just Another Game Clock.xml	75
+NJAGC	ShowTotalTurns	isShowTotalTurns	setShowTotalTurns	Config/Not Just Another Game Clock.xml	85
+PLE	Enabled	isEnabled	setEnabled	Config/Plot List Enhancements.xml	17
+PLE	Full_Movement_Color	getFullMovementColor	setFull_Movement_Color	Config/Plot List Enhancements.xml	71
+PLE	Has_Moved_Color	getHasMovedColor	setHas_Moved_Color	Config/Plot List Enhancements.xml	76
+PLE	Health_Bar	isShowHealthBar	setHealth_Bar	Config/Plot List Enhancements.xml	50
+PLE	Healthy_Color	getHealthyColor	setHealthy_Color	Config/Plot List Enhancements.xml	56
+PLE	Hide_Health_Fighting	isHideHealthFighting	setHide_Health_Fighting	Config/Plot List Enhancements.xml	53
+PLE	Horizontal_Spacing	getHoriztonalSpacing	setHorizontal_Spacing	Config/Plot List Enhancements.xml	105
+PLE	Info_Pane	isShowInfoPane	setInfo_Pane	Config/Plot List Enhancements.xml	113
+PLE	Info_Pane_Bulleted_Line_Height	getInfoPaneBulletedLineHeight	setInfo_Pane_Bulleted_Line_Height	Config/Plot List Enhancements.xml	128
+PLE	Info_Pane_Standard_Line_Height	getInfoPaneStandardLineHeight	setInfo_Pane_Standard_Line_Height	Config/Plot List Enhancements.xml	125
+PLE	Info_Pane_Width	getInfoPaneWidth	setInfo_Pane_Width	Config/Plot List Enhancements.xml	122
+PLE	Info_Pane_X	getInfoPaneX	setInfo_Pane_X	Config/Plot List Enhancements.xml	116
+PLE	Info_Pane_Y	getInfoPaneY	setInfo_Pane_Y	Config/Plot List Enhancements.xml	119
+PLE	Lead_By_GG_Indicator	isShowGreatGeneralIndicator	setLead_By_GG_Indicator	Config/Plot List Enhancements.xml	91
+PLE	MH_Color_Barbarian_Unit	getBarbarianUnitColor	setMH_Color_Barbarian_Unit	Config/Plot List Enhancements.xml	178
+PLE	MH_Color_Enemy_Unit	getEnemyUnitColor	setMH_Color_Enemy_Unit	Config/Plot List Enhancements.xml	175
+PLE	MH_Color_Impassable_Terrain	getImpassableTerrainColor	setMH_Color_Impassable_Terrain	Config/Plot List Enhancements.xml	157
+PLE	MH_Color_Neutral_Unit	getNeutralUnitColor	setMH_Color_Neutral_Unit	Config/Plot List Enhancements.xml	172
+PLE	MH_Color_Passable_Barbarian_Territory	getBarbarianTerritoryColor	setMH_Color_Passable_Barbarian_Territory	Config/Plot List Enhancements.xml	169
+PLE	MH_Color_Passable_Enemy_Territory	getEnemyTerritoryColor	setMH_Color_Passable_Enemy_Territory	Config/Plot List Enhancements.xml	166
+PLE	MH_Color_Passable_Neutral_Territory	getNeutralTerritoryColor	setMH_Color_Passable_Neutral_Territory	Config/Plot List Enhancements.xml	163
+PLE	MH_Color_Passable_Terrain	getPassableTerrainColor	setMH_Color_Passable_Terrain	Config/Plot List Enhancements.xml	160
+PLE	Mission_Info	isShowMissionInfo	setMission_Info	Config/Plot List Enhancements.xml	100
+PLE	Move_Bar	isShowMoveBar	setMove_Bar	Config/Plot List Enhancements.xml	68
+PLE	Move_Highlighter	isShowMoveHighlighter	setMove_Highlighter	Config/Plot List Enhancements.xml	153
+PLE	No_Movement_Color	getNoMovementColor	setNo_Movement_Color	Config/Plot List Enhancements.xml	81
+PLE	PLE_Style	isPLE_Style	setPLE_Style	Config/Plot List Enhancements.xml	25
+PLE	Promotion_Indicator	isShowPromotionIndicator	setPromotion_Indicator	Config/Plot List Enhancements.xml	94
+PLE	Promotion_Specialties_Color	getPromotionSpecialtiesColor	setPromotion_Specialties_Color	Config/Plot List Enhancements.xml	148
+PLE	Show_Buttons	isShowButtons	setShow_Buttons	Config/Plot List Enhancements.xml	30
+PLE	Unit_Name_Color	getUnitNameColor	setUnit_Name_Color	Config/Plot List Enhancements.xml	136
+PLE	Unit_Type_Specialties_Color	getUnitTypeSpecialtiesColor	setUnit_Type_Specialties_Color	Config/Plot List Enhancements.xml	145
+PLE	Upgrade_Indicator	isShowUpgradeIndicator	setUpgrade_Indicator	Config/Plot List Enhancements.xml	97
+PLE	Upgrade_Not_Possible_Color	getUpgradeNotPossibleColor	setUpgrade_Not_Possible_Color	Config/Plot List Enhancements.xml	142
+PLE	Upgrade_Possible_Color	getUpgradePossibleColor	setUpgrade_Possible_Color	Config/Plot List Enhancements.xml	139
+PLE	Vertical_Spacing	getVerticalSpacing	setVertical_Spacing	Config/Plot List Enhancements.xml	108
+PLE	Wounded_Color	getWoundedColor	setWounded_Color	Config/Plot List Enhancements.xml	61
+PLE	Wounded_Indicator	isShowWoundedIndicator	setWounded_Indicator	Config/Plot List Enhancements.xml	88
+Reminder	Autolog	isAutolog	setAutolog	Config/Reminder.xml	30
+Reminder	Enabled	isEnabled	setEnabled	Config/Reminder.xml	18
+RevDCM	CHOOSE_RELIGION	isCHOOSE_RELIGION	setCHOOSE_RELIGION	Config/RevDCM.xml	149
+RevDCM	DCM_ACTIVE_DEFENSE	isDCM_ACTIVE_DEFENSE	setDCM_ACTIVE_DEFENSE	Config/RevDCM.xml	52
+RevDCM	DCM_AIR_BOMBING	isDCM_AIR_BOMBING	setDCM_AIR_BOMBING	Config/RevDCM.xml	47
+RevDCM	DCM_ARCHER_BOMBARD	isDCM_ARCHER_BOMBARD	setDCM_ARCHER_BOMBARD	Config/RevDCM.xml	64
+RevDCM	DCM_ATTACK_SUPPORT	isDCM_ATTACK_SUPPORT	setDCM_ATTACK_SUPPORT	Config/RevDCM.xml	79
+RevDCM	DCM_BATTLE_EFFECTS	isDCM_BATTLE_EFFECTS	setDCM_BATTLE_EFFECTS	Config/RevDCM.xml	69
+RevDCM	DCM_FIGHTER_ENGAGE	isDCM_FIGHTER_ENGAGE	setDCM_FIGHTER_ENGAGE	Config/RevDCM.xml	57
+RevDCM	DCM_NAVAL_BOMBARD	isDCM_NAVAL_BOMBARD	setDCM_NAVAL_BOMBARD	Config/RevDCM.xml	86
+RevDCM	DCM_OPP_FIRE	isDCM_OPP_FIRE	setDCM_OPP_FIRE	Config/RevDCM.xml	40
+RevDCM	DCM_RANGE_BOMBARD	isDCM_RANGE_BOMBARD	setDCM_RANGE_BOMBARD	Config/RevDCM.xml	35
+RevDCM	DCM_STACK_ATTACK	isDCM_STACK_ATTACK	setDCM_STACK_ATTACK	Config/RevDCM.xml	74
+RevDCM	IDW_EMERGENCY_DRAFT_ENABLED	isIDW_EMERGENCY_DRAFT_ENABLED	setIDW_EMERGENCY_DRAFT_ENABLED	Config/RevDCM.xml	98
+RevDCM	IDW_ENABLED	isIDW_ENABLED	setIDW_ENABLED	Config/RevDCM.xml	93
+RevDCM	IDW_NO_BARBARIAN_INFLUENCE	isIDW_NO_BARBARIAN_INFLUENCE	setIDW_NO_BARBARIAN_INFLUENCE	Config/RevDCM.xml	103
+RevDCM	IDW_NO_NAVAL_INFLUENCE	isIDW_NO_NAVAL_INFLUENCE	setIDW_NO_NAVAL_INFLUENCE	Config/RevDCM.xml	108
+RevDCM	IDW_PILLAGE_INFLUENCE_ENABLED	isIDW_PILLAGE_INFLUENCE_ENABLED	setIDW_PILLAGE_INFLUENCE_ENABLED	Config/RevDCM.xml	113
+RevDCM	OC_LIMITED_RELIGIONS	isOC_LIMITED_RELIGIONS	setOC_LIMITED_RELIGIONS	Config/RevDCM.xml	144
+RevDCM	OC_RESPAWN_HOLY_CITIES	isOC_RESPAWN_HOLY_CITIES	setOC_RESPAWN_HOLY_CITIES	Config/RevDCM.xml	137
+RevDCM	RevDCMHiddenAttitude	isHiddenAttitude	setHiddenAttitude	Config/RevDCM.xml	28
+RevDCM	RevDCMReset	isReset	setReset	Config/RevDCM.xml	21
+RevDCM	SS_ASSASSINATE	isSS_ASSASSINATE	setSS_ASSASSINATE	Config/RevDCM.xml	130
+RevDCM	SS_BRIBE	isSS_BRIBE	setSS_BRIBE	Config/RevDCM.xml	125
+RevDCM	SS_ENABLED	isSS_ENABLED	setSS_ENABLED	Config/RevDCM.xml	120
+Revolution	AIAutoPlayDebugMode	isAIAutoPlayDebugMode	setAIAutoPlayDebugMode	Config/Revolution.xml	103
+Revolution	AIAutoPlayEnable	isAIAutoPlayEnable	setAIAutoPlayEnable	Config/Revolution.xml	102
+Revolution	AcceptedTurns	getAcceptedTurns	setAcceptedTurns	Config/Revolution.xml	89
+Revolution	AcquiredTurns	getAcquiredTurns	setAcquiredTurns	Config/Revolution.xml	90
+Revolution	ActivePopup	isActivePopup	setActivePopup	Config/Revolution.xml	8
+Revolution	AllowAssimilation	isAllowAssimilation	setAllowAssimilation	Config/Revolution.xml	49
+Revolution	AllowBreakVassal	isAllowBreakVassal	setAllowBreakVassal	Config/Revolution.xml	51
+Revolution	AllowSmallBarbRevs	isAllowSmallBarbRevs	setAllowSmallBarbRevs	Config/Revolution.xml	50
+Revolution	AllowStateReligionToJoin	isAllowStateReligionToJoin	setAllowStateReligionToJoin	Config/Revolution.xml	60
+Revolution	AlwaysViolentThreshold	getAlwaysViolentThreshold	setAlwaysViolentThreshold	Config/Revolution.xml	95
+Revolution	AnnounceBarbSettle	isAnnounceBarbSettle	setAnnounceBarbSettle	Config/Revolution.xml	13
+Revolution	ArtStyleTypes	isArtStyleTypes	setArtStyleTypes	Config/Revolution.xml	48
+Revolution	BadLocalThreshold	getBadLocalThreshold	setBadLocalThreshold	Config/Revolution.xml	98
+Revolution	BarbCivDebugMode	isBarbCivDebugMode	setBarbCivDebugMode	Config/Revolution.xml	12
+Revolution	BarbCivMaxCivs	getBarbCivMaxCivs	setBarbCivMaxCivs	Config/Revolution.xml	23
+Revolution	BarbCivsByStyle	isBarbCivsByStyle	setBarbCivsByStyle	Config/Revolution.xml	22
+Revolution	BarbTechFrac	getBarbTechFrac	setBarbTechFrac	Config/Revolution.xml	29
+Revolution	BaseMilitaryOdds	getBaseMilitaryOdds	setBaseMilitaryOdds	Config/Revolution.xml	28
+Revolution	BaseReinforcementTurns	getBaseReinforcementTurns	setBaseReinforcementTurns	Config/Revolution.xml	92
+Revolution	BlockPopupInAuto	isBlockPopupInAuto	setBlockPopupInAuto	Config/Revolution.xml	16
+Revolution	BlockPopups	isBlockPopups	setBlockPopups	Config/Revolution.xml	104
+Revolution	BonusTechsBehind	getBonusTechsBehind	setBonusTechsBehind	Config/Revolution.xml	117
+Revolution	BuilderBonusTechs	getBuilderBonusTechs	setBuilderBonusTechs	Config/Revolution.xml	32
+Revolution	BuyoffTurns	getBuyoffTurns	setBuyoffTurns	Config/Revolution.xml	91
+Revolution	CancelAutoForOffer	isCancelAutoForOffer	setCancelAutoForOffer	Config/Revolution.xml	21
+Revolution	CenterPopups	isCenterPopups	setCenterPopups	Config/Revolution.xml	43
+Revolution	ChanceModifier	getChanceModifier	setChanceModifier	Config/Revolution.xml	65
+Revolution	ChangePlayerDebugMode	isChangePlayerDebugMode	setChangePlayerDebugMode	Config/Revolution.xml	111
+Revolution	ChangePlayerEnable	isChangePlayerEnable	setChangePlayerEnable	Config/Revolution.xml	110
+Revolution	CityAcquiredModifier	getCityAcquiredModifier	setCityAcquiredModifier	Config/Revolution.xml	77
+Revolution	CityLostModifier	getCityLostModifier	setCityLostModifier	Config/Revolution.xml	76
+Revolution	CivSizeModifier	getCivSizeModifier	setCivSizeModifier	Config/Revolution.xml	75
+Revolution	CivicRevolution	isCivicRevolution	setCivicRevolution	Config/Revolution.xml	54
+Revolution	CivicsOdds	getCivicsOdds	setCivicsOdds	Config/Revolution.xml	78
+Revolution	CloseRadius	getCloseRadius	setCloseRadius	Config/Revolution.xml	59
+Revolution	ColonyModifier	getColonyModifier	setColonyModifier	Config/Revolution.xml	69
+Revolution	CrusadeOdds	getCrusadeOdds	setCrusadeOdds	Config/Revolution.xml	81
+Revolution	CulturalRevolution	isCulturalRevolution	setCulturalRevolution	Config/Revolution.xml	52
+Revolution	CultureRateModifier	getCultureRateModifier	setCultureRateModifier	Config/Revolution.xml	71
+Revolution	DeniedRevs	getDeniedRevs	setDeniedRevs	Config/Revolution.xml	88
+Revolution	DeniedTurns	getDeniedTurns	setDeniedTurns	Config/Revolution.xml	99
+Revolution	DiffusionMod	getDiffusionMod	setDiffusionMod	Config/Revolution.xml	119
+Revolution	DistanceToCapitalModifier	getDistanceToCapitalModifier	setDistanceToCapitalModifier	Config/Revolution.xml	70
+Revolution	DynamicNamesDebugMode	isDynamicNamesDebugMode	setDynamicNamesDebugMode	Config/Revolution.xml	122
+Revolution	EndWarsOnDeath	isEndWarsOnDeath	setEndWarsOnDeath	Config/Revolution.xml	57
+Revolution	FierceNatives	isFierceNatives	setFierceNatives	Config/Revolution.xml	19
+Revolution	FormMinorModifier	getFormMinorModifier	setFormMinorModifier	Config/Revolution.xml	24
+Revolution	FullEffectTechsBehind	getFullEffectTechsBehind	setFullEffectTechsBehind	Config/Revolution.xml	116
+Revolution	GarrisonModifier	getGarrisonModifier	setGarrisonModifier	Config/Revolution.xml	73
+Revolution	HappinessModifier	getHappinessModifier	setHappinessModifier	Config/Revolution.xml	68
+Revolution	HumanIndexModifier	getHumanIndexModifier	setHumanIndexModifier	Config/Revolution.xml	63
+Revolution	HumanIndexOffset	getHumanIndexOffset	setHumanIndexOffset	Config/Revolution.xml	64
+Revolution	HumanLeaderRevolution	isHumanLeaderRevolution	setHumanLeaderRevolution	Config/Revolution.xml	56
+Revolution	HumanWarnFrac	getHumanWarnFrac	setHumanWarnFrac	Config/Revolution.xml	83
+Revolution	IndependenceOdds	getIndependenceOdds	setIndependenceOdds	Config/Revolution.xml	82
+Revolution	IndexModifier	getIndexModifier	setIndexModifier	Config/Revolution.xml	61
+Revolution	IndexOffset	getIndexOffset	setIndexOffset	Config/Revolution.xml	62
+Revolution	InstigateRevolutionThreshold	getInstigateRevolutionThreshold	setInstigateRevolutionThreshold	Config/Revolution.xml	96
+Revolution	JoinRevolutionFrac	getJoinRevolutionFrac	setJoinRevolutionFrac	Config/Revolution.xml	97
+Revolution	LeaderOdds	getLeaderOdds	setLeaderOdds	Config/Revolution.xml	80
+Revolution	LeaderRevolution	isLeaderRevolution	setLeaderRevolution	Config/Revolution.xml	55
+Revolution	LeaveHumanPlayerName	isLeaveHumanPlayerName	setLeaveHumanPlayerName	Config/Revolution.xml	124
+Revolution	MaxNationality	getMaxNationality	setMaxNationality	Config/Revolution.xml	58
+Revolution	MaxScoreLines	getMaxScoreLines	setMaxScoreLines	Config/Revolution.xml	38
+Revolution	MilitaryStrength	getMilitaryStrength	setMilitaryStrength	Config/Revolution.xml	35
+Revolution	MilitaryWindow	getMilitaryWindow	setMilitaryWindow	Config/Revolution.xml	33
+Revolution	MinContacts	getMinContacts	setMinContacts	Config/Revolution.xml	26
+Revolution	MinFullContacts	getMinFullContacts	setMinFullContacts	Config/Revolution.xml	27
+Revolution	MinPopulation	getMinPopulation	setMinPopulation	Config/Revolution.xml	25
+Revolution	MinReinforcementTurns	getMinReinforcementTurns	setMinReinforcementTurns	Config/Revolution.xml	93
+Revolution	MinTechsBehind	getMinTechsBehind	setMinTechsBehind	Config/Revolution.xml	115
+Revolution	MinorHalfLife	getMinorHalfLife	setMinorHalfLife	Config/Revolution.xml	18
+Revolution	NationalityModifier	getNationalityModifier	setNationalityModifier	Config/Revolution.xml	72
+Revolution	NewWorldErasBehind	getNewWorldErasBehind	setNewWorldErasBehind	Config/Revolution.xml	31
+Revolution	NewWorldPolicy	getNewWorldPolicy	setNewWorldPolicy	Config/Revolution.xml	17
+Revolution	NewWorldReduction	getNewWorldReduction	setNewWorldReduction	Config/Revolution.xml	30
+Revolution	OfferControl	isOfferControl	setOfferControl	Config/Revolution.xml	20
+Revolution	OfferDefectToRevs	isOfferDefectToRevs	setOfferDefectToRevs	Config/Revolution.xml	46
+Revolution	OnlyNotifyNearbyPlayers	isOnlyNotifyNearbyPlayers	setOnlyNotifyNearbyPlayers	Config/Revolution.xml	15
+Revolution	RebelTypes	isRebelTypes	setRebelTypes	Config/Revolution.xml	47
+Revolution	Refortify	isRefortify	setRefortify	Config/Revolution.xml	107
+Revolution	ReinforcementModifier	getReinforcementModifier	setReinforcementModifier	Config/Revolution.xml	67
+Revolution	ReinstateOnRevolt	isReinstateOnRevolt	setReinstateOnRevolt	Config/Revolution.xml	45
+Revolution	ReligionModifier	getReligionModifier	setReligionModifier	Config/Revolution.xml	74
+Revolution	ReligionOdds	getReligionOdds	setReligionOdds	Config/Revolution.xml	79
+Revolution	ReligiousRevolution	isReligiousRevolution	setReligiousRevolution	Config/Revolution.xml	53
+Revolution	RevConfigDebugMode	isRevConfigDebugMode	setRevConfigDebugMode	Config/Revolution.xml	9
+Revolution	RevDebugMode	isRevDebugMode	setRevDebugMode	Config/Revolution.xml	40
+Revolution	RevMaxCivs	getRevMaxCivs	setRevMaxCivs	Config/Revolution.xml	86
+Revolution	RevRevCultureModifier	getRevRevCultureModifier	setRevRevCultureModifier	Config/Revolution.xml	94
+Revolution	SaveAllDeaths	isSaveAllDeaths	setSaveAllDeaths	Config/Revolution.xml	105
+Revolution	ScoreShowCivName	isScoreShowCivName	setScoreShowCivName	Config/Revolution.xml	39
+Revolution	ShowDebugMessages	isShowDebugMessages	setShowDebugMessages	Config/Revolution.xml	41
+Revolution	ShowNewLeaderPopup	isShowNewLeaderPopup	setShowNewLeaderPopup	Config/Revolution.xml	106
+Revolution	ShowRevIndexInPopup	isShowRevIndexInPopup	setShowRevIndexInPopup	Config/Revolution.xml	42
+Revolution	StopAutoForRevolt	isStopAutoForRevolt	setStopAutoForRevolt	Config/Revolution.xml	44
+Revolution	StrengthModifier	getStrengthModifier	setStrengthModifier	Config/Revolution.xml	66
+Revolution	TeamNaming	isTeamNaming	setTeamNaming	Config/Revolution.xml	123
+Revolution	TechDifDebugMode	isTechDifDebugMode	setTechDifDebugMode	Config/Revolution.xml	114
+Revolution	TechDifRevCultureModifier	getTechDifRevCultureModifier	setTechDifRevCultureModifier	Config/Revolution.xml	118
+Revolution	TurnsBetweenRevs	getTurnsBetweenRevs	setTurnsBetweenRevs	Config/Revolution.xml	87
+Revolution	UsePopup	isUsePopup	setUsePopup	Config/Revolution.xml	14
+Revolution	WarCloseDist	getWarCloseDist	setWarCloseDist	Config/Revolution.xml	34
+Revolution	WarWearinessMod	getWarWearinessMod	setWarWearinessMod	Config/Revolution.xml	85
+Revolution	WarnTurns	getWarnTurns	setWarnTurns	Config/Revolution.xml	84
+RoMSettings	RoMResourceBar	isShowResourceBar	setRoMResourceBar	Config/RoMSettings.xml	21
+RoMSettings	TechTreeEraColors	isRoMTechTreeColors	setTechTreeEraColors	Config/RoMSettings.xml	36
+Scores	AlignIcons	isAlignIcons	setAlignIcons	Config/Advanced Scoreboard.xml	68
+Scores	Attitude	isShowAttitude	setShowAttitude	Config/Advanced Scoreboard.xml	54
+Scores	Cities	isShowCountCities	setShowCountCities	Config/Advanced Scoreboard.xml	63
+Scores	Delta	isShowScoreDelta	setShowScoreDelta	Config/Advanced Scoreboard.xml	34
+Scores	DeltaIncludeCurrent	isScoreDeltaIncludeCurrentTurn	setScoreDeltaIncludeCurrentTurn	Config/Advanced Scoreboard.xml	37
+Scores	DisplayOrder	getDisplayOrder	setDisplayOrder	Config/Advanced Scoreboard.xml	71
+Scores	GreyDead	isGreyOutDeadCivs	setGreyOutDeadCivs	Config/Advanced Scoreboard.xml	24
+Scores	GroupVassals	isGroupVassals	setGroupVassals	Config/Advanced Scoreboard.xml	83
+Scores	LeftAlignName	isLeftAlignName	setLeftAlignName	Config/Advanced Scoreboard.xml	86
+Scores	Power	isShowPower	setShowPower	Config/Advanced Scoreboard.xml	100
+Scores	PowerColor	getPowerColor	setPowerColor	Config/Advanced Scoreboard.xml	112
+Scores	PowerHighColor	getHighPowerColor	setHighPowerColor	Config/Advanced Scoreboard.xml	119
+Scores	PowerLowColor	getLowPowerColor	setLowPowerColor	Config/Advanced Scoreboard.xml	126
+Scores	RankColor	getRankColor	setRankColor	Config/Advanced Scoreboard.xml	95
+Scores	ResearchIcons	isShowResearchIcons	setShowResearchIcons	Config/Advanced Scoreboard.xml	89
+Scores	ShowDead	isShowDeadCivs	setShowDeadCivs	Config/Advanced Scoreboard.xml	18
+Scores	ShowMinor	isShowMinorCivs	setShowMinorCivs	Config/Advanced Scoreboard.xml	29
+Scores	TagDead	isShowDeadTag	setShowDeadTag	Config/Advanced Scoreboard.xml	21
+Scores	UsePlayerName	isUsePlayerName	setUsePlayerName	Config/Advanced Scoreboard.xml	50
+Scores	WHEOOH	isShowWHEOOH	setShowWHEOOH	Config/Advanced Scoreboard.xml	60
+Scores	WorstEnemy	isShowWorstEnemy	setShowWorstEnemy	Config/Advanced Scoreboard.xml	57
+StatusDump	isStatusDump	isisStatusDump	setisStatusDump	Config/StatusDump.xml	18
+StrategyOverlay	DotMapBrightness	getDotMapBrightness	setDotMapBrightness	Config/Strategy Overlay.xml	35
+StrategyOverlay	DotMapDotIcon	getDotMapDotIcon	setDotMapDotIcon	Config/Strategy Overlay.xml	31
+StrategyOverlay	DotMapDrawDots	isDotMapDrawDots	setDotMapDrawDots	Config/Strategy Overlay.xml	27
+StrategyOverlay	DotMapHighlightBrightness	getDotMapHighlightBrightness	setDotMapHighlightBrightness	Config/Strategy Overlay.xml	39
+StrategyOverlay	Enabled	isEnabled	setEnabled	Config/Strategy Overlay.xml	18
+StrategyOverlay	ShowDotMap	isShowDotMap	setShowDotMap	Config/Strategy Overlay.xml	23
+TechWindow	CivilopediaText	isShowCivilopediaText	setCivilopediaText	Config/TechWindow.xml	26
+UnitNaming	Combat_AIR	getCombat_AIR	setCombat_AIR	Config/Unit Naming.xml	27
+UnitNaming	Combat_ANIMAL	getCombat_ANIMAL	setCombat_ANIMAL	Config/Unit Naming.xml	73
+UnitNaming	Combat_ARCHER	getCombat_ARCHER	setCombat_ARCHER	Config/Unit Naming.xml	29
+UnitNaming	Combat_ARMOR	getCombat_ARMOR	setCombat_ARMOR	Config/Unit Naming.xml	31
+UnitNaming	Combat_ASSAULT_MECH	getCombat_ASSAULT_MECH	setCombat_ASSAULT_MECH	Config/Unit Naming.xml	81
+UnitNaming	Combat_BIOLOGICAL	getCombat_BIOLOGICAL	setCombat_BIOLOGICAL	Config/Unit Naming.xml	75
+UnitNaming	Combat_BOMBERS	getCombat_BOMBERS	setCombat_BOMBERS	Config/Unit Naming.xml	65
+UnitNaming	Combat_CLONES	getCombat_CLONES	setCombat_CLONES	Config/Unit Naming.xml	77
+UnitNaming	Combat_DIESEL_SHIPS	getCombat_DIESEL_SHIPS	setCombat_DIESEL_SHIPS	Config/Unit Naming.xml	33
+UnitNaming	Combat_DOOM	getCombat_DOOM	setCombat_DOOM	Config/Unit Naming.xml	95
+UnitNaming	Combat_DREADNOUGHT	getCombat_DREADNOUGHT	setCombat_DREADNOUGHT	Config/Unit Naming.xml	79
+UnitNaming	Combat_EARLY_BOMBERS	getCombat_EARLY_BOMBERS	setCombat_EARLY_BOMBERS	Config/Unit Naming.xml	61
+UnitNaming	Combat_EARLY_FIGHTERS	getCombat_EARLY_FIGHTERS	setCombat_EARLY_FIGHTERS	Config/Unit Naming.xml	59
+UnitNaming	Combat_GUN	getCombat_GUN	setCombat_GUN	Config/Unit Naming.xml	35
+UnitNaming	Combat_HELICOPTER	getCombat_HELICOPTER	setCombat_HELICOPTER	Config/Unit Naming.xml	37
+UnitNaming	Combat_HITECH	getCombat_HITECH	setCombat_HITECH	Config/Unit Naming.xml	71
+UnitNaming	Combat_JET_FIGHTERS	getCombat_JET_FIGHTERS	setCombat_JET_FIGHTERS	Config/Unit Naming.xml	63
+UnitNaming	Combat_MELEE	getCombat_MELEE	setCombat_MELEE	Config/Unit Naming.xml	39
+UnitNaming	Combat_MISSILE	getCombat_MISSILE	setCombat_MISSILE	Config/Unit Naming.xml	89
+UnitNaming	Combat_MOUNTED	getCombat_MOUNTED	setCombat_MOUNTED	Config/Unit Naming.xml	41
+UnitNaming	Combat_NANITE	getCombat_NANITE	setCombat_NANITE	Config/Unit Naming.xml	87
+UnitNaming	Combat_NUCLEAR_SHIPS	getCombat_NUCLEAR_SHIPS	setCombat_NUCLEAR_SHIPS	Config/Unit Naming.xml	43
+UnitNaming	Combat_None	getCombat_None	setCombat_None	Config/Unit Naming.xml	25
+UnitNaming	Combat_RECON	getCombat_RECON	setCombat_RECON	Config/Unit Naming.xml	45
+UnitNaming	Combat_ROBOT	getCombat_ROBOT	setCombat_ROBOT	Config/Unit Naming.xml	85
+UnitNaming	Combat_SETTLER	getCombat_SETTLER	setCombat_SETTLER	Config/Unit Naming.xml	93
+UnitNaming	Combat_SIEGE	getCombat_SIEGE	setCombat_SIEGE	Config/Unit Naming.xml	47
+UnitNaming	Combat_SPY	getCombat_SPY	setCombat_SPY	Config/Unit Naming.xml	83
+UnitNaming	Combat_STEALTH	getCombat_STEALTH	setCombat_STEALTH	Config/Unit Naming.xml	69
+UnitNaming	Combat_STEAM_SHIPS	getCombat_STEAM_SHIPS	setCombat_STEAM_SHIPS	Config/Unit Naming.xml	53
+UnitNaming	Combat_SUBMARINE	getCombat_SUBMARINE	setCombat_SUBMARINE	Config/Unit Naming.xml	57
+UnitNaming	Combat_SUPERSONIC_PLANES	getCombat_SUPERSONIC_PLANES	setCombat_SUPERSONIC_PLANES	Config/Unit Naming.xml	67
+UnitNaming	Combat_TRACKED	getCombat_TRACKED	setCombat_TRACKED	Config/Unit Naming.xml	51
+UnitNaming	Combat_WHEELED	getCombat_WHEELED	setCombat_WHEELED	Config/Unit Naming.xml	49
+UnitNaming	Combat_WOODEN_SHIPS	getCombat_WOODEN_SHIPS	setCombat_WOODEN_SHIPS	Config/Unit Naming.xml	55
+UnitNaming	Combat_WORKER	getCombat_WORKER	setCombat_WORKER	Config/Unit Naming.xml	91
+UnitNaming	Default	getDefault	setDefault	Config/Unit Naming.xml	22
+UnitNaming	Enabled	isEnabled	setEnabled	Config/Unit Naming.xml	17
+UnitNaming	UseAdvanced	isAdvanced	setAdvanced	Config/Unit Naming.xml	19

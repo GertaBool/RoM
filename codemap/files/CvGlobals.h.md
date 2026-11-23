@@ -16,3 +16,4 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **·** `CvRandom::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvRandom::~CvRandom [CvRandom.cpp]
   - takes the address of: CvRandom::~CvRandom [CvRandom.cpp]
+  - called by (1): CvGlobals::uninit

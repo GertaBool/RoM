@@ -43,12 +43,25 @@ def txt(n):
     return n.text.decode('latin-1')
 
 
-# MSVC words tree-sitter does not know; blanked with spaces of the same length, so lines and columns stay
+# MSVC words and Civ4 macros tree-sitter does not know; replaced with equal-length valid C++ tokens
+# so every line number and column offset stays identical.
 BLANK = re.compile(rb'\b(DllExport|__forceinline|__cdecl|__stdcall|__fastcall|_cdecl|PYTHON_API)\b')
+MACRO_REPL = re.compile(rb'\b(SETCOLR|NEWLINE|SET_DIPLO_COMMENT_ARGS)\b')
+
+
+def _macro_sub(m):
+    w = m.group(0)
+    if w in (b'SETCOLR', b'NEWLINE'):
+        return b'L"   " '                          # 7 bytes: valid wide string literal concatenation
+    if w == b'SET_DIPLO_COMMENT_ARGS':
+        return b'{}' + b' ' * (len(w) - 2)         # 22 bytes: valid empty function body
+    return b' ' * len(w)
 
 
 def parse(data):
-    return PARSER.parse(BLANK.sub(lambda m: b' ' * len(m.group(0)), data))
+    data = BLANK.sub(lambda m: b' ' * len(m.group(0)), data)
+    data = MACRO_REPL.sub(_macro_sub, data)
+    return PARSER.parse(data)
 
 
 # ---------- functions ----------
@@ -337,14 +350,21 @@ def scan_loaders(files):
 
 
 def scan_xml(layers):
-    """layers: [(name, dir)] in the order the game looks (the mod's XML first). The game loads a file from the
-    first layer that has its path; the same path in a later layer is shadowed (loaded = 0)."""
+    """layers: [(name, dir)] in the order the game looks (the mod's XML first). For normal layers the game loads
+    a file from the first layer that has its path; the same path in a later layer is shadowed (loaded = 0).
+    Additive layers (mod-module, mod-res, mod-config) are always loaded (loaded = 1) and do not shadow Assets/XML."""
     tags = collections.defaultdict(collections.Counter)
     defines = []
     seen = set()
     tag_re = re.compile(rb'<([A-Za-z_][\w.:-]*)[\s>/]')
     def_re = re.compile(rb'<DefineName>\s*([^<\s]+)\s*</DefineName>')
+    clean_dl = re.compile(r' \(\d+\)(?=\.[^.]+$|/|$)')
+    prefix_map = {'mod-module': 'Modules/', 'mod-res': 'res/', 'mod-config': 'Config/'}
     for layer, xml_dir in layers:
+        if not xml_dir or not os.path.isdir(xml_dir):
+            continue
+        additive = layer in prefix_map
+        prefix = prefix_map.get(layer, '')
         mine = set()
         for root, _, fs in os.walk(xml_dir):
             for f in fs:
@@ -352,15 +372,21 @@ def scan_xml(layers):
                     continue
                 p = os.path.join(root, f)
                 rel = os.path.relpath(p, xml_dir).replace(os.sep, '/')
-                loaded = int(rel.lower() not in seen)
-                mine.add(rel.lower())
+                norm_rel = clean_dl.sub('', rel)
+                out_rel = prefix + norm_rel
+                if additive:
+                    loaded = 1
+                else:
+                    loaded = int(norm_rel.lower() not in seen)
+                    mine.add(norm_rel.lower())
                 with open(p, 'rb') as h:
                     d = h.read()
                 for m in tag_re.finditer(d):
-                    tags[m.group(1).decode('latin-1')][(rel, layer, loaded)] += 1
+                    tags[m.group(1).decode('latin-1')][(out_rel, layer, loaded)] += 1
                 for m in def_re.finditer(d):
-                    defines.append(dict(define=m.group(1).decode('latin-1'), file=rel, layer=layer, loaded=loaded))
-        seen |= mine
+                    defines.append(dict(define=m.group(1).decode('latin-1'), file=out_rel, layer=layer, loaded=loaded))
+        if not additive:
+            seen |= mine
     rows = [dict(tag=t, file=f, layer=l, loaded=ld, count=n) for t in sorted(tags)
             for (f, l, ld), n in sorted(tags[t].items(), key=lambda kv: (-kv[0][2], kv[0][0]))]
     return rows, defines

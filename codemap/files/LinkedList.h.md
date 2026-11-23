@@ -131,6 +131,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **112** `CLinkList<XYCoords>::clear()`
   - called by (4): CLinkList<XYCoords>::Read, CLinkList<XYCoords>::~CLinkList<struct XYCoords>, CvPlotGroup::recalculatePlots, CvPlotGroup::uninit
 - **112** `CLinkList<CvWString>::clear()`
+  - calls: CvWString::~CvWString [CvString.h]
   - called by (3): CLinkList<CvWString>::~CLinkList<class CvWString>, CvPlayer::read, CvPlayer::uninit
 - **112** `CLinkList<TechTypes>::clear()`
   - called by (4): CLinkList<TechTypes>::Read, CLinkList<TechTypes>::~CLinkList<enum TechTypes>, CvPlayer::clearResearchQueue, CvPlayer::uninit

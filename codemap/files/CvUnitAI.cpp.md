@@ -10,7 +10,7 @@ Group: AI. Functions in line order: what each calls (in order of first call), wh
   - called by (2): FFreeListTrashArray<CvUnitAI>::add, ReadStreamableFFreeListTrashArray<class CvUnitAI>
 - **78** `CvUnitAI::~CvUnitAI()` (virtual)
   - calls: CvUnitAI::AI_uninit, CvUnit::~CvUnit [CvUnit.cpp]
-  - called by (1): CvUnitAI::`scalar deleting dtor'
+  - called by (3): CvUnitAI::`scalar deleting dtor', FFreeListTrashArray<CvUnitAI>::removeAll, FFreeListTrashArray<CvUnitAI>::removeAt
 - **84** `CvUnitAI::AI_init(UnitAITypes)` (virtual; overrides CvUnit::AI_init)
   - calls: CvUnitAI::AI_reset, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvUnitAI::AI_setBirthmark, CvUnitAI::AI_getUnitAIType, CvArea::changeNumAIUnits [CvArea.cpp], CvUnit::area [CvUnit.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvPlayerAI::AI_changeNumAIUnits [CvPlayerAI.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
 - **98** `CvUnitAI::AI_uninit()` (virtual; overrides CvUnit::AI_uninit)

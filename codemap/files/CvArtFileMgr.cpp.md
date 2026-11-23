@@ -7,7 +7,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
   - takes the address of: _$E9 [CvGameCoreUtils.cpp]
   - called by (100): CvArtFileMgr::ArtInfoItem::ArtInfoItem, CvAssetArtInfoItem::buildMap, CvAssetArtInfoItem::deInit, CvAssetArtInfoItem::init, CvBonusArtInfoItem::buildMap, CvBonusArtInfoItem::deInit, CvBonusArtInfoItem::init, CvBonusInfo::getArtInfo, CvBuildingArtInfoItem::buildMap, CvBuildingArtInfoItem::deInit, CvBuildingArtInfoItem::init, CvBuildingInfo::getArtInfo, CvBuildingInfo::getMovieInfo, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::getCityBillboardProductionIcon, CvCity::liberate, CvCity::setWeLoveTheKingDay, CvCivilizationArtInfoItem::buildMap, CvCivilizationArtInfoItem::deInit, CvCivilizationArtInfoItem::init, CvCivilizationInfo::getArtInfo, CvCivilizationInfo::getFlagTexture, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchChangeReligionPopup, CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchDoEspionagePopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLButtonPopup::launchEventPopup, CvDLLButtonPopup::launchFreeColonyPopup, CvDLLButtonPopup::launchProductionPopup, CvDLLButtonPopup::launchPythonPopup, CvDLLButtonPopup::launchVassalDemandTributePopup, CvFeatureArtInfoItem::buildMap, CvFeatureArtInfoItem::deInit, CvFeatureArtInfoItem::init, CvFeatureInfo::getArtInfo, CvGameTextMgr::getCityDataForAS, CvGameTextMgr::getTechDataForAS, CvGameTextMgr::getTerrainDataForWB, CvGameTextMgr::getVisibilityDataForAS, CvGlobals::doResetInfoClasses, CvImprovementArtInfoItem::buildMap, CvImprovementArtInfoItem::deInit, CvImprovementArtInfoItem::init, CvImprovementInfo::getArtInfo, CvInterfaceArtInfoItem::buildMap, CvInterfaceArtInfoItem::deInit, CvInterfaceArtInfoItem::init, CvLeaderHeadInfo::getArtInfo, CvLeaderheadArtInfoItem::buildMap, CvLeaderheadArtInfoItem::deInit, CvLeaderheadArtInfoItem::init, CvMiscArtInfoItem::buildMap, CvMiscArtInfoItem::deInit, CvMiscArtInfoItem::init, CvMovieArtInfoItem::buildMap, CvMovieArtInfoItem::deInit, CvMovieArtInfoItem::init, CvPlayer::acquireCity, CvPlayer::doEspionageMission, CvPlayer::launch, CvPlayer::raze, CvPlayer::splitEmpire, CvPlot::changeBuildProgress, CvPlot::doCulture, CvPlot::setOwner, CvSelectionGroup::groupBuild, CvTerrainArtInfoItem::buildMap, CvTerrainArtInfoItem::deInit, CvTerrainArtInfoItem::init, CvTerrainInfo::getArtInfo, CvUnitArtInfoItem::buildMap, CvUnitArtInfoItem::deInit, CvUnitArtInfoItem::init, CvUnitInfo::getArtInfo, CvXMLLoadUtility::SetGlobalArtDefines, CyArtFileMgr::CyArtFileMgr(), CyGlobalContext::getBonusArtInfo, CyGlobalContext::getBuildingArtInfo, CyGlobalContext::getCivilizationArtInfo, CyGlobalContext::getFeatureArtInfo, CyGlobalContext::getImprovementArtInfo, CyGlobalContext::getInterfaceArtInfo, CyGlobalContext::getLeaderheadArtInfo, CyGlobalContext::getMiscArtInfo, CyGlobalContext::getMovieArtInfo, CyGlobalContext::getNumBonusArtInfos, CyGlobalContext::getNumBuildingArtInfos, CyGlobalContext::getNumCivilizationArtInfos, CyGlobalContext::getNumFeatureArtInfos, CyGlobalContext::getNumImprovementArtInfos, CyGlobalContext::getNumInterfaceArtInfos, CyGlobalContext::getNumLeaderheadArtInfos, CyGlobalContext::getNumMiscArtInfos, CyGlobalContext::getNumMovieArtInfos, CyGlobalContext::getNumTerrainArtInfos, CyGlobalContext::getNumUnitArtInfos, CyGlobalContext::getTerrainArtInfo, CyGlobalContext::getUnitArtInfo
 - **115** `CvArtFileMgr::Init()` (exported)
-  - calls: CvArtFileMgr::ArtInfoItem::init [CvArtFileMgr.h], CvDLLSymbolIFaceBase::init [CvDLLSymbolIFaceBase.h]
+  - calls: CvArtFileMgr::ArtInfoItem::init [CvArtFileMgr.h]
   - called by (1): CvArtFileMgr::Reset
 - **131** `CvArtFileMgr::DeInit()` (exported)
   - calls: CvArtFileMgr::ArtInfoItem::deInit [CvArtFileMgr.h]
@@ -21,7 +21,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **172** `CvAssetArtInfoItem::buildMap()` (virtual)
   - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getAssetArtInfo(int), CvArtFileMgr::getNumAssetArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
 - **172** `CvAssetArtInfoItem::deInit()` (virtual)
-  - calls: CvArtFileMgr::GetInstance
+  - calls: CvArtFileMgr::GetInstance, CvArtInfoAsset::`vector deleting dtor' [CvInfos.h] ⇢ CvArtInfoCivilization::`vector deleting dtor', CvArtInfoTerrain::`vector deleting dtor', CvArtInfoInterface::`vector deleting dtor', CvArtInfoLeaderhead::`vector deleting dtor', CvArtInfoMovie::`vector deleting dtor'
 - **172** `CvArtFileMgr::getAssetArtInfo(int)` (exported)
   - called by (1): CvAssetArtInfoItem::buildMap
 - **172** `CvArtFileMgr::getAssetArtInfo(char const*) const` (exported)
@@ -36,7 +36,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **173** `CvMiscArtInfoItem::buildMap()` (virtual)
   - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getMiscArtInfo(int), CvArtFileMgr::getNumMiscArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
 - **173** `CvMiscArtInfoItem::deInit()` (virtual)
-  - calls: CvArtFileMgr::GetInstance
+  - calls: CvArtFileMgr::GetInstance, CvArtInfoMisc::`vector deleting dtor' [CvInfos.h]
 - **173** `CvArtFileMgr::getMiscArtInfo(int)` (exported)
   - called by (2): CvMiscArtInfoItem::buildMap, CyGlobalContext::getMiscArtInfo
 - **173** `CvArtFileMgr::getMiscArtInfo(char const*) const` (exported)
@@ -50,7 +50,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **174** `CvUnitArtInfoItem::buildMap()` (virtual)
   - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getUnitArtInfo(int), CvArtFileMgr::getNumUnitArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
 - **174** `CvUnitArtInfoItem::deInit()` (virtual)
-  - calls: CvArtFileMgr::GetInstance
+  - calls: CvArtFileMgr::GetInstance, CvArtInfoUnit::`vector deleting dtor' [CvInfos.cpp]
 - **174** `CvArtFileMgr::getUnitArtInfo(int)` (exported)
   - called by (2): CvUnitArtInfoItem::buildMap, CyGlobalContext::getUnitArtInfo
 - **174** `CvArtFileMgr::getUnitArtInfo(char const*) const` (exported)
@@ -65,7 +65,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **175** `CvBuildingArtInfoItem::buildMap()` (virtual)
   - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getBuildingArtInfo(int), CvArtFileMgr::getNumBuildingArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
 - **175** `CvBuildingArtInfoItem::deInit()` (virtual)
-  - calls: CvArtFileMgr::GetInstance
+  - calls: CvArtFileMgr::GetInstance, CvArtInfoBuilding::`vector deleting dtor' [CvInfos.cpp]
 - **175** `CvArtFileMgr::getBuildingArtInfo(int)` (exported)
   - called by (2): CvBuildingArtInfoItem::buildMap, CyGlobalContext::getBuildingArtInfo
 - **175** `CvArtFileMgr::getBuildingArtInfo(char const*) const` (exported)
@@ -78,7 +78,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **176** `CvCivilizationArtInfoItem::buildMap()` (virtual)
   - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getCivilizationArtInfo(int), CvArtFileMgr::getNumCivilizationArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
 - **176** `CvCivilizationArtInfoItem::deInit()` (virtual)
-  - calls: CvArtFileMgr::GetInstance
+  - calls: CvArtFileMgr::GetInstance, CvArtInfoCivilization::`vector deleting dtor' [CvInfos.cpp]
 - **176** `CvArtFileMgr::getCivilizationArtInfo(int)` (exported)
   - called by (2): CvCivilizationArtInfoItem::buildMap, CyGlobalContext::getCivilizationArtInfo
 - **176** `CvArtFileMgr::getCivilizationArtInfo(char const*) const` (exported)
@@ -92,7 +92,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **177** `CvLeaderheadArtInfoItem::buildMap()` (virtual)
   - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getLeaderheadArtInfo(int), CvArtFileMgr::getNumLeaderheadArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
 - **177** `CvLeaderheadArtInfoItem::deInit()` (virtual)
-  - calls: CvArtFileMgr::GetInstance
+  - calls: CvArtFileMgr::GetInstance, CvArtInfoLeaderhead::`vector deleting dtor' [CvInfos.h]
 - **177** `CvArtFileMgr::getLeaderheadArtInfo(int)` (exported)
   - called by (2): CvLeaderheadArtInfoItem::buildMap, CyGlobalContext::getLeaderheadArtInfo
 - **177** `CvArtFileMgr::getLeaderheadArtInfo(char const*) const` (exported)
@@ -105,7 +105,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **178** `CvBonusArtInfoItem::buildMap()` (virtual)
   - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getBonusArtInfo(int), CvArtFileMgr::getNumBonusArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
 - **178** `CvBonusArtInfoItem::deInit()` (virtual)
-  - calls: CvArtFileMgr::GetInstance
+  - calls: CvArtFileMgr::GetInstance, CvArtInfoBonus::`vector deleting dtor' [CvInfos.h]
 - **178** `CvArtFileMgr::getBonusArtInfo(int)` (exported)
   - called by (2): CvBonusArtInfoItem::buildMap, CyGlobalContext::getBonusArtInfo
 - **178** `CvArtFileMgr::getBonusArtInfo(char const*) const` (exported)
@@ -118,7 +118,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **179** `CvImprovementArtInfoItem::buildMap()` (virtual)
   - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getImprovementArtInfo(int), CvArtFileMgr::getNumImprovementArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
 - **179** `CvImprovementArtInfoItem::deInit()` (virtual)
-  - calls: CvArtFileMgr::GetInstance
+  - calls: CvArtFileMgr::GetInstance, CvArtInfoImprovement::`vector deleting dtor' [CvInfos.cpp]
 - **179** `CvArtFileMgr::getImprovementArtInfo(int)` (exported)
   - called by (2): CvImprovementArtInfoItem::buildMap, CyGlobalContext::getImprovementArtInfo
 - **179** `CvArtFileMgr::getImprovementArtInfo(char const*) const` (exported)
@@ -131,7 +131,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **180** `CvTerrainArtInfoItem::buildMap()` (virtual)
   - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getTerrainArtInfo(int), CvArtFileMgr::getNumTerrainArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
 - **180** `CvTerrainArtInfoItem::deInit()` (virtual)
-  - calls: CvArtFileMgr::GetInstance
+  - calls: CvArtFileMgr::GetInstance, CvArtInfoTerrain::`vector deleting dtor' [CvInfos.cpp]
 - **180** `CvArtFileMgr::getTerrainArtInfo(int)` (exported)
   - called by (2): CvTerrainArtInfoItem::buildMap, CyGlobalContext::getTerrainArtInfo
 - **180** `CvArtFileMgr::getTerrainArtInfo(char const*) const` (exported)
@@ -144,7 +144,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **181** `CvFeatureArtInfoItem::buildMap()` (virtual)
   - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getFeatureArtInfo(int), CvArtFileMgr::getNumFeatureArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
 - **181** `CvFeatureArtInfoItem::deInit()` (virtual)
-  - calls: CvArtFileMgr::GetInstance
+  - calls: CvArtFileMgr::GetInstance, CvArtInfoFeature::`vector deleting dtor' [CvInfos.cpp]
 - **181** `CvArtFileMgr::getFeatureArtInfo(int)` (exported)
   - called by (2): CvFeatureArtInfoItem::buildMap, CyGlobalContext::getFeatureArtInfo
 - **181** `CvArtFileMgr::getFeatureArtInfo(char const*) const` (exported)
@@ -157,7 +157,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **182** `CvMovieArtInfoItem::buildMap()` (virtual)
   - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getMovieArtInfo(int), CvArtFileMgr::getNumMovieArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
 - **182** `CvMovieArtInfoItem::deInit()` (virtual)
-  - calls: CvArtFileMgr::GetInstance
+  - calls: CvArtFileMgr::GetInstance, CvArtInfoMovie::`vector deleting dtor' [CvInfos.h]
 - **182** `CvArtFileMgr::getMovieArtInfo(int)` (exported)
   - called by (2): CvMovieArtInfoItem::buildMap, CyGlobalContext::getMovieArtInfo
 - **182** `CvArtFileMgr::getMovieArtInfo(char const*) const` (exported)
@@ -170,7 +170,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **183** `CvInterfaceArtInfoItem::buildMap()` (virtual)
   - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getInterfaceArtInfo(int), CvArtFileMgr::getNumInterfaceArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
 - **183** `CvInterfaceArtInfoItem::deInit()` (virtual)
-  - calls: CvArtFileMgr::GetInstance
+  - calls: CvArtFileMgr::GetInstance, CvArtInfoInterface::`vector deleting dtor' [CvInfos.h]
 - **183** `CvArtFileMgr::getInterfaceArtInfo(int)` (exported)
   - called by (2): CvInterfaceArtInfoItem::buildMap, CyGlobalContext::getInterfaceArtInfo
 - **183** `CvArtFileMgr::getInterfaceArtInfo(char const*) const` (exported)

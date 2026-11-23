@@ -86,3 +86,4 @@ Group: interface, text and messages. Functions in line order: what each calls (i
 - **·** `CvPopupInfo::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvPopupInfo::~CvPopupInfo
   - takes the address of: CvPopupInfo::~CvPopupInfo
+  - called by (2): CvPlayer::clearPopups, CvPlayer::clearSpaceShipPopups

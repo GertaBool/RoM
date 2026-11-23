@@ -1,0 +1,63 @@
+#pragma once
+#include <ext/hash_map>
+#include <string>
+
+namespace __gnu_cxx {
+template<> struct hash<std::string> {
+    size_t operator()(const std::string& s) const { return __stl_hash_string(s.c_str()); }
+};
+template<> struct hash<std::wstring> {
+    size_t operator()(const std::wstring& s) const {
+        size_t h = 0;
+        for (size_t i = 0; i < s.size(); ++i) h = 5 * h + s[i];
+        return h;
+    }
+};
+}
+
+namespace codemap_compat {
+template<class K> struct msvc_hash {
+    size_t operator()(const K& k) const { return static_cast<size_t>(k); }
+};
+template<> struct msvc_hash<std::string> {
+    size_t operator()(const std::string& s) const { return __gnu_cxx::__stl_hash_string(s.c_str()); }
+};
+template<> struct msvc_hash<std::wstring> {
+    size_t operator()(const std::wstring& s) const {
+        size_t h = 0;
+        for (size_t i = 0; i < s.size(); ++i) h = 5 * h + s[i];
+        return h;
+    }
+};
+template<class K> struct msvc_hash<K*> {
+    size_t operator()(K* p) const { return reinterpret_cast<size_t>(p); }
+};
+
+template<class K, class V, class H = msvc_hash<K>, class Eq = std::equal_to<K>, class Alloc = std::allocator<V> >
+class hash_map : public __gnu_cxx::hash_map<K, V, H, Eq, Alloc> {
+    typedef __gnu_cxx::hash_map<K, V, H, Eq, Alloc> Base;
+public:
+    typedef typename Base::iterator iterator;
+    typedef typename Base::const_iterator const_iterator;
+    typedef typename Base::size_type size_type;
+    typedef typename Base::key_type key_type;
+    typedef typename Base::allocator_type allocator_type;
+    hash_map() : Base() {}
+    iterator erase(iterator it) {
+        iterator nxt = it;
+        ++nxt;
+        Base::erase(it);
+        return nxt;
+    }
+    size_type erase(const key_type& k) { return Base::erase(k); }
+    void erase(iterator f, iterator l) { Base::erase(f, l); }
+};
+}
+
+namespace stdext {
+using codemap_compat::hash_map;
+using codemap_compat::msvc_hash;
+}
+namespace std {
+using codemap_compat::hash_map;
+}

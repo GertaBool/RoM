@@ -3421,10 +3421,10 @@ CvWorldPickerInfo	m_aWaterLevelDecals	std::vector<CvString>	0	CvInfos.h	5423
 CvWorldPickerInfo	m_aWaterLevelGloss	std::vector<CvString>	0	CvInfos.h	5424
 CvWorldPickerInfo	m_szMapName	CvString	0	CvInfos.h	5419
 CvWorldPickerInfo	m_szModelFile	CvString	0	CvInfos.h	5420
-CvXMLLoadUtility	m_iCurProgressStep	int	0	CvXMLLoadUtility.h	315
-CvXMLLoadUtility	m_pCBFxn	ProgressCB	0	CvXMLLoadUtility.h	316
-CvXMLLoadUtility	m_pFXml	FXml *	0	CvXMLLoadUtility.h	313
-CvXMLLoadUtility	m_pSchemaCache	FXmlSchemaCache *	0	CvXMLLoadUtility.h	314
+CvXMLLoadUtility	m_iCurProgressStep	int	0	CvXMLLoadUtility.h	318
+CvXMLLoadUtility	m_pCBFxn	ProgressCB	0	CvXMLLoadUtility.h	319
+CvXMLLoadUtility	m_pFXml	FXml *	0	CvXMLLoadUtility.h	316
+CvXMLLoadUtility	m_pSchemaCache	FXmlSchemaCache *	0	CvXMLLoadUtility.h	317
 CvXMLLoadUtility::CvKeyBoardMapping	iIntVal	int	0	CvXMLLoadUtilityGet.cpp	1237
 CvXMLLoadUtility::CvKeyBoardMapping	szDefineString	TCHAR[25]	0	CvXMLLoadUtility.cpp	535
 CvXMLLoadUtility::CvKeyBoardMapping	szDefineString	TCHAR[25]	0	CvXMLLoadUtilityGet.cpp	1236
@@ -3519,17 +3519,17 @@ FInputDevice::InputValue	m_point	POINT	0	FInputDevice.h	201
 FOWVis	pOffsets	POINT *	0	CvStructs.h	191
 FOWVis	uiCount	uint	0	CvStructs.h	190
 FVariable	m_eType	eVariableType	0	FVariableSystem.h	77
-FVariable::(anonymous union at /home/user/cmbuild/mirror/FVariableSystem.h:62:3)	m_bValue	bool	0	FVariableSystem.h	64
-FVariable::(anonymous union at /home/user/cmbuild/mirror/FVariableSystem.h:62:3)	m_cValue	char	0	FVariableSystem.h	65
-FVariable::(anonymous union at /home/user/cmbuild/mirror/FVariableSystem.h:62:3)	m_dValue	double	0	FVariableSystem.h	72
-FVariable::(anonymous union at /home/user/cmbuild/mirror/FVariableSystem.h:62:3)	m_fValue	float	0	FVariableSystem.h	71
-FVariable::(anonymous union at /home/user/cmbuild/mirror/FVariableSystem.h:62:3)	m_iValue	int	0	FVariableSystem.h	69
-FVariable::(anonymous union at /home/user/cmbuild/mirror/FVariableSystem.h:62:3)	m_szValue	char *	0	FVariableSystem.h	73
-FVariable::(anonymous union at /home/user/cmbuild/mirror/FVariableSystem.h:62:3)	m_ucValue	byte	0	FVariableSystem.h	66
-FVariable::(anonymous union at /home/user/cmbuild/mirror/FVariableSystem.h:62:3)	m_uiValue	uint	0	FVariableSystem.h	70
-FVariable::(anonymous union at /home/user/cmbuild/mirror/FVariableSystem.h:62:3)	m_uwValue	word	0	FVariableSystem.h	68
-FVariable::(anonymous union at /home/user/cmbuild/mirror/FVariableSystem.h:62:3)	m_wValue	short	0	FVariableSystem.h	67
-FVariable::(anonymous union at /home/user/cmbuild/mirror/FVariableSystem.h:62:3)	m_wszValue	wchar_t *	0	FVariableSystem.h	74
+FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_bValue	bool	0	FVariableSystem.h	64
+FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_cValue	char	0	FVariableSystem.h	65
+FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_dValue	double	0	FVariableSystem.h	72
+FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_fValue	float	0	FVariableSystem.h	71
+FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_iValue	int	0	FVariableSystem.h	69
+FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_szValue	char *	0	FVariableSystem.h	73
+FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_ucValue	byte	0	FVariableSystem.h	66
+FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_uiValue	uint	0	FVariableSystem.h	70
+FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_uwValue	word	0	FVariableSystem.h	68
+FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_wValue	short	0	FVariableSystem.h	67
+FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_wszValue	wchar_t *	0	FVariableSystem.h	74
 FVariableSystem	m_iVariableIterator	FVariableHash::iterator	0	FVariableSystem.h	143
 FVariableSystem	m_mapVariableMap	FVariableHash	0	FVariableSystem.h	142
 GameTurnInfo	iMonthIncrement	int	0	CvStructs.h	48

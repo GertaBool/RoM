@@ -87,6 +87,8 @@ def main(path, src):
     # is a vcall thunk in the listing) and of functions no unit compiles.
     own = collections.defaultdict(set)
     bind_rows = []
+    free_rows = []
+    enum_rows = []
     for f in sorted(os.listdir(src)):
         if not f.endswith('.cpp'):
             continue
@@ -103,7 +105,21 @@ def main(path, src):
             doc = docs[-1] if docs else ''
             ret = re.match(r'\s*([A-Za-z_]\w*)', doc)
             bind_rows.append([m.group(1), cls, m.group(2), f, d.count('\n', 0, m.start()) + 1, doc, ret.group(1) if ret else ''])
+        for m in re.finditer(r'(?<!\.)python::def\(\s*"(\w+)"\s*,\s*&?\s*([\w:]+)', d):
+            if '//' in d[d.rfind('\n', 0, m.start()):m.start()]:
+                continue
+            rest = d[m.end():d.find('\n', m.end())]
+            docs = re.findall(r'"([^"]*)"', rest)
+            doc = docs[-1] if docs else ''
+            ret = re.match(r'\s*([A-Za-z_]\w*)', doc)
+            free_rows.append([m.group(1), m.group(2), f, d.count('\n', 0, m.start()) + 1, doc, ret.group(1) if ret else ''])
+        for m in re.finditer(r'python::enum_<\s*([\w:]+)\s*>\s*\(\s*"(\w+)"', d):
+            if '//' in d[d.rfind('\n', 0, m.start()):m.start()]:
+                continue
+            enum_rows.append([m.group(2), m.group(1), f, d.count('\n', 0, m.start()) + 1])
     write('python_bindings.tsv', ['python_name', 'cpp_class', 'target', 'file', 'line', 'doc', 'returns'], bind_rows)
+    write('python_free_funcs.tsv', ['python_name', 'target', 'file', 'line', 'doc', 'returns'], free_rows)
+    write('python_enums.tsv', ['python_name', 'cpp_enum', 'file', 'line'], enum_rows)
     dll_names = {r[0] for r in bind_rows}
     cpp_of = {r[0]: r[1] for r in reg}
     base_of = {r[1]: [b for b in r[2].split(',') if b] for r in reg}

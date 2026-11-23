@@ -130,6 +130,16 @@ class Graph:
                 tgt = self.py_by_mod[r['python_file']].get(r['python_function'])
                 if tgt and 'c:' + r['caller'] in self.info:
                     self.dep[tgt]['c:' + r['caller']] = 'cpp>py'
+        # BUG <gameutils> dispatch: CvGameInterface.<cb> -> CvGameUtils / RoMGameUtils / RevDCMReligionControl / etc.
+        gi_mods = self.modname.get('CvGameInterface', [])
+        for r in read('py_gameutils.tsv'):
+            htgt = self.py_by_mod[r['module']].get(r['handler'])
+            if not htgt:
+                continue
+            for gm in gi_mods:
+                gsrc = self.py_by_mod[gm].get(r['callback'])
+                if gsrc and gsrc != htgt:
+                    self.dep[htgt].setdefault(gsrc, 'py>py')
         for r in read('event_handlers.tsv'):
             h = self.handler(r)
             if h and 'c:' + r['function'] in self.info:
@@ -145,7 +155,7 @@ class Graph:
             self.info[nid] = dict(kind='member', label='%s::%s' % (r['cls'], r['field']), file=r['file'],
                                   line=int(r['line']), type=r['type'], saved=False, tags=set())
         for a in layer.access:
-            f = self.cnode(a['function'])
+            f = self.cnode_at(a['function'], a.get('file', ''), int(a['line']) if str(a.get('line', '')).isdigit() else 0)
             for c in a['cls'].split(','):
                 m = 'm:%s::%s' % (c, a['field'])
                 if m not in self.info:
@@ -170,7 +180,8 @@ class Graph:
                     if m in self.info:
                         self.dep[t][m] = 'fill'
                         self.info[m]['tags'].add(s['string'])
-        # which files feed a member: the files loaded into its class or a class derived from it (xml_classes.tsv)
+        # which files feed a member: the files loaded into its class or a class derived from it (xml_classes.tsv),
+        # including WoC modular overrides under Assets/Modules/ (*_<FileName>.xml).
         kids = collections.defaultdict(set)
         for r in read('bases.tsv'):
             kids[r['base']].add(r['class'])
@@ -188,9 +199,21 @@ class Graph:
         for nid, i in self.info.items():
             if i['kind'] == 'member' and i['tags']:
                 files = set().union(*(loads.get(c, set()) for c in below(i['label'].split('::')[0])))
+                basenames = {os.path.basename(f) for f in files}
                 i['xml'] = {}
                 for t in i['tags']:
-                    rows = [r for r in xml.get(t, []) if r['file'].lower() in files] if files else []
+                    if not files:
+                        rows = []
+                    else:
+                        rows = []
+                        for r in xml.get(t, []):
+                            rf = r['file'].lower()
+                            if rf in files:
+                                rows.append(r)
+                            elif r.get('layer') == 'mod-module':
+                                rb = os.path.basename(rf)
+                                if rb in basenames or any(rb.endswith('_' + b) for b in basenames):
+                                    rows.append(r)
                     i['xml'][t] = (rows, bool(files))
         dfile = collections.defaultdict(list)
         for r in read('xml_defines.tsv'):
@@ -199,7 +222,8 @@ class Graph:
             nid = 'd:' + d['define']
             if nid not in self.info:
                 self.info[nid] = dict(kind='define', label=d['define'], files=dfile.get(d['define'], []))
-            self.dep[nid].setdefault(self.cnode(d['function']), 'define')
+            fn = self.cnode_at(d['function'], d.get('file', ''), int(d['line']) if str(d.get('line', '')).isdigit() else 0)
+            self.dep[nid].setdefault(fn, 'define')
 
     def in_stream(self, file, line):
         """Is this source line inside a read/write(FDataStreamBase*) function (serialization)?"""
@@ -242,23 +266,44 @@ class Graph:
             cls = caller.split('.')[0]
             return self.py_by_mod[f].get('%s.%s' % (cls, attr)) or self.py_by_mod[f].get(attr)
         if src == 'BUG config':
-            mod, _, fn = h.rpartition('.')
+            mod, _, fn = h.partition('.')
             for m in self.modname.get(mod, []):
-                hit = [v for q, v in self.py_by_mod[m].items() if q.split('.')[-1] == fn]
+                if fn in self.py_by_mod[m]:
+                    return self.py_by_mod[m][fn]
+                short = fn.split('.')[-1]
+                hit = [v for q, v in self.py_by_mod[m].items() if q.split('.')[-1] == short]
                 if hit:
                     return hit[0]
         return None
 
-    def cnode(self, fid):
-        """Node of a C++ function named Scope::name by the syntactic scan."""
+    def cnode_at(self, fid, file='', line=0):
+        """Exact C++ function node for Scope::name at (file, line), disambiguating overloads by line span."""
         scope, _, name = fid.rpartition('::')
         ids = self.by_key.get(key(scope, name))
         if ids:
+            if len(ids) == 1 or not line:
+                return ids[0]
+            for nid in ids:
+                r = self.Q.F.get(int(nid[2:]))
+                if not r or not r['line'] or not r['end']:
+                    continue
+                if (not file or r['file'] == file) and int(r['line']) <= line <= int(r['end']):
+                    return nid
+            # Fallback: nearest overload in the same file whose start <= line
+            same_file = [(int(self.Q.F[int(nid[2:])]['line']), nid) for nid in ids
+                         if self.Q.F.get(int(nid[2:]), {}).get('file') == file and self.Q.F[int(nid[2:])].get('line')]
+            before = [x for x in same_file if x[0] <= line]
+            if before:
+                return max(before)[1]
             return ids[0]
         nid = 's:' + fid
         if nid not in self.info:
-            self.info[nid] = dict(kind='new', label=fid, file='', line=0)
+            self.info[nid] = dict(kind='new', label=fid, file=file, line=line)
         return nid
+
+    def cnode(self, fid):
+        """Node of a C++ function named Scope::name by the syntactic scan."""
+        return self.cnode_at(fid)
 
     def cnodes(self, fid):
         scope, _, name = fid.rpartition('::')

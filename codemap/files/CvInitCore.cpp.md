@@ -325,7 +325,6 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
   - calls: CvInitCore::getEra [CvInitCore.h], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEraInfo::getAdvancedStartPoints [CvInfos.cpp], CvInitCore::getWorldSize [CvInitCore.h], CvGlobals::getWorldInfo(WorldSizeTypes) [CvGlobals.cpp], CvWorldInfo::getAdvancedStartPointsMod [CvInfos.cpp], CvInitCore::getGameSpeed [CvInitCore.h], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGameSpeedInfo::getGrowthPercent [CvInfos.cpp], CvInitCore::setNumAdvancedStartPoints [CvInitCore.h]
 - **1985** `CvInitCore::read(FDataStreamBase*)` (exported; virtual)
   - calls: FDataStreamBase::Read [FDataStreamBase.h], CvString::CvString() [CvString.h], FDataStreamBase::ReadString [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvPlayerAI::areStaticsInitialized [CvPlayerAI.cpp], CvPlayer::updateHuman [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::updateTeamType [CvPlayer.cpp], CvString::~CvString [CvString.h]
-  - called by (2): ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>
 - **2136** `CvInitCore::write(FDataStreamBase*)` (exported; virtual)
   - calls: FDataStreamBase::Write [FDataStreamBase.h], CvGlobals::getModLoadControlVectorSize [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getModLoadControlVector [CvGlobals.cpp], CvString::~CvString [CvString.h], FDataStreamBase::WriteString [FDataStreamBase.h]
 - **2249** `CvInitCore::getNumSaveGameVector()`
@@ -352,6 +351,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **·** `CvInitCore::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvInitCore::~CvInitCore
   - takes the address of: CvInitCore::~CvInitCore
+  - called by (1): CvGlobals::uninit
 - **·** `CvWString::`vector deleting dtor'(unsigned int)` (written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvWString::~CvWString [CvString.h]
   - takes the address of: CvWString::~CvWString [CvString.h]

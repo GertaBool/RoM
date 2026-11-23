@@ -27,10 +27,8 @@ Group: interface, text and messages. Functions in line order: what each calls (i
   - called by (1): CvStatistics::getEra
 - **58** `CvGameRecord::read(FDataStreamBase*)` (virtual)
   - calls: CvGameRecord::reset, FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h]
-  - called by (1): CvEventReporter::readStatistics
 - **71** `CvGameRecord::write(FDataStreamBase*)` (virtual)
   - calls: FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h]
-  - called by (1): CvEventReporter::writeStatistics
 - **81** `CvPlayerRecord::CvPlayerRecord()`
   - calls: CvPlayerRecord::init
   - called by (1): CvStatistics::getPlayerRecord
@@ -98,10 +96,10 @@ Group: interface, text and messages. Functions in line order: what each calls (i
   - called by (1): CvEventReporter::getPlayerStatistics
 - **271** `CvPlayerRecord::read(FDataStreamBase*)` (virtual)
   - calls: CvPlayerRecord::reset, FDataStreamBase::Read [FDataStreamBase.h], CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp]
-  - called by (2): CvEventReporter::readStatistics, CvStatistics::read
+  - called by (1): CvStatistics::read
 - **296** `CvPlayerRecord::write(FDataStreamBase*)` (virtual)
   - calls: FDataStreamBase::Write [FDataStreamBase.h], CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp]
-  - called by (2): CvEventReporter::writeStatistics, CvStatistics::write
+  - called by (1): CvStatistics::write
 - **322** `CvStatistics::~CvStatistics()`
   - calls: CvStatistics::uninit, CvGameRecord::~CvGameRecord
   - called by (1): CvEventReporter::~CvEventReporter

@@ -8,7 +8,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (2): FFreeListTrashArray<CvArea>::add, ReadStreamableFFreeListTrashArray<class CvArea>
 - **63** `CvArea::~CvArea()` (virtual)
   - calls: CvArea::uninit, operator delete[](void*) [CvGameCoreDLL.cpp]
-  - called by (1): CvArea::`scalar deleting dtor'
+  - called by (3): CvArea::`scalar deleting dtor', FFreeListTrashArray<CvArea>::removeAll, FFreeListTrashArray<CvArea>::removeAt
 - **100** `CvArea::init(int, bool)`
   - calls: CvArea::reset
   - called by (2): CvMap::calculateAreas, CvPlot::setPlotType
@@ -171,7 +171,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (2): CvPlot::processArea, CvPlot::setImprovementType
 - **913** `CvArea::read(FDataStreamBase*)` (virtual)
   - calls: CvArea::reset, FDataStreamBase::Read [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumImprovementInfos [CvGlobals.cpp]
-  - called by (2): ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>
+  - called by (1): ReadStreamableFFreeListTrashArray<class CvArea>
 - **974** `CvArea::write(FDataStreamBase*)` (virtual)
   - calls: FDataStreamBase::Write [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumImprovementInfos [CvGlobals.cpp]
   - called by (1): WriteStreamableFFreeListTrashArray<class CvArea>

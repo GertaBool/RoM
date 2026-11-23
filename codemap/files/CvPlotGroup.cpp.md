@@ -7,7 +7,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (2): FFreeListTrashArray<CvPlotGroup>::add, ReadStreamableFFreeListTrashArray<class CvPlotGroup>
 - **24** `CvPlotGroup::~CvPlotGroup()` (virtual)
   - calls: CvPlotGroup::uninit, CLinkList<XYCoords>::~CLinkList<struct XYCoords> [LinkedList.h]
-  - called by (1): CvPlotGroup::`scalar deleting dtor'
+  - called by (3): CvPlotGroup::`scalar deleting dtor', FFreeListTrashArray<CvPlotGroup>::removeAll, FFreeListTrashArray<CvPlotGroup>::removeAt
 - **30** `CvPlotGroup::init(int, PlayerTypes, CvPlot*)`
   - calls: CvPlotGroup::reset, CvPlotGroup::addPlot
   - called by (1): CvPlayer::initPlotGroup
