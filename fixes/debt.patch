@@ -1,3 +1,13 @@
+From: RoM Maintenance
+Subject: [PATCH] Debt: loans and bonds between civilizations and with the open market
+
+Note: Restored the format-patch header and Serves trailer that Claude omitted
+when committing fixes/debt.patch as a raw git diff in 176d27e, which broke
+method/check_all.py (builds/debt/provenance.json -> ledger.py) for every
+subsequent commit in the repository.
+
+Serves: P14
+---
 diff --git a/Assets/CvGameCoreDLL/AIDebtPolicy.h b/Assets/CvGameCoreDLL/AIDebtPolicy.h
 new file mode 100644
 index 0000000..5e297e7
