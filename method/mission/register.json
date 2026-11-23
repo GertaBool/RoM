@@ -616,5 +616,43 @@
    "fixes/debt/",
    "builds/debt/"
   ]
+ },
+ {
+  "id": "H10",
+  "type": "hypothesis",
+  "line": "test-branch-fixes",
+  "text": "GitLab Graphics-Paging-Fix-Test (8587217) has three classes of defects found by static codemap and source audit: (1) graphics paging selection/loop bugs (break instead of continue in CvGame::pageGraphics active-unit/city loops, multi-selected cities omitted from paging protection and iMaxIn exemption, paged-out entities not restored before selection in CvGameInterface/CvDLLButtonPopup, and bulk-reveal dirty routes not rebuilt in CvPlot::refreshRevealedGraphics); (2) diplomacy valuation defects (AI_counterPropose false rejections due to mixed buyer/seller weights, 32-bit overflow in AI_dealVal gold/GPT conversion, AI-AI zero-gain swaps, and unflagged bilateral economics in AI_DIPLOMACY_FLAGS); and (3) a typo (USE_USE_CANNOT_SPREAD_RELIGION_CALLBACK) in CvGlobals::cacheGlobals. Fixing all three with zero save-format changes resolves the selection/graphics and trade defects without breaking gameplay or save compatibility."
+ },
+ {
+  "id": "P15",
+  "type": "prediction",
+  "line": "test-branch-fixes",
+  "hypotheses": [
+   "H10"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "On GitLab Graphics-Paging-Fix-Test 8587217: (1) CvGame.cpp/CvCity.cpp/CvGameInterface.cpp/CvDLLButtonPopup.cpp/CvPlot.cpp: fix active-unit/city paging loops (continue vs break), protect all multi-selected cities and exempt them from iMaxIn, restore paged-out graphics before selection and popup actions, and rebuild dirty route symbols on bulk reveal; (2) AIDiplomacyPolicy.h/CvGameCoreUtils.h/CvPlayerAI.cpp/BBAI_AI_Variables_GlobalDefines.xml: add 64-bit gold/GPT helpers, add AI_DIPLOMACY_NET_VALUE (bit 16, default AI_DIPLOMACY_FLAGS 31), require strictly positive net gain on AI-AI swaps, and fix AI_counterPropose asking/offering weights; (3) CvGlobals.cpp: fix USE_USE_CANNOT_SPREAD_RELIGION_CALLBACK typo. Arm a: patched 8587217 build; arm b: unmodified 8587217 build. Both in the headless harness from the same scenario, all seats AI, seeds from ledger.py seeds. Runs complete no less often with the fixes than without; in-game selection/camera/human-trade behaviour is verified by the user in Civ4.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/AIDiplomacyPolicy.h",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvDLLButtonPopup.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameInterface.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGlobals.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/XML/BBAI_AI_Variables_GlobalDefines.xml",
+   "fixes/test-branch-fixes.patch",
+   "fixes/test-branch-fixes/"
+  ]
  }
 ]
