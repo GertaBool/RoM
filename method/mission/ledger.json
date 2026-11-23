@@ -1,0 +1,403 @@
+{
+ "acknowledged": [],
+ "as_of": "0c6ca5998dc4ccc8c2fa8f11a802fe0e8b33c49a",
+ "late_links": 0,
+ "lines": {
+  "balance": {
+   "acknowledged_violations": [],
+   "commits_since_decision": 2,
+   "decided": [
+    "P6"
+   ],
+   "predictions": [
+    "P5",
+    "P6"
+   ],
+   "state": "untested"
+  },
+  "debt": {
+   "acknowledged_violations": [],
+   "commits_since_decision": 4,
+   "decided": [],
+   "predictions": [
+    "P14"
+   ],
+   "state": "untested"
+  },
+  "graphics-paging": {
+   "acknowledged_violations": [],
+   "commits_since_decision": 0,
+   "decided": [
+    "P7",
+    "P8"
+   ],
+   "predictions": [
+    "P7",
+    "P8"
+   ],
+   "state": "progressive"
+  },
+  "graphics-rendering": {
+   "acknowledged_violations": [],
+   "commits_since_decision": 0,
+   "decided": [
+    "P9",
+    "P10",
+    "P11",
+    "P12",
+    "P13"
+   ],
+   "predictions": [
+    "P9",
+    "P10",
+    "P11",
+    "P12",
+    "P13"
+   ],
+   "state": "progressive"
+  },
+  "staging-defence": {
+   "acknowledged_violations": [],
+   "commits_since_decision": 3,
+   "decided": [],
+   "predictions": [
+    "P3",
+    "P4"
+   ],
+   "state": "untested"
+  },
+  "test-branch-fixes": {
+   "acknowledged_violations": [],
+   "commits_since_decision": 0,
+   "decided": [
+    "P15"
+   ],
+   "predictions": [
+    "P15"
+   ],
+   "state": "progressive"
+  },
+  "war-ai-fixes": {
+   "acknowledged_violations": [],
+   "commits_since_decision": 4,
+   "decided": [],
+   "predictions": [
+    "P1",
+    "P2"
+   ],
+   "state": "untested"
+  }
+ },
+ "predictions": {
+  "P1": {
+   "anecdote": false,
+   "detail": "",
+   "evidence_commits": [],
+   "line": "war-ai-fixes",
+   "method_changes_since_registration": [
+    "4332d7866e5df31643a14ea932fbc0280a983b8b",
+    "31504b472de26ce9f92288cda538003099697cec",
+    "54e00f103a11aa6b0ad17421c48fb8528b4bed0c",
+    "d8fa933361562055046dfece643922d940f284e4",
+    "1efb4eafb89cf2970acbfab4b3fbe8a4c1378367",
+    "00a3c11f9c383c2e38f250443c98aada5ffe40da",
+    "ada24591aecd4e94ef9f8233e62ae73b918e91e2",
+    "a0b6b7e2721739bbdd2e782cad7d8f8cbc5092dd",
+    "52de1e190f42d833123524c2645e08f4b0566fee",
+    "0f4522e865cde5ee98cbd5245ad28ceef08584b1",
+    "95194cdc86bf1184f67975532476a1895be1b88e",
+    "0c51a960bb54b6b8534b3aee0755beaf6c1b4602",
+    "446080aca63f26d4e60b4715cba2c5ed72bd22f2"
+   ],
+   "n": 0,
+   "rejected": [],
+   "status": "withdrawn",
+   "unverified": 0,
+   "variable": "taken"
+  },
+  "P10": {
+   "anecdote": false,
+   "detail": "p 0.1181, A 0.618",
+   "evidence_commits": [
+    "f4842c3c20a02d4906f84fed8abb41555ee83945"
+   ],
+   "line": "graphics-rendering",
+   "method_changes_since_registration": [
+    "0c51a960bb54b6b8534b3aee0755beaf6c1b4602",
+    "446080aca63f26d4e60b4715cba2c5ed72bd22f2"
+   ],
+   "n": [
+    30,
+    30
+   ],
+   "rejected": [],
+   "status": "corroborated",
+   "unverified": 60,
+   "variable": "turn_seconds"
+  },
+  "P11": {
+   "anecdote": false,
+   "detail": "p nan, A 0.500",
+   "evidence_commits": [
+    "1f2f930d0447d94cdb0fb4093858641f0e3c477a"
+   ],
+   "line": "graphics-rendering",
+   "method_changes_since_registration": [
+    "0c51a960bb54b6b8534b3aee0755beaf6c1b4602",
+    "446080aca63f26d4e60b4715cba2c5ed72bd22f2"
+   ],
+   "n": [
+    30,
+    30
+   ],
+   "rejected": [],
+   "status": "corroborated",
+   "unverified": 60,
+   "variable": "completed"
+  },
+  "P12": {
+   "anecdote": false,
+   "detail": "p nan, A 0.500",
+   "evidence_commits": [
+    "0e09cf612084a931d6baba64175110f9ef614f05"
+   ],
+   "line": "graphics-rendering",
+   "method_changes_since_registration": [
+    "0c51a960bb54b6b8534b3aee0755beaf6c1b4602",
+    "446080aca63f26d4e60b4715cba2c5ed72bd22f2"
+   ],
+   "n": [
+    30,
+    30
+   ],
+   "rejected": [],
+   "status": "corroborated",
+   "unverified": 60,
+   "variable": "completed"
+  },
+  "P13": {
+   "anecdote": false,
+   "detail": "p nan, A 0.500",
+   "evidence_commits": [
+    "46993af68445f86e76ebd2ba6924a94a49ddfd09"
+   ],
+   "line": "graphics-rendering",
+   "method_changes_since_registration": [
+    "0c51a960bb54b6b8534b3aee0755beaf6c1b4602",
+    "446080aca63f26d4e60b4715cba2c5ed72bd22f2"
+   ],
+   "n": [
+    30,
+    30
+   ],
+   "rejected": [],
+   "status": "corroborated",
+   "unverified": 60,
+   "variable": "completed"
+  },
+  "P14": {
+   "anecdote": false,
+   "detail": "",
+   "evidence_commits": [],
+   "line": "debt",
+   "method_changes_since_registration": [],
+   "n": [
+    0,
+    0
+   ],
+   "rejected": [],
+   "status": "open",
+   "unverified": 0,
+   "variable": "completed"
+  },
+  "P15": {
+   "anecdote": false,
+   "detail": "p nan, A 0.500",
+   "evidence_commits": [],
+   "line": "test-branch-fixes",
+   "method_changes_since_registration": [],
+   "n": [
+    5,
+    5
+   ],
+   "rejected": [],
+   "status": "corroborated",
+   "unverified": 0,
+   "variable": "completed"
+  },
+  "P2": {
+   "anecdote": false,
+   "detail": "",
+   "evidence_commits": [],
+   "line": "war-ai-fixes",
+   "method_changes_since_registration": [
+    "1efb4eafb89cf2970acbfab4b3fbe8a4c1378367",
+    "00a3c11f9c383c2e38f250443c98aada5ffe40da",
+    "ada24591aecd4e94ef9f8233e62ae73b918e91e2",
+    "a0b6b7e2721739bbdd2e782cad7d8f8cbc5092dd",
+    "52de1e190f42d833123524c2645e08f4b0566fee",
+    "0f4522e865cde5ee98cbd5245ad28ceef08584b1",
+    "95194cdc86bf1184f67975532476a1895be1b88e",
+    "0c51a960bb54b6b8534b3aee0755beaf6c1b4602",
+    "446080aca63f26d4e60b4715cba2c5ed72bd22f2"
+   ],
+   "n": 0,
+   "rejected": [],
+   "status": "open",
+   "unverified": 0,
+   "variable": "taken"
+  },
+  "P3": {
+   "anecdote": false,
+   "detail": "",
+   "evidence_commits": [],
+   "line": "staging-defence",
+   "method_changes_since_registration": [
+    "1efb4eafb89cf2970acbfab4b3fbe8a4c1378367",
+    "00a3c11f9c383c2e38f250443c98aada5ffe40da",
+    "ada24591aecd4e94ef9f8233e62ae73b918e91e2",
+    "a0b6b7e2721739bbdd2e782cad7d8f8cbc5092dd",
+    "52de1e190f42d833123524c2645e08f4b0566fee",
+    "0f4522e865cde5ee98cbd5245ad28ceef08584b1",
+    "95194cdc86bf1184f67975532476a1895be1b88e",
+    "0c51a960bb54b6b8534b3aee0755beaf6c1b4602",
+    "446080aca63f26d4e60b4715cba2c5ed72bd22f2"
+   ],
+   "n": 0,
+   "rejected": [],
+   "status": "withdrawn",
+   "unverified": 0,
+   "variable": "taken"
+  },
+  "P4": {
+   "anecdote": false,
+   "detail": "",
+   "evidence_commits": [],
+   "line": "staging-defence",
+   "method_changes_since_registration": [
+    "1efb4eafb89cf2970acbfab4b3fbe8a4c1378367",
+    "00a3c11f9c383c2e38f250443c98aada5ffe40da",
+    "ada24591aecd4e94ef9f8233e62ae73b918e91e2",
+    "a0b6b7e2721739bbdd2e782cad7d8f8cbc5092dd",
+    "52de1e190f42d833123524c2645e08f4b0566fee",
+    "0f4522e865cde5ee98cbd5245ad28ceef08584b1",
+    "95194cdc86bf1184f67975532476a1895be1b88e",
+    "0c51a960bb54b6b8534b3aee0755beaf6c1b4602",
+    "446080aca63f26d4e60b4715cba2c5ed72bd22f2"
+   ],
+   "n": 0,
+   "rejected": [],
+   "status": "open",
+   "unverified": 0,
+   "variable": "taken"
+  },
+  "P5": {
+   "anecdote": false,
+   "detail": "",
+   "evidence_commits": [],
+   "line": "balance",
+   "method_changes_since_registration": [
+    "00a3c11f9c383c2e38f250443c98aada5ffe40da",
+    "ada24591aecd4e94ef9f8233e62ae73b918e91e2",
+    "a0b6b7e2721739bbdd2e782cad7d8f8cbc5092dd",
+    "52de1e190f42d833123524c2645e08f4b0566fee",
+    "0f4522e865cde5ee98cbd5245ad28ceef08584b1",
+    "95194cdc86bf1184f67975532476a1895be1b88e",
+    "0c51a960bb54b6b8534b3aee0755beaf6c1b4602",
+    "446080aca63f26d4e60b4715cba2c5ed72bd22f2"
+   ],
+   "n": 0,
+   "rejected": [],
+   "status": "open",
+   "unverified": 0,
+   "variable": "taken"
+  },
+  "P6": {
+   "anecdote": false,
+   "detail": "p 0.1582, A 0.604",
+   "evidence_commits": [
+    "62805a97ffa5b5a169bfec26f4a0893cedacea0e"
+   ],
+   "line": "balance",
+   "method_changes_since_registration": [
+    "00a3c11f9c383c2e38f250443c98aada5ffe40da",
+    "ada24591aecd4e94ef9f8233e62ae73b918e91e2",
+    "a0b6b7e2721739bbdd2e782cad7d8f8cbc5092dd",
+    "52de1e190f42d833123524c2645e08f4b0566fee",
+    "0f4522e865cde5ee98cbd5245ad28ceef08584b1",
+    "95194cdc86bf1184f67975532476a1895be1b88e",
+    "0c51a960bb54b6b8534b3aee0755beaf6c1b4602",
+    "446080aca63f26d4e60b4715cba2c5ed72bd22f2"
+   ],
+   "n": [
+    30,
+    30
+   ],
+   "rejected": [],
+   "status": "not corroborated",
+   "unverified": 60,
+   "variable": "seat_captures"
+  },
+  "P7": {
+   "anecdote": false,
+   "detail": "p nan, A 0.500",
+   "evidence_commits": [
+    "bb60ed4523553ace7ffcfdb69964f7829dca1414"
+   ],
+   "line": "graphics-paging",
+   "method_changes_since_registration": [
+    "0c51a960bb54b6b8534b3aee0755beaf6c1b4602",
+    "446080aca63f26d4e60b4715cba2c5ed72bd22f2"
+   ],
+   "n": [
+    30,
+    30
+   ],
+   "rejected": [],
+   "status": "corroborated",
+   "unverified": 60,
+   "variable": "completed"
+  },
+  "P8": {
+   "anecdote": false,
+   "detail": "p 0.9651, A 0.497",
+   "evidence_commits": [
+    "bb60ed4523553ace7ffcfdb69964f7829dca1414"
+   ],
+   "line": "graphics-paging",
+   "method_changes_since_registration": [
+    "0c51a960bb54b6b8534b3aee0755beaf6c1b4602",
+    "446080aca63f26d4e60b4715cba2c5ed72bd22f2"
+   ],
+   "n": [
+    30,
+    30
+   ],
+   "rejected": [],
+   "status": "corroborated",
+   "unverified": 60,
+   "variable": "turn_seconds"
+  },
+  "P9": {
+   "anecdote": false,
+   "detail": "p nan, A 0.500",
+   "evidence_commits": [
+    "f4842c3c20a02d4906f84fed8abb41555ee83945"
+   ],
+   "line": "graphics-rendering",
+   "method_changes_since_registration": [
+    "0c51a960bb54b6b8534b3aee0755beaf6c1b4602",
+    "446080aca63f26d4e60b4715cba2c5ed72bd22f2"
+   ],
+   "n": [
+    30,
+    30
+   ],
+   "rejected": [],
+   "status": "corroborated",
+   "unverified": 60,
+   "variable": "completed"
+  }
+ },
+ "violations": []
+}
