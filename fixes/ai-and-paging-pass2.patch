@@ -1,0 +1,1642 @@
+From f0d5629000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: GertaBool <67003432+GertaBool@users.noreply.github.com>
+Date: Mon, 23 Nov 2026 17:45:00 +0000
+Subject: [PATCH] Post-merge AI strength, overflow, and graphics paging fixes (pass 2 over c08a472)
+
+Cumulative save-compatible patch over GitLab main c08a472:
+1. Diplomacy & resource valuation (Designs A1, 2A, 4C, 5A, G1):
+   - Unified 40%/50%/30% surplus-sharing resource reservation floor closing the
+     1-GPT spare-resource exploit and aligning deal creation, counterproposals,
+     and 20-turn renewal (+ AI-AI outgoing GPT cancellation).
+   - Scope calculateGoldRate() clamp in AI_maxGoldPerTurnTrade to AI branch only.
+   - Require positive AI_mapTradeVal + CONTACT_TRADE_MAP cooldown on AI-AI map swaps.
+   - Add AI_corporationBonusVal == 0 guard and midpoint spare-resource offer weight
+     in AI_counterPropose, and 64-bit goldForValueGap in AI_doDiplo tech trades.
+   - Add imminent growth-cap happiness/health headroom in AI_bonusCityValue.
+2. War power overflows, economy, civics, bombard, Revolution AI & religion helpers
+   (Designs B1, C1, D1, E2, F1, 6A):
+   - Convert 10+ late-game 32-bit power sites to 64-bit across CvTeamAI, CvPlayerAI,
+     and CvCityAI (AI_getEnemyPowerPercent, AI_declareWarTradeVal, AI_surrenderTrade,
+     AI_endWarVal, AI_startWarVal, AI_minorKeepWarVal, AI_getBarbarianCivWarVal,
+     AI_conquerCity, AI_doVictoryStrategies, AI_cityThreat).
+   - Preserve AI culture slider in AI_doCommerce, guard 0%->10% research bump
+     against strike, and replace new[]/SAFE_DELETE UB with stack arrays.
+   - Fix AI_civicValue Inquisition typo (iValue /= 5 -> iValue += iNonstateReligionCount * 4).
+   - Fix AI_RbombardNaval mis-nested loop & zero-multiplying RNG, and guard
+     pDefender != NULL in AI_Abombard.
+   - Score building Revolution stability modifiers (RevIdx) in AI_buildingValueThreshold
+     when Revolutions is enabled.
+   - Fix assignment typos (= -> ==) in hasStateReligionHolyCity and hasStateReligionShrine.
+3. Graphics paging priority, critical shrink, deferred route drain & entity sync
+   (Designs 3A, 4A, 7B):
+   - Center-out Chebyshev ring page-in + non-serialized m_iPagingOutCursor
+     round-robin page-out in CvGame::pageGraphics.
+   - Live camera recenter during m_bPagingPending and immediate critical-pressure
+     window shrink (bypassing GRAPHICS_PAGING_SHRINK_MS at pressure level 2).
+   - Bounded off-window deferred route symbol drain via CvPlot::refreshRevealedRouteOnly().
+   - Symmetric post-setup m_bGraphicsPagedOut clearing in CvCity/CvUnit::pageGraphics(true)
+     plus post-setup unit position/flag sync.
+
+Serves: P16
+---
+diff --git a/Assets/CvGameCoreDLL/AIDiplomacyPolicy.h b/Assets/CvGameCoreDLL/AIDiplomacyPolicy.h
+index 4c48a8b..d6d964a 100644
+--- a/Assets/CvGameCoreDLL/AIDiplomacyPolicy.h
++++ b/Assets/CvGameCoreDLL/AIDiplomacyPolicy.h
+@@ -102,6 +102,50 @@ inline int maxAffordableGoldPerTurn(int maxValue, int maxGoldPerTurn, int goldVa
+ 	}
+ 	return iLow;
+ }
++
++// 64-bit ratio scaling for callers whose intermediate numerator or denominator
++// products can exceed 32-bit int (e.g. late-game RoM team power >= 10^7).
++inline int scaleByRatio64(long long value, long long numerator, long long denominator)
++{
++	const long long denom = (denominator > 0) ? denominator : (long long)1;
++	const long long result = (value * numerator) / denom;
++	return result < INT_MIN ? INT_MIN : (result > INT_MAX ? INT_MAX : (int)result);
++}
++
++// (100 * numerator) / max(1, denominator) in 64 bits, saturated to int.
++inline int powerRatioPercent(int numerator, int denominator)
++{
++	const long long denom = (denominator > 0) ? (long long)denominator : (long long)1;
++	const long long result = ((long long)numerator * 100) / denom;
++	return result < INT_MIN ? INT_MIN : (result > INT_MAX ? INT_MAX : (int)result);
++}
++
++// Overflow-free comparison of (leftWeight * leftVal) > (rightWeight * rightVal).
++inline bool isWeightedGreater(long long leftWeight, long long leftVal,
++	long long rightWeight, long long rightVal)
++{
++	return (leftWeight * leftVal) > (rightWeight * rightVal);
++}
++
++// Reservation price for selling/renewing a resource: seller's own marginal cost
++// plus ``sharePercent``% of positive buyer surplus. Ensures spare resources
++// cannot be bought for 1 GPT while leaving gains from trade for both sides.
++inline int resourceReservationVal(int ourLoss, int buyerVal, int sharePercent)
++{
++	const long long iLoss = (ourLoss > 0) ? (long long)ourLoss : (long long)0;
++	if (buyerVal <= iLoss || sharePercent <= 0)
++	{
++		return (iLoss > INT_MAX) ? INT_MAX : (int)iLoss;
++	}
++	const long long iSurplus = (long long)buyerVal - iLoss;
++	long long iShare = (iSurplus * sharePercent) / 100;
++	if (iShare <= 0)
++	{
++		iShare = 1;
++	}
++	const long long iPrice = iLoss + iShare;
++	return (iPrice > INT_MAX) ? INT_MAX : (int)iPrice;
++}
+ }
+ 
+ #endif
+diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
+index fabf5dd..fb93ced 100644
+--- a/Assets/CvGameCoreDLL/CvCity.cpp
++++ b/Assets/CvGameCoreDLL/CvCity.cpp
+@@ -803,12 +803,12 @@ bool CvCity::pageGraphics(bool bIn)
+ 			return false;
+ 		}
+ 
+-		m_bGraphicsPagedOut = false;
+ 		if (plot() != NULL)
+ 		{
+ 			plot()->pageGraphics(true);
+ 		}
+ 		CvDLLEntity::setup();
++		m_bGraphicsPagedOut = false;
+ 		setInfoDirty(true);
+ 		setLayoutDirty(true);
+ 		updateVisibility();
+diff --git a/Assets/CvGameCoreDLL/CvCityAI.cpp b/Assets/CvGameCoreDLL/CvCityAI.cpp
+index 355975e..a832b57 100644
+--- a/Assets/CvGameCoreDLL/CvCityAI.cpp
++++ b/Assets/CvGameCoreDLL/CvCityAI.cpp
+@@ -2,6 +2,7 @@
+ 
+ #include "CvGameCoreDLL.h"
+ #include "AIDecisionPolicy.h"
++#include "AIDiplomacyPolicy.h"
+ #include "AICityGovernorPolicy.h"
+ #include "AIFlavorPolicy.h"
+ #include "AIHierarchyPolicy.h"
+@@ -5801,6 +5802,29 @@ int CvCityAI::AI_buildingValueThreshold(BuildingTypes eBuilding, int iFocusFlags
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/
+ 				}
++
++				if (!GC.getGameINLINE().isOption(GAMEOPTION_NO_REVOLUTION))
++				{
++					const int iRevLocal = kBuilding.getRevIdxLocal();
++					const int iRevNational = kBuilding.getRevIdxNational();
++					const int iRevDistMod = kBuilding.getRevIdxDistanceModifier();
++					if (iRevLocal != 0 || iRevNational != 0 || iRevDistMod != 0)
++					{
++						const int iRevUrgency = range(getRevolutionIndex() / 100, 1, 10);
++						iValue -= iRevLocal * iRevUrgency * 6;
++						iValue -= iRevNational * iNumCities * 3;
++						if (iRevDistMod != 0)
++						{
++							CvCity* pCapital = kOwner.getCapitalCity();
++							if (pCapital != NULL && pCapital != this)
++							{
++								const int iDist = plotDistance(getX_INLINE(), getY_INLINE(), pCapital->getX_INLINE(), pCapital->getY_INLINE());
++								const int iDistFactor = range(iDist / 4, 1, 8);
++								iValue -= (iRevDistMod * iRevUrgency * iDistFactor) / 20;
++							}
++						}
++					}
++				}
+ 			}
+ 			
+ 			if ((iThreshold > 0) && (iPass == 0))
+@@ -13127,7 +13151,7 @@ int CvCityAI::AI_cityThreat(bool bDangerPercent)
+ 					// Beef up border security next to powerful rival
+ 					if( GET_PLAYER((PlayerTypes)iI).getPower() > GET_PLAYER(getOwnerINLINE()).getPower() )
+ 					{
+-						iTempValue *= std::min( 400, (100 * GET_PLAYER((PlayerTypes)iI).getPower())/std::max(1, GET_PLAYER(getOwnerINLINE()).getPower()) );
++						iTempValue *= std::min( 400, AIDiplomacyPolicy::powerRatioPercent(GET_PLAYER((PlayerTypes)iI).getPower(), GET_PLAYER(getOwnerINLINE()).getPower()) );
+ 						iTempValue /= 100;
+ 					}
+ 
+diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
+index fb48d4b..ca08a7f 100644
+--- a/Assets/CvGameCoreDLL/CvGame.cpp
++++ b/Assets/CvGameCoreDLL/CvGame.cpp
+@@ -536,6 +536,7 @@ void CvGame::reset(HandicapTypes eHandicap, bool bConstructorCall)
+ 	m_ePagingActivePlayer = NO_PLAYER;
+ 	m_bPagingPending = false;
+ 	m_bPagingPendingOut = false;
++	m_iPagingOutCursor = 0;
+ 	m_iGraphicsMemoryPressure = 0;
+ 	m_iGraphicsMemoryAvailMB = 0;
+ 	m_iGraphicsMemoryRecoverySamples = 0;
+@@ -2358,7 +2359,7 @@ bool CvGame::deferRevealedGraphics(CvPlot* pPlot, TeamTypes eTeam)
+ 	return true;
+ }
+ 
+-bool CvGame::processDeferredReveals(bool bAll)
++bool CvGame::processDeferredReveals(bool bAll, bool bOffWindowRoutes)
+ {
+ 	PROFILE_FUNC();
+ 
+@@ -2401,6 +2402,20 @@ bool CvGame::processDeferredReveals(bool bAll)
+ 	}
+ 	m_aiDeferredRevealPlots.resize(iWrite);
+ 
++	// Off-window revealed routes still need live route symbols so neighboring
++	// route meshes can connect across the map without waiting for the camera.
++	if (!bAll && bOffWindowRoutes && (iMaxIn == 0 || iProcessed < iMaxIn))
++	{
++		for (size_t iRouteIdx = 0; iRouteIdx < iWrite && (iMaxIn == 0 || iProcessed < iMaxIn); ++iRouteIdx)
++		{
++			CvPlot* pPlot = kMap.plotByIndexINLINE(m_aiDeferredRevealPlots[iRouteIdx]);
++			if (pPlot->isRevealedRouteDirty() && pPlot->refreshRevealedRouteOnly())
++			{
++				++iProcessed;
++			}
++		}
++	}
++
+ 	if (iProcessed > 0 && GC.getDefineINT("GRAPHICS_PAGING_LOG") > 0)
+ 	{
+ 		CvString szLine;
+@@ -2514,16 +2529,20 @@ void CvGame::updateGraphicsPaging()
+ 		m_bGraphicsPaging = false;
+ 		m_bPagingPending = false;
+ 		m_bPagingPendingOut = false;
++		m_iPagingOutCursor = 0;
+ 		return;
+ 	}
+ 
+ 	updateGraphicsMemoryPressure();
+ 	CvPlot* pLookAt = gDLL->getInterfaceIFace()->getLookAtPlot();
++	const bool bCameraMoved = m_bGraphicsPaging && (pLookAt != NULL) &&
++		((abs(dxWrap(pLookAt->getX_INLINE() - m_iPagingX)) >= m_iPagingStep) ||
++		 (abs(dyWrap(pLookAt->getY_INLINE() - m_iPagingY)) >= m_iPagingStep));
+ 
+ 	// Drain before every camera/timer early-out when memory permits. A reveal pass
+-	// exclusively owns its update. Under pressure its entries remain queued while
+-	// page-out work releases address space instead of creating more entities.
+-	if (m_iGraphicsMemoryPressure == 0 && processDeferredReveals(false))
++	// exclusively owns its update. Off-window route draining yields whenever the
++	// camera moved or visible page-ins are pending so on-screen restoration comes first.
++	if (m_iGraphicsMemoryPressure == 0 && processDeferredReveals(false, !m_bPagingPending && !bCameraMoved))
+ 	{
+ 		return;
+ 	}
+@@ -2550,16 +2569,16 @@ void CvGame::updateGraphicsPaging()
+ 		return;
+ 	}
+ 
+-	// Visible page-ins go on in the same window before the camera is read again. Background page-outs
+-	// use m_bPagingPendingOut instead: they must not hold the camera while a cold load drains its backlog.
+-	if (m_bGraphicsPaging && m_bPagingPending)
++	// Continue pending visible page-ins unless the camera has moved to a new area
++	// or critical memory pressure requires an immediate window shrink.
++	if (m_bGraphicsPaging && m_bPagingPending && !bCameraMoved && m_iGraphicsMemoryPressure < 2)
+ 	{
+ 		m_bPagingPending = pageGraphics(false);
+ 		return;
+ 	}
+ 
+ 	DWORD dwNow = GetTickCount();
+-	if (m_bGraphicsPaging && (dwNow - m_dwPagingCameraTime) < 100)
++	if (m_bGraphicsPaging && !bCameraMoved && m_iGraphicsMemoryPressure < 2 && (dwNow - m_dwPagingCameraTime) < 100)
+ 	{
+ 		if (m_bPagingPendingOut)
+ 		{
+@@ -2597,11 +2616,12 @@ void CvGame::updateGraphicsPaging()
+ 	}
+ 
+ 	bool bFirst = !m_bGraphicsPaging;
+-	bool bMoved = bFirst || (abs(dxWrap(pLookAt->getX_INLINE() - m_iPagingX)) >= m_iPagingStep) || (abs(dyWrap(pLookAt->getY_INLINE() - m_iPagingY)) >= m_iPagingStep);
++	bool bMoved = bFirst || bCameraMoved;
+ 	bool bActivePlayerChanged = (getActivePlayer() != m_ePagingActivePlayer);
+ 
+ 	// A side of the window that grows does so at once: the screen shows more. The window shrinks only once
+-	// it has stayed smaller for GRAPHICS_PAGING_SHRINK_MS, so zooming in and out again does not rebuild.
++	// it has stayed smaller for GRAPHICS_PAGING_SHRINK_MS, except under critical memory pressure where
++	// eviction must begin immediately.
+ 	int* apiSide[4] = {&m_iPagingWest, &m_iPagingEast, &m_iPagingNorth, &m_iPagingSouth};
+ 	bool bGrows = false;
+ 	bool bShrinks = false;
+@@ -2617,7 +2637,11 @@ void CvGame::updateGraphicsPaging()
+ 		}
+ 	}
+ 	bool bShrinkNow = false;
+-	if (bShrinks && !bGrows)
++	if (m_iGraphicsMemoryPressure == 2 && bShrinks)
++	{
++		bShrinkNow = true;
++	}
++	else if (bShrinks && !bGrows)
+ 	{
+ 		if (m_dwPagingShrinkSince == 0)
+ 		{
+@@ -2839,67 +2863,20 @@ bool CvGame::pageGraphics(bool bAllIn)
+ 	CvMap& kMap = GC.getMapINLINE();
+ 	CvString szLine;
+ 
++	const int iNumPlots = kMap.numPlotsINLINE();
++	const bool bPlotPart = (m_bGraphicsPagingPlots || m_bGraphicsPagingBuilders || m_bGraphicsPagingSymbols);
++
+ 	if (bAllIn)
+ 	{
+ 		m_bGraphicsPaging = false;
+ 		m_bPagingPending = false;
+-	}
+-	m_bPagingPendingOut = false;
+-
+-	for (int iI = 0; iI < kMap.numPlotsINLINE(); iI++)
+-	{
+-		CvPlot* pPlot = kMap.plotByIndexINLINE(iI);
+-		int iX = pPlot->getX_INLINE();
+-		int iY = pPlot->getY_INLINE();
+-		int iWant = 0;	// 1 in, -1 out, 0 leave
+-
+-		if (bAllIn || isInGraphicsWindow(iX, iY, false))
+-		{
+-			iWant = 1;
+-		}
+-		else if (!isInGraphicsWindow(iX, iY, true))
++		m_iPagingOutCursor = 0;
++		for (int iAllPlot = 0; iAllPlot < iNumPlots; ++iAllPlot)
+ 		{
+-			iWant = -1;
+-		}
+-
+-		if (iWant > 0 && !bAllowIn)
+-		{
+-			// Suppressed work is rediscovered after recovery; do not spin on a
+-			// permanently pending in-pass while the process needs address space.
+-			iWant = 0;
+-		}
+-
+-		if (iWant > 0 && iMaxIn > 0 && (aiIn[0] + aiIn[1] + aiIn[2]) >= iMaxIn)
+-		{
+-			// The limit is reached: this plot waits for the next update if it or anything on it is paged out.
+-			bool bWaiting = pPlot->isGraphicsPagedOut() || (pPlot->getPlotCity() != NULL && pPlot->getPlotCity()->isGraphicsPagedOut());
+-			for (CLLNode<IDInfo>* pNode = pPlot->headUnitNode(); pNode != NULL && !bWaiting; pNode = pPlot->nextUnitNode(pNode))
+-			{
+-				CvUnit* pLoopUnit = ::getUnit(pNode->m_data);
+-				bWaiting = (pLoopUnit != NULL && pLoopUnit->isGraphicsPagedOut());
+-			}
+-			if (bWaiting)
+-			{
+-				bMoreIn = true;
+-				iWant = 0;
+-			}
+-		}
+-		else if (iWant < 0 && iMaxOut > 0 && (aiOut[0] + aiOut[1] + aiOut[2]) >= iMaxOut)
+-		{
+-			// A cold load starts with every graphic set up. Do not tear down the whole map in one
+-			// update. The whole plot waits, preserving the unit/city-before-plot ordering below.
+-			// If no later plot needs work, the next pass is a harmless no-op and clears bMoreOut.
+-			bMoreOut = true;
+-			iWant = 0;
+-		}
+-
+-		if (iWant != 0)
+-		{
+-			bool bIn = (iWant > 0);
+-			bool bPlotPart = (m_bGraphicsPagingPlots || m_bGraphicsPagingBuilders || m_bGraphicsPagingSymbols);
+-			bool bBudgetStopped = false;
+-			// In: the plot first, then what stands on it. Out: the plot last, once nothing on it keeps its graphics.
+-			if (bIn)
++			CvPlot* pPlot = kMap.plotByIndexINLINE(iAllPlot);
++			const int iX = pPlot->getX_INLINE();
++			const int iY = pPlot->getY_INLINE();
++			if (pPlot->isGraphicsPagedOut())
+ 			{
+ 				if (iLog > 1)
+ 				{
+@@ -2912,108 +2889,280 @@ bool CvGame::pageGraphics(bool bAllIn)
+ 				}
+ 			}
+ 
+-			CLLNode<IDInfo>* pUnitNode = pPlot->headUnitNode();
+-			while (pUnitNode != NULL)
++			CLLNode<IDInfo>* pAllUnitNode = pPlot->headUnitNode();
++			while (pAllUnitNode != NULL)
+ 			{
+-				CvUnit* pLoopUnit = ::getUnit(pUnitNode->m_data);
+-				pUnitNode = pPlot->nextUnitNode(pUnitNode);
+-
+-				if (pLoopUnit != NULL && (bIn || m_bGraphicsPagingUnits))
++				CvUnit* pLoopUnit = ::getUnit(pAllUnitNode->m_data);
++				pAllUnitNode = pPlot->nextUnitNode(pAllUnitNode);
++				if (pLoopUnit != NULL && pLoopUnit->isGraphicsPagedOut())
+ 				{
+-					const int iDone = bIn ? (aiIn[0] + aiIn[1] + aiIn[2]) : (aiOut[0] + aiOut[1] + aiOut[2]);
+-					const int iLimit = bIn ? iMaxIn : iMaxOut;
+-					if (iLimit > 0 && iDone >= iLimit)
+-					{
+-						(bIn ? bMoreIn : bMoreOut) = true;
+-						bBudgetStopped = true;
+-						break;
+-					}
+ 					if (iLog > 1)
+ 					{
+-						szLine.Format("turn %d trace %s unit %d owner %d at (%d,%d)", getGameTurn(), bIn ? "in" : "out",
++						szLine.Format("turn %d trace in unit %d owner %d at (%d,%d)", getGameTurn(),
+ 							pLoopUnit->getID(), (int)pLoopUnit->getOwnerINLINE(), iX, iY);
+ 						gDLL->logMsg("GraphicsPaging.log", szLine.c_str(), false, true);
+ 					}
+-					if (pLoopUnit->pageGraphics(bIn))
++					if (pLoopUnit->pageGraphics(true))
+ 					{
+-						(bIn ? aiIn : aiOut)[1]++;
++						aiIn[1]++;
+ 					}
+ 				}
+ 			}
+ 
+-			CvCity* pCity = pPlot->getPlotCity();
+-			if (!bBudgetStopped && pCity != NULL && (bIn || m_bGraphicsPagingCities))
++			CvCity* pAllCity = pPlot->getPlotCity();
++			if (pAllCity != NULL && pAllCity->isGraphicsPagedOut())
+ 			{
+-				const int iDone = bIn ? (aiIn[0] + aiIn[1] + aiIn[2]) : (aiOut[0] + aiOut[1] + aiOut[2]);
+-				const int iLimit = bIn ? iMaxIn : iMaxOut;
+-				if (iLimit > 0 && iDone >= iLimit)
+-				{
+-					(bIn ? bMoreIn : bMoreOut) = true;
+-					bBudgetStopped = true;
+-				}
+-				if (!bBudgetStopped && iLog > 1)
++				if (iLog > 1)
+ 				{
+-					szLine.Format("turn %d trace %s city %d owner %d at (%d,%d)", getGameTurn(), bIn ? "in" : "out",
+-						pCity->getID(), (int)pCity->getOwnerINLINE(), iX, iY);
++					szLine.Format("turn %d trace in city %d owner %d at (%d,%d)", getGameTurn(),
++						pAllCity->getID(), (int)pAllCity->getOwnerINLINE(), iX, iY);
+ 					gDLL->logMsg("GraphicsPaging.log", szLine.c_str(), false, true);
+ 				}
+-				if (!bBudgetStopped && pCity->pageGraphics(bIn))
++				if (pAllCity->pageGraphics(true))
+ 				{
+-					(bIn ? aiIn : aiOut)[2]++;
++					aiIn[2]++;
+ 				}
+ 			}
++		}
++	}
++	else
++	{
++		// Pass 1: center-out Chebyshev rings around (m_iPagingX, m_iPagingY) so
++		// on-screen center plots, units, and cities always take the first iMaxIn slots.
++		if (bAllowIn && m_iPagingX != INVALID_PLOT_COORD && m_iPagingY != INVALID_PLOT_COORD)
++		{
++			const int iGridW = kMap.getGridWidthINLINE();
++			const int iGridH = kMap.getGridHeightINLINE();
++			int iWest = std::min(m_iPagingWest, iGridW - 1);
++			int iEast = std::min(m_iPagingEast, iGridW - 1);
++			if (kMap.isWrapXINLINE() && (iWest + iEast + 1) > iGridW)
++			{
++				iWest = std::min(iWest, iGridW / 2);
++				iEast = std::min(iEast, iGridW - 1 - iWest);
++			}
++			int iSouth = std::min(m_iPagingSouth, iGridH - 1);
++			int iNorth = std::min(m_iPagingNorth, iGridH - 1);
++			if (kMap.isWrapYINLINE() && (iSouth + iNorth + 1) > iGridH)
++			{
++				iSouth = std::min(iSouth, iGridH / 2);
++				iNorth = std::min(iNorth, iGridH - 1 - iSouth);
++			}
++			const int iMaxRing = std::max(std::max(iWest, iEast), std::max(iSouth, iNorth));
+ 
+-			if (!bIn && bPlotPart && !bBudgetStopped)
++			for (int iR = 0; iR <= iMaxRing && bAllowIn && !bMoreIn; ++iR)
+ 			{
+-				if (iLog > 1)
+-				{
+-					szLine.Format("turn %d trace out plot (%d,%d)", getGameTurn(), iX, iY);
+-					gDLL->logMsg("GraphicsPaging.log", szLine.c_str(), false, true);
+-				}
+-				if (pPlot->pageGraphics(false))
++				const int iMinDY = std::max(-iSouth, -iR);
++				const int iMaxDY = std::min(iNorth, iR);
++				const int iMinDX = std::max(-iWest, -iR);
++				const int iMaxDX = std::min(iEast, iR);
++				for (int iDY = iMinDY; iDY <= iMaxDY && bAllowIn && !bMoreIn; ++iDY)
+ 				{
+-					aiOut[0]++;
++					const int iStepDX = (abs(iDY) == iR || iR == 0) ? 1 : (2 * iR);
++					int iStartDX = (iStepDX == 1) ? iMinDX : -iR;
++					if (iStartDX < iMinDX)
++					{
++						iStartDX += iStepDX;
++					}
++					for (int iDX = iStartDX; iDX <= iMaxDX && bAllowIn && !bMoreIn; iDX += iStepDX)
++					{
++						CvPlot* pPlot = kMap.plotINLINE(m_iPagingX + iDX, m_iPagingY + iDY);
++						if (pPlot == NULL)
++						{
++							continue;
++						}
++						const int iX = pPlot->getX_INLINE();
++						const int iY = pPlot->getY_INLINE();
++
++						if (pPlot->isGraphicsPagedOut())
++						{
++							if (iMaxIn > 0 && (aiIn[0] + aiIn[1] + aiIn[2]) >= iMaxIn)
++							{
++								bMoreIn = true;
++								break;
++							}
++							if (iLog > 1)
++							{
++								szLine.Format("turn %d trace in plot (%d,%d)", getGameTurn(), iX, iY);
++								gDLL->logMsg("GraphicsPaging.log", szLine.c_str(), false, true);
++							}
++							if (pPlot->pageGraphics(true))
++							{
++								aiIn[0]++;
++							}
++						}
++
++						CLLNode<IDInfo>* pInUnitNode = pPlot->headUnitNode();
++						while (pInUnitNode != NULL)
++						{
++							CvUnit* pLoopUnit = ::getUnit(pInUnitNode->m_data);
++							pInUnitNode = pPlot->nextUnitNode(pInUnitNode);
++							if (pLoopUnit != NULL && pLoopUnit->isGraphicsPagedOut())
++							{
++								if (iMaxIn > 0 && (aiIn[0] + aiIn[1] + aiIn[2]) >= iMaxIn)
++								{
++									bMoreIn = true;
++									break;
++								}
++								if (iLog > 1)
++								{
++									szLine.Format("turn %d trace in unit %d owner %d at (%d,%d)", getGameTurn(),
++										pLoopUnit->getID(), (int)pLoopUnit->getOwnerINLINE(), iX, iY);
++									gDLL->logMsg("GraphicsPaging.log", szLine.c_str(), false, true);
++								}
++								if (pLoopUnit->pageGraphics(true))
++								{
++									aiIn[1]++;
++								}
++							}
++						}
++
++						CvCity* pInCity = pPlot->getPlotCity();
++						if (!bMoreIn && pInCity != NULL && pInCity->isGraphicsPagedOut())
++						{
++							if (iMaxIn > 0 && (aiIn[0] + aiIn[1] + aiIn[2]) >= iMaxIn)
++							{
++								bMoreIn = true;
++							}
++							else
++							{
++								if (iLog > 1)
++								{
++									szLine.Format("turn %d trace in city %d owner %d at (%d,%d)", getGameTurn(),
++										pInCity->getID(), (int)pInCity->getOwnerINLINE(), iX, iY);
++									gDLL->logMsg("GraphicsPaging.log", szLine.c_str(), false, true);
++								}
++								if (pInCity->pageGraphics(true))
++								{
++									aiIn[2]++;
++								}
++							}
++						}
++
++						const int iTotalIn = aiIn[0] + aiIn[1] + aiIn[2];
++						if (bAllowIn && iTotalIn >= iInAtMemoryCheck + 8)
++						{
++							// A pass can cross the watermark after its initial sample. Stop further
++							// nonessential page-ins without abandoning page-out or selected entities.
++							iInAtMemoryCheck = iTotalIn;
++							updateGraphicsMemoryPressure(true);
++							if (m_iGraphicsMemoryPressure == 1)
++							{
++								const int iConserveMax = std::max(1, GC.getDefineINT("GRAPHICS_PAGING_MEMORY_CONSERVE_MAX_IN"));
++								iMaxIn = (iMaxIn > 0) ? std::min(iMaxIn, iConserveMax) : iConserveMax;
++							}
++							else if (m_iGraphicsMemoryPressure == 2)
++							{
++								bAllowIn = false;
++							}
++						}
++					}
+ 				}
+ 			}
+ 		}
+ 
+-		const int iTotalIn = aiIn[0] + aiIn[1] + aiIn[2];
+-		if (!bAllIn && bAllowIn && iTotalIn >= iInAtMemoryCheck + 8)
++		// Pass 2: cursor-resumed round-robin page-out outside window + margin so
++		// large eviction backlogs resume where they stopped without rescanning from plot 0.
++		if (iNumPlots > 0)
+ 		{
+-			// A pass can cross the watermark after its initial sample. Stop further
+-			// nonessential page-ins without abandoning page-out or selected entities.
+-			iInAtMemoryCheck = iTotalIn;
+-			updateGraphicsMemoryPressure(true);
+-			if (m_iGraphicsMemoryPressure == 1)
++			if (m_iPagingOutCursor < 0 || m_iPagingOutCursor >= iNumPlots)
+ 			{
+-				const int iConserveMax = std::max(1, GC.getDefineINT("GRAPHICS_PAGING_MEMORY_CONSERVE_MAX_IN"));
+-				iMaxIn = (iMaxIn > 0) ? std::min(iMaxIn, iConserveMax) : iConserveMax;
++				m_iPagingOutCursor = 0;
+ 			}
+-			else if (m_iGraphicsMemoryPressure == 2)
++			const int iStartCursor = m_iPagingOutCursor;
++			for (int iVisited = 0; iVisited < iNumPlots && !bMoreOut; ++iVisited)
+ 			{
+-				bAllowIn = false;
+-			}
+-		}
++				const int iPlotIdx = (iStartCursor + iVisited) % iNumPlots;
++				CvPlot* pPlot = kMap.plotByIndexINLINE(iPlotIdx);
++				const int iX = pPlot->getX_INLINE();
++				const int iY = pPlot->getY_INLINE();
++				if (isInGraphicsWindow(iX, iY, true))
++				{
++					continue;
++				}
+ 
+-		if (pPlot->isGraphicsPagedOut())
+-		{
+-			aiPagedOut[0]++;
+-		}
+-		CLLNode<IDInfo>* pUnitNode = pPlot->headUnitNode();
+-		while (pUnitNode != NULL)
+-		{
+-			CvUnit* pLoopUnit = ::getUnit(pUnitNode->m_data);
+-			pUnitNode = pPlot->nextUnitNode(pUnitNode);
+-			if (pLoopUnit != NULL && pLoopUnit->isGraphicsPagedOut())
++				if (m_bGraphicsPagingUnits)
++				{
++					CLLNode<IDInfo>* pOutUnitNode = pPlot->headUnitNode();
++					while (pOutUnitNode != NULL)
++					{
++						CvUnit* pLoopUnit = ::getUnit(pOutUnitNode->m_data);
++						pOutUnitNode = pPlot->nextUnitNode(pOutUnitNode);
++						if (pLoopUnit != NULL && !pLoopUnit->isGraphicsPagedOut() && pLoopUnit->canPageGraphicsOut())
++						{
++							if (iMaxOut > 0 && (aiOut[0] + aiOut[1] + aiOut[2]) >= iMaxOut)
++							{
++								bMoreOut = true;
++								m_iPagingOutCursor = iPlotIdx;
++								break;
++							}
++							if (iLog > 1)
++							{
++								szLine.Format("turn %d trace out unit %d owner %d at (%d,%d)", getGameTurn(),
++									pLoopUnit->getID(), (int)pLoopUnit->getOwnerINLINE(), iX, iY);
++								gDLL->logMsg("GraphicsPaging.log", szLine.c_str(), false, true);
++							}
++							if (pLoopUnit->pageGraphics(false))
++							{
++								aiOut[1]++;
++							}
++						}
++					}
++				}
++
++				if (!bMoreOut && m_bGraphicsPagingCities)
++				{
++					CvCity* pOutCity = pPlot->getPlotCity();
++					if (pOutCity != NULL && !pOutCity->isGraphicsPagedOut() && pOutCity->canPageGraphicsOut())
++					{
++						if (iMaxOut > 0 && (aiOut[0] + aiOut[1] + aiOut[2]) >= iMaxOut)
++						{
++							bMoreOut = true;
++							m_iPagingOutCursor = iPlotIdx;
++						}
++						else
++						{
++							if (iLog > 1)
++							{
++								szLine.Format("turn %d trace out city %d owner %d at (%d,%d)", getGameTurn(),
++									pOutCity->getID(), (int)pOutCity->getOwnerINLINE(), iX, iY);
++								gDLL->logMsg("GraphicsPaging.log", szLine.c_str(), false, true);
++							}
++							if (pOutCity->pageGraphics(false))
++							{
++								aiOut[2]++;
++							}
++						}
++					}
++				}
++
++				if (!bMoreOut && bPlotPart && !pPlot->isGraphicsPagedOut() && pPlot->canPageGraphicsOut())
++				{
++					if (iMaxOut > 0 && (aiOut[0] + aiOut[1] + aiOut[2]) >= iMaxOut)
++					{
++						bMoreOut = true;
++						m_iPagingOutCursor = iPlotIdx;
++					}
++					else
++					{
++						if (iLog > 1)
++						{
++							szLine.Format("turn %d trace out plot (%d,%d)", getGameTurn(), iX, iY);
++							gDLL->logMsg("GraphicsPaging.log", szLine.c_str(), false, true);
++						}
++						if (pPlot->pageGraphics(false))
++						{
++							aiOut[0]++;
++						}
++					}
++				}
++			}
++			if (!bMoreOut)
+ 			{
+-				aiPagedOut[1]++;
++				m_iPagingOutCursor = 0;
+ 			}
+ 		}
+-		if (pPlot->getPlotCity() != NULL && pPlot->getPlotCity()->isGraphicsPagedOut())
+-		{
+-			aiPagedOut[2]++;
+-		}
+ 	}
++	m_bPagingPendingOut = false;
+ 
+ 	// Selection-critical units are never queued behind ordinary creation or the
+ 	// critical selected-city allowance. With active-unit paging disabled by
+@@ -3050,7 +3199,6 @@ bool CvGame::pageGraphics(bool bAllIn)
+ 				if (pLoopUnit->pageGraphics(true))
+ 				{
+ 					aiIn[1]++;
+-					aiPagedOut[1]--;
+ 				}
+ 			}
+ 		}
+@@ -3092,7 +3240,6 @@ bool CvGame::pageGraphics(bool bAllIn)
+ 				if (pLoopCity->pageGraphics(true))
+ 				{
+ 					aiIn[2]++;
+-					aiPagedOut[2]--;
+ 					if (bSelected)
+ 					{
+ 						++iEssentialIn;
+@@ -3104,6 +3251,28 @@ bool CvGame::pageGraphics(bool bAllIn)
+ 
+ 	if (iLog > 0 && (aiIn[0] + aiIn[1] + aiIn[2] + aiOut[0] + aiOut[1] + aiOut[2]) > 0)
+ 	{
++		for (int iLogPlot = 0; iLogPlot < iNumPlots; ++iLogPlot)
++		{
++			CvPlot* pLogPlot = kMap.plotByIndexINLINE(iLogPlot);
++			if (pLogPlot->isGraphicsPagedOut())
++			{
++				aiPagedOut[0]++;
++			}
++			CLLNode<IDInfo>* pLogUnitNode = pLogPlot->headUnitNode();
++			while (pLogUnitNode != NULL)
++			{
++				CvUnit* pLogUnit = ::getUnit(pLogUnitNode->m_data);
++				pLogUnitNode = pLogPlot->nextUnitNode(pLogUnitNode);
++				if (pLogUnit != NULL && pLogUnit->isGraphicsPagedOut())
++				{
++					aiPagedOut[1]++;
++				}
++			}
++			if (pLogPlot->getPlotCity() != NULL && pLogPlot->getPlotCity()->isGraphicsPagedOut())
++			{
++				aiPagedOut[2]++;
++			}
++		}
+ 		szLine.Format("turn %d look (%d,%d) %s: in plots %d units %d cities %d, out plots %d units %d cities %d; paged out plots %d units %d cities %d",
+ 			getGameTurn(), m_iPagingX, m_iPagingY, bAllIn ? "all in" : ((bMoreIn || bMoreOut) ? "pass, more next update" : "pass"),
+ 			aiIn[0], aiIn[1], aiIn[2], aiOut[0], aiOut[1], aiOut[2], aiPagedOut[0], aiPagedOut[1], aiPagedOut[2]);
+diff --git a/Assets/CvGameCoreDLL/CvGame.h b/Assets/CvGameCoreDLL/CvGame.h
+index 31cd705..d9798f4 100644
+--- a/Assets/CvGameCoreDLL/CvGame.h
++++ b/Assets/CvGameCoreDLL/CvGame.h
+@@ -71,7 +71,7 @@ public:
+ 	void endBulkReveal();
+ 	bool deferRevealedGraphics(CvPlot* pPlot, TeamTypes eTeam);
+ 	// Returns true when this update performed reveal work; ordinary paging then yields.
+-	bool processDeferredReveals(bool bAll = false);
++	bool processDeferredReveals(bool bAll = false, bool bOffWindowRoutes = true);
+ 	DllExport void updateScore(bool bForce = false);
+ 
+ 	DllExport void updateColoredPlots();
+@@ -684,6 +684,7 @@ protected:
+ 	PlayerTypes m_ePagingActivePlayer;
+ 	bool m_bPagingPending;	// visible page-ins remain; the next update continues them before reading the camera
+ 	bool m_bPagingPendingOut;	// background page-outs remain; they continue without holding the camera window
++	int m_iPagingOutCursor;	// round-robin plot index for budgeted page-out
+ 	int m_iGraphicsMemoryPressure;	// 0: normal, 1: conserve, 2: critical; graphics only, not saved
+ 	int m_iGraphicsMemoryAvailMB;
+ 	int m_iGraphicsMemoryRecoverySamples;
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
+index 0e31b45..bad79cc 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayer.cpp
+@@ -9144,7 +9144,7 @@ bool CvPlayer::hasHolyCity() const
+ bool CvPlayer::hasStateReligionHolyCity() const
+ {
+ 	ReligionTypes eStateReligion = getStateReligion();
+-	if(eStateReligion = NO_RELIGION)
++	if(eStateReligion == NO_RELIGION)
+ 	{
+ 		return false;
+ 	}
+@@ -9162,7 +9162,7 @@ bool CvPlayer::hasStateReligionShrine() const
+ 	ReligionTypes eStateReligion = getStateReligion();
+ 	CvCity* pHolyCity;
+ 
+-	if(eStateReligion = NO_RELIGION)
++	if(eStateReligion == NO_RELIGION)
+ 	{
+ 		return false;
+ 	}
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index 6f51e9d..7dd773d 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -1820,9 +1820,11 @@ void CvPlayerAI::AI_conquerCity(CvCity* pCity)
+ 									iRazeValue += GC.getLeaderHeadInfo(getPersonalityType()).getRazeCityProb();
+ 
+ 									// More inclined to raze if we're unlikely to hold it
+-									if( GET_TEAM(getTeam()).getPower(false)*10 < GET_TEAM(GET_PLAYER(pCity->getPreviousOwner()).getTeam()).getPower(true)*9 )
++									const int iOurTeamPower = GET_TEAM(getTeam()).getPower(false);
++									const int iPrevOwnerPower = GET_TEAM(GET_PLAYER(pCity->getPreviousOwner()).getTeam()).getPower(true);
++									if( AIDiplomacyPolicy::isWeightedGreater(9, iPrevOwnerPower, 10, iOurTeamPower) )
+ 									{
+-										iRazeValue += ((100 * GET_TEAM(GET_PLAYER(pCity->getPreviousOwner()).getTeam()).getPower(true))/(GET_TEAM(getTeam()).getPower(false))) - 100;
++										iRazeValue += AIDiplomacyPolicy::powerRatioPercent(iPrevOwnerPower, iOurTeamPower) - 100;
+ 									}
+ 								}
+ 							}
+@@ -8944,6 +8946,57 @@ int CvPlayerAI::AI_tradeGiveVal(PlayerTypes ePlayer, const CLinkList<TradeData>*
+ 	return (iValue <= 0) ? 0 : ((iValue >= MAX_INT) ? MAX_INT : (int)iValue);
+ }
+ 
++// Reservation price for exporting or continuing to export one resource copy.
++// For a new deal (iChange >= 0), our cost is losing one copy (-1) and the buyer
++// gains (+1); strategic resources (unlocking units/buildings/routes) demand at
++// least 50% of surplus from non-friendly, non-vassal buyers. For a standing deal
++// under renewal (iChange < 0), our opportunity cost is regaining our exported
++// copy (+1, which is 0 while we still have a spare copy, or full value if our
++// own copy was lost) and the buyer's stake is losing it (-1).
++int CvPlayerAI::AI_resourceReservationVal(BonusTypes eBonus, PlayerTypes ePlayer, int iChange, int iSharePercent) const
++{
++	const int iOurCost = AI_bonusTradeVal(eBonus, ePlayer, (iChange < 0) ? 1 : -1);
++	const int iBuyerVal = GET_PLAYER(ePlayer).AI_bonusTradeVal(eBonus, getID(), (iChange < 0) ? -1 : 1);
++	int iEffectiveShare = iSharePercent;
++	if (iChange >= 0 && iEffectiveShare > 0 && iEffectiveShare < 50 &&
++		GET_PLAYER(ePlayer).AI_bonusUnlockVal(eBonus) > 0 &&
++		!GET_TEAM(GET_PLAYER(ePlayer).getTeam()).isVassal(getTeam()) &&
++		AI_getAttitude(ePlayer) < ATTITUDE_FRIENDLY)
++	{
++		iEffectiveShare = 50;
++	}
++	return AIDiplomacyPolicy::resourceReservationVal(iOurCost, iBuyerVal, iEffectiveShare);
++}
++
++int CvPlayerAI::AI_tradeReservationVal(PlayerTypes ePlayer, const CLinkList<TradeData>* pList, int iChange, int iSharePercent) const
++{
++	FAssertMsg(ePlayer != getID(), "shouldn't call this function on ourselves");
++
++	long long iValue = GET_PLAYER(ePlayer).AI_dealVal(getID(), pList, false, iChange);
++	for (CLLNode<TradeData>* pNode = pList->head(); pNode != NULL; pNode = pList->next(pNode))
++	{
++		const int iData = pNode->m_data.m_iData;
++		switch (pNode->m_data.m_eItemType)
++		{
++		case TRADE_RESOURCES:
++			iValue -= GET_PLAYER(ePlayer).AI_bonusTradeVal((BonusTypes)iData, getID(), iChange);
++			iValue += AI_resourceReservationVal((BonusTypes)iData, ePlayer, iChange, iSharePercent);
++			break;
++		case TRADE_GOLD:
++			iValue -= AIDiplomacyPolicy::valueFromGold(iData,
++				GET_PLAYER(ePlayer).AI_goldTradeValuePercent());
++			iValue += AIDiplomacyPolicy::valueFromGold(iData, AI_goldTradeValuePercent());
++			break;
++		case TRADE_GOLD_PER_TURN:
++			iValue -= GET_PLAYER(ePlayer).AI_goldPerTurnTradeVal(iData);
++			iValue += AI_goldPerTurnCostVal(iData);
++			break;
++		}
++	}
++
++	return (iValue <= 0) ? 0 : ((iValue >= MAX_INT) ? MAX_INT : (int)iValue);
++}
++
+ int CvPlayerAI::AI_dealNetVal(PlayerTypes ePlayer, const CLinkList<TradeData>* pTheirList, const CLinkList<TradeData>* pOurList) const
+ {
+ 	const long long iReceive = AI_dealVal(ePlayer, pTheirList, false, 1);
+@@ -9064,11 +9117,20 @@ bool CvPlayerAI::AI_considerOffer(PlayerTypes ePlayer, const CLinkList<TradeData
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/
+ 
+-	// New deals compare our gain with our own loss under switch 16. Cancellation keeps the
+-	// legacy perspective because both sides are already receiving these terms.
+-	int iOurValue = (iChange > -1 && isAIDiplomacy(AI_DIPLOMACY_NET_VALUE)) ?
+-		AI_tradeGiveVal(ePlayer, pOurList, iChange) :
+-		GET_PLAYER(ePlayer).AI_dealVal(getID(), pOurList, false, iChange);
++	// Under switch 16, both deal creation and renewal compare our own gain/loss with a
++	// surplus-sharing floor on exported resources (40%/50% at creation, 30% at renewal)
++	// and payer-cost GPT valuation. This prevents 1-GPT spare-resource steals, keeps fair
++	// deals stable across renewals, renegotiates obsolete Ancient-Era bargains, and lets
++	// financially troubled AIs cancel unsustainable GPT outflows.
++	int iOurValue;
++	if (isAIDiplomacy(AI_DIPLOMACY_NET_VALUE))
++	{
++		iOurValue = AI_tradeReservationVal(ePlayer, pOurList, iChange, (iChange > -1) ? 40 : 30);
++	}
++	else
++	{
++		iOurValue = GET_PLAYER(ePlayer).AI_dealVal(getID(), pOurList, false, iChange);
++	}
+ 	int iTheirValue = AI_dealVal(ePlayer, pTheirList, false, iChange);
+ 
+ 	// Diplomacy switch 2 (pre-net-value path): what we give is valued as they value it; for a new deal,
+@@ -9107,7 +9169,8 @@ bool CvPlayerAI::AI_considerOffer(PlayerTypes ePlayer, const CLinkList<TradeData
+ 		{
+ 			if (AI_getAttitude(ePlayer) < ATTITUDE_PLEASED)
+ 			{
+-				if (GET_TEAM(getTeam()).getPower(false) > ((GET_TEAM(GET_PLAYER(ePlayer).getTeam()).getPower(false) * 4) / 3))
++				if (AIDiplomacyPolicy::isWeightedGreater(3, GET_TEAM(getTeam()).getPower(false),
++					4, GET_TEAM(GET_PLAYER(ePlayer).getTeam()).getPower(false)))
+ 				{
+ 					return false;
+ 				}
+@@ -9138,7 +9201,7 @@ bool CvPlayerAI::AI_considerOffer(PlayerTypes ePlayer, const CLinkList<TradeData
+ 
+ 	if (iChange < 0)
+ 	{
+-		return (iTheirValue * 110 >= iOurValue * 100);
++		return (((long long)iTheirValue * 110) >= ((long long)iOurValue * 100));
+ 	}
+ 
+ 	return (iTheirValue >= iOurValue);
+@@ -9188,24 +9251,9 @@ bool CvPlayerAI::AI_counterPropose(PlayerTypes ePlayer, const CLinkList<TradeDat
+ 	iHumanDealWeight = AI_dealVal(ePlayer, pTheirList);
+ 	if (bNetValue)
+ 	{
+-		// Start from what giving pOurList actually costs us; for spare resources where the buyer
+-		// values the resource above our loss, ask for the midpoint so spare copies are not given
+-		// away for free while leaving surplus for mutually beneficial trades.
+-		long long iAskVal = AI_tradeGiveVal(ePlayer, pOurList, 1);
+-		for (pNode = pOurList->head(); pNode != NULL; pNode = pOurList->next(pNode))
+-		{
+-			if (pNode->m_data.m_eItemType == TRADE_RESOURCES)
+-			{
+-				const BonusTypes eBonus = (BonusTypes)(pNode->m_data.m_iData);
+-				const int iOurLoss = AI_bonusTradeVal(eBonus, ePlayer, -1);
+-				const int iBuyerVal = GET_PLAYER(ePlayer).AI_bonusTradeVal(eBonus, getID(), 1);
+-				if (iBuyerVal > iOurLoss)
+-				{
+-					iAskVal += ((long long)(iBuyerVal - iOurLoss) + 1) / 2;
+-				}
+-			}
+-		}
+-		iAIDealWeight = (iAskVal >= MAX_INT) ? MAX_INT : (int)iAskVal;
++		// Ask for our own marginal cost plus 50% of positive buyer surplus on resources,
++		// matching AI_considerOffer's reservation floor (40%/50%) with surplus headroom.
++		iAIDealWeight = AI_tradeReservationVal(ePlayer, pOurList, 1, 50);
+ 	}
+ 	else
+ 	{
+@@ -9628,9 +9676,12 @@ bool CvPlayerAI::AI_counterPropose(PlayerTypes ePlayer, const CLinkList<TradeDat
+ 					case TRADE_RESOURCES:
+ 						if (!pabBonusDeal[pNode->m_data.m_iData])
+ 						{
+-							if (getNumTradeableBonuses((BonusTypes)(pNode->m_data.m_iData)) > 1)
++							const BonusTypes eBonus = (BonusTypes)(pNode->m_data.m_iData);
++							if (getNumTradeableBonuses(eBonus) > 1 && AI_corporationBonusVal(eBonus) == 0)
+ 							{
+-								iWeight += GET_PLAYER(ePlayer).AI_bonusTradeVal(((BonusTypes)(pNode->m_data.m_iData)), getID(), 1);
++								iWeight += bNetValue ?
++									AI_resourceReservationVal(eBonus, ePlayer, 1, 50) :
++									GET_PLAYER(ePlayer).AI_bonusTradeVal(eBonus, getID(), 1);
+ 								pabBonusDeal[pNode->m_data.m_iData] = true;
+ 							}
+ 						}
+@@ -9788,7 +9839,7 @@ bool CvPlayerAI::AI_counterPropose(PlayerTypes ePlayer, const CLinkList<TradeDat
+ 	}
+ 	if (GET_PLAYER(ePlayer).isHuman())
+ 	{
+-		return AI_dealNetVal(ePlayer, &theirFinal, &ourFinal) >= 0;
++		return AI_dealVal(ePlayer, &theirFinal, false, 1) >= AI_tradeReservationVal(ePlayer, &ourFinal, 1, 40);
+ 	}
+ 	return AI_isMutuallyBeneficialDeal(ePlayer, &theirFinal, &ourFinal);
+ }
+@@ -9836,7 +9887,7 @@ int CvPlayerAI::AI_maxGoldPerTurnTrade(PlayerTypes ePlayer) const
+ 
+ 	if (isHuman() || (GET_PLAYER(ePlayer).getTeam() == getTeam()))
+ 	{
+-		iMaxGoldPerTurn = (calculateGoldRate() + (getGold() / GC.getDefineINT("PEACE_TREATY_LENGTH")));
++		iMaxGoldPerTurn = (calculateGoldRate() + (getGold() / std::max(1, GC.getDefineINT("PEACE_TREATY_LENGTH"))));
+ 	}
+ 	else
+ 	{
+@@ -9846,9 +9897,10 @@ int CvPlayerAI::AI_maxGoldPerTurnTrade(PlayerTypes ePlayer) const
+ 		iMaxGoldPerTurn /= 100;
+ 
+ 		iMaxGoldPerTurn += std::min(0, getGoldPerTurnByPlayer(ePlayer));
++		iMaxGoldPerTurn = std::min(iMaxGoldPerTurn, calculateGoldRate());
+ 	}
+ 
+-	return std::max(0, std::min(iMaxGoldPerTurn, calculateGoldRate()));
++	return std::max(0, iMaxGoldPerTurn);
+ }
+ 
+ 
+@@ -10398,14 +10450,39 @@ int CvPlayerAI::AI_bonusCityValue(BonusTypes eBonus, bool bLosing) const
+ 		{
+ 			if (bLosing)
+ 			{
+-				iTotal100 += std::max(0, iHappy - std::max(0, iHappySurplus)) * iCitizen100;
++				const int iDeficitAdded = std::max(0, iHappy - std::max(0, iHappySurplus));
++				iTotal100 += iDeficitAdded * iCitizen100;
++				if (bGrowing && iHappySurplus > 0)
++				{
++					const int iNewSurplus = iHappySurplus - iHappy;
++					if (iNewSurplus <= 0)
++					{
++						iTotal100 += iCitizen100 / 2;
++					}
++					else if (iNewSurplus == 1)
++					{
++						iTotal100 += iCitizen100 / 4;
++					}
++				}
+ 			}
+ 			else
+ 			{
+-				iTotal100 += std::min(iHappy, std::max(0, -iHappySurplus)) * iCitizen100;
+-				if (iHappySurplus == 0 && bGrowing)
++				const int iDeficitCovered = std::min(iHappy, std::max(0, -iHappySurplus));
++				iTotal100 += iDeficitCovered * iCitizen100;
++				if (bGrowing)
+ 				{
+-					iTotal100 += iCitizen100 / 2;
++					int iRem = iHappy - iDeficitCovered;
++					int iPostSurplus = iHappySurplus + iDeficitCovered;
++					if (iRem > 0 && iPostSurplus == 0)
++					{
++						iTotal100 += iCitizen100 / 2;
++						--iRem;
++						++iPostSurplus;
++					}
++					if (iRem > 0 && iPostSurplus == 1)
++					{
++						iTotal100 += iCitizen100 / 4;
++					}
+ 				}
+ 			}
+ 		}
+@@ -10413,14 +10490,39 @@ int CvPlayerAI::AI_bonusCityValue(BonusTypes eBonus, bool bLosing) const
+ 		{
+ 			if (bLosing)
+ 			{
+-				iTotal100 += std::max(0, iHealth - std::max(0, iHealthSurplus)) * iFood100;
++				const int iDeficitAdded = std::max(0, iHealth - std::max(0, iHealthSurplus));
++				iTotal100 += iDeficitAdded * iFood100;
++				if (bGrowing && iHealthSurplus > 0)
++				{
++					const int iNewSurplus = iHealthSurplus - iHealth;
++					if (iNewSurplus <= 0)
++					{
++						iTotal100 += iFood100 / 2;
++					}
++					else if (iNewSurplus == 1)
++					{
++						iTotal100 += iFood100 / 4;
++					}
++				}
+ 			}
+ 			else
+ 			{
+-				iTotal100 += std::min(iHealth, std::max(0, -iHealthSurplus)) * iFood100;
+-				if (iHealthSurplus == 0 && bGrowing)
++				const int iDeficitCovered = std::min(iHealth, std::max(0, -iHealthSurplus));
++				iTotal100 += iDeficitCovered * iFood100;
++				if (bGrowing)
+ 				{
+-					iTotal100 += iFood100 / 2;
++					int iRem = iHealth - iDeficitCovered;
++					int iPostSurplus = iHealthSurplus + iDeficitCovered;
++					if (iRem > 0 && iPostSurplus == 0)
++					{
++						iTotal100 += iFood100 / 2;
++						--iRem;
++						++iPostSurplus;
++					}
++					if (iRem > 0 && iPostSurplus == 1)
++					{
++						iTotal100 += iFood100 / 4;
++					}
+ 				}
+ 			}
+ 		}
+@@ -13687,7 +13789,7 @@ int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const
+ 			iValue += iNonstateReligionCount * 20;
+ 		} else if(isConsiderReligiousVictory())
+ 		{
+-			iValue /= 5;
++			iValue += iNonstateReligionCount * 4;
+ 		}
+ 		iValue += countCityReligionRevolts() * 5;
+ 	}
+@@ -16889,11 +16991,11 @@ void CvPlayerAI::AI_doCommerce()
+ 		}
+ 		else
+ 		{
+-			while (calculateGoldRate() > 0)
++			while (calculateGoldRate() > 0 && getCommercePercent(COMMERCE_GOLD) > 0)
+ 			{
+ 				changeCommercePercent(COMMERCE_RESEARCH, GC.getDefineINT("COMMERCE_PERCENT_CHANGE_INCREMENTS"));
+ 
+-				if (getCommercePercent(COMMERCE_RESEARCH) == 100)
++				if (getCommercePercent(COMMERCE_RESEARCH) == 100 || getCommercePercent(COMMERCE_GOLD) == 0)
+ 				{
+ 					break;
+ 				}
+@@ -16924,9 +17026,13 @@ void CvPlayerAI::AI_doCommerce()
+ 				changeCommercePercent(COMMERCE_RESEARCH, -(GC.getDefineINT("COMMERCE_PERCENT_CHANGE_INCREMENTS")));
+ 			}
+ 
+-			if ((getCommercePercent(COMMERCE_RESEARCH) == 0) && (calculateGoldRate() > 0))
++			if ((getCommercePercent(COMMERCE_RESEARCH) == 0) && (calculateGoldRate() > 0) && (getCommercePercent(COMMERCE_GOLD) > 0))
+ 			{
+ 				setCommercePercent(COMMERCE_RESEARCH, GC.getDefineINT("COMMERCE_PERCENT_CHANGE_INCREMENTS"));
++				if (getGold() + calculateGoldRate() < 0)
++				{
++					setCommercePercent(COMMERCE_RESEARCH, 0);
++				}
+ 			}
+ 		}
+ 	}
+@@ -16966,13 +17072,13 @@ void CvPlayerAI::AI_doCommerce()
+ 		*/
+ 		
+ 		int iEspionageTargetRate = 0;
+-		int* piTarget = new int[MAX_CIV_TEAMS];
+-		int* piWeight = new int[MAX_CIV_TEAMS];
++		int aiTarget[MAX_CIV_TEAMS];
++		int aiWeight[MAX_CIV_TEAMS];
+ 
+ 		for (int iTeam = 0; iTeam < MAX_CIV_TEAMS; ++iTeam)
+ 		{
+-			piTarget[iTeam] = 0;
+-			piWeight[iTeam] = 0;
++			aiTarget[iTeam] = 0;
++			aiWeight[iTeam] = 0;
+ 
+ 			CvTeam& kLoopTeam = GET_TEAM((TeamTypes)iTeam);
+ 			if (kLoopTeam.isAlive() && iTeam != getTeam() && !kLoopTeam.isVassal(getTeam()) && !GET_TEAM(getTeam()).isVassal((TeamTypes)iTeam))
+@@ -16984,7 +17090,7 @@ void CvPlayerAI::AI_doCommerce()
+ 					int iDesiredMissionPoints = 0;
+ 					int iDesiredEspPoints = 0;
+ 					
+-					piWeight[iTeam] = 10;
++					aiWeight[iTeam] = 10;
+ 					int iRateDivisor = 12;
+ 
+ 					if( GET_TEAM(getTeam()).AI_getWarPlan((TeamTypes)iTeam) != NO_WARPLAN )
+@@ -17010,11 +17116,11 @@ void CvPlayerAI::AI_doCommerce()
+ 						}
+ 
+ 						iRateDivisor = 10;
+-						piWeight[iTeam] = 20;
++						aiWeight[iTeam] = 20;
+ 
+ 						if( GET_TEAM(getTeam()).AI_hasCitiesInPrimaryArea((TeamTypes)iTeam) )
+ 						{
+-							piWeight[iTeam] = 30;
++							aiWeight[iTeam] = 30;
+ 							iRateDivisor = 8;
+ 						}
+ 					}
+@@ -17064,16 +17170,16 @@ void CvPlayerAI::AI_doCommerce()
+ 						}
+ 
+ 						iRateDivisor += (iAttitude/5);
+-						piWeight[iTeam] -= (iAttitude/2);
++						aiWeight[iTeam] -= (iAttitude/2);
+ 					}
+ 
+ 					iDesiredEspPoints = std::max(iTheirEspPoints,iDesiredMissionPoints);
+ 
+-					piTarget[iTeam] = (iDesiredEspPoints - iOurEspPoints)/std::max(6,iRateDivisor);
++					aiTarget[iTeam] = (iDesiredEspPoints - iOurEspPoints)/std::max(6,iRateDivisor);
+ 
+-					if( piTarget[iTeam] > 0 )
++					if( aiTarget[iTeam] > 0 )
+ 					{
+-						iEspionageTargetRate += piTarget[iTeam];
++						iEspionageTargetRate += aiTarget[iTeam];
+ 					}
+ 				}
+ 			}
+@@ -17081,18 +17187,16 @@ void CvPlayerAI::AI_doCommerce()
+ 
+ 		for (int iTeam = 0; iTeam < MAX_CIV_TEAMS; ++iTeam)
+ 		{
+-			if( piTarget[iTeam] > 0 )
++			if( aiTarget[iTeam] > 0 )
+ 			{
+-				piWeight[iTeam] += (150*piTarget[iTeam])/std::max(4,iEspionageTargetRate);
++				aiWeight[iTeam] += (150*aiTarget[iTeam])/std::max(4,iEspionageTargetRate);
+ 			}
+-			else if( piTarget[iTeam] < 0 )
++			else if( aiTarget[iTeam] < 0 )
+ 			{
+-				piWeight[iTeam] += 2*piTarget[iTeam];
++				aiWeight[iTeam] += 2*aiTarget[iTeam];
+ 			}	
+-			setEspionageSpendingWeightAgainstTeam((TeamTypes)iTeam, std::max(0,piWeight[iTeam]));
++			setEspionageSpendingWeightAgainstTeam((TeamTypes)iTeam, std::max(0,aiWeight[iTeam]));
+ 		}
+-		SAFE_DELETE(piTarget);
+-		SAFE_DELETE(piWeight);
+ /********************************************************************************/
+ /* 	BETTER_BTS_AI_MOD						END								    */
+ /********************************************************************************/
+@@ -17488,14 +17592,24 @@ void CvPlayerAI::AI_doDiplo()
+ 											}
+ 											else
+ 											{
++												bool bPayingGpt = false;
+ 												for (pNode = pLoopDeal->getFirstTrades()->head(); pNode; pNode = pLoopDeal->getFirstTrades()->next(pNode))
+ 												{
++													if (pNode->m_data.m_eItemType == TRADE_GOLD_PER_TURN)
++													{
++														bPayingGpt = true;
++													}
+ 													if (getTradeDenial(((PlayerTypes)iI), pNode->m_data) != NO_DENIAL)
+ 													{
+ 														bCancelDeal = true;
+ 														break;
+ 													}
+ 												}
++												if (!bCancelDeal && bPayingGpt && isAIDiplomacy(AI_DIPLOMACY_NET_VALUE) &&
++													!AI_considerOffer(((PlayerTypes)iI), pLoopDeal->getSecondTrades(), pLoopDeal->getFirstTrades(), -1))
++												{
++													bCancelDeal = true;
++												}
+ 											}
+ 										}
+ 										else if ((pLoopDeal->getFirstPlayer() == ((PlayerTypes)iI)) && (pLoopDeal->getSecondPlayer() == getID()))
+@@ -17509,14 +17623,24 @@ void CvPlayerAI::AI_doDiplo()
+ 											}
+ 											else
+ 											{
++												bool bPayingGpt = false;
+ 												for (pNode = pLoopDeal->getSecondTrades()->head(); pNode; pNode = pLoopDeal->getSecondTrades()->next(pNode))
+ 												{
++													if (pNode->m_data.m_eItemType == TRADE_GOLD_PER_TURN)
++													{
++														bPayingGpt = true;
++													}
+ 													if (getTradeDenial(((PlayerTypes)iI), pNode->m_data) != NO_DENIAL)
+ 													{
+ 														bCancelDeal = true;
+ 														break;
+ 													}
+ 												}
++												if (!bCancelDeal && bPayingGpt && isAIDiplomacy(AI_DIPLOMACY_NET_VALUE) &&
++													!AI_considerOffer(((PlayerTypes)iI), pLoopDeal->getFirstTrades(), pLoopDeal->getSecondTrades(), -1))
++												{
++													bCancelDeal = true;
++												}
+ 											}
+ 										}
+ 
+@@ -18722,11 +18846,8 @@ void CvPlayerAI::AI_doDiplo()
+ 													if (iTheirValue > iOurValue)
+ 													{
+ 														iGoldWeight = iTheirValue - iOurValue;
+-														iGoldData = (iGoldWeight * 100) / iGoldValuePercent;
+-														if (iGoldWeight * 100 > iGoldData * iGoldValuePercent)
+-														{
+-															iGoldData++;															
+-														}
++														iGoldData = AIDiplomacyPolicy::goldForValueGap(
++															iGoldWeight, iGoldValuePercent, true);
+ 														
+ 														iGold = std::min(iGoldData, GET_PLAYER((PlayerTypes)iI).AI_maxGoldTrade(getID()));
+ 
+@@ -19129,7 +19250,10 @@ void CvPlayerAI::AI_doDiplo()
+ 
+ 											if (GET_PLAYER((PlayerTypes)iI).canTradeItem(getID(), item, true) && canTradeItem(((PlayerTypes)iI), item, true))
+ 											{
+-												if (!(GET_PLAYER((PlayerTypes)iI).isHuman()) || (GET_TEAM(getTeam()).AI_mapTradeVal(GET_PLAYER((PlayerTypes)iI).getTeam()) >= GET_TEAM(GET_PLAYER((PlayerTypes)iI).getTeam()).AI_mapTradeVal(getTeam())))
++												const int iOurMapVal = GET_TEAM(getTeam()).AI_mapTradeVal(GET_PLAYER((PlayerTypes)iI).getTeam());
++												const int iTheirMapVal = GET_TEAM(GET_PLAYER((PlayerTypes)iI).getTeam()).AI_mapTradeVal(getTeam());
++												if ((iOurMapVal > 0 || iTheirMapVal > 0) &&
++													(!(GET_PLAYER((PlayerTypes)iI).isHuman()) || (iOurMapVal >= iTheirMapVal)))
+ 												{
+ 													ourList.clear();
+ 													theirList.clear();
+@@ -19167,6 +19291,7 @@ void CvPlayerAI::AI_doDiplo()
+ 													}
+ 													else
+ 													{
++														AI_changeContactTimer(((PlayerTypes)iI), CONTACT_TRADE_MAP, GC.getLeaderHeadInfo(getPersonalityType()).getContactDelay(CONTACT_TRADE_MAP));
+ 														GC.getGameINLINE().implementDeal(getID(), ((PlayerTypes)iI), &ourList, &theirList);
+ 													}
+ 												}
+@@ -21245,7 +21370,7 @@ int CvPlayerAI::AI_getConquestVictoryStage() const
+ 
+ 					if( GET_TEAM(getTeam()).isHasMet((TeamTypes) iI) )
+ 					{
+-						if( 95*kTeam.getPower(false) > 100*iOurPower )
++						if( AIDiplomacyPolicy::isWeightedGreater(95, kTeam.getPower(false), 100, iOurPower) )
+ 						{
+ 							iOurPowerRank++;
+ 						}
+@@ -21256,7 +21381,7 @@ int CvPlayerAI::AI_getConquestVictoryStage() const
+ 	}
+ 	int iAverageOtherPower = iTotalPower / std::max(1, iNumNonVassals);
+ 
+-	if( 3*iOurPower > 4*iAverageOtherPower )
++	if( AIDiplomacyPolicy::isWeightedGreater(3, iOurPower, 4, iAverageOtherPower) )
+ 	{
+ 		// BBAI TODO: Have we declared total war on anyone?  Need some aggressive action taken, maybe past war success
+ 		int iOthersWarMemoryOfUs = 0;
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.h b/Assets/CvGameCoreDLL/CvPlayerAI.h
+index 1c37870..182f6eb 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.h
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.h
+@@ -294,6 +294,8 @@ public:
+ 	int AI_dealVal(PlayerTypes ePlayer, const CLinkList<TradeData>* pList, bool bIgnoreAnnual = false, int iExtra = 1) const;
+ 	// Bilateral trade economics: value what this player surrenders, not only what the recipient gains.
+ 	int AI_tradeGiveVal(PlayerTypes ePlayer, const CLinkList<TradeData>* pList, int iChange = 1) const;
++	int AI_resourceReservationVal(BonusTypes eBonus, PlayerTypes ePlayer, int iChange, int iSharePercent) const;
++	int AI_tradeReservationVal(PlayerTypes ePlayer, const CLinkList<TradeData>* pList, int iChange, int iSharePercent) const;
+ 	int AI_dealNetVal(PlayerTypes ePlayer, const CLinkList<TradeData>* pTheirList, const CLinkList<TradeData>* pOurList) const;
+ 	bool AI_isMutuallyBeneficialDeal(PlayerTypes ePlayer, const CLinkList<TradeData>* pTheirList, const CLinkList<TradeData>* pOurList) const;
+ 	bool AI_goldDeal(const CLinkList<TradeData>* pList) const;
+diff --git a/Assets/CvGameCoreDLL/CvPlot.cpp b/Assets/CvGameCoreDLL/CvPlot.cpp
+index 2ac82d8..15c6c0a 100644
+--- a/Assets/CvGameCoreDLL/CvPlot.cpp
++++ b/Assets/CvGameCoreDLL/CvPlot.cpp
+@@ -338,6 +338,20 @@ bool CvPlot::refreshRevealedGraphics()
+ 	return true;
+ }
+ 
++bool CvPlot::refreshRevealedRouteOnly()
++{
++	if (!m_bRevealedRouteDirty || !GC.IsGraphicsInitialized())
++	{
++		return false;
++	}
++
++	m_bRevealedRouteDirty = false;
++	// Neighbors were already marked dirty by setRevealedRouteType, so reconnect
++	// this plot's route symbol without recursing to adjacent tiles.
++	updateRouteSymbol(true, false);
++	return true;
++}
++
+ // Out: with GRAPHICS_PAGING_PLOTS the feature symbol is destroyed, with GRAPHICS_PAGING_PLOT_BUILDERS
+ // the plot builder (bonuses, improvements), as uninit does, and with GRAPHICS_PAGING_SYMBOLS the yield symbols
+ // and unit flags. In: they are made again. Rivers, routes and the terrain stay: the executable joins a route
+diff --git a/Assets/CvGameCoreDLL/CvPlot.h b/Assets/CvGameCoreDLL/CvPlot.h
+index 84c9fad..cf6c3e7 100644
+--- a/Assets/CvGameCoreDLL/CvPlot.h
++++ b/Assets/CvGameCoreDLL/CvPlot.h
+@@ -65,7 +65,11 @@ public:
+ 	bool deferRevealedGraphics(TeamTypes eTeam);
+ 	// False while paging owns the plot's destroyed symbols; keep it queued until restored.
+ 	bool refreshRevealedGraphics();
++	// Reconcile only a deferred route symbol on an off-window/paged-out plot so
++	// route meshes across the map maintain the non-null route symbol invariant.
++	bool refreshRevealedRouteOnly();
+ 	bool isRevealedGraphicsDirty() const { return m_bRevealedGraphicsDirty; }
++	bool isRevealedRouteDirty() const { return m_bRevealedRouteDirty; }
+ 	void setRevealedGraphicsDirty(bool bDirty) { m_bRevealedGraphicsDirty = bDirty; }
+ 	void updateGraphicEra();
+ 
+diff --git a/Assets/CvGameCoreDLL/CvTeamAI.cpp b/Assets/CvGameCoreDLL/CvTeamAI.cpp
+index 8a598fe..41dadce 100644
+--- a/Assets/CvGameCoreDLL/CvTeamAI.cpp
++++ b/Assets/CvGameCoreDLL/CvTeamAI.cpp
+@@ -1315,7 +1315,7 @@ int CvTeamAI::AI_startWarVal(TeamTypes eTeam) const
+ 	if( getAnyWarPlanCount(true) > 0 || 
+ 		(AI_isAnyMemberDoVictoryStrategy(AI_VICTORY_CONQUEST2) && !(AI_isAnyMemberDoVictoryStrategy(AI_VICTORY_CONQUEST3))) )
+ 	{
+-		int iMultiplier = (75 * getPower(false))/std::max(1, GET_TEAM(eTeam).getDefensivePower());
++		int iMultiplier = AIDiplomacyPolicy::scaleByRatio64(75, getPower(false), std::max(1, GET_TEAM(eTeam).getDefensivePower()));
+ 
+ 		iValue *= range(iMultiplier, 50, 400);
+ 		iValue /= 100;
+@@ -1405,7 +1405,7 @@ int CvTeamAI::AI_endWarVal(TeamTypes eTeam) const
+ 
+ 	// if we are not human, do we want to continue war for strategic reasons?
+ 	// only check if our power is at least 120% of theirs
+-	if (!isHuman() && iOurPower > ((120 * iTheirPower) / 100))
++	if (!isHuman() && iOurPower > AIDiplomacyPolicy::scaleByRatio64(120, iTheirPower, 100))
+ 	{
+ 		bool bDagger = false;
+ 		
+@@ -1432,7 +1432,7 @@ int CvTeamAI::AI_endWarVal(TeamTypes eTeam) const
+ 		// if dagger, value peace at 90% * power ratio
+ 		if (bDagger)
+ 		{
+-			iValue = AIDiplomacyPolicy::scaleByRatio(iValue, 9 * iTheirPower, 10 * iOurPower);
++			iValue = AIDiplomacyPolicy::scaleByRatio64(iValue, (long long)9 * iTheirPower, (long long)10 * iOurPower);
+ 		}
+ 		
+ 	    // for now, we will always do the land mass check for domination
+@@ -1447,13 +1447,15 @@ int CvTeamAI::AI_endWarVal(TeamTypes eTeam) const
+ 		// if in financial trouble, warmongers will continue the fight to make more money
+ 		if (bAnyFinancialTrouble)
+ 		{
++			const long long iPowerNum = (long long)35 * iTheirPower;
++			const long long iPowerDenom = (long long)10 * ((long long)iOurPower + (long long)4 * iTheirPower);
+ 			switch (eWarPlan)
+ 			{
+ 				case WARPLAN_TOTAL:
+ 					// if we total warmonger, value peace at 70% * power ratio factor
+ 					if (bDagger || AI_maxWarRand() < 100)
+ 					{
+-						iValue = AIDiplomacyPolicy::scaleByRatio(iValue, 7 * (5 * iTheirPower), 10 * (iOurPower + (4 * iTheirPower)));
++						iValue = AIDiplomacyPolicy::scaleByRatio64(iValue, iPowerNum, iPowerDenom);
+ 					}
+ 					break;
+ 
+@@ -1461,7 +1463,7 @@ int CvTeamAI::AI_endWarVal(TeamTypes eTeam) const
+ 					// if we limited warmonger, value peace at 70% * power ratio factor
+ 					if (AI_limitedWarRand() < 100)
+ 					{
+-						iValue = AIDiplomacyPolicy::scaleByRatio(iValue, 7 * (5 * iTheirPower), 10 * (iOurPower + (4 * iTheirPower)));
++						iValue = AIDiplomacyPolicy::scaleByRatio64(iValue, iPowerNum, iPowerDenom);
+ 					}
+ 					break;
+ 
+@@ -1469,7 +1471,7 @@ int CvTeamAI::AI_endWarVal(TeamTypes eTeam) const
+ 					// if we dogpile warmonger, value peace at 70% * power ratio factor
+ 					if (AI_dogpileWarRand() < 100)
+ 					{
+-						iValue = AIDiplomacyPolicy::scaleByRatio(iValue, 7 * (5 * iTheirPower), 10 * (iOurPower + (4 * iTheirPower)));
++						iValue = AIDiplomacyPolicy::scaleByRatio64(iValue, iPowerNum, iPowerDenom);
+ 					}
+ 					break;
+ 
+@@ -1592,13 +1594,12 @@ int CvTeamAI::AI_minorKeepWarVal(TeamTypes eTeam) const
+ 				int iPower = getPower(true);
+ 				if( bAggressive && !bIsGetBetterUnits )
+ 				{
+-					iPower *= 4;
+-					iPower /= 3;
++					iPower = AIDiplomacyPolicy::scaleByRatio64(iPower, 4, 3);
+ 				}
+ 
+ 				if( GET_TEAM(eTeam).AI_getWarSuccess(getID()) > GC.getDefineINT("WAR_SUCCESS_CITY_CAPTURING") || GC.getGameINLINE().getSorenRandNum(AI_maxWarRand()/100, "Keep war on minor") == 0 )
+ 				{
+-					if (GET_TEAM(eTeam).getDefensivePower() < ((iPower * AI_maxWarNearbyPowerRatio()) / 100))
++					if (GET_TEAM(eTeam).getDefensivePower() < AIDiplomacyPolicy::scaleByRatio64(iPower, AI_maxWarNearbyPowerRatio(), 100))
+ 					{
+ 						int iNoWarRoll = GC.getGameINLINE().getSorenRandNum(100, "AI No War") - 20;
+ 						iNoWarRoll += (bAggressive ? 10 : 0);
+@@ -1643,11 +1644,14 @@ int CvTeamAI::AI_getBarbarianCivWarVal(TeamTypes eTeam, int iMaxDistance) const
+ 
+ 			iValue += 3*AI_getWarSuccess(eTeam);
+ 
+-			if( GET_TEAM(eTeam).getDefensivePower() > ((3*getPower(true))/2*AI_maxWarNearbyPowerRatio())/100 )
++			const int iTheirDefPower = GET_TEAM(eTeam).getDefensivePower();
++			const int iNearbyPowerRatio = AI_maxWarNearbyPowerRatio();
++			const int iOurPower = getPower(true);
++			if( iTheirDefPower > AIDiplomacyPolicy::scaleByRatio64(AIDiplomacyPolicy::scaleByRatio64(iOurPower, 3, 2), iNearbyPowerRatio, 100) )
+ 			{
+ 				iValue /= 2;
+ 			}
+-			else if( GET_TEAM(eTeam).getDefensivePower() < (getPower(true)*AI_maxWarNearbyPowerRatio())/100 )
++			else if( iTheirDefPower < AIDiplomacyPolicy::scaleByRatio64(iOurPower, iNearbyPowerRatio, 100) )
+ 			{
+ 				iValue *= 2;
+ 			}
+@@ -2195,7 +2199,7 @@ DenialTypes CvTeamAI::AI_surrenderTrade(TeamTypes eTeam, int iPowerMultiplier) c
+ 		int iAveragePower = iTotalPower / std::max(1, GC.getGameINLINE().countCivTeamsAlive());
+ */
+ 
+-		int iTotalPower = 0;
++		long long iTotalPower = 0;
+ 		int iNumNonVassals = 0;
+ 		for (int iI = 0; iI < MAX_CIV_TEAMS; iI++)
+ 		{
+@@ -2205,7 +2209,7 @@ DenialTypes CvTeamAI::AI_surrenderTrade(TeamTypes eTeam, int iPowerMultiplier) c
+ 				if( kTeam.isAVassal() && kTeam.isCapitulated() )
+ 				{
+ 					// Count capitulated vassals as a fractional add to their master's power
+-					iTotalPower += (2*kTeam.getPower(false))/5;
++					iTotalPower += ((long long)2 * kTeam.getPower(false)) / 5;
+ 				}
+ 				else
+ 				{
+@@ -2214,12 +2218,12 @@ DenialTypes CvTeamAI::AI_surrenderTrade(TeamTypes eTeam, int iPowerMultiplier) c
+ 				}
+ 			}
+ 		}
+-		int iAveragePower = iTotalPower / std::max(1, iNumNonVassals);
++		int iAveragePower = AIDiplomacyPolicy::scaleByRatio64(iTotalPower, 1, std::max(1, iNumNonVassals));
+ /************************************************************************************************/
+ /* REVOLUTION_MOD                       END                                                     */
+ /************************************************************************************************/
+ 		int iMasterPower = GET_TEAM(eTeam).getPower(false);
+-		int iVassalPower = (getPower(true) * (iPowerMultiplier + iPersonalityModifier / std::max(1, iMembers))) / 100;
++		int iVassalPower = AIDiplomacyPolicy::scaleByRatio64(getPower(true), iPowerMultiplier + iPersonalityModifier / std::max(1, iMembers), 100);
+ 
+ 		if (isAtWar(eTeam))
+ 		{
+@@ -2249,12 +2253,11 @@ DenialTypes CvTeamAI::AI_surrenderTrade(TeamTypes eTeam, int iPowerMultiplier) c
+ 				iOurSuccess += iOthersBestSuccess - iTheirSuccess;
+ 			}
+ 
+-			iMasterPower = AIDiplomacyPolicy::scaleByRatio(2 * iMasterPower, iTheirSuccess, iTheirSuccess + iOurSuccess);
++			iMasterPower = AIDiplomacyPolicy::scaleByRatio64((long long)2 * iMasterPower, iTheirSuccess, (long long)iTheirSuccess + iOurSuccess);
+ 
+ 			if (AI_getWorstEnemy() == eTeam)
+ 			{
+-				iMasterPower *= 3;
+-				iMasterPower /= 4;
++				iMasterPower = AIDiplomacyPolicy::scaleByRatio64(iMasterPower, 3, 4);
+ 			}
+ 		}
+ 		else
+@@ -2287,14 +2290,14 @@ DenialTypes CvTeamAI::AI_surrenderTrade(TeamTypes eTeam, int iPowerMultiplier) c
+ 
+ 								// Changed: 64 bits; the 32-bit product went negative once both
+ 								// powers passed about 33 000, and the AI then never capitulated.
+-								iAveragePower = AIDiplomacyPolicy::scaleByRatio(2 * iAveragePower, kLoopTeam.getPower(true), kLoopTeam.getPower(true) + getPower(true));
++								iAveragePower = AIDiplomacyPolicy::scaleByRatio64((long long)2 * iAveragePower, kLoopTeam.getPower(true), (long long)kLoopTeam.getPower(true) + getPower(true));
+ 
+-								iAttitudeModifier += (3 * kLoopTeam.getPower(true)) / std::max(1, getPower(true)) - 2;
++								iAttitudeModifier += AIDiplomacyPolicy::scaleByRatio64(3, kLoopTeam.getPower(true), std::max(1, getPower(true))) - 2;
+ 							}
+ 
+ 							if (!kLoopTeam.isAtWar(eTeam) && kLoopTeam.isAtWar(getID()))
+ 							{
+-								iAveragePower = AIDiplomacyPolicy::scaleByRatio(iAveragePower, getPower(true) + GET_TEAM(eTeam).getPower(false), getPower(true));
++								iAveragePower = AIDiplomacyPolicy::scaleByRatio64(iAveragePower, (long long)getPower(true) + GET_TEAM(eTeam).getPower(false), std::max(1, getPower(true)));
+ 							}
+ 						}
+ 					}
+@@ -2327,7 +2330,7 @@ DenialTypes CvTeamAI::AI_surrenderTrade(TeamTypes eTeam, int iPowerMultiplier) c
+ /* original bts code
+ 		if (iVassalPower > iAveragePower || 3 * iVassalPower > 2 * iMasterPower)
+ */
+-		if (5*iVassalPower > 4*iAveragePower || 3 * iVassalPower > 2 * iMasterPower)
++		if (AIDiplomacyPolicy::isWeightedGreater(5, iVassalPower, 4, iAveragePower) || AIDiplomacyPolicy::isWeightedGreater(3, iVassalPower, 2, iMasterPower))
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/
+@@ -2560,7 +2563,7 @@ int CvTeamAI::AI_getWarSuccessCapitulationRatio() const
+ ///
+ int CvTeamAI::AI_getEnemyPowerPercent( bool bConsiderOthers ) const
+ {
+-	int iEnemyPower = 0;
++	long long iEnemyPower = 0;
+ 
+ 	for( int iI = 0; iI < MAX_CIV_TEAMS; iI++ )
+ 	{
+@@ -2570,7 +2573,7 @@ int CvTeamAI::AI_getEnemyPowerPercent( bool bConsiderOthers ) const
+ 			{
+ 				if( isAtWar((TeamTypes)iI) )
+ 				{
+-					int iTempPower = 220 * GET_TEAM((TeamTypes)iI).getPower(false);
++					long long iTempPower = (long long)220 * GET_TEAM((TeamTypes)iI).getPower(false);
+ 					iTempPower /= (AI_hasCitiesInPrimaryArea((TeamTypes)iI) ? 2 : 3);
+ 					iTempPower /= (GET_TEAM((TeamTypes)iI).isMinorCiv() ? 3 : 1);
+ 					iTempPower /= std::max(1, (bConsiderOthers ? GET_TEAM((TeamTypes)iI).getAtWarCount(true,true) : 1));
+@@ -2579,7 +2582,7 @@ int CvTeamAI::AI_getEnemyPowerPercent( bool bConsiderOthers ) const
+ 				else if( AI_isChosenWar((TeamTypes)iI) )
+ 				{
+ 					// Haven't declared war yet
+-					int iTempPower = 240 * GET_TEAM((TeamTypes)iI).getDefensivePower();
++					long long iTempPower = (long long)240 * GET_TEAM((TeamTypes)iI).getDefensivePower();
+ 					iTempPower /= (AI_hasCitiesInPrimaryArea((TeamTypes)iI) ? 2 : 3);
+ 					iTempPower /= 1 + (bConsiderOthers ? GET_TEAM((TeamTypes)iI).getAtWarCount(true,true) : 0);
+ 					iEnemyPower += iTempPower;
+@@ -2588,7 +2591,9 @@ int CvTeamAI::AI_getEnemyPowerPercent( bool bConsiderOthers ) const
+ 		}
+ 	}
+ 
+-	return (iEnemyPower/std::max(1, (isAVassal() ? getCurrentMasterPower(true) : getPower(true))));
++	const long long iDenom = std::max(1, (isAVassal() ? getCurrentMasterPower(true) : getPower(true)));
++	const long long iPercent = iEnemyPower / iDenom;
++	return (iPercent > MAX_INT) ? MAX_INT : ((iPercent < 0) ? 0 : (int)iPercent);
+ }
+ 
+ /// \brief Sum up air power of enemies plus average of other civs we've met.
+@@ -3218,8 +3223,9 @@ int CvTeamAI::AI_declareWarTradeVal(TeamTypes eWarTeam, TeamTypes eTeam) const
+ 	int iTheirPower = GET_TEAM(eTeam).getPower(true);
+ 	int iWarTeamPower = GET_TEAM(eWarTeam).getPower(true);
+ 
+-	iValue *= 50 + ((100 * iWarTeamPower) / (iTheirPower + iWarTeamPower + 1));
+-	iValue /= 100;
++	const long long iPowerSum = (long long)iTheirPower + (long long)iWarTeamPower + 1;
++	iValue = AIDiplomacyPolicy::scaleByRatio64(iValue,
++		50 + (((long long)100 * iWarTeamPower) / ((iPowerSum > 0) ? iPowerSum : (long long)1)), 100);
+ 
+ 	if (!(GET_TEAM(eTeam).AI_isAllyLandTarget(eWarTeam)))
+ 	{
+diff --git a/Assets/CvGameCoreDLL/CvUnit.cpp b/Assets/CvGameCoreDLL/CvUnit.cpp
+index 3638c34..198cabd 100644
+--- a/Assets/CvGameCoreDLL/CvUnit.cpp
++++ b/Assets/CvGameCoreDLL/CvUnit.cpp
+@@ -504,11 +504,13 @@ bool CvUnit::pageGraphics(bool bIn)
+ 		plot()->pageGraphics(true);
+ 		CvDLLEntity::setup();
+ 		m_bGraphicsPagedOut = false;
++		SetPosition(plot());
+ 		if (getGroup()->getActivityType() == ACTIVITY_INTERCEPT)
+ 		{
+ 			airCircle(true);
+ 		}
+ 		gDLL->getEntityIFace()->updateEnemyGlow(getUnitEntity());
++		plot()->setFlagDirty(true);
+ 		return true;
+ 	}
+ 
+diff --git a/Assets/CvGameCoreDLL/CvUnitAI.cpp b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+index aa3cc1c..577e4e8 100644
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+@@ -25086,7 +25086,6 @@ bool CvUnitAI::AI_RbombardNaval()
+ 							iValue /= 4;
+ 						}
+ 					}
+-					iValue *= GC.getGameINLINE().getSorenRandNum(20, "AI Bombard");
+ 					if (iValue > iBestValue)
+ 					{
+ 						iBestValue = iValue;
+@@ -25096,11 +25095,11 @@ bool CvUnitAI::AI_RbombardNaval()
+ 				}
+ 			}
+ 		}
+-		if (pBestPlot != NULL)
+-		{
+-			getGroup()->pushMission(MISSION_RBOMBARD, pBestPlot->getX_INLINE(), pBestPlot->getY_INLINE());
+-			return true;
+-		}
++	}
++	if (pBestPlot != NULL)
++	{
++		getGroup()->pushMission(MISSION_RBOMBARD, pBestPlot->getX_INLINE(), pBestPlot->getY_INLINE());
++		return true;
+ 	}
+ 	return false;
+ }
+@@ -25150,10 +25149,12 @@ bool CvUnitAI::AI_Abombard()
+ 						if (iPotentialAttackers > 0 || pLoopPlot->isAdjacentTeam(getTeam()))
+ 						{
+ 							pDefender = pLoopPlot->getBestDefender(NO_PLAYER, getOwnerINLINE(), this, true);
+-							iDamage = std::max(1, ((GC.getDefineINT("COMBAT_DAMAGE") * (currFirepower(NULL, NULL) + ((currFirepower(NULL, NULL) + pDefender->currFirepower(NULL, NULL) + 1) / 2))) / (pDefender->currFirepower(pLoopPlot, this) + ((currFirepower(NULL, NULL) + pDefender->currFirepower(NULL, NULL) + 1) / 2))));
+-							iValue += (iDamage * pLoopPlot->getNumVisibleEnemyDefenders(this));
++							if (pDefender != NULL)
++							{
++								iDamage = std::max(1, ((GC.getDefineINT("COMBAT_DAMAGE") * (currFirepower(NULL, NULL) + ((currFirepower(NULL, NULL) + pDefender->currFirepower(NULL, NULL) + 1) / 2))) / (pDefender->currFirepower(pLoopPlot, this) + ((currFirepower(NULL, NULL) + pDefender->currFirepower(NULL, NULL) + 1) / 2))));
++								iValue += (iDamage * std::max(1, pLoopPlot->getNumVisibleEnemyDefenders(this)));
++							}
+ 						}
+-						iValue *= GC.getGameINLINE().getSorenRandNum(5, "AI Bombard");
+ 						if (iValue > iBestValue)
+ 						{
+ 							iBestValue = iValue;
