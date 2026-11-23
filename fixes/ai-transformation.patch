@@ -1,0 +1,2357 @@
+From 0fabccdb17a7ee715d26785cc51725bf18a1a3de Mon Sep 17 00:00:00 2001
+From: GertaBool <67003432+GertaBool@users.noreply.github.com>
+Date: Mon, 23 Nov 2026 21:55:00 +0000
+Subject: [PATCH] 5-pass RoM AI transformation (Passes 3-7 over pass 2 f0d5629)
+
+Cumulative save-compatible patch over pass 2 (f0d5629):
+1. Pass 3 (unconditional bug fixes & AI parity):
+   - Deterministic C++ Colonist/Pioneer/Roman Colonist founding packages in
+     CvUnit::found() + removal of UI-dependent CyInterface().getHeadSelectedUnit()
+     block in RoMEventManager.py + AI_unitValue UNITAI_SETTLE parity.
+   - Fix AI_bonusTrade luxury/general resource misclassification as strategic.
+   - Count slider-diverted commerce in AI_isFinancialTrouble; exclude
+     UNITAI_COLLATERAL/DEFENSE_AIR from AI_getTotalFloatingDefenders.
+   - Fix setUpgradeAnywhere(false) and processCivics trait/civic recomputation.
+   - Fix AI_assaultForecast capture check for 1-move final attackers.
+   - 64-bit AI_specialistValue GPP; fix FreeBonus scaling, Pass-0 BonusYield,
+     and hoisted isProductionProject() in CvCityAI.
+   - Fix AI_makePeaceTrade, AI_getTechMonopolyValue, and remaining 64-bit power
+     overflows in AI_doWar.
+   - Fix settler escort drop, worker Needed/Have inversion & fort preemption,
+     4x road dead-code bug, sea escort arg, Inquisition return, nuke/nukeRange
+     targeting, and DCM bombard null/random/flag bugs.
+2. Pass 4 (economic & building-line mastery, AI_ECONOMY_FLAGS=15):
+   - Add AIBuildingLinePolicy.h and isAIEconomy() flag helper.
+   - Net-delta building replacement valuation across RoM's 29 upgrade lines,
+     per-city BuildingClassNeededs chain lookahead, obsolescence decay, Golden
+     Age/military/Python-scripted Wonders, Peasantry/RevIdx civic co-evaluation,
+     GameSpeed civic horizon, inflation-adjusted corporation net profit, and
+     multi-pair surplus luxury swaps.
+3. Pass 5 (strategic defense & diplomacy, AI_CUNNING_FLAGS=1023):
+   - Add AIStrategicDefensePolicy.h (bits 128/256/512).
+   - Peacetime border & offshore staged-army deterrence, proactive Open Borders
+     revocation on lethal staging, prospective anti-hegemon coalitions and
+     Victory-Level-3 prevention, defensive counterstroke posture, and
+     deterministic AI_doPeace demands.
+4. Pass 6 (city specialization & tech lookahead):
+   - Activate City Governor specialization & 50% Process parity, negative-food
+     Slave starvation guard, Financial/Agricultural yield thresholds,
+     FirstFreeUnitClass/TechCityTrade/DisableTechs tech scoring, and depth-5/6
+     research lookahead.
+5. Pass 7 (tactical combat & execution mastery):
+   - Priority-ranked unit upgrades, 65% hero odds floor, non-stall siege
+     bombard, wartime promotion banking for +50% field heal, transport cargo
+     promotions (PROMOTION_TRANSPORT1/2/3), and combat engineer road building.
+---
+diff --git a/Assets/CvGameCoreDLL/AIBuildingLinePolicy.h b/Assets/CvGameCoreDLL/AIBuildingLinePolicy.h
+new file mode 100644
+index 0000000..37a49c3
+--- /dev/null
++++ b/Assets/CvGameCoreDLL/AIBuildingLinePolicy.h
+@@ -0,0 +1,152 @@
++// Pure deterministic C++03 policies for RoM building upgrade lines,
++// prerequisite chains, Python-scripted wonders, civic-speed scaling,
++// and corporation net-profit economics. No engine dependencies.
++#ifndef AI_BUILDING_LINE_POLICY_H
++#define AI_BUILDING_LINE_POLICY_H
++
++#include <climits>
++
++namespace AIBuildingLinePolicy
++{
++inline int clamp(int iVal, int iLow, int iHigh)
++{
++	return iVal < iLow ? iLow : (iVal > iHigh ? iHigh : iVal);
++}
++
++// Net incremental value when completing an upgrade building deletes an already-built
++// predecessor in the same city (RoMEventManager.py building upgrade lines).
++// Keeps a small positive floor (10% of gross) when gross > replaced so genuine
++// upgrades remain eligible once cheap new buildings are done.
++inline int netUpgradeValue(int iGrossUpgradeValue, int iReplacedValue)
++{
++	if (iGrossUpgradeValue <= 0) return 0;
++	if (iReplacedValue <= 0) return iGrossUpgradeValue;
++	const int iDelta = iGrossUpgradeValue - iReplacedValue;
++	if (iDelta <= 0) return 0;
++	return iDelta;
++}
++
++// Discounted credit a prerequisite building earns for unlocking a higher-tier
++// same-city building via BuildingClassNeededs (e.g. Settlement -> Town Essentials).
++// Bounded to avoid runaway values on cheap prerequisites while strongly pulling
++// cities through multi-tier urban chains when the downstream tech is known.
++inline int prereqChainCredit(int iDownstreamValue, int iOwnCost, int iDownstreamCost, bool bDownstreamTechKnown)
++{
++	if (iDownstreamValue <= 0) return 0;
++	const int iTotalCost = (iOwnCost > 0 ? iOwnCost : 1) + (iDownstreamCost > 0 ? iDownstreamCost : 1);
++	const int iCostShare = clamp((iOwnCost > 0 ? iOwnCost : 1) * 100 / iTotalCost, 10, 60);
++	const int iTechScale = bDownstreamTechKnown ? 45 : 15;
++	// Smaller prerequisites (like 10-hammer Settlement Essentials gating 70-hammer Town Essentials)
++	// receive stronger pull because they are trivial bottlenecks to a large payoff.
++	const int iBottleneckBoost = 100 + (60 - iCostShare);
++	const long long iCredit = ((long long)iDownstreamValue * iTechScale * iBottleneckBoost) / 10000;
++	return iCredit > 600 ? 600 : (int)iCredit;
++}
++
++// Depreciates non-obsolete-safe building value when its ObsoleteTech is already
++// researched by rivals or within 1-2 tech eras of the player.
++inline int obsolescenceFactorPercent(int iObsoleteEra, int iCurrentEra, bool bPlayerHasTech)
++{
++	if (bPlayerHasTech) return 0;
++	if (iObsoleteEra < 0) return 100;
++	const int iGap = iObsoleteEra - iCurrentEra;
++	if (iGap <= 0) return 45;
++	if (iGap == 1) return 75;
++	return 100;
++}
++
++// Valuation of buildings granting an immediate Golden Age (Colossus, Taj Mahal,
++// Magician Pyramid) or extending all future Golden Ages (Mausoleum, Forum Romanum).
++inline int goldenAgeBuildingValue(bool bTriggersGoldenAge, int iGoldenAgeModifier, int iNumCities, int iTotalPop)
++{
++	int iVal = 0;
++	const int iEmpireScale = clamp(iNumCities * 12 + iTotalPop * 2, 16, 400);
++	if (bTriggersGoldenAge)
++	{
++		iVal += iEmpireScale;
++	}
++	if (iGoldenAgeModifier > 0)
++	{
++		iVal += (iEmpireScale * clamp(iGoldenAgeModifier, 0, 200)) / 100;
++	}
++	return iVal;
++}
++
++// Valuation of empire-wide unit upgrade discount buildings (Art of War -50%)
++// and Great General rate modifiers (Art of War +50%, Crusade +50%, Shinto +25%).
++inline int militaryWonderBonusValue(int iUnitUpgradePriceModifier, int iGreatGeneralRateModifier,
++	int iMilitaryUnits, int iWarmongerPercent, bool bWarPlan)
++{
++	int iVal = 0;
++	if (iUnitUpgradePriceModifier < 0)
++	{
++		const int iDiscount = clamp(-iUnitUpgradePriceModifier, 0, 90);
++		iVal += (iDiscount * clamp(iMilitaryUnits, 4, 80) * (bWarPlan ? 3 : 2)) / 25;
++	}
++	if (iGreatGeneralRateModifier > 0)
++	{
++		const int iRate = clamp(iGreatGeneralRateModifier, 0, 200);
++		iVal += (iRate * clamp(iWarmongerPercent, 50, 200) * (bWarPlan ? 2 : 1)) / 200;
++	}
++	return iVal;
++}
++
++// Valuation of Python-scripted RoM Wonders whose effects live in RoMEventManager.py / RoMGameUtils.py.
++inline int worldBankValue(int iTreasuryGold, int iNetGoldPerTurn, int iNumCities)
++{
++	// +50% instant gold on completion + 1% compound interest per turn on treasury.
++	const int iInstant = clamp(iTreasuryGold / 2, 0, 20000);
++	const int iAnnualInterest = clamp(iTreasuryGold / 100 + (iNetGoldPerTurn > 0 ? iNetGoldPerTurn / 10 : 0), 5, 500);
++	return clamp(80 + iInstant / 40 + iAnnualInterest * 2 + iNumCities * 4, 80, 900);
++}
++
++inline int crusadeWonderValue(int iWarmongerPercent, bool bWarPlan, int iNumCities)
++{
++	// Spawns free Enemy-Road Crusader every 4-16 turns + +25% production in XML.
++	return clamp((bWarPlan ? 180 : 90) * clamp(iWarmongerPercent, 60, 180) / 100 + iNumCities * 3, 60, 450);
++}
++
++inline int djenneWonderValue(int iDesertPlotsInRadius, int iNumCities, bool bHasStateReligion)
++{
++	// +2 commerce on every desert tile in city radius + 50% cheaper Cathedrals empire-wide.
++	return clamp(iDesertPlotsInRadius * 28 + (bHasStateReligion ? iNumCities * 8 : 0), 0, 500);
++}
++
++inline int himejiWonderValue(int iWarmongerPercent, bool bWarPlan, int iNumCities)
++{
++	// 2x pillage gold for owner, 0 enemy pillage & capture gold against owner.
++	return clamp((bWarPlan ? 110 : 50) * clamp(iWarmongerPercent, 60, 180) / 100 + iNumCities * 4, 40, 320);
++}
++
++inline int naniteDefuserValue(int iEnemyNukes, int iOwnNukes)
++{
++	if (iEnemyNukes <= 0) return 0;
++	if (iOwnNukes > iEnemyNukes * 2) return 0;
++	return clamp(150 + (iEnemyNukes - iOwnNukes) * 40, 100, 800);
++}
++
++// Scales the civic switch amortization horizon by GameSpeed anarchy percent so
++// Marathon (200% anarchy) and Snail (400% anarchy) do not reject high-value civics
++// or thrash on unscaled Normal-speed constants.
++inline int scaledCivicHorizon(int iBaseDelay, int iAnarchyPercent)
++{
++	const int iClampedDelay = clamp(iBaseDelay, 6, 500);
++	const int iScale = clamp(iAnarchyPercent, 50, 500);
++	return clamp((2 * iClampedDelay * iScale) / 100, 12, 1000);
++}
++
++// Net per-turn value (x100 gold equivalents) of spreading or keeping a corporation
++// in a city after inflation-scaled corporation maintenance.
++inline int corporationNetValue100(int iGrossYieldValue100, int iHqGoldPerTurn100,
++	int iCorpMaintenanceTimes100, int iInflationPercent)
++{
++	const int iInfl = clamp(iInflationPercent, 0, 500);
++	const long long iInflatedMaint = ((long long)clamp(iCorpMaintenanceTimes100, 0, 1000000) * (100 + iInfl)) / 100;
++	const long long iNet = (long long)iGrossYieldValue100 + (long long)iHqGoldPerTurn100 - iInflatedMaint;
++	if (iNet < INT_MIN / 2) return INT_MIN / 2;
++	if (iNet > INT_MAX / 2) return INT_MAX / 2;
++	return (int)iNet;
++}
++}
++
++#endif
+diff --git a/Assets/CvGameCoreDLL/AIStrategicDefensePolicy.h b/Assets/CvGameCoreDLL/AIStrategicDefensePolicy.h
+new file mode 100644
+index 0000000..a33f926
+--- /dev/null
++++ b/Assets/CvGameCoreDLL/AIStrategicDefensePolicy.h
+@@ -0,0 +1,78 @@
++// Pure deterministic C++03 policies for peacetime staged-army deterrence,
++// Open Borders revocation, anti-hegemon balance-of-power coalitions,
++// and active counterstroke posture. No engine dependencies.
++#ifndef AI_STRATEGIC_DEFENSE_POLICY_H
++#define AI_STRATEGIC_DEFENSE_POLICY_H
++
++#include <algorithm>
++#include <climits>
++
++namespace AIStrategicDefensePolicy
++{
++inline int clamp(int iVal, int iLow, int iHigh)
++{
++	return iVal < iLow ? iLow : (iVal > iHigh ? iHigh : iVal);
++}
++
++// Computes extra garrison defenders needed when a non-allied foreign stack
++// (peacetime border buildup or offshore loaded transports) threatens a city.
++inline int stagedGarrisonDeficit(int iStagedAttackStrength, int iPresentDefenseStrength, int iCurrentDefenders)
++{
++	if (iStagedAttackStrength <= 0) return 0;
++	// Require ~1.25x effective defense coverage against visible staged attackers.
++	const int iNeededDefense = (iStagedAttackStrength * 5) / 4;
++	if (iPresentDefenseStrength >= iNeededDefense) return 0;
++	const int iAvgDefenderStr = (iCurrentDefenders > 0 && iPresentDefenseStrength > 0)
++		? std::max(1, iPresentDefenseStrength / iCurrentDefenders)
++		: std::max(1, iStagedAttackStrength / 3);
++	const int iGap = iNeededDefense - iPresentDefenseStrength;
++	const int iExtra = (iGap + iAvgDefenderStr - 1) / iAvgDefenderStr;
++	return clamp(iExtra, 1, 6);
++}
++
++// True when a non-Friendly, non-vassal neighbor with Open Borders has massed
++// enough combat power near our cities to threaten a turn-1 surprise capture.
++inline bool shouldCancelOpenBordersForStaging(int iStagedStrength, int iBestLocalDefense,
++	bool bIsFriendly, bool bIsVassalOrMaster, bool bAtWar)
++{
++	if (bIsFriendly || bIsVassalOrMaster || bAtWar) return false;
++	if (iStagedStrength <= 0) return false;
++	// Cancel once staged attack power exceeds 90% of local garrison strength.
++	return iStagedStrength * 10 >= (iBestLocalDefense > 0 ? iBestLocalDefense * 9 : 10);
++}
++
++// Detects a runaway hegemon that warrants a prospective balance-of-power coalition:
++// >33% of all met teams' power, >32% of all met teams' score (with >= 3 met teams),
++// or active Victory Level 3 alert.
++inline bool isHegemonThreat(long long iTargetPower, long long iTotalMetPower,
++	long long iTargetScore, long long iTotalMetScore, int iAliveMetTeams, bool bVictoryLevel3)
++{
++	if (bVictoryLevel3) return true;
++	if (iAliveMetTeams < 3) return false;
++	if (iTotalMetPower > 0 && iTargetPower * 100 >= iTotalMetPower * 33) return true;
++	if (iTotalMetScore > 0 && iTargetScore * 100 >= iTotalMetScore * 32) return true;
++	return false;
++}
++
++// 64-bit coalition power gate: combined reachable power of willing coalition members
++// must match the hegemon's reachable defense scaled by iRequiredPercent (e.g. 115%).
++inline bool coalitionCanMatchTarget(long long iCoalitionReachablePower, long long iTargetDefence, int iRequiredPercent)
++{
++	if (iCoalitionReachablePower <= 0) return false;
++	if (iTargetDefence <= 0) return true;
++	const long long iPct = clamp(iRequiredPercent, 50, 300);
++	return iCoalitionReachablePower * 100 >= iTargetDefence * iPct;
++}
++
++// Prevents full AREAAI_DEFENSIVE paralysis when our area power is still competitive
++// enough to strike invading columns on open ground or counter-raid undefended cities.
++inline bool defensiveCounterstrokeAllowed(int iOurAreaPower, int iEnemyAreaPower, int iWarSuccessCapitulationRatio)
++{
++	if (iEnemyAreaPower <= 0) return true;
++	if (iWarSuccessCapitulationRatio < -50) return false;
++	// Allow active massing/counterstroke down to 65% of enemy area power.
++	return (long long)iOurAreaPower * 100 >= (long long)iEnemyAreaPower * 65;
++}
++}
++
++#endif
+diff --git a/Assets/CvGameCoreDLL/CvCityAI.cpp b/Assets/CvGameCoreDLL/CvCityAI.cpp
+index a832b57..caf6adb 100644
+--- a/Assets/CvGameCoreDLL/CvCityAI.cpp
++++ b/Assets/CvGameCoreDLL/CvCityAI.cpp
+@@ -1,11 +1,13 @@
+ // cityAI.cpp
+ 
+ #include "CvGameCoreDLL.h"
++#include "AIBuildingLinePolicy.h"
+ #include "AIDecisionPolicy.h"
+ #include "AIDiplomacyPolicy.h"
+ #include "AICityGovernorPolicy.h"
+ #include "AIFlavorPolicy.h"
+ #include "AIHierarchyPolicy.h"
++#include "AIStrategicDefensePolicy.h"
+ #include "CvGlobals.h"
+ #include "CvGameCoreUtils.h"
+ #include "CvCityAI.h"
+@@ -516,6 +518,15 @@ int CvCityAI::AI_specialistValue(SpecialistTypes eSpecialist, bool bAvoidGrowth,
+ 	
+ 	iValue = AI_yieldValue(aiYields, aiCommerceYields, bAvoidGrowth, bRemove);
+ 
++	if (isAIEconomy(AI_ECONOMY_GOVERNOR_SPEC) && aiYields[YIELD_FOOD] < 0 && !bRemove)
++	{
++		// Guard negative-food specialists (e.g. SPECIALIST_SLAVES: -1F, +3H) from starving the city.
++		if (foodDifference(false) + aiYields[YIELD_FOOD] < 0)
++		{
++			iValue -= 2000;
++		}
++	}
++
+ 	iGreatPeopleRate = GC.getSpecialistInfo(eSpecialist).getGreatPeopleRateChange();
+ 
+ 	int iEmphasisCount = 0;
+@@ -526,6 +537,12 @@ int CvCityAI::AI_specialistValue(SpecialistTypes eSpecialist, bool bAvoidGrowth,
+ 		{
+ 			iGPPValue = isHuman() ? 30 : 20;
+ 		}
++		else if (isAIEconomy(AI_ECONOMY_GOVERNOR_SPEC) && !isHuman()
++			&& (m_iGovernorType == AICityGovernorPolicy::GOVERNOR_SCHOLAR
++				|| m_iGovernorType == AICityGovernorPolicy::GOVERNOR_AGRICULTURALIST))
++		{
++			iGPPValue = 10;
++		}
+ 		else 
+ 		{
+ 			if (AI_isEmphasizeYield(YIELD_COMMERCE))
+@@ -573,8 +590,10 @@ int CvCityAI::AI_specialistValue(SpecialistTypes eSpecialist, bool bAvoidGrowth,
+ 			int iProgress = getGreatPeopleProgress();
+ 			if (iProgress > 0)
+ 			{
+-				int iThreshold = GET_PLAYER(getOwnerINLINE()).greatPeopleThreshold();
+-				iTempValue += ((iGreatPeopleRate * (isHuman() ? 1 : 4) * iGPPValue * iProgress * iProgress) / (iThreshold * iThreshold));
++				const long long iThreshold = std::max(1, GET_PLAYER(getOwnerINLINE()).greatPeopleThreshold());
++				const long long iProg = iProgress;
++				const long long iAdd = ((long long)iGreatPeopleRate * (isHuman() ? 1 : 4) * iGPPValue * iProg * iProg) / (iThreshold * iThreshold);
++				iTempValue += (iAdd > MAX_INT / 4) ? (MAX_INT / 4) : (int)iAdd;
+ 			}
+ 		}
+ 		
+@@ -1026,17 +1045,27 @@ void CvCityAI::AI_chooseProduction()
+     bool bChooseWorker = false;
+     
+ 	int iEconomyFlags = 0;
+-	iEconomyFlags |= BUILDINGFOCUS_PRODUCTION;
+-	iEconomyFlags |= BUILDINGFOCUS_GOLD;
+-	iEconomyFlags |= BUILDINGFOCUS_RESEARCH;
+-	iEconomyFlags |= BUILDINGFOCUS_MAINTENANCE;
+-	iEconomyFlags |= BUILDINGFOCUS_HAPPY;
+-	iEconomyFlags |= BUILDINGFOCUS_HEALTHY;
++	const bool bSpecGov = isAIEconomy(AI_ECONOMY_GOVERNOR_SPEC)
++		&& (m_iGovernorType > AICityGovernorPolicy::GOVERNOR_STEWARD)
++		&& (m_iGovernorType < AICityGovernorPolicy::NUM_GOVERNOR_TYPES);
++	if (bSpecGov)
++	{
++		iEconomyFlags |= BUILDINGFOCUS_HAPPY | BUILDINGFOCUS_HEALTHY;
++	}
++	else
++	{
++		iEconomyFlags |= BUILDINGFOCUS_PRODUCTION;
++		iEconomyFlags |= BUILDINGFOCUS_GOLD;
++		iEconomyFlags |= BUILDINGFOCUS_RESEARCH;
++		iEconomyFlags |= BUILDINGFOCUS_MAINTENANCE;
++		iEconomyFlags |= BUILDINGFOCUS_HAPPY;
++		iEconomyFlags |= BUILDINGFOCUS_HEALTHY;
++	}
+ 	if (AI_isEmphasizeGreatPeople())
+ 	{
+ 		iEconomyFlags |= BUILDINGFOCUS_SPECIALIST;
+ 	}
+-	if (!GC.getGameINLINE().isOption(GAMEOPTION_NO_ESPIONAGE))
++	if (!GC.getGameINLINE().isOption(GAMEOPTION_NO_ESPIONAGE) && !bSpecGov)
+ 	{
+ 		iEconomyFlags |= BUILDINGFOCUS_ESPIONAGE;
+ 	}
+@@ -1046,7 +1075,7 @@ void CvCityAI::AI_chooseProduction()
+ 		iEconomyFlags |= BUILDINGFOCUS_FOOD | BUILDINGFOCUS_HEALTHY | BUILDINGFOCUS_HAPPY;
+ 		break;
+ 	case AICityGovernorPolicy::GOVERNOR_HARBORMASTER:
+-		iEconomyFlags |= BUILDINGFOCUS_DOMAINSEA;
++		iEconomyFlags |= BUILDINGFOCUS_DOMAINSEA | BUILDINGFOCUS_FOOD | BUILDINGFOCUS_GOLD;
+ 		break;
+ 	case AICityGovernorPolicy::GOVERNOR_MERCHANT:
+ 	case AICityGovernorPolicy::GOVERNOR_COLONIAL:
+@@ -1062,7 +1091,7 @@ void CvCityAI::AI_chooseProduction()
+ 		iEconomyFlags |= BUILDINGFOCUS_CULTURE | BUILDINGFOCUS_HAPPY;
+ 		break;
+ 	case AICityGovernorPolicy::GOVERNOR_CASTELLAN:
+-		iEconomyFlags |= BUILDINGFOCUS_DEFENSE | BUILDINGFOCUS_EXPERIENCE;
++		iEconomyFlags |= BUILDINGFOCUS_DEFENSE | BUILDINGFOCUS_EXPERIENCE | BUILDINGFOCUS_PRODUCTION;
+ 		break;
+ 	default:
+ 		break;
+@@ -1502,7 +1531,38 @@ void CvCityAI::AI_chooseProduction()
+ 	// count or a strategic turtle flag is not evidence of an imminent attack.
+ 	// Compare actual local attack pressure with units already present, rather
+ 	// than making infrastructure wait for hypothetical future reinforcements.
+-	const int iImmediateAttack = kPlayer.AI_getEnemyPlotStrength(plot(), 2, false, true);
++	int iImmediateAttack = kPlayer.AI_getEnemyPlotStrength(plot(), 2, false, true);
++	if (isAICunning(AI_CUNNING_STAGED_THREAT) && !isHuman())
++	{
++		const TeamTypes eMyTeam = getTeam();
++		const CvTeam& kMyTeam = GET_TEAM(eMyTeam);
++		int iStaged = 0;
++		for (int iDX = -2; iDX <= 2; ++iDX)
++		{
++			for (int iDY = -2; iDY <= 2; ++iDY)
++			{
++				if (iDX == 0 && iDY == 0) continue;
++				CvPlot* pLoopPlot = plotXY(getX_INLINE(), getY_INLINE(), iDX, iDY);
++				if (pLoopPlot == NULL || !pLoopPlot->isVisible(eMyTeam, false)) continue;
++				CLLNode<IDInfo>* pUnitNode = pLoopPlot->headUnitNode();
++				while (pUnitNode != NULL)
++				{
++					CvUnit* pUnit = ::getUnit(pUnitNode->m_data);
++					pUnitNode = pLoopPlot->nextUnitNode(pUnitNode);
++					if (pUnit == NULL || pUnit->getTeam() == eMyTeam || pUnit->isBarbarian()) continue;
++					if (pUnit->isInvisible(eMyTeam, false)) continue;
++					const TeamTypes eOtherTeam = pUnit->getTeam();
++					if (kMyTeam.isAtWar(eOtherTeam) || kMyTeam.isVassal(eOtherTeam) || GET_TEAM(eOtherTeam).isVassal(eMyTeam)) continue;
++					if (kPlayer.AI_getAttitude(pUnit->getOwnerINLINE()) >= ATTITUDE_FRIENDLY) continue;
++					if (pUnit->getDomainType() == DOMAIN_LAND && pUnit->canAttack())
++					{
++						iStaged += pUnit->currCombatStr(NULL, NULL);
++					}
++				}
++			}
++		}
++		iImmediateAttack += iStaged;
++	}
+ 	const int iPresentDefense = kPlayer.AI_getOurPlotStrength(plot(), 0, true, false);
+ 	if (AIDecisionPolicy::developBeforeReinforcing(iImmediateAttack, iPresentDefense))
+ 	{
+@@ -4867,9 +4927,26 @@ int CvCityAI::AI_buildingValueThreshold(BuildingTypes eBuilding, int iFocusFlags
+ 
+ 				if (kBuilding.getFreeBonus() != NO_BONUS)
+ 				{
+-					iValue += (kOwner.AI_bonusVal((BonusTypes)(kBuilding.getFreeBonus()), 1) *
+-						         ((kOwner.getNumTradeableBonuses((BonusTypes)(kBuilding.getFreeBonus())) == 0) ? 2 : 1) *
+-						         (iNumCities + kBuilding.getNumFreeBonuses()));
++					const BonusTypes eFreeBonus = (BonusTypes)kBuilding.getFreeBonus();
++					const int iOwnedCount = kOwner.getNumAvailableBonuses(eFreeBonus);
++					const int iFreeCount = (kBuilding.getNumFreeBonuses() < 0)
++						? std::max(1, GC.getGameINLINE().getNumFreeBonuses(eBuilding))
++						: std::max(1, kBuilding.getNumFreeBonuses());
++					if (iOwnedCount == 0)
++					{
++						// First empire copy unlocks all cities and units/buildings needing this resource.
++						iValue += kOwner.AI_bonusVal(eFreeBonus, 1) * std::min(iNumCities + iFreeCount, 12);
++					}
++					else
++					{
++						// Extra copies are trade stock or corporation fuel only; cap scaling so
++						// 20-city empires do not spam redundant Stables/Breweries/Steel Mills.
++						const int iCorpVal = kOwner.AI_corporationBonusVal(eFreeBonus);
++						const int iSurplusVal = (iCorpVal > 0)
++							? (kOwner.AI_bonusVal(eFreeBonus, 1) * std::min(iNumCities, 8))
++							: (kOwner.AI_bonusVal(eFreeBonus, 1) * std::min(iFreeCount, 2));
++						iValue += iSurplusVal;
++					}
+ 				}
+ 
+ 				if (kBuilding.getNoBonus() != NO_BONUS)
+@@ -5246,6 +5323,18 @@ int CvCityAI::AI_buildingValueThreshold(BuildingTypes eBuilding, int iFocusFlags
+ 
+ 					iValue += kBuilding.getFoodKept();
+ 
++					for (iJ = 0; iJ < GC.getNumBonusInfos(); iJ++)
++					{
++						if (hasBonus((BonusTypes)iJ))
++						{
++							const int iFoodMod = kBuilding.getBonusYieldModifier(iJ, YIELD_FOOD);
++							if (iFoodMod != 0)
++							{
++								iValue += (iFoodMod * getBaseYieldRate(YIELD_FOOD)) / 12;
++							}
++						}
++					}
++
+ 					if (kBuilding.getSeaPlotYieldChange(YIELD_FOOD) > 0)
+ 					{
+ 					    
+@@ -5268,7 +5357,15 @@ int CvCityAI::AI_buildingValueThreshold(BuildingTypes eBuilding, int iFocusFlags
+ 
+ 				if (iFocusFlags & BUILDINGFOCUS_PRODUCTION)
+ 				{
+-					iTempValue = ((kBuilding.getYieldModifier(YIELD_PRODUCTION) * getBaseYieldRate(YIELD_PRODUCTION)) / 20);
++					int iProdMod = kBuilding.getYieldModifier(YIELD_PRODUCTION);
++					for (iJ = 0; iJ < GC.getNumBonusInfos(); iJ++)
++					{
++						if (hasBonus((BonusTypes)iJ))
++						{
++							iProdMod += kBuilding.getBonusYieldModifier(iJ, YIELD_PRODUCTION);
++						}
++					}
++					iTempValue = ((iProdMod * getBaseYieldRate(YIELD_PRODUCTION)) / 20);
+ /********************************************************************************/
+ /* 	Alternative Building Evaluation				18/01/10		Fuyu		    */
+ /********************************************************************************/
+@@ -5324,7 +5421,15 @@ int CvCityAI::AI_buildingValueThreshold(BuildingTypes eBuilding, int iFocusFlags
+ 
+ 				if (iFocusFlags & BUILDINGFOCUS_GOLD)
+ 				{
+-					iTempValue = ((kBuilding.getYieldModifier(YIELD_COMMERCE) * getBaseYieldRate(YIELD_COMMERCE)));
++					int iCommMod = kBuilding.getYieldModifier(YIELD_COMMERCE);
++					for (iJ = 0; iJ < GC.getNumBonusInfos(); iJ++)
++					{
++						if (hasBonus((BonusTypes)iJ))
++						{
++							iCommMod += kBuilding.getBonusYieldModifier(iJ, YIELD_COMMERCE);
++						}
++					}
++					iTempValue = (iCommMod * getBaseYieldRate(YIELD_COMMERCE));
+ 					iTempValue *= kOwner.getCommercePercent(COMMERCE_GOLD);
+ 					
+ 					if (bFinancialTrouble)
+@@ -5825,6 +5930,219 @@ int CvCityAI::AI_buildingValueThreshold(BuildingTypes eBuilding, int iFocusFlags
+ 						}
+ 					}
+ 				}
++
++				if (isAIEconomy(AI_ECONOMY_BUILDING_LINES))
++				{
++					// 1. Codemap-verified 0-AI-caller XML building mechanics: Golden Ages,
++					// unit upgrade discounts (Art of War), Great General rate, obsolescence.
++					iValue += AIBuildingLinePolicy::goldenAgeBuildingValue(
++						kBuilding.isGoldenAge(), kBuilding.getGoldenAgeModifier(),
++						iNumCities, iTotalPopulation);
++
++					iValue += AIBuildingLinePolicy::militaryWonderBonusValue(
++						kBuilding.getUnitUpgradePriceModifier(),
++						kBuilding.getGreatGeneralRateModifier(),
++						kOwner.getNumMilitaryUnits(),
++						100 + kOwner.AI_getFlavorValue((FlavorTypes)std::max(0, GC.getInfoTypeForString("FLAVOR_MILITARY"))) * 10,
++						GET_TEAM(getTeam()).getAnyWarPlanCount(true) > 0);
++
++					// 2. Python-scripted RoM Wonders (RoMEventManager.py / RoMGameUtils.py)
++					// whose effects carry zero or negligible XML yield entries.
++					static int s_iCachedNumBuildings = -1;
++					static BuildingTypes s_eWorldBank = NO_BUILDING;
++					static BuildingTypes s_eCrusade = NO_BUILDING;
++					static BuildingTypes s_eDjenne = NO_BUILDING;
++					static BuildingTypes s_eHimeji = NO_BUILDING;
++					static BuildingTypes s_eNaniteDefuser = NO_BUILDING;
++					if (s_iCachedNumBuildings != GC.getNumBuildingInfos())
++					{
++						s_iCachedNumBuildings = GC.getNumBuildingInfos();
++						s_eWorldBank = (BuildingTypes)GC.getInfoTypeForString("BUILDING_WORLD_BANK");
++						s_eCrusade = (BuildingTypes)GC.getInfoTypeForString("BUILDING_CRUSADE");
++						s_eDjenne = (BuildingTypes)GC.getInfoTypeForString("BUILDING_DJENNE");
++						s_eHimeji = (BuildingTypes)GC.getInfoTypeForString("BUILDING_HIMEJI_CASTLE");
++						s_eNaniteDefuser = (BuildingTypes)GC.getInfoTypeForString("BUILDING_NANITE_DEFUSER");
++					}
++					if (eBuilding == s_eWorldBank)
++					{
++						iValue += AIBuildingLinePolicy::worldBankValue(kOwner.getGold(), kOwner.calculateGoldRate(), iNumCities);
++					}
++					else if (eBuilding == s_eCrusade)
++					{
++						iValue += AIBuildingLinePolicy::crusadeWonderValue(100, GET_TEAM(getTeam()).getAnyWarPlanCount(true) > 0, iNumCities);
++					}
++					else if (eBuilding == s_eDjenne)
++					{
++						int iDesertPlots = 0;
++						const TerrainTypes eDesert = (TerrainTypes)GC.getInfoTypeForString("TERRAIN_DESERT");
++						if (eDesert != NO_TERRAIN)
++						{
++							for (int iP = 0; iP < NUM_CITY_PLOTS; ++iP)
++							{
++								CvPlot* pPlot = getCityIndexPlot(iP);
++								if (pPlot != NULL && pPlot->getTeam() == getTeam() && pPlot->getTerrainType() == eDesert)
++								{
++									++iDesertPlots;
++								}
++							}
++						}
++						iValue += AIBuildingLinePolicy::djenneWonderValue(iDesertPlots, iNumCities, kOwner.getStateReligion() != NO_RELIGION);
++					}
++					else if (eBuilding == s_eHimeji)
++					{
++						iValue += AIBuildingLinePolicy::himejiWonderValue(100, GET_TEAM(getTeam()).getAnyWarPlanCount(true) > 0, iNumCities);
++					}
++					else if (eBuilding == s_eNaniteDefuser)
++					{
++						int iEnemyNukes = 0;
++						const int iOwnNukes = kOwner.getNumNukeUnits();
++						for (int iP = 0; iP < MAX_CIV_PLAYERS; ++iP)
++						{
++							if (iP != getOwnerINLINE() && GET_PLAYER((PlayerTypes)iP).isAlive() && GET_TEAM(getTeam()).isHasMet(GET_PLAYER((PlayerTypes)iP).getTeam()))
++							{
++								iEnemyNukes += GET_PLAYER((PlayerTypes)iP).getNumNukeUnits();
++							}
++						}
++						iValue += AIBuildingLinePolicy::naniteDefuserValue(iEnemyNukes, iOwnNukes);
++					}
++
++					// 3. Obsolescence depreciation for buildings close to their ObsoleteTech era.
++					const TechTypes eObsTech = (TechTypes)kBuilding.getObsoleteTech();
++					if (eObsTech != NO_TECH && iValue > 0)
++					{
++						const int iObsPct = AIBuildingLinePolicy::obsolescenceFactorPercent(
++							GC.getTechInfo(eObsTech).getEra(),
++							kOwner.getCurrentEra(),
++							GET_TEAM(getTeam()).isHasTech(eObsTech));
++						iValue = (iValue * iObsPct) / 100;
++					}
++
++					// 4. Per-city BuildingClassNeededs lookahead (e.g. Settlement -> Town -> City ->
++					// Metropolitan Essentials) + Net-Delta Replacement Scoring for RoMEventManager's
++					// 29 building upgrade lines (replaces old tier on completion).
++					static bool s_bInLineEval = false;
++					if (!s_bInLineEval)
++					{
++						s_bInLineEval = true;
++
++						// 4a. Per-city prerequisite chain lookahead
++						int iBestChainCredit = 0;
++						const CvCivilizationInfo& kCivInfo = GC.getCivilizationInfo(getCivilizationType());
++						const int iOwnCost = std::max(1, kBuilding.getProductionCost());
++						for (int iBC = 0; iBC < GC.getNumBuildingClassInfos(); ++iBC)
++						{
++							const BuildingTypes eDown = (BuildingTypes)kCivInfo.getCivilizationBuildings(iBC);
++							if (eDown == NO_BUILDING || eDown == eBuilding || getNumRealBuilding(eDown) > 0)
++							{
++								continue;
++							}
++							const CvBuildingInfo& kDown = GC.getBuildingInfo(eDown);
++							if (!kDown.isBuildingClassNeededInCity(eBuildingClass))
++							{
++								continue;
++							}
++							const TechTypes eDownTech = (TechTypes)kDown.getPrereqAndTech();
++							const bool bDownTechKnown = (eDownTech == NO_TECH) || GET_TEAM(getTeam()).isHasTech(eDownTech);
++							if (!bDownTechKnown && (eDownTech != NO_TECH) && (GC.getTechInfo(eDownTech).getEra() > kOwner.getCurrentEra() + 1))
++							{
++								continue;
++							}
++							const int iDownVal = AI_buildingValueThreshold(eDown, iFocusFlags, 0);
++							const int iCredit = AIBuildingLinePolicy::prereqChainCredit(
++								iDownVal, iOwnCost, std::max(1, kDown.getProductionCost()), bDownTechKnown);
++							if (iCredit > iBestChainCredit)
++							{
++								iBestChainCredit = iCredit;
++							}
++						}
++						iValue += iBestChainCredit;
++
++						// 4b. Net-delta replacement scoring when eBuilding deletes an already-built predecessor
++						// (matches RoMEventManager.py asBuildingUpgradeLine_Upgrade_Name -> Obsolete_Name).
++						struct UpgradePair { const char* szUpgrade; const char* szReplaced; };
++						static const UpgradePair akPairs[] = {
++							{"BUILDING_LIBRARY", "BUILDING_SCHOOL_OF_SCRIBES"},
++							{"BUILDING_ARABIAN_MADRASSA", "BUILDING_SCHOOL_OF_SCRIBES"},
++							{"BUILDING_SIAM_HO_TRAI", "BUILDING_SCHOOL_OF_SCRIBES"},
++							{"BUILDING_UNIVERSITY", "BUILDING_LIBRARY"},
++							{"BUILDING_UNIVERSITY", "BUILDING_ARABIAN_MADRASSA"},
++							{"BUILDING_UNIVERSITY", "BUILDING_SIAM_HO_TRAI"},
++							{"BUILDING_KOREAN_SEOWON", "BUILDING_LIBRARY"},
++							{"BUILDING_FAIR", "BUILDING_MARKET"},
++							{"BUILDING_FAIR", "BUILDING_ROMAN_FORUM"},
++							{"BUILDING_COMMODITY_MARKET", "BUILDING_FAIR"},
++							{"BUILDING_COMMERCIAL_CENTER", "BUILDING_COMMODITY_MARKET"},
++							{"BUILDING_BARRACKS", "BUILDING_EARLY_BARRACKS"},
++							{"BUILDING_LEGION_BARRACKS", "BUILDING_BARRACKS"},
++							{"BUILDING_LEGION_BARRACKS", "BUILDING_EARLY_BARRACKS"},
++							{"BUILDING_GARRISON", "BUILDING_BARRACKS"},
++							{"BUILDING_GARRISON", "BUILDING_ZULU_IKHANDA"},
++							{"BUILDING_GARRISON", "BUILDING_ASSYRIA_EKAL"},
++							{"BUILDING_TOWN_ESSENTIALS", "BUILDING_SETTLEMENT_ESSENTIALS"},
++							{"BUILDING_CITY_ESSENTIALS", "BUILDING_TOWN_ESSENTIALS"},
++							{"BUILDING_METROPOLITAN_ESSENTIALS", "BUILDING_CITY_ESSENTIALS"},
++							{"BUILDING_KNIGHT_STABLE", "BUILDING_STABLE"},
++							{"BUILDING_KNIGHT_STABLE", "BUILDING_MONGOL_GER"},
++							{"BUILDING_HARBOR", "BUILDING_RIVER_PORT"},
++							{"BUILDING_CARTHAGE_COTHON", "BUILDING_RIVER_PORT"},
++							{"BUILDING_PORT", "BUILDING_HARBOR"},
++							{"BUILDING_PORT", "BUILDING_CARTHAGE_COTHON"},
++							{"BUILDING_COMMERCIAL_PORT", "BUILDING_PORT"},
++							{"BUILDING_INTERNATIONAL_PORT", "BUILDING_COMMERCIAL_PORT"},
++							{"BUILDING_COMMERCIAL_AIRPORT", "BUILDING_AIRPORT"},
++							{"BUILDING_HIGH_WALLS", "BUILDING_WALLS"},
++							{"BUILDING_HIGH_WALLS", "BUILDING_CELTIC_DUN"},
++							{"BUILDING_CUSTOM_HOUSE", "BUILDING_TOLL_HOUSE"},
++							{"BUILDING_PORTUGAL_FEITORIA", "BUILDING_TOLL_HOUSE"},
++							{"BUILDING_DRYDOCK", "BUILDING_SHIPYARD"},
++							{"BUILDING_NAVAL_YARD", "BUILDING_DRYDOCK"},
++							{"BUILDING_STEEL_MILL", "BUILDING_FORGE"},
++							{"BUILDING_STEEL_MILL", "BUILDING_MALI_MINT"},
++							{"BUILDING_STEEL_MILL", "BUILDING_IRON_FORGE"},
++							{"BUILDING_ARCOLOGY", "BUILDING_ANTI_MISSILE_BATTERIES"},
++							{"BUILDING_ARCOLOGY_SHIELDING", "BUILDING_ARCOLOGY"},
++							{"BUILDING_ADVANCED_SHIELDING", "BUILDING_ARCOLOGY_SHIELDING"},
++							{"BUILDING_AEROSPACE_COMPLEX", "BUILDING_MILITARY_AIRBASE"},
++							{"BUILDING_COMMUNICATION_TOWER", "BUILDING_BROADCAST_TOWER"},
++							{"BUILDING_NETWORK_NODE", "BUILDING_COMMUNICATION_TOWER"}
++						};
++						static const int iNumPairs = (int)(sizeof(akPairs) / sizeof(akPairs[0]));
++						static int s_iPairCacheBuildings = -1;
++						static int s_aiUpgradeId[48];
++						static int s_aiReplacedId[48];
++						if (s_iPairCacheBuildings != GC.getNumBuildingInfos())
++						{
++							s_iPairCacheBuildings = GC.getNumBuildingInfos();
++							for (int iK = 0; iK < iNumPairs; ++iK)
++							{
++								s_aiUpgradeId[iK] = GC.getInfoTypeForString(akPairs[iK].szUpgrade);
++								s_aiReplacedId[iK] = GC.getInfoTypeForString(akPairs[iK].szReplaced);
++							}
++						}
++						int iReplacedVal = 0;
++						for (int iK = 0; iK < iNumPairs; ++iK)
++						{
++							if (s_aiUpgradeId[iK] == (int)eBuilding && s_aiReplacedId[iK] >= 0)
++							{
++								const BuildingTypes eRep = (BuildingTypes)s_aiReplacedId[iK];
++								if (getNumRealBuilding(eRep) > 0)
++								{
++									const int iVal = AI_buildingValueThreshold(eRep, iFocusFlags, 0);
++									if (iVal > iReplacedVal)
++									{
++										iReplacedVal = iVal;
++									}
++								}
++							}
++						}
++						if (iReplacedVal > 0)
++						{
++							iValue = AIBuildingLinePolicy::netUpgradeValue(iValue, iReplacedVal);
++						}
++
++						s_bInLineEval = false;
++					}
++				}
+ 			}
+ 			
+ 			if ((iThreshold > 0) && (iPass == 0))
+@@ -6314,6 +6632,43 @@ int CvCityAI::AI_neededDefenders()
+ 		iDefenders += 10;
+ 	}
+ 
++	if (isAICunning(AI_CUNNING_STAGED_THREAT) && !isHuman())
++	{
++		const TeamTypes eMyTeam = getTeam();
++		const CvTeam& kMyTeam = GET_TEAM(eMyTeam);
++		const CvPlayerAI& kOwner = GET_PLAYER(getOwnerINLINE());
++		int iStagedAttack = 0;
++		for (int iDX = -2; iDX <= 2; ++iDX)
++		{
++			for (int iDY = -2; iDY <= 2; ++iDY)
++			{
++				if (iDX == 0 && iDY == 0) continue;
++				CvPlot* pLoopPlot = plotXY(getX_INLINE(), getY_INLINE(), iDX, iDY);
++				if (pLoopPlot == NULL || !pLoopPlot->isVisible(eMyTeam, false)) continue;
++				CLLNode<IDInfo>* pUnitNode = pLoopPlot->headUnitNode();
++				while (pUnitNode != NULL)
++				{
++					CvUnit* pUnit = ::getUnit(pUnitNode->m_data);
++					pUnitNode = pLoopPlot->nextUnitNode(pUnitNode);
++					if (pUnit == NULL || pUnit->getTeam() == eMyTeam || pUnit->isBarbarian() || pUnit->isInvisible(eMyTeam, false)) continue;
++					const TeamTypes eOther = pUnit->getTeam();
++					if (kMyTeam.isAtWar(eOther) || kMyTeam.isVassal(eOther) || GET_TEAM(eOther).isVassal(eMyTeam)) continue;
++					if (kOwner.AI_getAttitude(pUnit->getOwnerINLINE()) >= ATTITUDE_FRIENDLY) continue;
++					if (pUnit->getDomainType() == DOMAIN_LAND && pUnit->canAttack())
++					{
++						iStagedAttack += pUnit->currCombatStr(NULL, NULL);
++					}
++				}
++			}
++		}
++		if (iStagedAttack > 0)
++		{
++			const int iPresentDef = kOwner.AI_getOurPlotStrength(plot(), 0, true, false);
++			const int iCurDefenders = plot()->getNumDefenders(getOwnerINLINE());
++			iDefenders += AIStrategicDefensePolicy::stagedGarrisonDeficit(iStagedAttack, iPresentDef, iCurDefenders);
++		}
++	}
++
+ 	if( GET_PLAYER(getOwnerINLINE()).AI_isDoVictoryStrategy(AI_VICTORY_CULTURE3) )
+ 	{
+ 		if( findCommerceRateRank(COMMERCE_CULTURE) <= GC.getGameINLINE().culturalVictoryNumCultureCities() )
+@@ -6473,7 +6828,49 @@ bool CvCityAI::AI_isDanger()
+ /* City AI, Efficiency                                                                          */
+ /************************************************************************************************/
+ 	//return GET_PLAYER(getOwnerINLINE()).AI_getPlotDanger(plot(), 2, false);
+-	return GET_PLAYER(getOwnerINLINE()).AI_getAnyPlotDanger(plot(), 2, false);
++	if (GET_PLAYER(getOwnerINLINE()).AI_getAnyPlotDanger(plot(), 2, false))
++	{
++		return true;
++	}
++	if (isAICunning(AI_CUNNING_STAGED_THREAT) && !isHuman())
++	{
++		const TeamTypes eMyTeam = getTeam();
++		const CvTeam& kMyTeam = GET_TEAM(eMyTeam);
++		const CvPlayerAI& kOwner = GET_PLAYER(getOwnerINLINE());
++		int iStagedAttack = 0;
++		for (int iDX = -2; iDX <= 2; ++iDX)
++		{
++			for (int iDY = -2; iDY <= 2; ++iDY)
++			{
++				if (iDX == 0 && iDY == 0) continue;
++				CvPlot* pLoopPlot = plotXY(getX_INLINE(), getY_INLINE(), iDX, iDY);
++				if (pLoopPlot == NULL || !pLoopPlot->isVisible(eMyTeam, false)) continue;
++				CLLNode<IDInfo>* pUnitNode = pLoopPlot->headUnitNode();
++				while (pUnitNode != NULL)
++				{
++					CvUnit* pUnit = ::getUnit(pUnitNode->m_data);
++					pUnitNode = pLoopPlot->nextUnitNode(pUnitNode);
++					if (pUnit == NULL || pUnit->getTeam() == eMyTeam || pUnit->isBarbarian() || pUnit->isInvisible(eMyTeam, false)) continue;
++					const TeamTypes eOther = pUnit->getTeam();
++					if (kMyTeam.isAtWar(eOther) || kMyTeam.isVassal(eOther) || GET_TEAM(eOther).isVassal(eMyTeam)) continue;
++					if (kOwner.AI_getAttitude(pUnit->getOwnerINLINE()) >= ATTITUDE_FRIENDLY) continue;
++					if (pUnit->getDomainType() == DOMAIN_LAND && pUnit->canAttack())
++					{
++						iStagedAttack += pUnit->currCombatStr(NULL, NULL);
++					}
++				}
++			}
++		}
++		if (iStagedAttack > 0)
++		{
++			const int iPresentDef = kOwner.AI_getOurPlotStrength(plot(), 0, true, false);
++			if (iStagedAttack * 10 >= std::max(1, iPresentDef) * 8)
++			{
++				return true;
++			}
++		}
++	}
++	return false;
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/	
+@@ -10336,6 +10733,36 @@ int CvCityAI::AI_yieldValue(short* piYields, short* piCommerceYields, bool bAvoi
+ /************************************************************************************************/
+ /* UNOFFICIAL_PATCH                        END                                                  */
+ /************************************************************************************************/
++	if (isAIEconomy(AI_ECONOMY_GOVERNOR_SPEC) && isProductionProcess() && !bWorkerOptimization)
++	{
++		const CvProcessInfo& kProcess = GC.getProcessInfo(getProductionProcess());
++		for (int iJ = 0; iJ < NUM_COMMERCE_TYPES; iJ++)
++		{
++			aiCommerceYieldsTimes100[iJ] += kProcess.getProductionToCommerceModifier(iJ) * aiYields[YIELD_PRODUCTION];
++		}
++		aiYields[YIELD_PRODUCTION] = 0;
++	}
++	if (isAIEconomy(AI_ECONOMY_GOVERNOR_SPEC) && !isHuman())
++	{
++		switch (m_iGovernorType)
++		{
++		case AICityGovernorPolicy::GOVERNOR_INDUSTRIALIST:
++		case AICityGovernorPolicy::GOVERNOR_CASTELLAN:
++			aiYields[YIELD_PRODUCTION] = (aiYields[YIELD_PRODUCTION] * 120) / 100;
++			break;
++		case AICityGovernorPolicy::GOVERNOR_MERCHANT:
++			aiCommerceYieldsTimes100[COMMERCE_GOLD] = (aiCommerceYieldsTimes100[COMMERCE_GOLD] * 120) / 100;
++			break;
++		case AICityGovernorPolicy::GOVERNOR_SCHOLAR:
++			aiCommerceYieldsTimes100[COMMERCE_RESEARCH] = (aiCommerceYieldsTimes100[COMMERCE_RESEARCH] * 120) / 100;
++			break;
++		case AICityGovernorPolicy::GOVERNOR_CURATOR:
++			aiCommerceYieldsTimes100[COMMERCE_CULTURE] = (aiCommerceYieldsTimes100[COMMERCE_CULTURE] * 120) / 100;
++			break;
++		default:
++			break;
++		}
++	}
+ 	
+ 	// should not really use this much, but making it accurate
+ 	aiYields[YIELD_COMMERCE] = 0;
+@@ -11521,10 +11948,40 @@ void CvCityAI::AI_bestPlotBuild(CvPlot* pPlot, int* piBestValue, BuildTypes* peB
+ 						aiFinalYields[iJ] = 2*(pPlot->calculateNatureYield(((YieldTypes)iJ), getTeam(), bIgnoreFeature));
+ 						aiFinalYields[iJ] += (pPlot->calculateImprovementYieldChange(eFinalImprovement, ((YieldTypes)iJ), getOwnerINLINE(), false, true));
+ 						aiFinalYields[iJ] += (pPlot->calculateImprovementYieldChange(eImprovement, ((YieldTypes)iJ), getOwnerINLINE(), false, true));
++						if (isAIEconomy(AI_ECONOMY_CIVIC_COEVAL))
++						{
++							static int s_iBestPlotCivicCount = -1;
++							static CivicTypes s_ePeasantryCivic = NO_CIVIC;
++							static ImprovementTypes s_eCottageImp = NO_IMPROVEMENT;
++							if (s_iBestPlotCivicCount != GC.getNumCivicInfos())
++							{
++								s_iBestPlotCivicCount = GC.getNumCivicInfos();
++								s_ePeasantryCivic = (CivicTypes)GC.getInfoTypeForString("CIVIC_PEASANTRY");
++								s_eCottageImp = (ImprovementTypes)GC.getInfoTypeForString("IMPROVEMENT_COTTAGE");
++							}
++							if (s_ePeasantryCivic != NO_CIVIC && eImprovement == s_eCottageImp
++								&& !GET_PLAYER(getOwnerINLINE()).isCivic(s_ePeasantryCivic)
++								&& GET_PLAYER(getOwnerINLINE()).canDoCivics(s_ePeasantryCivic))
++							{
++								const CvCivicInfo& kPeas = GC.getCivicInfo(s_ePeasantryCivic);
++								const int iPeasDelta = kPeas.getImprovementYieldChanges(eImprovement, iJ)
++									+ kPeas.getImprovementYieldChanges(eFinalImprovement, iJ);
++								aiFinalYields[iJ] += iPeasDelta / 2;
++							}
++						}
+ 						if (bIgnoreFeature && pPlot->getFeatureType() != NO_FEATURE)
+ 						{
+ 							aiFinalYields[iJ] -= 2 * GC.getFeatureInfo(pPlot->getFeatureType()).getYieldChange((YieldTypes)iJ);							
+ 						}
++						if (isAIEconomy(AI_ECONOMY_GOVERNOR_SPEC))
++						{
++							const int iTraitThresh = GET_PLAYER(getOwnerINLINE()).getExtraYieldThreshold((YieldTypes)iJ);
++							if (iTraitThresh > 0 && (aiFinalYields[iJ] / 2) >= iTraitThresh)
++							{
++								// Crossing trait threshold (e.g. Financial 4C or Agricultural 5F) yields +1 extra.
++								aiFinalYields[iJ] += 2;
++							}
++						}
+ 
+ 						int iCurYield = 2*(pPlot->calculateNatureYield(((YieldTypes)iJ), getTeam(), false));
+ 
+@@ -12787,8 +13244,7 @@ void CvCityAI::AI_updateSpecialYieldMultiplier()
+ 	BuildingTypes eProductionBuilding = getProductionBuilding();
+ 	if (eProductionBuilding != NO_BUILDING)
+ 	{
+-		if (isWorldWonderClass((BuildingClassTypes)(GC.getBuildingInfo(eProductionBuilding).getBuildingClassType()))
+-			|| isProductionProject())
++		if (isWorldWonderClass((BuildingClassTypes)(GC.getBuildingInfo(eProductionBuilding).getBuildingClassType())))
+ 		{
+ 			m_aiSpecialYieldMultiplier[YIELD_PRODUCTION] += 50;
+ 			m_aiSpecialYieldMultiplier[YIELD_COMMERCE] -= 25;					
+@@ -12812,6 +13268,11 @@ void CvCityAI::AI_updateSpecialYieldMultiplier()
+ 			}
+ 		}
+ 	}
++	else if (isProductionProject())
++	{
++		m_aiSpecialYieldMultiplier[YIELD_PRODUCTION] += 50;
++		m_aiSpecialYieldMultiplier[YIELD_COMMERCE] -= 25;
++	}
+ 	
+ 	// non-human production value increase
+ 	if (!isHuman())
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+index d74a996..d4486ed 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+@@ -12,6 +12,11 @@ bool isAIDiplomacy(int iFlag)
+ 	return (GC.getDefineINT("AI_DIPLOMACY_FLAGS") & iFlag) != 0;
+ }
+ 
++bool isAIEconomy(int iFlag)
++{
++	return (GC.getDefineINT("AI_ECONOMY_FLAGS") & iFlag) != 0;
++}
++
+ // Collateral strength as CvUnit::collateralCombat applies it: an integer, so 25 % of
+ // strength 3 (an archer) is nothing at all.
+ int effectiveCollateral(const CvUnit* pUnit)
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.h b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+index c154487..3c509a5 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.h
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+@@ -411,6 +411,12 @@ int calculateLevel(int iExperience, PlayerTypes ePlayer);								// Exposed to P
+ // collateral units open the assault), 16 compose the stack (collateral units join it),
+ // 32 ask and accept war help only from teams near the target, 64 city archers and
+ // siege fire ranged strikes at enemies next to the city.
++enum
++{
++	AI_CUNNING_STAGED_THREAT = 128,
++	AI_CUNNING_COALITION = 256,
++	AI_CUNNING_TACTICAL_MASTERY = 512
++};
+ bool isAICunning(int iFlag);
+ // Diplomacy AI switches (AI_DIPLOMACY_FLAGS in BBAI_AI_Variables_GlobalDefines.xml; 0 is the old AI):
+ // 1 a tech's trade value is its remaining research at the receiver's own research rate, 2 a
+@@ -427,6 +433,14 @@ enum
+ 	AI_DIPLOMACY_NET_VALUE = 16
+ };
+ bool isAIDiplomacy(int iFlag);
++enum
++{
++	AI_ECONOMY_BUILDING_LINES = 1,
++	AI_ECONOMY_CIVIC_COEVAL = 2,
++	AI_ECONOMY_GOVERNOR_SPEC = 4,
++	AI_ECONOMY_TECH_AND_CORP = 8
++};
++bool isAIEconomy(int iFlag);
+ int effectiveCollateral(const CvUnit* pUnit);
+ void warLogTurn(int iTurn);
+ void warLogWar(TeamTypes eTeam, TeamTypes eTarget, int iWarPlan, bool bPeace);
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
+index bad79cc..d8bc2b6 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayer.cpp
+@@ -424,10 +424,7 @@ bool CvPlayer::isUpgradeAnywhere() const
+ 
+ void CvPlayer::setUpgradeAnywhere(bool bNewValue)
+ {
+-    if (bNewValue == true)
+-    {
+-        m_bUpgradeAnywhere = bNewValue;
+-    }
++    m_bUpgradeAnywhere = bNewValue;
+ }
+ /************************************************************************************************/
+ /* REVDCM                                  END                                                  */
+@@ -18360,7 +18357,31 @@ void CvPlayer::processCivics(CivicTypes eCivic, int iChange)
+ /************************************************************************************************/
+ 	if ( GC.getCivicInfo(eCivic).isUpgradeAnywhere() == true)
+ 	{
+-		setUpgradeAnywhere(GC.getCivicInfo(eCivic).isUpgradeAnywhere());
++		if (iChange > 0)
++		{
++			setUpgradeAnywhere(true);
++		}
++		else if (iChange < 0)
++		{
++			bool bStillUpgradeAnywhere = false;
++			for (int iTrait = 0; iTrait < GC.getNumTraitInfos(); ++iTrait)
++			{
++				if (hasTrait((TraitTypes)iTrait) && GC.getTraitInfo((TraitTypes)iTrait).isUpgradeAnywhere())
++				{
++					bStillUpgradeAnywhere = true;
++					break;
++				}
++			}
++			for (int iOpt = 0; !bStillUpgradeAnywhere && iOpt < GC.getNumCivicOptionInfos(); ++iOpt)
++			{
++				const CivicTypes eActiveCivic = getCivics((CivicOptionTypes)iOpt);
++				if (eActiveCivic != NO_CIVIC && eActiveCivic != eCivic && GC.getCivicInfo(eActiveCivic).isUpgradeAnywhere())
++				{
++					bStillUpgradeAnywhere = true;
++				}
++			}
++			setUpgradeAnywhere(bStillUpgradeAnywhere);
++		}
+ 	}
+ 
+ 	if ( GC.getCivicInfo(eCivic).getRevIdxNational() != 0)
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index 7dd773d..55eaf2c 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -1,6 +1,7 @@
+ // playerAI.cpp
+ 
+ #include "CvGameCoreDLL.h"
++#include "AIBuildingLinePolicy.h"
+ #include "AIDecisionPolicy.h"
+ #include "AICivicPolicy.h"
+ #include "AIDiplomacyPolicy.h" // Added: bounded counterproposal conversions.
+@@ -13,6 +14,7 @@
+ #include "CvResearchGraph.h"
+ #include "AISettlementPolicy.h"
+ #include "AIStrategicContextPolicy.h" // Added: shared per-turn evidence policy.
++#include "AIStrategicDefensePolicy.h"
+ #include "AIWellbeingPolicy.h"
+ #include "CvPlayerAI.h"
+ #include "CvCityAI.h"
+@@ -670,6 +672,65 @@ void CvPlayerAI::AI_doTurnUnitsPost()
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/
+ 
++	if (isAICunning(AI_CUNNING_TACTICAL_MASTERY) && getGold() > 0)
++	{
++		// Pair of (-iPriority, iUnitID) so ascending std::sort ranks highest priority first.
++		std::vector<std::pair<int, int> > aCandidates;
++		for (pLoopUnit = firstUnit(&iLoop); pLoopUnit != NULL; pLoopUnit = nextUnit(&iLoop))
++		{
++			if (!pLoopUnit->canFight() || pLoopUnit->isAnimal())
++			{
++				continue;
++			}
++
++			CvPlot* pPlot = pLoopUnit->plot();
++			int iPriority = 0;
++			if (pPlot->isCity() && AI_getAnyPlotDanger(pPlot, 2, false))
++			{
++				iPriority += 1000;
++				if (pPlot->getBestDefender(getID()) == pLoopUnit)
++				{
++					iPriority += 200;
++				}
++			}
++			else if (AI_getAnyPlotDanger(pPlot, 3, false) || (bAtWar && pPlot->getOwnerINLINE() != getID()))
++			{
++				iPriority += 600;
++			}
++
++			if (pLoopUnit->getExperience() >= 5 || pLoopUnit->getLevel() >= 3)
++			{
++				iPriority += 100 + pLoopUnit->getExperience() * 15;
++			}
++
++			if (GC.getUnitClassInfo(pLoopUnit->getUnitClassType()).getMaxPlayerInstances() > 0)
++			{
++				iPriority += 250;
++			}
++
++			if (iPriority >= 100)
++			{
++				aCandidates.push_back(std::make_pair(-iPriority, pLoopUnit->getID()));
++			}
++		}
++
++		std::sort(aCandidates.begin(), aCandidates.end());
++
++		for (size_t iIdx = 0; iIdx < aCandidates.size(); ++iIdx)
++		{
++			const bool bThreatened = ((-aCandidates[iIdx].first) >= 1000);
++			if (!bThreatened && (iStartingGold - getGold()) >= iUpgradeBudget)
++			{
++				break;
++			}
++			CvUnit* pTarget = getUnit(aCandidates[iIdx].second);
++			if (pTarget != NULL)
++			{
++				pTarget->AI_upgrade(); // CAN DELETE UNIT!!!
++			}
++		}
++	}
++
+ 	CvPlot* pLastUpgradePlot = NULL;
+ 	for (iPass = 0; iPass < 4; iPass++)
+ 	{
+@@ -1001,7 +1062,9 @@ void CvPlayerAI::AI_doPeace()
+ 
+ 																if (GET_PLAYER((PlayerTypes)iI).canTradeItem(getID(), item, true))
+ 																{
+-																	iValue = (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Peace Trading (Tech #1)"));
++																	iValue = isAICunning(AI_CUNNING_COALITION)
++																		? AI_techOfferValue((TechTypes)iJ, GET_PLAYER((PlayerTypes)iI).getTeam())
++																		: (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Peace Trading (Tech #1)"));
+ 
+ 																	if (iValue > iBestValue)
+ 																	{
+@@ -1046,6 +1109,14 @@ void CvPlayerAI::AI_doPeace()
+ 																if (GET_PLAYER((PlayerTypes)iI).canTradeItem(getID(), item, true))
+ 																{
+ 																	iValue = pLoopCity->plot()->calculateCulturePercent(getID());
++																	if (isAICunning(AI_CUNNING_COALITION) && getCapitalCity() != NULL && pLoopCity->area() == getCapitalCity()->area())
++																	{
++																		const int iCityVal = AI_cityTradeVal(pLoopCity);
++																		if (iCityVal <= (iTheirValue - iOurValue))
++																		{
++																			iValue += 10 + pLoopCity->getPopulation() * 5;
++																		}
++																	}
+ 
+ 																	if (iValue > iBestValue)
+ 																	{
+@@ -1071,9 +1142,12 @@ void CvPlayerAI::AI_doPeace()
+ 
+ 															if (canTradeItem(((PlayerTypes)iI), item, true))
+ 															{
+-																if (GET_TEAM(GET_PLAYER((PlayerTypes)iI).getTeam()).AI_techTradeVal((TechTypes)iJ, getTeam()) <= (iOurValue - iTheirValue))
++																const int iGiveTechVal = GET_TEAM(GET_PLAYER((PlayerTypes)iI).getTeam()).AI_techTradeVal((TechTypes)iJ, getTeam());
++																if (iGiveTechVal <= (iOurValue - iTheirValue))
+ 																{
+-																	iValue = (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Peace Trading (Tech #2)"));
++																	iValue = isAICunning(AI_CUNNING_COALITION)
++																		? std::max(1, MAX_INT / 2 - iGiveTechVal)
++																		: (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Peace Trading (Tech #2)"));
+ 
+ 																	if (iValue > iBestValue)
+ 																	{
+@@ -4127,7 +4201,13 @@ bool CvPlayerAI::AI_isFinancialTrouble() const
+ 
+ 	//if (getCommercePercent(COMMERCE_GOLD) > 50)
+ 	{
+-		int iNetCommerce = 1 + getCommerceRate(COMMERCE_GOLD) + getCommerceRate(COMMERCE_RESEARCH) + std::max(0, getGoldPerTurn());
++		int iDivertedCommerce = 0;
++		const int iDivertedPercent = getCommercePercent(COMMERCE_CULTURE) + getCommercePercent(COMMERCE_ESPIONAGE);
++		if (iDivertedPercent > 0)
++		{
++			iDivertedCommerce = (calculateTotalCommerce() * iDivertedPercent) / 100;
++		}
++		int iNetCommerce = 1 + getCommerceRate(COMMERCE_GOLD) + getCommerceRate(COMMERCE_RESEARCH) + iDivertedCommerce + std::max(0, getGoldPerTurn());
+ /************************************************************************************************/
+ /* UNOFFICIAL_PATCH                       06/11/09                       jdog5000 & DanF5771    */
+ /*                                                                                              */
+@@ -5967,6 +6047,51 @@ int CvPlayerAI::AI_techValue( TechTypes eTech, int iPathLength, bool bIgnoreCost
+ 		}
+ 	}
+ 
++	if (isAIEconomy(AI_ECONOMY_TECH_AND_CORP))
++	{
++		const CvTechInfo& kTechInfo = GC.getTechInfo(eTech);
++		// 1. First-to-tech free Great Person / unit races (0 direct AI callers previously).
++		if (kTechInfo.getFirstFreeUnitClass() != NO_UNITCLASS && iPathLength <= 3
++			&& GC.getGameINLINE().countKnownTechNumTeams(eTech) == 0)
++		{
++			iValue += (iPathLength <= 1) ? 1400 : ((iPathLength == 2) ? 900 : 500);
++		}
++		// 2. Empire-wide tech happiness (0 direct AI callers previously).
++		if (kTechInfo.getHappiness() > 0)
++		{
++			iValue += kTechInfo.getHappiness() * std::max(1, getNumCities()) * 80;
++		}
++		// 3. TechCityTrade bonus enables (e.g. Animal Husbandry for Horse, Naturopathy for Wine,
++		// Trade for Pearls, Rifling for Ammo, Combustion for Diesel).
++		for (int iB = 0; iB < GC.getNumBonusInfos(); ++iB)
++		{
++			const CvBonusInfo& kBonus = GC.getBonusInfo((BonusTypes)iB);
++			if (kBonus.getTechCityTrade() == eTech)
++			{
++				const int iOwnedPlotCount = countOwnedBonuses((BonusTypes)iB);
++				if (iOwnedPlotCount > 0 || getNumAvailableBonuses((BonusTypes)iB) > 0)
++				{
++					iValue += AI_bonusVal((BonusTypes)iB, 1) * 45;
++				}
++			}
++		}
++		// 4. Civ-unique / regional-exclusive tech branches (e.g. Rome's TECH_MANUFAKTUREN
++		// unlocking Latifundium + Roman Road, or TECH_RELIGION_NORDIC Warband/Sea Raider).
++		int iDisabledCivs = 0;
++		const int iNumCivs = GC.getNumCivilizationInfos();
++		for (int iC = 0; iC < iNumCivs; ++iC)
++		{
++			if (GC.getCivilizationInfo((CivilizationTypes)iC).isCivilizationDisableTechs(eTech))
++			{
++				++iDisabledCivs;
++			}
++		}
++		if (iNumCivs > 4 && iDisabledCivs * 2 >= iNumCivs)
++		{
++			iValue += 600;
++		}
++	}
++
+ 	if (iPathLength <= 2)
+ 	{
+ 		if (GC.getGameINLINE().countKnownTechNumTeams(eTech) == 0)
+@@ -7180,7 +7305,7 @@ void CvPlayerAI::AI_chooseResearch()
+ 			// Removed: a fixed depth-three horizon that could not even evaluate Writing
+ 			// from Rome's ordinary opening state; memoized path scoring keeps depth six cheap.
+ 			iAIResearchDepth = AI_isDoVictoryStrategy(AI_VICTORY_CULTURE3) ? 1 :
+-				(getCurrentEra() == 0 ? 6 : 3);
++				(isAIEconomy(AI_ECONOMY_TECH_AND_CORP) ? (getCurrentEra() <= 1 ? 6 : 5) : (getCurrentEra() == 0 ? 6 : 3));
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/
+@@ -10625,6 +10750,31 @@ int CvPlayerAI::AI_bonusUnlockVal(BonusTypes eBonus) const
+ 				iTempValue += kLoopBuilding.getPowerYieldModifier(iY);
+ 			}
+ 		}
++		if (isAIEconomy(AI_ECONOMY_TECH_AND_CORP))
++		{
++			// Credit buildable-but-unbuilt bonus processors (e.g. Forge +25% Gold / +15% Silver,
++			// Jewellery +1 Happy, Market +1 Happy, Town/City Essentials) proportional to cities
++			// that can build them, solving the 0-native-happy Gold/Silver chicken-and-egg trap.
++			const TechTypes eBldTech = (TechTypes)kLoopBuilding.getPrereqAndTech();
++			if (eBldTech == NO_TECH || kTeam.isHasTech(eBldTech))
++			{
++				const int iBuilt = getBuildingClassCount((BuildingClassTypes)iI);
++				const int iUnbuilt = std::max(0, getNumCities() - iBuilt);
++				if (iUnbuilt > 0 && getNumCities() > 0)
++				{
++					int iProcVal = std::max(0, kLoopBuilding.getBonusHappinessChanges(eBonus)) * 35
++						+ std::max(0, kLoopBuilding.getBonusHealthChanges(eBonus)) * 25;
++					for (int iY = 0; iY < NUM_YIELD_TYPES; iY++)
++					{
++						iProcVal += std::max(0, kLoopBuilding.getBonusYieldModifier(eBonus, iY)) * ((iY == YIELD_COMMERCE) ? 2 : 3);
++					}
++					if (iProcVal > 0)
++					{
++						iTempValue += (iProcVal * iUnbuilt) / (2 * getNumCities());
++					}
++				}
++			}
++		}
+ 		if (iTempValue > 0)
+ 		{
+ 			iValue += bonusUnlockTechWeight(kTeam, eEra, (TechTypes)kLoopBuilding.getPrereqAndTech(), iTempValue);
+@@ -10748,6 +10898,14 @@ DenialTypes CvPlayerAI::AI_bonusTrade(BonusTypes eBonus, PlayerTypes ePlayer) co
+ 		}
+ 	}
+ 
++	const int iLuxuryClass = GC.getInfoTypeForString("BONUSCLASS_LUXURY");
++	const int iGeneralClass = GC.getInfoTypeForString("BONUSCLASS_GENERAL");
++	const int iBonusClass = GC.getBonusInfo(eBonus).getBonusClassType();
++	const bool bIsNonStrategicOr = (iLuxuryClass >= 0 && iBonusClass == iLuxuryClass)
++		|| (iGeneralClass >= 0 && iBonusClass == iGeneralClass)
++		|| (GC.getBonusInfo(eBonus).getHappiness() > 0)
++		|| (GC.getBonusInfo(eBonus).getHealth() > 0);
++
+ 	for (iI = 0; iI < GC.getNumBuildingInfos(); iI++)
+ 	{
+ 		if (GC.getBuildingInfo((BuildingTypes) iI).getPrereqAndBonus() == eBonus)
+@@ -10755,11 +10913,14 @@ DenialTypes CvPlayerAI::AI_bonusTrade(BonusTypes eBonus, PlayerTypes ePlayer) co
+ 			bStrategic = true;
+ 		}
+ 
+-		for (iJ = 0; iJ < GC.getNUM_BUILDING_PREREQ_OR_BONUSES(); iJ++)
++		if (!bIsNonStrategicOr)
+ 		{
+-			if (GC.getBuildingInfo((BuildingTypes) iI).getPrereqOrBonuses(iJ) == eBonus)
++			for (iJ = 0; iJ < GC.getNUM_BUILDING_PREREQ_OR_BONUSES(); iJ++)
+ 			{
+-				bStrategic = true;
++				if (GC.getBuildingInfo((BuildingTypes) iI).getPrereqOrBonuses(iJ) == eBonus)
++				{
++					bStrategic = true;
++				}
+ 			}
+ 		}
+ 	}
+@@ -11742,6 +11903,21 @@ int CvPlayerAI::AI_unitValue(UnitTypes eUnit, UnitAITypes eUnitAI, CvArea* pArea
+ 
+ 	case UNITAI_SETTLE:
+ 		iValue += (GC.getUnitInfo(eUnit).getMoves() * 100);
++		if (GC.getDefineINT("ROM_MULTIPLAYER_FIX") <= 0)
++		{
++			const int iUnitClass = GC.getUnitInfo(eUnit).getUnitClassType();
++			if (iUnitClass == GC.getInfoTypeForString("UNITCLASS_PIONEER"))
++			{
++				// Pop 4 + 9-11 preset buildings (Town Essentials, Forge, Market, Courthouse, Library, Bank, etc.)
++				iValue += 1200;
++			}
++			else if (iUnitClass == GC.getInfoTypeForString("UNITCLASS_COLONIST") ||
++				iUnitClass == GC.getInfoTypeForString("UNITCLASS_ROMAN_COLONIST"))
++			{
++				// Pop 3 + 6-8 preset buildings (Settlement Essentials, Forge, Market, Barracks/Walls, etc.)
++				iValue += 650;
++			}
++		}
+ 		break;
+ 
+ 	case UNITAI_WORKER:
+@@ -13026,7 +13202,22 @@ int CvPlayerAI::AI_corporationValue(CorporationTypes eCorporation, CvCity* pCity
+ 		}
+ 	}
+ 	iBonusValue *= 3;
+-	
++
++	if (isAIEconomy(AI_ECONOMY_TECH_AND_CORP))
++	{
++		// Subtract inflation-scaled per-city corporation maintenance (and credit HQ gold if we own HQ).
++		const int iMaint100 = pCity->calculateCorporationMaintenanceTimes100(eCorporation);
++		int iHqGold100 = 0;
++		if (hasHeadquarters(eCorporation))
++		{
++			CvCity* pHq = GC.getGameINLINE().getHeadquarters(eCorporation);
++			const int iHqGoldMod = (pHq != NULL) ? pHq->getTotalCommerceRateModifier(COMMERCE_GOLD) : 100;
++			iHqGold100 = GC.getCorporationInfo(eCorporation).getHeadquarterCommerce(COMMERCE_GOLD) * iHqGoldMod;
++		}
++		iBonusValue = AIBuildingLinePolicy::corporationNetValue100(
++			iBonusValue, iHqGold100, iMaint100, calculateInflationRate());
++	}
++
+ 	return iBonusValue;
+ }
+ 
+@@ -14264,6 +14455,125 @@ int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/		
+ 
++	if (isAIEconomy(AI_ECONOMY_CIVIC_COEVAL))
++	{
++		// 1. Revolution stability awareness (0 direct AI callers previously):
++		// score iRevIdxLocal, iRevIdxNational, and iRevIdxDistanceModifier when Revolution is enabled.
++		if (!GC.getGameINLINE().isOption(GAMEOPTION_NO_REVOLUTION))
++		{
++			const int iRevLocal = kCivic.getRevIdxLocal();
++			const int iRevNational = kCivic.getRevIdxNational();
++			const int iRevDist = kCivic.getRevIdxDistanceModifier();
++			const int iCities = std::max(1, getNumCities());
++			iValue -= iRevLocal * iCities * 4;
++			iValue -= iRevNational * iCities * 3;
++			if (iRevDist != 0 && iCities > 2)
++			{
++				iValue -= (iRevDist * (iCities - 2)) / 10;
++			}
++		}
++
++		// 2. Potential-plot co-evaluation for ImprovementYieldChanges civics (breaks the
++		// Peasantry <-> Cottage, Coastal <-> Fishing Boats, Pastoral <-> Pasture chicken-and-egg).
++		static int s_iCivicCacheCount = -1;
++		static ImprovementTypes s_eImpCottage = NO_IMPROVEMENT;
++		static ImprovementTypes s_eImpTown = NO_IMPROVEMENT;
++		static ImprovementTypes s_eImpFishing = NO_IMPROVEMENT;
++		static ImprovementTypes s_eImpFarm = NO_IMPROVEMENT;
++		static ImprovementTypes s_eImpPasture = NO_IMPROVEMENT;
++		static CivicTypes s_ePeasantry = NO_CIVIC;
++		static CivicTypes s_eSlavery = NO_CIVIC;
++		static CivicTypes s_eAssembly = NO_CIVIC;
++		static CivicTypes s_eHumanistic = NO_CIVIC;
++		if (s_iCivicCacheCount != GC.getNumCivicInfos())
++		{
++			s_iCivicCacheCount = GC.getNumCivicInfos();
++			s_eImpCottage = (ImprovementTypes)GC.getInfoTypeForString("IMPROVEMENT_COTTAGE");
++			s_eImpTown = (ImprovementTypes)GC.getInfoTypeForString("IMPROVEMENT_TOWN");
++			s_eImpFishing = (ImprovementTypes)GC.getInfoTypeForString("IMPROVEMENT_FISHING_BOATS");
++			s_eImpFarm = (ImprovementTypes)GC.getInfoTypeForString("IMPROVEMENT_FARM");
++			s_eImpPasture = (ImprovementTypes)GC.getInfoTypeForString("IMPROVEMENT_PASTURE");
++			s_ePeasantry = (CivicTypes)GC.getInfoTypeForString("CIVIC_PEASANTRY");
++			s_eSlavery = (CivicTypes)GC.getInfoTypeForString("CIVIC_SLAVERY");
++			s_eAssembly = (CivicTypes)GC.getInfoTypeForString("CIVIC_ASSEMBLY");
++			s_eHumanistic = (CivicTypes)GC.getInfoTypeForString("CIVIC_HUMANISTIC");
++		}
++
++		// Peasantry / Cottage-boosting civics: count workable flatland/marsh tiles that
++		// could run Cottages (not just already-built Cottages).
++		if (s_eImpCottage != NO_IMPROVEMENT && s_eImpTown != NO_IMPROVEMENT)
++		{
++			const int iCotFood = kCivic.getImprovementYieldChanges(s_eImpCottage, YIELD_FOOD)
++				+ kCivic.getImprovementYieldChanges(s_eImpTown, YIELD_FOOD);
++			const int iCotProd = kCivic.getImprovementYieldChanges(s_eImpCottage, YIELD_PRODUCTION)
++				+ kCivic.getImprovementYieldChanges(s_eImpTown, YIELD_PRODUCTION);
++			const int iCotComm = kCivic.getImprovementYieldChanges(s_eImpCottage, YIELD_COMMERCE)
++				+ kCivic.getImprovementYieldChanges(s_eImpTown, YIELD_COMMERCE);
++			const int iCotNet = iCotFood * 3 + iCotProd * 3 + iCotComm;
++			if (iCotNet > 0)
++			{
++				int iPotentialCottagePlots = 0;
++				int iLoopCity = 0;
++				for (CvCity* pCity = firstCity(&iLoopCity); pCity != NULL; pCity = nextCity(&iLoopCity))
++				{
++					int iCityCap = std::min(pCity->getPopulation() + 2, 10);
++					int iCityPlots = 0;
++					for (int iP = 1; iP < NUM_CITY_PLOTS && iCityPlots < iCityCap; ++iP)
++					{
++						CvPlot* pPlot = pCity->getCityIndexPlot(iP);
++						if (pPlot != NULL && !pPlot->isWater() && !pPlot->isHills() && !pPlot->isPeak()
++							&& pPlot->getBonusType(getTeam()) == NO_BONUS
++							&& pPlot->canHaveImprovement(s_eImpCottage, getTeam(), true))
++						{
++							++iCityPlots;
++						}
++					}
++					iPotentialCottagePlots += iCityPlots;
++				}
++				// Discounted future potential so Peasantry breaks out of 0-cottage inertia.
++				iValue += (iPotentialCottagePlots * iCotNet) / 4;
++			}
++		}
++
++		// Proper scaling for iImprovementUpgradeRateModifier (+50% Peasantry, +100% Trade School).
++		if (kCivic.getImprovementUpgradeRateModifier() > 0)
++		{
++			iValue += (kCivic.getImprovementUpgradeRateModifier() * std::max(1, getTotalPopulation())) / 35;
++		}
++
++		// Coastal / Fishing Boats potential (unimproved seafood + existing fishing boats).
++		if (s_eImpFishing != NO_IMPROVEMENT)
++		{
++			const int iFishBoost = kCivic.getImprovementYieldChanges(s_eImpFishing, YIELD_FOOD) * 2
++				+ kCivic.getImprovementYieldChanges(s_eImpFishing, YIELD_PRODUCTION) * 2
++				+ kCivic.getImprovementYieldChanges(s_eImpFishing, YIELD_COMMERCE);
++			if (iFishBoost > 0)
++			{
++				int iSeafoodCount = 0;
++				int iLoopCity = 0;
++				for (CvCity* pCity = firstCity(&iLoopCity); pCity != NULL; pCity = nextCity(&iLoopCity))
++				{
++					for (int iP = 1; iP < NUM_CITY_PLOTS; ++iP)
++					{
++						CvPlot* pPlot = pCity->getCityIndexPlot(iP);
++						if (pPlot != NULL && pPlot->isWater() && pPlot->getBonusType(getTeam()) != NO_BONUS
++							&& pPlot->getImprovementType() == NO_IMPROVEMENT)
++						{
++							++iSeafoodCount;
++						}
++					}
++				}
++				iValue += iSeafoodCount * iFishBoost * 4;
++			}
++		}
++
++		// 3. zCivics.py civic-gated building unlock credit (invisible in XML alone).
++		if (eCivic == s_ePeasantry || eCivic == s_eSlavery || eCivic == s_eAssembly || eCivic == s_eHumanistic)
++		{
++			iValue += std::max(1, getNumCities()) * 3;
++		}
++	}
++
+ 	return iValue;
+ }
+ /************************************************************************************************/
+@@ -17366,7 +17676,11 @@ void CvPlayerAI::AI_doCivics()
+ 		return;
+ 	}
+ 	const int iAnarchyTurns = getCivicAnarchyLength(&aeBestCivics[0]);
+-	const int iHorizonTurns = 2 * range(GC.getDefineINT("AI_CIVIC_CHANGE_DELAY"), 6, 500);
++	const int iHorizonTurns = isAIEconomy(AI_ECONOMY_CIVIC_COEVAL)
++		? AIBuildingLinePolicy::scaledCivicHorizon(
++			GC.getDefineINT("AI_CIVIC_CHANGE_DELAY"),
++			GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getAnarchyPercent())
++		: (2 * range(GC.getDefineINT("AI_CIVIC_CHANGE_DELAY"), 6, 500));
+ 	int iThreshold = std::max(0, GC.getDefineINT("AI_CIVIC_SWITCH_THRESHOLD_PERCENT"));
+ 	if (getAnarchyTurns() > 0 && !isGoldenAge())
+ 	{
+@@ -17644,6 +17958,61 @@ void CvPlayerAI::AI_doDiplo()
+ 											}
+ 										}
+ 
++										if (!bCancelDeal && isAICunning(AI_CUNNING_STAGED_THREAT))
++										{
++											bool bIsOpenBordersDeal = false;
++											for (pNode = pLoopDeal->headFirstTradesNode(); pNode != NULL; pNode = pLoopDeal->nextFirstTradesNode(pNode))
++											{
++												if (pNode->m_data.m_eItemType == TRADE_OPEN_BORDERS)
++												{
++													bIsOpenBordersDeal = true;
++													break;
++												}
++											}
++											if (bIsOpenBordersDeal)
++											{
++												const PlayerTypes eOtherPlayer = (PlayerTypes)iI;
++												const TeamTypes eOtherTeam = GET_PLAYER(eOtherPlayer).getTeam();
++												const bool bFriendly = (AI_getAttitude(eOtherPlayer) >= ATTITUDE_FRIENDLY);
++												const bool bVassalRel = GET_TEAM(getTeam()).isVassal(eOtherTeam) || GET_TEAM(eOtherTeam).isVassal(getTeam());
++												const bool bWar = GET_TEAM(getTeam()).isAtWar(eOtherTeam);
++												if (!bFriendly && !bVassalRel && !bWar)
++												{
++													int iCityLoop = 0;
++													for (CvCity* pOwnCity = firstCity(&iCityLoop); pOwnCity != NULL && !bCancelDeal; pOwnCity = nextCity(&iCityLoop))
++													{
++														int iPartnerStaged = 0;
++														for (int iDX = -2; iDX <= 2; ++iDX)
++														{
++															for (int iDY = -2; iDY <= 2; ++iDY)
++															{
++																CvPlot* pNear = plotXY(pOwnCity->getX_INLINE(), pOwnCity->getY_INLINE(), iDX, iDY);
++																if (pNear == NULL || !pNear->isVisible(getTeam(), false)) continue;
++																CLLNode<IDInfo>* pUNode = pNear->headUnitNode();
++																while (pUNode != NULL)
++																{
++																	CvUnit* pU = ::getUnit(pUNode->m_data);
++																	pUNode = pNear->nextUnitNode(pUNode);
++																	if (pU != NULL && pU->getTeam() == eOtherTeam && pU->getDomainType() == DOMAIN_LAND && pU->canAttack())
++																	{
++																		iPartnerStaged += pU->currCombatStr(NULL, NULL);
++																	}
++																}
++															}
++														}
++														if (iPartnerStaged > 0)
++														{
++															const int iLocalDef = AI_getOurPlotStrength(pOwnCity->plot(), 0, true, false);
++															if (AIStrategicDefensePolicy::shouldCancelOpenBordersForStaging(iPartnerStaged, iLocalDef, bFriendly, bVassalRel, bWar))
++															{
++																bCancelDeal = true;
++															}
++														}
++													}
++												}
++											}
++										}
++
+ 										if (bCancelDeal)
+ 										{
+ 											if (canContact((PlayerTypes)iI) && AI_isWillingToTalk((PlayerTypes)iI))
+@@ -19113,6 +19482,43 @@ void CvPlayerAI::AI_doDiplo()
+ 															(3 * iReceiveBonusValue > 2 * iGiveBonusValue && 3 * iGiveBonusValue > 2 * iReceiveBonusValue))
+ 															&& (!isAIDiplomacy(AI_DIPLOMACY_OFFERS) || iReceiveBonusValue > AI_bonusTradeVal(eBestGiveBonus, ((PlayerTypes)iI), -1));
+ 													}
++													if (!bAcceptSwap && isAIEconomy(AI_ECONOMY_TECH_AND_CORP) && isAIDiplomacy(AI_DIPLOMACY_NET_VALUE))
++													{
++														int iBestPairGain = 0;
++														for (int iRec = 0; iRec < GC.getNumBonusInfos(); ++iRec)
++														{
++															if (GET_PLAYER((PlayerTypes)iI).getNumTradeableBonuses((BonusTypes)iRec) <= 1
++																|| GET_PLAYER((PlayerTypes)iI).AI_corporationBonusVal((BonusTypes)iRec) != 0)
++															{
++																continue;
++															}
++															const int iRecVal = AI_bonusTradeVal((BonusTypes)iRec, (PlayerTypes)iI, 1);
++															if (iRecVal <= 0) continue;
++															setTradeItem(&item, TRADE_RESOURCES, iRec);
++															if (!GET_PLAYER((PlayerTypes)iI).canTradeItem(getID(), item, true)) continue;
++															const int iTheirLoss = GET_PLAYER((PlayerTypes)iI).AI_bonusTradeVal((BonusTypes)iRec, getID(), -1);
++															for (int iGiv = 0; iGiv < GC.getNumBonusInfos(); ++iGiv)
++															{
++																if (iGiv == iRec || getNumTradeableBonuses((BonusTypes)iGiv) <= 1) continue;
++																const int iGivVal = GET_PLAYER((PlayerTypes)iI).AI_bonusTradeVal((BonusTypes)iGiv, getID(), 1);
++																if (iGivVal <= 0) continue;
++																setTradeItem(&item, TRADE_RESOURCES, iGiv);
++																if (!canTradeItem((PlayerTypes)iI, item, true)) continue;
++																const int iOurNet = iRecVal - AI_bonusTradeVal((BonusTypes)iGiv, (PlayerTypes)iI, -1);
++																const int iTheirNet = iGivVal - iTheirLoss;
++																const bool bPairOk = GET_PLAYER((PlayerTypes)iI).isHuman()
++																	? (iOurNet >= 0 && iTheirNet >= 0)
++																	: (iOurNet > 0 && iTheirNet > 0);
++																if (bPairOk && iOurNet > iBestPairGain)
++																{
++																	iBestPairGain = iOurNet;
++																	eBestReceiveBonus = (BonusTypes)iRec;
++																	eBestGiveBonus = (BonusTypes)iGiv;
++																	bAcceptSwap = true;
++																}
++															}
++														}
++													}
+ 													if (bAcceptSwap)
+ 													{
+ 														ourList.clear();
+@@ -23598,13 +24004,10 @@ int CvPlayerAI::AI_getTotalFloatingDefenders(CvArea* pArea) const
+ 	PROFILE_FUNC();
+ 	int iCount = 0;
+ 
+-	iCount += AI_totalAreaUnitAIs(pArea, UNITAI_COLLATERAL);
+ 	iCount += AI_totalAreaUnitAIs(pArea, UNITAI_RESERVE);
+ 	iCount += std::max(0, (AI_totalAreaUnitAIs(pArea, UNITAI_CITY_DEFENSE) - (pArea->getCitiesPerPlayer(getID()) * 2)));
+ 	iCount += AI_totalAreaUnitAIs(pArea, UNITAI_CITY_COUNTER);
+ 	iCount += AI_totalAreaUnitAIs(pArea, UNITAI_CITY_SPECIAL);
+-	// BBAI TODO: Defense air?  Is this outdated?
+-	iCount += AI_totalAreaUnitAIs(pArea, UNITAI_DEFENSE_AIR);
+ 	return iCount;
+ }
+ 
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+index 4e4bae4..6af489f 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
++++ b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+@@ -4465,7 +4465,15 @@ bool CvSelectionGroup::groupAttack(int iX, int iY, int iFlags, bool& bFailedAlre
+ 					// turn's attacks can take (CvSelectionGroupAI::AI_cityAssaultForecast).
+ 					if (!isHuman())
+ 					{
+-						const int iOddsFloor = GC.getDefineINT("AI_ATTACK_ODDS_FLOOR", 5);
++						int iOddsFloor = GC.getDefineINT("AI_ATTACK_ODDS_FLOOR", 5);
++						if (isAICunning(AI_CUNNING_TACTICAL_MASTERY))
++						{
++							const UnitClassTypes eAttClass = pBestAttackUnit->getUnitClassType();
++							if (GC.getUnitClassInfo(eAttClass).getMaxPlayerInstances() == 1 && pBestAttackUnit->canFight())
++							{
++								iOddsFloor = std::max(iOddsFloor, 65);
++							}
++						}
+ 						// The engine's true odds: AI_attackOdds adds the leader's attack-odds change.
+ 						CvUnit* pFloorDefender = (iOddsFloor > 0) ? pDestPlot->getBestDefender(NO_PLAYER, getOwnerINLINE(), pBestAttackUnit, true) : NULL;
+ 						if (pFloorDefender != NULL && getCombatOdds(pBestAttackUnit, pFloorDefender) < 10 * iOddsFloor && pBestAttackUnit->collateralDamage() == 0 &&
+@@ -4479,6 +4487,13 @@ bool CvSelectionGroup::groupAttack(int iX, int iY, int iFlags, bool& bFailedAlre
+ 							}
+ 							if (!bAllow)
+ 							{
++								// Under tactical mastery, bombard standing city defenses instead of freezing the stack idle.
++								if (isAICunning(AI_CUNNING_TACTICAL_MASTERY) && pDestPlot->isCity()
++									&& pDestPlot->getPlotCity()->getDefenseModifier(false) > 0 && canBombard(plot()))
++								{
++									pushMission(MISSION_BOMBARD);
++									return false;
++								}
+ 								// Hold position for this turn, so the AI does not re-pick the same attack.
+ 								for (CLLNode<IDInfo>* pHoldNode = headUnitNode(); pHoldNode != NULL; pHoldNode = nextUnitNode(pHoldNode))
+ 								{
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp b/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp
+index b6308e6..e973d74 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp
++++ b/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp
+@@ -1358,8 +1358,22 @@ int AI_assaultForecast(const CvPlot* pPlot, const std::vector<const CvUnit*>& ap
+ 			}
+ 			(void)iLimitHP;
+ 		}
+-		// States with every defender dead: captured if a unit can still move in.
+-		const bool bCanMoveIn = (iStep < iNumA - 1) || pAttacker->baseMoves() > 1;
++		// States with every defender dead: captured if pAttacker itself can enter
++		// upon winning (regardless of baseMoves), or if any later unit in the stack
++		// can enter and capture.
++		bool bCanMoveIn = (!pAttacker->isNoCapture() && pAttacker->combatLimit() >= pAttacker->maxHitPoints());
++		if (!bCanMoveIn)
++		{
++			for (int iRem = iStep + 1; iRem < iNumA; ++iRem)
++			{
++				const CvUnit* pRem = apAttackers[aOrder[iRem].second];
++				if (!pRem->isNoCapture() && pRem->combatLimit() >= pRem->maxHitPoints())
++				{
++					bCanMoveIn = true;
++					break;
++				}
++			}
++		}
+ 		mStates.clear();
+ 		std::vector<std::pair<double, std::vector<int> > > aKeep;
+ 		for (StateMap::const_iterator it = mNext.begin(); it != mNext.end(); ++it)
+diff --git a/Assets/CvGameCoreDLL/CvTeamAI.cpp b/Assets/CvGameCoreDLL/CvTeamAI.cpp
+index 41dadce..747e9b8 100644
+--- a/Assets/CvGameCoreDLL/CvTeamAI.cpp
++++ b/Assets/CvGameCoreDLL/CvTeamAI.cpp
+@@ -11,6 +11,7 @@
+ #include "CvDLLInterfaceIFaceBase.h"
+ #include "CvGameAI.h"
+ #include "AIDiplomacyPolicy.h" // Added: 64-bit power ratios.
++#include "AIStrategicDefensePolicy.h"
+ #include "CvInfos.h"
+ #include "FProfiler.h"
+ #include "CyArgsList.h"
+@@ -620,7 +621,8 @@ AreaAITypes CvTeamAI::AI_calculateAreaAIType(CvArea* pArea, bool bPreparingTotal
+ 			{
+ 				int iPower = countPowerByArea(pArea);
+ 				int iEnemyPower = countEnemyPowerByArea(pArea);
+-				if (iPower > iEnemyPower)
++				if (iPower > iEnemyPower || (isAICunning(AI_CUNNING_COALITION)
++					&& AIStrategicDefensePolicy::defensiveCounterstrokeAllowed(iPower, iEnemyPower, AI_getWarSuccessCapitulationRatio())))
+ 				{
+ 					return AREAAI_MASSING;
+ 				}
+@@ -3163,9 +3165,9 @@ DenialTypes CvTeamAI::AI_makePeaceTrade(TeamTypes ePeaceTeam, TeamTypes eTeam) c
+ 		return DENIAL_CONTACT_THEM;
+ 	}
+ 	
+-    int iLandRatio = ((getTotalLand(true) * 100) / std::max(20, GET_TEAM(eTeam).getTotalLand(true)));
+-    if (iLandRatio > 250)
+-    {
++	int iLandRatio = ((getTotalLand(true) * 100) / std::max(20, GET_TEAM(ePeaceTeam).getTotalLand(true)));
++	if (iLandRatio > 250)
++	{
+ 		return DENIAL_VICTORY;
+ 	}
+ 
+@@ -4766,7 +4768,6 @@ void CvTeamAI::AI_doWar()
+ 	bool bShareValid;
+ 	int iNoWarRoll;
+ 	int iOurPower;
+-	int iDogpilePower;
+ 	int iValue;
+ 	int iBestValue;
+ 	int iPass;
+@@ -5280,7 +5281,7 @@ void CvTeamAI::AI_doWar()
+ 												iCompare = (int)(((__int64)AI_getReachablePower((TeamTypes)iI) * iOurPower) / std::max(1, getPower(true)));
+ 											}
+ 
+-											if (iDefensivePower < ((iCompare * ((iPass > 1) ? AI_maxWarDistantPowerRatio() : AI_maxWarNearbyPowerRatio())) / 100))
++											if ((__int64)iDefensivePower * 100 < (__int64)iCompare * ((iPass > 1) ? AI_maxWarDistantPowerRatio() : AI_maxWarNearbyPowerRatio()))
+ 											{
+ 												// XXX make sure they share an area....
+ 
+@@ -5364,7 +5365,7 @@ void CvTeamAI::AI_doWar()
+ 											const bool bReach = isAICunning(2);
+ 											const int iLimitedDefence = bReach ? GET_TEAM((TeamTypes)iI).AI_getReachableDefence() : GET_TEAM((TeamTypes)iI).getDefensivePower();
+ 											const int iLimitedCompare = bReach ? (int)(((__int64)AI_getReachablePower((TeamTypes)iI) * iOurPower) / std::max(1, getPower(true))) : iOurPower;
+-											if (iLimitedDefence < ((iLimitedCompare * AI_limitedWarPowerRatio()) / 100))
++											if ((__int64)iLimitedDefence * 100 < (__int64)iLimitedCompare * AI_limitedWarPowerRatio())
+ 											{
+ 												iValue = AI_startWarVal((TeamTypes)iI);
+ 
+@@ -5430,7 +5431,7 @@ void CvTeamAI::AI_doWar()
+ 											{
+ 												const bool bReach = isAICunning(2);
+ 												const int iOurReach = bReach ? (int)(((__int64)AI_getReachablePower((TeamTypes)iI) * iOurPower) / std::max(1, getPower(true))) : iOurPower;
+-												iDogpilePower = iOurReach;
++												__int64 iDogpilePower64 = iOurReach;
+ 
+ 												for (iJ = 0; iJ < MAX_CIV_TEAMS; iJ++)
+ 												{
+@@ -5440,7 +5441,7 @@ void CvTeamAI::AI_doWar()
+ 														{
+ 															if (atWar(((TeamTypes)iJ), ((TeamTypes)iI)))
+ 															{
+-																iDogpilePower += bReach ? GET_TEAM((TeamTypes)iJ).AI_getReachablePower((TeamTypes)iI) : GET_TEAM((TeamTypes)iJ).getPower(false);
++																iDogpilePower64 += bReach ? GET_TEAM((TeamTypes)iJ).AI_getReachablePower((TeamTypes)iI) : GET_TEAM((TeamTypes)iJ).getPower(false);
+ 															}
+ 														}
+ 													}
+@@ -5450,7 +5451,7 @@ void CvTeamAI::AI_doWar()
+ 
+ 												const int iDogpileDefence = bReach ? GET_TEAM((TeamTypes)iI).AI_getReachableDefence() : GET_TEAM((TeamTypes)iI).getDefensivePower();
+ 												// Join only if we can fight it ourselves: a shared border or half its defence in reach.
+-												if (((iDogpileDefence * 3) / 2) < iDogpilePower && (!bReach || AI_isNearTarget((TeamTypes)iI) || 2 * iOurReach >= iDogpileDefence))
++												if (((__int64)iDogpileDefence * 3) < (iDogpilePower64 * 2) && (!bReach || AI_isNearTarget((TeamTypes)iI) || (__int64)2 * iOurReach >= iDogpileDefence))
+ 												{
+ 													iValue = AI_startWarVal((TeamTypes)iI);
+ 
+@@ -5484,6 +5485,81 @@ void CvTeamAI::AI_doWar()
+ 					AI_setWarPlan(eBestTeam, WARPLAN_DOGPILE);
+ 				}
+ 			}
++			else if (isAICunning(AI_CUNNING_COALITION) && !bFinancesOpposeWar && getAnyWarPlanCount(true) == 0 && !isAVassal())
++			{
++				// Prospective anti-hegemon coalition: when a runaway leader exceeds ~33% of met
++				// power/score or triggers Victory Level 3, evaluate combined reachable power of
++				// all met non-vassal rivals who are below Pleased toward the hegemon.
++				long long iTotalMetPower = getPower(true);
++				long long iTotalMetScore = GC.getGameINLINE().getTeamScore(getID());
++				int iAliveMetTeams = 1;
++				for (int iT = 0; iT < MAX_CIV_TEAMS; ++iT)
++				{
++					if (iT != getID() && GET_TEAM((TeamTypes)iT).isAlive() && !GET_TEAM((TeamTypes)iT).isAVassal() && isHasMet((TeamTypes)iT))
++					{
++						iTotalMetPower += GET_TEAM((TeamTypes)iT).getPower(true);
++						iTotalMetScore += GC.getGameINLINE().getTeamScore((TeamTypes)iT);
++						++iAliveMetTeams;
++					}
++				}
++
++				TeamTypes eHegemon = NO_TEAM;
++				long long iBestHegemonPower = 0;
++				for (int iT = 0; iT < MAX_CIV_TEAMS; ++iT)
++				{
++					if (iT == getID() || !GET_TEAM((TeamTypes)iT).isAlive() || GET_TEAM((TeamTypes)iT).isAVassal() || !isHasMet((TeamTypes)iT))
++					{
++						continue;
++					}
++					const TeamTypes eCand = (TeamTypes)iT;
++					if (!canEventuallyDeclareWar(eCand) || AI_getAttitude(eCand) >= ATTITUDE_FRIENDLY)
++					{
++						continue;
++					}
++					const long long iCandPower = GET_TEAM(eCand).getPower(true);
++					const long long iCandScore = GC.getGameINLINE().getTeamScore(eCand);
++					const bool bVic3 = GET_TEAM(eCand).AI_isAnyMemberDoVictoryStrategyLevel3();
++					if (!AIStrategicDefensePolicy::isHegemonThreat(iCandPower, iTotalMetPower, iCandScore, iTotalMetScore, iAliveMetTeams, bVic3))
++					{
++						continue;
++					}
++					if (!AI_isLandTarget(eCand) && !bVic3)
++					{
++						continue;
++					}
++					const bool bReach = isAICunning(2);
++					long long iCoalitionPower = bReach ? AI_getReachablePower(eCand) : getPower(false);
++					for (int iAlly = 0; iAlly < MAX_CIV_TEAMS; ++iAlly)
++					{
++						if (iAlly == getID() || iAlly == iT || !GET_TEAM((TeamTypes)iAlly).isAlive() || GET_TEAM((TeamTypes)iAlly).isAVassal())
++						{
++							continue;
++						}
++						const TeamTypes eAlly = (TeamTypes)iAlly;
++						if (GET_TEAM(eAlly).isHasMet(eCand) && GET_TEAM(eAlly).AI_getAttitude(eCand) <= ATTITUDE_CAUTIOUS
++							&& !GET_TEAM(eAlly).isAtWar(getID()))
++						{
++							iCoalitionPower += bReach ? GET_TEAM(eAlly).AI_getReachablePower(eCand) : GET_TEAM(eAlly).getPower(false);
++						}
++					}
++					const long long iTargetDef = bReach ? GET_TEAM(eCand).AI_getReachableDefence() : GET_TEAM(eCand).getDefensivePower();
++					if (AIStrategicDefensePolicy::coalitionCanMatchTarget(iCoalitionPower, iTargetDef, bVic3 ? 95 : 115)
++						&& iCandPower > iBestHegemonPower)
++					{
++						iBestHegemonPower = iCandPower;
++						eHegemon = eCand;
++					}
++				}
++				if (eHegemon != NO_TEAM)
++				{
++					if (gTeamLogLevel >= 1)
++					{
++						logBBAI("  Team %d (%S) starting ANTI-HEGEMON coalition war preparations against team %d",
++							getID(), GET_PLAYER(getLeaderID()).getCivilizationDescription(0), eHegemon);
++					}
++					AI_setWarPlan(eHegemon, GET_TEAM(eHegemon).AI_isAnyMemberDoVictoryStrategyLevel3() ? WARPLAN_PREPARING_TOTAL : WARPLAN_PREPARING_LIMITED);
++				}
++			}
+ 		}
+ 	}
+ }
+@@ -5559,7 +5635,7 @@ int CvTeamAI::AI_getTechMonopolyValue(TechTypes eTech, TeamTypes eTeam) const
+ 	int iValue = 0;
+ 	int iI;
+ 	
+-	bool bWarPlan = (getAnyWarPlanCount(eTeam) > 0);
++	bool bWarPlan = (AI_getWarPlan(eTeam) != NO_WARPLAN) || (getAnyWarPlanCount(true) > 0);
+ 	
+ 	for (iI = 0; iI < GC.getNumUnitClassInfos(); iI++)
+ 	{
+diff --git a/Assets/CvGameCoreDLL/CvUnit.cpp b/Assets/CvGameCoreDLL/CvUnit.cpp
+index 198cabd..f8fffe3 100644
+--- a/Assets/CvGameCoreDLL/CvUnit.cpp
++++ b/Assets/CvGameCoreDLL/CvUnit.cpp
+@@ -6258,6 +6258,92 @@ bool CvUnit::found()
+ 
+ 	GET_PLAYER(getOwnerINLINE()).found(getX_INLINE(), getY_INLINE());
+ 
++	// Rise of Mankind: apply Colonist / Pioneer / Roman Colonist founding packages
++	// deterministically in C++ for both AI and human players (previously gated on
++	// CyInterface().getHeadSelectedUnit() in RoMEventManager.py, which broke AI
++	// advanced settlers and caused MP desyncs).
++	if (GC.getDefineINT("ROM_MULTIPLAYER_FIX") <= 0)
++	{
++		CvCity* pFoundedCity = plot()->getPlotCity();
++		if (pFoundedCity != NULL && pFoundedCity->getOwnerINLINE() == getOwnerINLINE())
++		{
++			const UnitClassTypes eUnitClass = getUnitClassType();
++			const int iColonistClass = GC.getInfoTypeForString("UNITCLASS_COLONIST");
++			const int iPioneerClass = GC.getInfoTypeForString("UNITCLASS_PIONEER");
++			const int iRomanColonistClass = GC.getInfoTypeForString("UNITCLASS_ROMAN_COLONIST");
++			int iTargetPop = 0;
++			static const char* const aszColonistBuildings[] = {
++				"BUILDINGCLASS_SETTLEMENT_ESSENTIALS", "BUILDINGCLASS_BARRACKS",
++				"BUILDINGCLASS_FORGE", "BUILDINGCLASS_MARKET", NULL
++			};
++			static const char* const aszColonistCoastal[] = {
++				"BUILDINGCLASS_HARBOR", "BUILDINGCLASS_LIGHTHOUSE", NULL
++			};
++			static const char* const aszPioneerBuildings[] = {
++				"BUILDINGCLASS_TOWN_ESSENTIALS", "BUILDINGCLASS_GARRISON",
++				"BUILDINGCLASS_FORGE", "BUILDINGCLASS_COURTHOUSE", "BUILDINGCLASS_MARKET",
++				"BUILDINGCLASS_STABLE", "BUILDINGCLASS_GROCER", "BUILDINGCLASS_BANK",
++				"BUILDINGCLASS_LIBRARY", NULL
++			};
++			static const char* const aszPioneerCoastal[] = {
++				"BUILDINGCLASS_PORT", "BUILDINGCLASS_LIGHTHOUSE", NULL
++			};
++			static const char* const aszRomanBuildings[] = {
++				"BUILDINGCLASS_SETTLEMENT_ESSENTIALS", "BUILDINGCLASS_WALLS",
++				"BUILDINGCLASS_EARLY_BARRACKS", "BUILDINGCLASS_FORGE",
++				"BUILDINGCLASS_MARKET", "BUILDINGCLASS_ROMAN_DEPOT", NULL
++			};
++			const char* const* pBaseList = NULL;
++			const char* const* pCoastalList = NULL;
++
++			if (eUnitClass == iColonistClass)
++			{
++				iTargetPop = 3;
++				pBaseList = aszColonistBuildings;
++				pCoastalList = aszColonistCoastal;
++			}
++			else if (eUnitClass == iPioneerClass)
++			{
++				iTargetPop = 4;
++				pBaseList = aszPioneerBuildings;
++				pCoastalList = aszPioneerCoastal;
++			}
++			else if (eUnitClass == iRomanColonistClass)
++			{
++				iTargetPop = 3;
++				pBaseList = aszRomanBuildings;
++				pCoastalList = aszColonistCoastal;
++			}
++
++			if (iTargetPop > 0)
++			{
++				if (pFoundedCity->getPopulation() < iTargetPop)
++				{
++					pFoundedCity->setPopulation(iTargetPop);
++				}
++				const CvCivilizationInfo& kCivInfo = GC.getCivilizationInfo(pFoundedCity->getCivilizationType());
++				for (int iList = 0; iList < 2; ++iList)
++				{
++					const char* const* pList = (iList == 0) ? pBaseList :
++						(pFoundedCity->plot()->isCoastalLand() ? pCoastalList : NULL);
++					if (pList == NULL) continue;
++					for (int iB = 0; pList[iB] != NULL; ++iB)
++					{
++						const int iClass = GC.getInfoTypeForString(pList[iB]);
++						if (iClass >= 0)
++						{
++							const BuildingTypes eBuilding = (BuildingTypes)kCivInfo.getCivilizationBuildings(iClass);
++							if (eBuilding != NO_BUILDING && pFoundedCity->canConstruct(eBuilding, false, true, false))
++							{
++								pFoundedCity->setNumRealBuilding(eBuilding, 1);
++							}
++						}
++					}
++				}
++			}
++		}
++	}
++
+ 	if (plot()->isActiveVisible(false))
+ 	{
+ 		NotifyEntity(MISSION_FOUND);
+diff --git a/Assets/CvGameCoreDLL/CvUnitAI.cpp b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+index 577e4e8..05db6e6 100644
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+@@ -695,6 +695,23 @@ void CvUnitAI::AI_promote()
+ {
+ 	PROFILE_FUNC();
+ 
++	if (isAICunning(AI_CUNNING_TACTICAL_MASTERY) &&
++		!isHuman() &&
++		canFight() &&
++		!isAnimal() &&
++		getDomainType() == DOMAIN_LAND &&
++		isPromotionReady() &&
++		getLevel() >= 2 &&
++		getDamage() < 20 &&
++		getSameTileHeal() == 0 &&
++		getAdjacentTileHeal() == 0 &&
++		plot()->getOwnerINLINE() != getOwnerINLINE() &&
++		GET_TEAM(getTeam()).getAtWarCount(true) > 0 &&
++		getExperience() < calculateExperience(getLevel() + 1, getOwnerINLINE()))
++	{
++		return;
++	}
++
+ 	PromotionTypes eBestPromotion;
+ 	int iValue;
+ 	int iBestValue;
+@@ -1440,7 +1457,11 @@ void CvUnitAI::AI_settleMove()
+ 	{
+ 		if ((plot()->getOwnerINLINE() == getOwnerINLINE()) || (iDanger > 2))
+ 		{
+-			joinGroup(NULL);
++			// Keep escort attached while retreating so the settler is not left undefended.
++			if (!getGroup()->canDefend())
++			{
++				joinGroup(NULL);
++			}
+ 			if (AI_retreatToCity())
+ 			{
+ 				return;
+@@ -1470,7 +1491,7 @@ void CvUnitAI::AI_settleMove()
+ 	// Destination and delivery are selected together in AI_found. Do not found,
+ 	// scrap, or board based on the hypothetical production portfolio first.
+ 
+-	if (!GC.getGameINLINE().isOption(GAMEOPTION_ALWAYS_PEACE) && !GC.getGameINLINE().isOption(GAMEOPTION_AGGRESSIVE_AI) && !getGroup()->canDefend())
++	if (!GC.getGameINLINE().isOption(GAMEOPTION_ALWAYS_PEACE) && !getGroup()->canDefend())
+ 	{
+ 		if (!AI_recruitSettlerEscort() && AI_retreatToCity())
+ 		{
+@@ -1681,7 +1702,7 @@ void CvUnitAI::AI_workerMove()
+ //	}
+ 	if (pCity != NULL)
+ 	{
+-		if ((pCity->AI_getWorkersNeeded() > 0) && (plot()->isCity() || (pCity->AI_getWorkersNeeded() < ((1 + pCity->AI_getWorkersHave() * 2) / 3))))
++		if ((pCity->AI_getWorkersNeeded() > 0) && (plot()->isCity() || (pCity->AI_getWorkersHave() < ((1 + pCity->AI_getWorkersNeeded() * 2) / 3))))
+ 		{
+ 			if (AI_improveCity(pCity))
+ 			{
+@@ -1697,7 +1718,7 @@ void CvUnitAI::AI_workerMove()
+ 	
+ 	bool bBuildFort = false;
+ 	
+-	if (GC.getGame().getSorenRandNum(5, "AI Worker build Fort with Priority"))
++	if ((pCity == NULL || pCity->AI_getWorkersNeeded() == 0) && GC.getGame().getSorenRandNum(5, "AI Worker build Fort with Priority") == 0)
+ 	{
+ 		bool bCanal = ((100 * area()->getNumCities()) / std::max(1, GC.getGame().getNumCities()) < 85);
+ 		CvPlayerAI& kPlayer = GET_PLAYER(getOwnerINLINE());
+@@ -4033,6 +4054,32 @@ void CvUnitAI::AI_reserveMove()
+ 		return;
+ 	}
+ 
++	if (isAICunning(AI_CUNNING_TACTICAL_MASTERY) &&
++		!bDanger &&
++		canBuildRoute() &&
++		getGroup()->getNumUnits() == 1 &&
++		plot()->getOwnerINLINE() == getOwnerINLINE() &&
++		!plot()->isCity() &&
++		!plot()->isWater() &&
++		GET_PLAYER(getOwnerINLINE()).AI_plotTargetMissionAIs(plot(), MISSIONAI_BUILD, getGroup(), 1) == 0)
++	{
++		const RouteTypes eBestRoute = GET_PLAYER(getOwnerINLINE()).getBestRoute(plot());
++		if (eBestRoute != NO_ROUTE && eBestRoute != plot()->getRouteType())
++		{
++			for (int iBuild = 0; iBuild < GC.getNumBuildInfos(); ++iBuild)
++			{
++				const BuildTypes eBuild = (BuildTypes)iBuild;
++				if (GC.getBuildInfo(eBuild).getRoute() == eBestRoute &&
++					GC.getBuildInfo(eBuild).getImprovement() == NO_IMPROVEMENT &&
++					canBuild(plot(), eBuild))
++				{
++					getGroup()->pushMission(MISSION_BUILD, eBuild, -1, 0, false, false, MISSIONAI_BUILD, plot());
++					return;
++				}
++			}
++		}
++	}
++
+ 	if (AI_retreatToCity())
+ 	{
+ 		return;
+@@ -6822,7 +6869,7 @@ void CvUnitAI::AI_escortSeaMove()
+ 		return;
+ 	}
+ 	
+-	if (AI_group(UNITAI_MISSILE_CARRIER_SEA, 1, 1, true))
++	if (AI_group(UNITAI_MISSILE_CARRIER_SEA, 1, 1, /*iMinUnitAI*/ -1, /*bIgnoreFaster*/ true))
+ 	{
+ 		return;
+ 	}
+@@ -9867,6 +9914,26 @@ int CvUnitAI::AI_promotionValue(PromotionTypes ePromotion)
+ 		iValue += (iTemp * 4);
+ 	}
+ 
++	if (isAICunning(AI_CUNNING_TACTICAL_MASTERY))
++	{
++		iTemp = GC.getPromotionInfo(ePromotion).getCargoChange();
++		if (iTemp > 0)
++		{
++			if ((AI_getUnitAIType() == UNITAI_ASSAULT_SEA) ||
++				(AI_getUnitAIType() == UNITAI_SETTLER_SEA) ||
++				(AI_getUnitAIType() == UNITAI_MISSIONARY_SEA) ||
++				(AI_getUnitAIType() == UNITAI_SPY_SEA) ||
++				(AI_getUnitAIType() == UNITAI_CARRIER_SEA))
++			{
++				iValue += (iTemp * 60);
++			}
++			else if (cargoSpace() > 0)
++			{
++				iValue += (iTemp * 20);
++			}
++		}
++	}
++
+ 	iTemp = GC.getPromotionInfo(ePromotion).getMoveDiscountChange();
+ 	if (AI_getUnitAIType() == UNITAI_PILLAGE)
+ 	{
+@@ -14097,7 +14164,7 @@ bool CvUnitAI::AI_doInquisition()
+ {
+ 	if (AI_moveToInquisitionTarget())
+ 	{
+-		return false;
++		return true;
+ 	}
+ 	return performInquisition();
+ }
+@@ -20125,15 +20192,15 @@ BuildTypes CvUnitAI::AI_betterPlotBuild(CvPlot* pPlot, BuildTypes eBuild)
+ 								{
+ 									if (pLoopGroup->getID() != -1)
+ 									{
+-										if (pLoopGroup->getID() != iPlotGroupId)
++										if (iPlotGroupId == -1)
+ 										{
+-											//This plot bridges plot groups, so route it.
+-											iValue *= 4;
+-											break;
++											iPlotGroupId = pLoopGroup->getID();
+ 										}
+-										else
++										else if (pLoopGroup->getID() != iPlotGroupId)
+ 										{
+-											iPlotGroupId = pLoopGroup->getID();
++											// This plot genuinely bridges two distinct plot groups, so route it.
++											iValue *= 4;
++											break;
+ 										}
+ 									}
+ 								}
+@@ -22469,7 +22536,7 @@ bool CvUnitAI::AI_nuke()
+ 		{
+ 			if (isEnemy(GET_PLAYER((PlayerTypes)iI).getTeam()))
+ 			{
+-				if (GET_PLAYER(getOwnerINLINE()).AI_getAttitude((PlayerTypes)iI) == ATTITUDE_FURIOUS)
++				if (GET_PLAYER(getOwnerINLINE()).AI_getAttitude((PlayerTypes)iI) <= ATTITUDE_ANNOYED)
+ 				{
+ 					for (pLoopCity = GET_PLAYER((PlayerTypes)iI).firstCity(&iLoop); pLoopCity != NULL; pLoopCity = GET_PLAYER((PlayerTypes)iI).nextCity(&iLoop))
+ 					{
+@@ -22605,7 +22672,8 @@ bool CvUnitAI::AI_nukeRange(int iRange)
+ 								
+ 								if (pLoopPlot2->isCity())
+ 								{
+-									iValue += std::max(0, iMultiplier * (-20 + 15 * pLoopPlot2->getPlotCity()->getPopulation()));
++									const int iCityScore = std::max(0, -20 + 15 * pLoopPlot2->getPlotCity()->getPopulation());
++									iValue += iMultiplier * iCityScore;
+ 								}
+ 							}
+ 						}
+@@ -24766,11 +24834,6 @@ bool CvUnitAI::AI_RbombardPlot(int iRange, int iBonusValueThreshold)
+ 		return false;
+ 	}
+ 
+-	if (GC.getDefineINT("DCM_NAVAL_BOMBARD"))
+-	{	
+-		return false;
+-	}
+-
+ 	iSearchRange = AI_searchRange(iRange);
+ 
+ 	for (iDX = -(iSearchRange); iDX <= iSearchRange; iDX++)
+@@ -24853,11 +24916,6 @@ bool CvUnitAI::AI_RbombardUnit(int iRange, int iHighestOddsThreshold, int iMinSt
+ 		return false;
+ 	}
+ 
+-	if (GC.getDefineINT("DCM_NAVAL_BOMBARD"))
+-	{	
+-		return false;
+-	}
+-
+ 	iSearchRange = AI_searchRange(iRange);
+ 
+ 	iBestValue = 999; // looking for the odds at or below iHighestOddsThreshold
+@@ -24880,7 +24938,7 @@ bool CvUnitAI::AI_RbombardUnit(int iRange, int iHighestOddsThreshold, int iMinSt
+ 							if (pLoopPlot->getNumVisibleEnemyDefenders(this) >= iMinStack)
+ 							{
+ 								pDefender = pLoopPlot->getBestDefender(NO_PLAYER, getOwnerINLINE(), this, true);
+-								if (pDefender->isRbombardable(iMinStack))
++								if (pDefender != NULL && pDefender->isRbombardable(iMinStack))
+ 								{
+ 									iValue = AI_attackOdds(pLoopPlot, true);
+ 									if (iValue <= iHighestOddsThreshold)
+@@ -24932,11 +24990,6 @@ bool CvUnitAI::AI_RbombardCity(CvCity* pCity)
+ 		return false;
+ 	}
+ 
+-	if (GC.getDefineINT("DCM_NAVAL_BOMBARD"))
+-	{	
+-		return false;
+-	}
+-
+ 	if (pCity == NULL)
+ 	{
+ 		return false;
+@@ -24956,9 +25009,9 @@ bool CvUnitAI::AI_RbombardCity(CvCity* pCity)
+ 	pDefender = pPlot->getBestDefender(NO_PLAYER, getOwnerINLINE(), this, true);
+ 	if (pDefender != NULL)
+ 	{
+-		if (collateralDamageMaxUnits() > pPlot->getNumUnits())
++		if (pPlot->getNumVisibleEnemyDefenders(this) >= std::max(1, collateralDamageMaxUnits() / 2))
+ 		{
+-			if (pDefender->isRbombardable(3) && getGroup()->getBombardTurns(pCity) < 3)
++			if (pDefender->isRbombardable(1) && getGroup()->getBombardTurns(pCity) < 3)
+ 			{
+ 				getGroup()->pushMission(MISSION_RBOMBARD, pPlot->getX_INLINE(),pPlot->getY_INLINE());
+ 				return true;
+@@ -25061,7 +25114,8 @@ bool CvUnitAI::AI_RbombardNaval()
+ 					pCity = pLoopPlot->getPlotCity();
+ 					if (pCity != NULL)
+ 					{
+-						iValue += std::max(0, (std::min((pCity->getDefenseDamage() + airBombCurrRate()), GC.getMAX_CITY_DEFENSE_DAMAGE()) - pCity->getDefenseDamage()));
++						const int iRate = std::max(bombardRate(), airBombCurrRate());
++						iValue += std::max(0, (std::min((pCity->getDefenseDamage() + iRate), GC.getMAX_CITY_DEFENSE_DAMAGE()) - pCity->getDefenseDamage()));
+ 						iValue *= 5;
+ 						if (pCity->AI_isDanger())
+ 						{
+@@ -25079,8 +25133,7 @@ bool CvUnitAI::AI_RbombardNaval()
+ 
+ 						if( pDefender != NULL && pDefender->canDefend() )
+ 						{
+-							iDamage = GC.getGameINLINE().getSorenRandNum(bombardRate(), "AI Bombard");
+-	//							iValue = max(0, (min((pDefender->getDamage() + iDamage), bombardRate()) - pDefender->getDamage()));
++							iDamage = std::max(1, bombardRate() / 2);
+ 							iValue += ((((iDamage * collateralDamage()) / 100) * std::min((pLoopPlot->getNumVisibleEnemyDefenders(this) - 1), collateralDamageMaxUnits())) / 2);
+ 							iValue *= (3 + iPotentialAttackers);
+ 							iValue /= 4;
+@@ -25126,10 +25179,6 @@ bool CvUnitAI::AI_Abombard()
+ 	{
+ 		return false;
+ 	}
+-	if (GC.getGameINLINE().getSorenRandNum(10, "Randomness") < 5)
+-	{
+-		return false;
+-	}
+ 	if(GC.getDCM_ARCHER_BOMBARD())
+ 	{
+ 		iSearchRange = 1;
+@@ -25199,10 +25248,6 @@ bool CvUnitAI::AI_FEngage()
+ 	{
+ 		return false;
+ 	}
+-	if (GC.getGameINLINE().getSorenRandNum(10, "Randomness") < 5)
+-	{
+-		return false;
+-	}
+ 	if(GC.getDCM_FIGHTER_ENGAGE())
+ 	{
+ 		iSearchRange = airRange();
+@@ -25224,26 +25269,24 @@ bool CvUnitAI::AI_FEngage()
+ 						{
+ 							pDefender = ::getUnit(pUnitNode->m_data);
+ 							pUnitNode = pLoopPlot->nextUnitNode(pUnitNode);
+-							if (pDefender->getDomainType() == DOMAIN_AIR)
++							if (pDefender != NULL && pDefender->getDomainType() == DOMAIN_AIR)
+ 							{
+ 								iCount++;
+ 							}
+ 						}
+ 						iPotentialAttackers = iCount;
+-						iValue += iCount;
++						iValue += iCount * 10;
+ 						if (iPotentialAttackers > 0 || pLoopPlot->isAdjacentTeam(getTeam()))
+ 						{
+ 							pDefender = pLoopPlot->getBestDefender(NO_PLAYER, getOwnerINLINE(), this, true);
+-							iDamage = std::max(1, ((GC.getDefineINT("COMBAT_DAMAGE") * (currFirepower(NULL, NULL) + ((currFirepower(NULL, NULL) + pDefender->currFirepower(NULL, NULL) + 1) / 2))) / (pDefender->currFirepower(pLoopPlot, this) + ((currFirepower(NULL, NULL) + pDefender->currFirepower(NULL, NULL) + 1) / 2))));
+-							iValue += (iDamage * pLoopPlot->getNumVisibleEnemyDefenders(this));
++							if (pDefender != NULL)
++							{
++								iDamage = std::max(1, ((GC.getDefineINT("COMBAT_DAMAGE") * (currFirepower(NULL, NULL) + ((currFirepower(NULL, NULL) + pDefender->currFirepower(NULL, NULL) + 1) / 2))) / (pDefender->currFirepower(pLoopPlot, this) + ((currFirepower(NULL, NULL) + pDefender->currFirepower(NULL, NULL) + 1) / 2))));
++								iValue += (iDamage * std::max(1, pLoopPlot->getNumVisibleEnemyDefenders(this)));
++							}
+ 						}
+-						iValue *= GC.getGameINLINE().getSorenRandNum(5, "AI FEngage");
+ 						if (iValue > iBestValue)
+ 						{
+-//							for (int iPlayer = 0; iPlayer < MAX_CIV_PLAYERS; ++iPlayer)
+-//							{
+-//								gDLL->getInterfaceIFace()->addMessage((PlayerTypes)iPlayer, true, GC.getDefineINT("EVENT_MESSAGE_TIME"), "Got here!", "AS2D_BOMB_FAILS", MESSAGE_TYPE_INFO, GC.getUnitInfo(getUnitType()).getButton(), (ColorTypes)GC.getInfoTypeForString("COLOR_RED"), plot()->getX_INLINE(), plot()->getY_INLINE());
+-//							}
+ 							iBestValue = iValue;
+ 							pBestPlot = pLoopPlot;
+ 							FAssert(!atPlot(pBestPlot));
+diff --git a/Assets/Python/RoMEventManager.py b/Assets/Python/RoMEventManager.py
+index 3d2bbbc..844e7e4 100644
+--- a/Assets/Python/RoMEventManager.py
++++ b/Assets/Python/RoMEventManager.py
+@@ -457,43 +457,8 @@ class RoMEventManager:
+ 		'City Built'
+ 		city = argsList[0]
+ 		self.settlementTrainingProfiler.recordCityBuilt(city)
+-
+-		pUnit = CyInterface().getHeadSelectedUnit()
+-		if pUnit:
+-			if ( gc.getDefineINT("ROM_MULTIPLAYER_FIX") <= 0 ):
+-			# if multiplayer fix for Colonist and Pioneer unit isn't enabled, allow them to work 
+-				#pAdvancedSettlers=CvEventInterface.getEventManager()
+-			
+-				if pUnit.getUnitClassType() == gc.getInfoTypeForString("UNITCLASS_COLONIST"):
+-
+-					pPlot = CyMap( ).plot( pUnit.getX( ), pUnit.getY( ) )
+-					iMessageID = 410
+-					BugUtil.info("RoM - Colonist messageID: %d", iMessageID)
+-					iPlotX = pPlot.getX()
+-					iPlotY = pPlot.getY()
+-					iOwner = pUnit.getOwner()
+-					iUnitID = pUnit.getID()
+-					CyMessageControl( ).sendModNetMessage( iMessageID, iPlotX, iPlotY, iOwner, iUnitID )
+-				
+-				elif pUnit.getUnitClassType() == gc.getInfoTypeForString("UNITCLASS_PIONEER"):
+-					pPlot = CyMap( ).plot( pUnit.getX( ), pUnit.getY( ) )
+-					iMessageID = 411
+-					BugUtil.info("RoM - Pioneer messageID: %d", iMessageID)
+-					iPlotX = pPlot.getX()
+-					iPlotY = pPlot.getY()
+-					iOwner = pUnit.getOwner()
+-					iUnitID = pUnit.getID()
+-					CyMessageControl( ).sendModNetMessage( iMessageID, iPlotX, iPlotY, iOwner, iUnitID )
+-
+-				elif pUnit.getUnitClassType() == gc.getInfoTypeForString("UNITCLASS_ROMAN_COLONIST"):
+-					pPlot = CyMap( ).plot( pUnit.getX( ), pUnit.getY( ) )
+-					iMessageID = 5088
+-					BugUtil.info("RoM - Roman Colonist messageID: %d", iMessageID)
+-					iPlotX = pPlot.getX()
+-					iPlotY = pPlot.getY()
+-					iOwner = pUnit.getOwner()
+-					iUnitID = pUnit.getID()
+-					CyMessageControl( ).sendModNetMessage( iMessageID, iPlotX, iPlotY, iOwner, iUnitID )
++		# Colonist, Pioneer, and Roman Colonist founding packages are applied
++		# deterministically in CvUnit::found() for both human and AI players.
+ 	
+ 	def onCityRazed(self, argsList):
+ 		'City Razed'
+diff --git a/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml b/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml
+index e230531..63996ab 100644
+--- a/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml
++++ b/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml
+@@ -53,11 +53,13 @@
+ 		their progress instead of a peace die; 8 employ the stack (any siege unit bombards, collateral
+ 		units open the assault); 16 compose the stack (collateral units join city attack stacks and
+ 		are trained for invasions); 32 ask and accept help in a war only from teams near the enemy;
+-		64 archers and siege in cities fire ranged strikes at enemies next to the city. Default: 127,
+-		all of them. 16 stays on so the two collateral units allowed into a city-attack
+-		stack are actually there on the assault turn. 0 restores the old AI. -->
++		64 archers and siege in cities fire ranged strikes at enemies next to the city; 128 peacetime
++		staged-army and offshore transport deterrence + Open Borders cancel; 256 prospective anti-hegemon
++		coalitions, active counterstroke posture, and deterministic peace terms; 512 tactical mastery
++		(priority upgrades, Transport cargo promotions, combat engineers, hero survival, SEAD).
++		Default: 1023. 127 restores pre-Pass-5 AI; 0 restores the old AI. -->
+ 		<DefineName>AI_CUNNING_FLAGS</DefineName>
+-		<iDefineIntVal>127</iDefineIntVal>
++		<iDefineIntVal>1023</iDefineIntVal>
+ 	</Define>
+ 	<Define>
+ 		<!-- Diplomacy AI switches, a sum of: 1 a tech's trade value is its remaining research at the
+@@ -72,4 +74,15 @@
+ 		<DefineName>AI_DIPLOMACY_FLAGS</DefineName>
+ 		<iDefineIntVal>31</iDefineIntVal>
+ 	</Define>
++	<Define>
++		<!-- Economy and governance AI switches, a sum of: 1 building upgrade replacement net-delta,
++		per-city BuildingClassNeededs lookahead, Python-scripted wonders, and Golden Age/upgrade/obsolescence
++		valuation; 2 civic-improvement co-evaluation (Peasantry/Coastal/Agricultural/Pastoral), Revolution
++		civic stability, zCivics awareness, and GameSpeed-scaled civic horizon; 4 active City Governor
++		specialization, National Wonder/GP-farm reservation, trait yield thresholds, and 50% Process parity;
++		8 depth-5/6 tech planning, FirstFreeUnitClass races, TechCityTrade unlocks, civ-unique DisableTechs,
++		buildable-building resource valuation, and corporation net-profit maintenance check. Default: 15. -->
++		<DefineName>AI_ECONOMY_FLAGS</DefineName>
++		<iDefineIntVal>15</iDefineIntVal>
++	</Define>
+ </Civ4Defines>
+\ No newline at end of file
