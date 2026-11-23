@@ -1,5 +1,35 @@
 # Tested source fixes
 
+## Post-merge AI strength, overflow, and graphics paging fixes (pass 2 over `c08a472`)
+
+[ai-and-paging-pass2.patch](ai-and-paging-pass2.patch) applies to GitLab `main` `c08a472`
+(apply with `git am --keep-cr` on Windows to preserve CRLF). It is not on GitLab yet. It fixes
+three classes of defects without changing the save format:
+- diplomacy and resource valuation (unified 40%/50%/30% surplus-sharing resource reservation floor
+  closing the 1-GPT spare-resource exploit and aligning deal creation/renewal plus AI–AI outgoing
+  GPT cancellation, AI-only `calculateGoldRate()` clamp in `AI_maxGoldPerTurnTrade`, positive
+  `AI_mapTradeVal` + `CONTACT_TRADE_MAP` cooldown on AI–AI map trades, `AI_counterPropose`
+  corporation guard and midpoint spare-resource offer weight, and growth-cap luxury headroom in
+  `AI_bonusCityValue`);
+- late-game AI war/economy/combat/Revolution correctness (64-bit team/player power arithmetic
+  across 10+ sites in `CvTeamAI`/`CvPlayerAI`/`CvCityAI`, `AI_doCommerce` culture slider
+  preservation + solvency guard + stack arrays, `AI_civicValue` Inquisition addition fix,
+  deterministic `AI_RbombardNaval` loop fix + `AI_Abombard` null guard, Revolution-index-scaled
+  `RevIdx` building scoring in `AI_buildingValueThreshold`, and `==` fix in
+  `hasStateReligionHolyCity`/`Shrine`);
+- graphics paging priority and route coherence (center-out Chebyshev ring page-in + non-serialized
+  `m_iPagingOutCursor` round-robin page-out, live camera recenter during `m_bPagingPending`,
+  immediate critical-pressure shrink, bounded off-window deferred route draining via
+  `refreshRevealedRouteOnly()`, and symmetric post-`setup()` `m_bGraphicsPagedOut` clearing with
+  post-`setup()` unit sync).
+
+The release DLL builds with MSVC 2003 with 0 warnings and 0 errors (`2,452` exports), `clang-gate`
+reports 0 errors/warnings on all changed lines, the native C++98 unit tests pass, and a 300-turn
+headless harness A/B check on `p15.scn` (`s1570079469`, graphics paging on) completed cleanly with
+`0` on-screen bare units/cities and off-window route symbols converging to `0` missing; full P16
+seeded evidence and in-game verification are open. See the
+[details and checks](ai-and-paging-pass2/README.md).
+
 ## Graphics-Paging-Fix-Test (8587217) fixes: paging selection, diplomacy valuation, and callback define
 
 [test-branch-fixes.patch](test-branch-fixes.patch) applies to GitLab `Graphics-Paging-Fix-Test`
