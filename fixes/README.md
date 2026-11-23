@@ -1,5 +1,22 @@
 # Tested source fixes
 
+## Graphics-Paging-Fix-Test (8587217) fixes: paging selection, diplomacy valuation, and callback define
+
+[test-branch-fixes.patch](test-branch-fixes.patch) applies to GitLab `Graphics-Paging-Fix-Test`
+`8587217`. It is not on GitLab yet. It fixes three classes of defects without changing the save format:
+- graphics paging selection and route bugs (`continue` instead of `break` in `CvGame::pageGraphics`
+  active loops, multi-selected city protection and `iMaxIn` exemption, restoring paged-out entities
+  before selection and city popups, and rebuilding dirty route symbols on bulk reveal);
+- diplomacy valuation defects (64-bit `AI_dealVal` gold/GPT arithmetic, `AI_DIPLOMACY_NET_VALUE`
+  bit 16 with default `AI_DIPLOMACY_FLAGS` 31, strictly positive net gain on AI–AI swaps, and
+  `AI_counterPropose` asking/offering weights);
+- `USE_USE_CANNOT_SPREAD_RELIGION_CALLBACK` define typo in `CvGlobals::cacheGlobals`.
+
+The release DLL builds with MSVC 2003 with 0 warnings and 0 errors (2,452 exports), `clang-gate`
+reports 0 errors/warnings on changed lines, and the native C++98 diplomacy tests pass. Seeded
+headless runs (P15) and in-game verification are open. See the
+[details and checks](test-branch-fixes/README.md).
+
 ## Debt: loans and bonds between civilizations and with the open market
 
 [debt.patch](debt.patch) applies to GitLab `Graphics-Paging-Fix-Test` `8587217`. It is not on GitLab yet.
