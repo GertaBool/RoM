@@ -252,9 +252,9 @@ Group: interface, text and messages. Functions in line order: what each calls (i
 - **525** `CvEventReporter::getPlayerStatistics(PlayerTypes, std::vector<CvStatBase*, std::allocator<CvStatBase*>>&)` (exported)
   - calls: CvStatistics::getPlayerRecord [CvStatistics.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlayerRecord::getVictory [CvStatistics.cpp], CvStatInt::CvStatInt(char const*, int) [CvStructs.h], CvPlayerRecord::getMinutesPlayed [CvStatistics.cpp], CvPlayerRecord::getLeader [CvStatistics.cpp], CvPlayerRecord::getNumCitiesBuilt [CvStatistics.cpp], CvPlayerRecord::getNumCitiesRazed [CvStatistics.cpp], CvPlayerRecord::getNumGoldenAges [CvStatistics.cpp], CvString::CvString() [CvString.h], CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvString::~CvString [CvString.h], CvString::format [CvString.h], CvPlayerRecord::getNumUnitsBuilt [CvStatistics.cpp], CvString::operator char const * [CvString.h], CvPlayerRecord::getNumUnitsKilled [CvStatistics.cpp], CvPlayerRecord::getNumUnitsWasKilled [CvStatistics.cpp], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvPlayerRecord::getNumBuildingsBuilt [CvStatistics.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvPlayerRecord::getReligionFounded [CvStatistics.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
 - **569** `CvEventReporter::readStatistics(FDataStreamBase*)` (exported)
-  - calls: CvStatistics::reset [CvStatistics.cpp], CvPlayerRecord::read [CvStatistics.cpp], CvStatistics::read [CvStatistics.cpp], CvGameRecord::read [CvStatistics.cpp]
+  - calls: CvStatistics::reset [CvStatistics.cpp], CvStatistics::read [CvStatistics.cpp]
 - **574** `CvEventReporter::writeStatistics(FDataStreamBase*)` (exported)
-  - calls: CvPlayerRecord::write [CvStatistics.cpp], CvStatistics::write [CvStatistics.cpp], CvGameRecord::write [CvStatistics.cpp]
+  - calls: CvStatistics::write [CvStatistics.cpp]
 - **·** `CvEventReporter::CvEventReporter()` (written by the compiler)
   - calls: CvStatistics::CvStatistics
   - called by (1): CvEventReporter::getInstance

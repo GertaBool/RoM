@@ -28,6 +28,7 @@ import collections, csv, multiprocessing, os, re, sys
 import clang.cindex as ci
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+SHIMS = os.path.join(HERE, 'clang_shims')
 GATE = os.path.join(HERE, '..', '..', 'toolchain', 'clang-gate')
 K = ci.CursorKind
 FUNCS = {K.FUNCTION_DECL, K.CXX_METHOD, K.CONSTRUCTOR, K.DESTRUCTOR, K.FUNCTION_TEMPLATE, K.CONVERSION_FUNCTION}
@@ -41,7 +42,8 @@ RESOURCE = os.popen('clang -print-resource-dir 2>/dev/null').read().strip()   # 
 
 def args(mirror, sdk):
     return (['-resource-dir', RESOURCE] if RESOURCE else []) + ['-x', 'c++', '-std=gnu++98', '-fms-extensions', '-fms-compatibility',
-            '-Wno-everything', '-ferror-limit=0', '-I' + GATE, '-I' + mirror,
+            '-Wno-everything', '-ferror-limit=0', '-I' + SHIMS, '-I' + GATE, '-I' + mirror,
+            '-include', os.path.join(SHIMS, 'compat.h'),
             '-isystem', os.path.join(sdk, 'Boost-1.32.0', 'include'), '-isystem', os.path.join(sdk, 'Python24', 'include'),
             '-DWIN32', '-D_WINDOWS', '-D_USRDLL', '-DCVGAMECOREDLL_EXPORTS', '-DNDEBUG', '-DFINAL_RELEASE']
 
@@ -162,10 +164,27 @@ def string_value(c):
     return None
 
 
+def _source_overlays(mirror, unit_file):
+    """In-memory unsaved_files overlays so Clang parses MSVC 2003 idioms without modifying source or shifting lines."""
+    overlays = []
+    xml_h = os.path.join(mirror, 'CvXMLLoadUtility.h')
+    if os.path.exists(xml_h):
+        body = open(xml_h, encoding='latin-1').read()
+        hdr = '#include "FVariableSystem.h"\n#include "CvDLLXMLIFaceBase.h"\n#line 1\n'
+        overlays.append((xml_h, hdr + body))
+    unit_path = os.path.join(mirror, unit_file)
+    if os.path.exists(unit_path):
+        body = open(unit_path, encoding='latin-1').read()
+        if '::_Alloc::' in body:
+            overlays.append((unit_path, body.replace('::_Alloc::', '::allocator_type::')))
+    return overlays
+
+
 def scan_unit(job):
     mirror, sdk, f = job
     idx = ci.Index.create()
     tu = idx.parse(os.path.join(mirror, f), args=args(mirror, sdk),
+                   unsaved_files=_source_overlays(mirror, f),
                    options=ci.TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD * 0)
     errors = sum(1 for d in tu.diagnostics if d.severity >= ci.Diagnostic.Error)
     acc, strs, defs, decls, rets = set(), set(), set(), set(), set()

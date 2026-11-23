@@ -7,7 +7,7 @@ Group: AI. Functions in line order: what each calls (in order of first call), wh
   - takes the address of: CvPlayerAI::CvPlayerAI, CvPlayerAI::~CvPlayerAI
   - called by (1): CvGlobals::init
 - **81** `CvPlayerAI::freeStatics()` (static)
-  - calls: operator delete[](void*) [CvGameCoreDLL.cpp]
+  - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvPlayerAI::`vector deleting dtor'
   - called by (1): CvGlobals::uninit
 - **86** `CvPlayerAI::areStaticsInitialized()` (exported; static)
   - called by (7): CvInitCore::read, CvInitCore::reassignPlayer, CvInitCore::resetPlayer(PlayerTypes), CvInitCore::setMode, CvInitCore::setSlotStatus, CvInitCore::setTeam, CvInitCore::setType(GameType)
@@ -933,3 +933,4 @@ Group: AI. Functions in line order: what each calls (in order of first call), wh
 - **·** `CvPlayerAI::`vector deleting dtor'(unsigned int)` (virtual; overrides CvPlayer::__vecDelDtor; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvPlayerAI::~CvPlayerAI
   - takes the address of: CvPlayerAI::~CvPlayerAI
+  - called by (1): CvPlayerAI::freeStatics

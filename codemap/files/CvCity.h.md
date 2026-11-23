@@ -107,7 +107,3 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (2): CvCity::alterSpecialistCount, CvCity::alterWorkingPlot
 - **1405** `CvCity::AI_removeWorstCitizen(…)` (virtual; pure virtual)
   - called by (2): CvCity::alterSpecialistCount, CvCity::alterWorkingPlot
-- **·** `CombatDetails::CombatDetails()` (exported; written by the compiler)
-  - called by (1): CvUnit::resolveCombat
-- **·** `CombatDetails::~CombatDetails()` (exported; written by the compiler)
-  - called by (1): CvUnit::resolveCombat

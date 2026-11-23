@@ -7,7 +7,7 @@ Group: interface, text and messages. Functions in line order: what each calls (i
   - called by (4): CvGame::addReplayMessage, CvGame::read, CvReplayInfo::createInfo, CvReplayInfo::read
 - **15** `CvReplayMessage::~CvReplayMessage()` (virtual)
   - calls: CvWString::~CvWString [CvString.h]
-  - called by (1): CvReplayMessage::`scalar deleting dtor'
+  - called by (4): CvGame::clearReplayMessageMap, CvReplayInfo::clearReplayMessageMap, CvReplayInfo::~CvReplayInfo, CvReplayMessage::`scalar deleting dtor'
 - **19** `CvReplayMessage::operator=(CvReplayMessage const&)`
   - calls: CvWString::operator=(CvWString const&) [CvString.h]
 - **32** `CvReplayMessage::setTurn(int)`

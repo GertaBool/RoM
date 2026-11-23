@@ -65,6 +65,7 @@ Group: AI. Functions in line order: what each calls (in order of first call), wh
   - calls: CvSelectionGroup::headUnitNode [CvSelectionGroup.cpp], getUnit [CvGameCoreUtils.cpp], CvSelectionGroup::nextUnitNode [CvSelectionGroup.cpp], CvUnit::noDefensiveBonus [CvUnit.cpp], CvUnit::currEffectiveStr [CvUnit.cpp], CvPlot::isCity [CvPlot.cpp], CvSelectionGroup::getTeam [CvSelectionGroup.cpp], CvUnit::cityDefenseModifier [CvUnit.cpp], CvUnit::cityAttackModifier [CvUnit.cpp], CvUnit::getExtraCityAttackPercent [CvUnit.cpp], CvUnit::getLevel [CvUnit.cpp], CvSelectionGroup::getNumUnits [CvSelectionGroup.cpp], CvUnit::joinGroup [CvUnit.cpp]
 - **946** `CvSelectionGroupAI::read(FDataStreamBase*)` (virtual; overrides CvSelectionGroup::read)
   - calls: CvSelectionGroup::read [CvSelectionGroup.cpp], FDataStreamBase::Read [FDataStreamBase.h], CvSelectionGroup::noteMissionTargetsChanged [CvSelectionGroup.cpp]
+  - called by (1): ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>
 - **971** `CvSelectionGroupAI::write(FDataStreamBase*)` (virtual; overrides CvSelectionGroup::write)
   - calls: CvSelectionGroup::write [CvSelectionGroup.cpp], FDataStreamBase::Write [FDataStreamBase.h]
   - called by (1): WriteStreamableFFreeListTrashArray<class CvSelectionGroupAI>

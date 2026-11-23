@@ -12326,6 +12326,9 @@ potentialIrrigation	int
 range	float
 range	int
 reallocMem	void *
+restoreActivePlotUnitsForSelection	void
+restoreGroupForSelection	void
+restoreUnitForSelection	void
 routeValid	int
 setIsBug	void
 setListHelp	void

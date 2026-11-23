@@ -399,17 +399,19 @@ def diff(repo, base, head, depth=None, tsv=None):
                     seeds.append(nid)
                 else:
                     out.append('  - %s is not in the map\'s Python scan (newer than the map)' % q)
-    # XML
-    X = hunks(repo, base, head, XML)
-    if X:
+    # XML (Assets/XML plus additive Assets/Modules, Assets/res, Assets/Config)
+    X_all = []
+    for xroot, xpre in ((XML, ''), ('Assets/Modules', 'Modules/'), ('Assets/res', 'res/'), ('Assets/Config', 'Config/')):
+        for path, h_pair in sorted(hunks(repo, base, head, xroot).items()):
+            if path.lower().endswith('.xml'):
+                X_all.append((xroot, xpre + path, path, h_pair))
+    if X_all:
         out.append('\n## XML\n')
         tag_re = re.compile(r'<([A-Za-z_][\w.:-]*)[\s>/]')
-        for path, (hl, bl) in sorted(X.items()):
-            if not path.lower().endswith('.xml'):
-                continue
+        for xroot, disp, path, (hl, bl) in X_all:
             tags, defs = set(), set()
             for rev, lines in ((head, hl), (base, bl)):
-                text = show(repo, rev, XML + '/' + path).split('\n')
+                text = show(repo, rev, xroot + '/' + path).split('\n')
                 for x in sorted(lines):
                     if 1 <= x <= len(text):
                         tags.update(m.group(1) for m in tag_re.finditer(text[x - 1] + ' '))
@@ -423,7 +425,7 @@ def diff(repo, base, head, depth=None, tsv=None):
                                 defs.add(m.group(1))
                                 break
             tags -= {'DefineName', 'Define', 'iDefineIntVal', 'fDefineFloatVal', 'DefineTextVal'} if defs else set()
-            out.append('- %s: tags on changed lines: %s%s' % (path, ', '.join(sorted(tags)) or 'none',
+            out.append('- %s: tags on changed lines: %s%s' % (disp, ', '.join(sorted(tags)) or 'none',
                                                               ('; defines: ' + ', '.join(sorted(defs))) if defs else ''))
             seeds += ['t:' + t for t in sorted(tags) if 't:' + t in g.info] + ['d:' + d for d in sorted(defs) if 'd:' + d in g.info]
     report(g, seeds, out, depth, follow_writes=False, tsv=tsv)

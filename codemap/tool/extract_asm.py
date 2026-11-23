@@ -120,7 +120,7 @@ def parse_listing(path, projdir):
             sites.append(dict(caller=fn, kind='ref', target=o, file=cur_file, line=line))
         if op in ('call', 'jmp'):
             a = arg.strip()
-            if a.startswith('SHORT ') or a.startswith('$'): continue
+            if a.startswith('SHORT ') or a.startswith('$') or re.match(r'^DWORD PTR \$L\d+\[', a): continue
             if a.startswith('DWORD PTR __imp_'):
                 sites.append(dict(caller=fn, kind='import', target=a[16:], file=cur_file, line=line)); continue
             s = SLOT.match(a)
@@ -215,10 +215,16 @@ def parse_types(cv_text):
         nslots = 0
         if vs and vs.group(1) in rec:
             c = re.search(r'VFEntryCount: (\d+)', rec[vs.group(1)][1]); nslots = int(c.group(1)) if c else 0
-        bases, virt, intro, pure, ovl = [], {}, set(), set(), set()
+        bases, virt, intro, pure, ovl, fields = [], {}, set(), set(), set(), {}
         fbody = rec.get(fl.group(1), ('', ''))[1] if fl else ''
         for b in re.finditer(r'    BaseClass \{.*?BaseType: (.*?) \(0x[0-9A-F]+\).*?BaseOffset: (0x[0-9A-F]+)', fbody, re.S):
             bases.append((b.group(1), int(b.group(2), 16)))
+        for dm in re.finditer(r'    (?:Static)?DataMember \{([^}]*)\}', fbody, re.S):
+            t = dm.group(1)
+            nm = re.search(r'Name: (.*)', t)
+            ty = re.search(r'Type: (.*?)\s*\(0x[0-9A-F]+\)', t)
+            if nm and ty:
+                fields[nm.group(1).strip()] = ty.group(1).strip()
         rets = {}
         for om in re.finditer(r'    OneMethod \{(.*?)\n    \}', fbody, re.S):
             t = om.group(1); n = re.search(r'Name: (.*)', t).group(1)
@@ -236,7 +242,7 @@ def parse_types(cv_text):
             if offs: ovl.add(n); intro.add(n)   # the slots of an overload set are not known from the records
         if name not in classes or len(fbody) > classes[name].get('_len', 0):
             classes[name] = dict(bases=bases, own=virt, ovl=ovl, nslots=nslots, introduces=intro, pure=pure,
-                                 rets=rets, _len=len(fbody))
+                                 rets=rets, fields=fields, _len=len(fbody))
     return classes
 
 
@@ -356,7 +362,79 @@ def main():
     def cls_of(type_text):
         """'class CvTechInfo &' or 'CvDLLInterfaceIFaceBase*' -> the class name, if a class."""
         x = re.sub(r'\b(class|struct|const|volatile)\b|[&*]', ' ', type_text or '').strip()
-        return x if x in classes else None
+        x = re.sub(r'\s+', ' ', x)
+        if x in classes: return x
+        # normalize spaces around template brackets/commas (e.g. 'T *' -> 'T*')
+        x2 = re.sub(r'\s*([<>,])\s*', r'\1', x).replace(' >', '>')
+        return x2 if x2 in classes else None
+
+    def unwrap_elem(type_text):
+        """Extract element type from std::vector<T*, ...> / std::list<T*, ...> / FFreeListTrashArray<T>."""
+        m = re.search(r'<\s*([^<>,]+(?:<[^<>]*>)?)\s*(?:,|>)', type_text or '')
+        return m.group(1).strip() if m else None
+
+    def field_type(cls, var):
+        for b in chain(cls):
+            ft = classes.get(b, {}).get('fields', {}).get(var)
+            if ft: return ft
+        return None
+
+    def caller_targ(caller):
+        """Primary template type argument of an instantiated template function/method, e.g. LoadGlobalClassInfo<CvTechInfo> -> CvTechInfo."""
+        for s in (nodes[caller]['name'], nodes[caller]['scope']):
+            m = re.search(r'<([^<>]+)>', s)
+            if m:
+                t = m.group(1).split(',')[0].strip()
+                if cls_of(t): return cls_of(t)
+        return None
+
+    def var_class(caller, var, fn_text, indexed=False):
+        scope = nodes[caller]['scope']
+        if scope:
+            ft = field_type(scope, var)
+            if ft:
+                if indexed:
+                    c_el = cls_of(unwrap_elem(ft))
+                    if c_el: return c_el
+                c_ft = cls_of(ft)
+                if c_ft: return c_ft
+        joined = ' '.join(fn_text)
+        targ = caller_targ(caller)
+        # Check container declaration first if indexed (e.g. std::vector<CvFoo*>& vec)
+        if indexed:
+            mc = re.search(r'<\s*([A-Za-z_][\w:]*)\s*\*?\s*(?:,[^;{}()<>]{0,60})?>\s*(?:const\s*)?[&*]*\s*\b' + re.escape(var) + r'\b', joined)
+            if mc:
+                c_mc = cls_of(mc.group(1))
+                if c_mc: return c_mc
+                if targ and len(mc.group(1)) <= 2: return targ
+        decl = re.search(r'\b([A-Za-z_][\w:]*(?:<[^;{}()<>]{1,60}>)?)\s*(?:const\s*)?[&*]*\s*\b' + re.escape(var) + r'\s*(?:=|;|,|\)|\[)', joined)
+        if decl:
+            dt = decl.group(1)
+            if targ and '<T>' in dt:
+                dt = dt.replace('<T>', '<' + targ + '>')
+            if indexed:
+                c_el = cls_of(unwrap_elem(dt))
+                if c_el: return c_el
+            c_d = cls_of(dt)
+            if c_d: return c_d
+            if targ and dt in ('T', 'K', 'V', 'Type', 'InfoType'):
+                return targ
+        return None
+
+    dtor_of = {}
+    for k, nd in nodes.items():
+        if nd['scope'] and nd['name'].startswith('~'):
+            dtor_of.setdefault(nd['scope'], k)
+
+    def resolve_dtor(dcls):
+        """Find the virtual destructor node (scalar deleting dtor or ~Class) for dcls."""
+        for b in chain(dcls):
+            v = vft_of.get(b)
+            if v and v[0] in nodes: return v[0]
+            if b in dtor_of: return dtor_of[b]
+        t0 = tables.get(dcls, {}).get(0)
+        if t0: return method_node(introducer(dcls, 0, t0), 0, t0)
+        return None
 
     def chain(c, seen=()):
         info = classes.get(c)
@@ -403,14 +481,49 @@ def main():
             said = set(IDENT_CALL.findall(s['text']))
             said |= {n + x for n in said for x in 'AW'}   # Windows headers rename MessageBox to MessageBoxA etc.
             sl = s['slot']
+            # CPython Py_DECREF macro invokes item->ob_type->tp_dealloc (external Python C API, outside DLL)
+            if said & {'Py_DECREF', 'Py_XDECREF'}:
+                continue
             cands = {(introducer(cl, sl, tables[cl][sl]), tables[cl][sl]) for cl in tables if tables[cl].get(sl) in said}
             if not cands:   # an overload set: the name, within the class's slots, in a slot no single method holds
                 cands = {(ovl_introducer(cl, n), n) for cl in tables for n in ovls[cl] & said
                          if sl < 4 * classes[cl]['nslots'] and sl not in tables[cl]}
             if not cands:
-                why = ('virtual destructor (delete)' if sl == 0 and re.search(r'\bdelete\b|SAFE_DELETE', s['text']) else
-                       'virtual call: no class has a method named in the statement at its slot')
-                unres.append((c, s['file'], s['line'], why, f'slot {sl // 4}: ' + s['text'])); continue
+                # Virtual destructor via delete / SAFE_DELETE / ART_INFO_DEFN(Name)
+                if sl == 0 and (re.search(r'\bdelete\b|SAFE_DELETE|ART_INFO_DEFN', s['text'])):
+                    dcls = None
+                    ma = re.search(r'ART_INFO_DEFN\s*\(\s*(\w+)\s*\)', s['text'])
+                    if ma:
+                        dcls = cls_of('CvArtInfo' + ma.group(1))
+                    if not dcls:
+                        md = re.search(r'(?:SAFE_DELETE(?:_ARRAY)?\s*\(\s*|\bdelete(?:\s*\[\s*\])?\s+)([^;)]+)', s['text'])
+                        if md:
+                            expr = md.group(1).strip().strip('()')
+                            # *it or indexed element inside a templated helper (e.g. deleteInfoArray<CvTechInfo>)
+                            if expr.startswith('*') or '[' in expr:
+                                var_m = re.match(r'\*?\s*([A-Za-z_]\w*)\s*\[', expr)
+                                if var_m:
+                                    dcls = var_class(c, var_m.group(1), s['fn_text'], indexed=True)
+                                if not dcls:
+                                    dcls = caller_targ(c)
+                            if not dcls:
+                                vm = re.findall(r'([A-Za-z_]\w*)', expr)
+                                if vm:
+                                    dcls = var_class(c, vm[-1], s['fn_text'], indexed=('[' in expr))
+                    if not dcls:
+                        dcls = static_class(s) or caller_targ(c)
+                    dk = resolve_dtor(dcls) if dcls else None
+                    if dk:
+                        edges.add((c, dk, 'virtual', s['file'], s['line'], dcls))
+                        continue
+                    unres.append((c, s['file'], s['line'], 'virtual destructor (delete)', f'slot {sl // 4}: ' + s['text']))
+                    continue
+                # Member function pointer field called via [reg+off] (e.g. m_pCBFxn(...))
+                if nodes[c]['scope'] and any(field_type(nodes[c]['scope'], nm) for nm in said):
+                    unres.append((c, s['file'], s['line'], 'through a function pointer', s['text']))
+                    continue
+                unres.append((c, s['file'], s['line'], 'virtual call: no class has a method named in the statement at its slot',
+                              f'slot {sl // 4}: ' + s['text'])); continue
             st = static_class(s)
             if st:
                 ch = set(chain(st))
@@ -418,17 +531,15 @@ def main():
                 if not narrowed:   # the class introducing the method may lie below the static class's own table
                     narrowed = {(cl, n) for cl, n in cands if st in chain(cl) or cl in ch}
                 cands = narrowed or cands
-            for cl0 in {n for _, n in cands}:   # the receiver's declared type, from the function's own source lines
-                r = re.search(r'([A-Za-z_]\w*)\s*(?:\.|->)\s*' + re.escape(cl0) + r'\s*\(', s['text'])
+            for cl0 in {n for _, n in cands}:   # receiver's declared type: CodeView DataMember first, then fn_text
+                r = re.search(r'([A-Za-z_]\w*)\s*(\[[^\]]*\])?\s*(?:\.|->)\s*' + re.escape(cl0) + r'\s*\(', s['text'])
                 if not r: continue
-                var = re.escape(r.group(1))
-                decl = re.search(r'\b([A-Za-z_]\w*)\s*(?:const\s*)?[&*]*\s*' + var + r'\s*(?:=|;|,|\))',
-                                 ' '.join(s['fn_text']))
-                if decl and decl.group(1) in classes:
-                    ch = set(chain(decl.group(1)))
+                vcls = var_class(c, r.group(1), s['fn_text'], indexed=bool(r.group(2)))
+                if vcls:
+                    ch = set(chain(vcls))
                     narrowed = {(cl, n) for cl, n in cands if n != cl0 or cl in ch}
                     if narrowed and len(narrowed) < len(cands): cands = narrowed
-                    if not st and len({n for _, n in cands}) == 1: st = decl.group(1)
+                    if not st and len({n for _, n in cands}) == 1: st = vcls
             own_c = {(cl, n) for cl, n in cands if base_name(cl) in own}
             cands = own_c or cands
             if len(cands) == 1: resolved[s['idx']] = next(iter(cands))

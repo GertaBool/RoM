@@ -1,0 +1,54 @@
+python_name	target	file	line	doc	returns
+cyIntRange	cyIntRange	CyGameCoreUtilsInterface.cpp	15	int (int iNum, int iLow, int iHigh)	int
+cyFloatRange	cyFloatRange	CyGameCoreUtilsInterface.cpp	16	float (float fNum, float fLow, float fHigh)	float
+dxWrap	cyDxWrap	CyGameCoreUtilsInterface.cpp	17	int (int iDX)	int
+dyWrap	cyDyWrap	CyGameCoreUtilsInterface.cpp	18	int (int iDY)	int
+plotDistance	cyPlotDistance	CyGameCoreUtilsInterface.cpp	19	int (int iX1, int iY1, int iX2, int iY2)	int
+stepDistance	cyStepDistance	CyGameCoreUtilsInterface.cpp	20	int (int iX1, int iY1, int iX2, int iY2)	int
+plotDirection	cyPlotDirection	CyGameCoreUtilsInterface.cpp	21	CyPlot* (int iX, int iY, DirectionTypes eDirection)	CyPlot
+plotCardinalDirection	cyPlotCardinalDirection	CyGameCoreUtilsInterface.cpp	22	CyPlot* (int iX, int iY, CardinalDirectionTypes eCardDirection)	CyPlot
+splotCardinalDirection	cysPlotCardinalDirection	CyGameCoreUtilsInterface.cpp	23	CyPlot* (int iX, int iY, CardinalDirectionTypes eCardDirection)	CyPlot
+plotXY	cyPlotXY	CyGameCoreUtilsInterface.cpp	24	CyPlot* (int iX, int iY, int iDX, int iDY)	CyPlot
+splotXY	cysPlotXY	CyGameCoreUtilsInterface.cpp	25	CyPlot* (int iX, int iY, int iDX, int iDY)	CyPlot
+directionXY	cyDirectionXYFromInt	CyGameCoreUtilsInterface.cpp	26	DirectionTypes (int iDX, int iDY)	DirectionTypes
+directionXYFromPlot	cyDirectionXYFromPlot	CyGameCoreUtilsInterface.cpp	27	DirectionTypes (CyPlot* pFromPlot, CyPlot* pToPlot)	DirectionTypes
+plotCity	cyPlotCity	CyGameCoreUtilsInterface.cpp	28	CyPlot* (int iX, int iY, int iIndex)	CyPlot
+plotCityXY	cyPlotCityXYFromInt	CyGameCoreUtilsInterface.cpp	29	int (int iDX, int iDY)	int
+plotCityXYFromCity	cyPlotCityXYFromCity	CyGameCoreUtilsInterface.cpp	30	int (CyCity* pCity, CyPlot* pPlot)	int
+getOppositeCardinalDirection	cyGetOppositeCardinalDirection	CyGameCoreUtilsInterface.cpp	31	CardinalDirectionTypes (CardinalDirectionTypes eDir)	CardinalDirectionTypes
+cardinalDirectionToDirection	cyCardinalDirectionToDirection	CyGameCoreUtilsInterface.cpp	32	DirectionTypes (CardinalDirectionTypes eDir) - converts a CardinalDirectionType to the corresponding DirectionType	DirectionTypes
+isCardinalDirection	cyIsCardinalDirection	CyGameCoreUtilsInterface.cpp	34	bool (DirectionTypes eDirection)	bool
+estimateDirection	cyEstimateDirection	CyGameCoreUtilsInterface.cpp	35	DirectionTypes (int iDX, int iDY)	DirectionTypes
+atWar	cyAtWar	CyGameCoreUtilsInterface.cpp	37	bool (int eTeamA, int eTeamB)	bool
+isPotentialEnemy	cyIsPotentialEnemy	CyGameCoreUtilsInterface.cpp	38	bool (int eOurTeam, int eTheirTeam)	bool
+getCity	cyGetCity	CyGameCoreUtilsInterface.cpp	40	CyPlot* (IDInfo city)	CyPlot
+getUnit	cyGetUnit	CyGameCoreUtilsInterface.cpp	41	CyUnit* (IDInfo unit)	CyUnit
+isPromotionValid	cyIsPromotionValid	CyGameCoreUtilsInterface.cpp	43	bool (int /*PromotionTypes*/ ePromotion, int /*UnitTypes*/ eUnit, bool bLeader)	bool
+getPopulationAsset	cyGetPopulationAsset	CyGameCoreUtilsInterface.cpp	44	int (int iPopulation)	int
+getLandPlotsAsset	cyGetLandPlotsAsset	CyGameCoreUtilsInterface.cpp	45	int (int iLandPlots)	int
+getPopulationPower	cyGetPopulationPower	CyGameCoreUtilsInterface.cpp	46	int (int iPopulation)	int
+getPopulationScore	cyGetPopulationScore	CyGameCoreUtilsInterface.cpp	47	int (int iPopulation)	int
+getLandPlotsScore	cyGetLandPlotsScore	CyGameCoreUtilsInterface.cpp	48	int (int iPopulation)	int
+getTechScore	cyGetTechScore	CyGameCoreUtilsInterface.cpp	49	int (int /*TechTypes*/ eTech)	int
+getWonderScore	cyGetWonderScore	CyGameCoreUtilsInterface.cpp	50	int (int /*BuildingClassTypes*/ eWonderClass)	int
+finalImprovementUpgrade	cyFinalImprovementUpgrade	CyGameCoreUtilsInterface.cpp	51	int /*ImprovementTypes*/ (int /*ImprovementTypes*/ eImprovement, int iCount)	int
+getWorldSizeMaxConscript	cyGetWorldSizeMaxConscript	CyGameCoreUtilsInterface.cpp	53	int (int /*CivicTypes*/ eCivic)	int
+isReligionTech	cyIsReligionTech	CyGameCoreUtilsInterface.cpp	54	int (int /*TechTypes*/ eTech)	int
+isTechRequiredForUnit	cyIsTechRequiredForUnit	CyGameCoreUtilsInterface.cpp	56	bool (int /*TechTypes*/ eTech, int /*UnitTypes*/ eUnit)	bool
+isTechRequiredForBuilding	cyIsTechRequiredForBuilding	CyGameCoreUtilsInterface.cpp	57	bool (int /*TechTypes*/ eTech, int /*BuildingTypes*/ eBuilding)	bool
+isTechRequiredForProject	cyIsTechRequiredForProject	CyGameCoreUtilsInterface.cpp	58	bool (int /*TechTypes*/ eTech, int /*ProjectTypes*/ eProject)	bool
+isWorldUnitClass	cyIsWorldUnitClass	CyGameCoreUtilsInterface.cpp	59	bool (int /*UnitClassTypes*/ eUnitClass)	bool
+isTeamUnitClass	cyIsTeamUnitClass	CyGameCoreUtilsInterface.cpp	60	bool (int /*UnitClassTypes*/ eUnitClass)	bool
+isNationalUnitClass	cyIsNationalUnitClass	CyGameCoreUtilsInterface.cpp	61	bool (int /*UnitClassTypes*/ eUnitClass)	bool
+isLimitedUnitClass	cyIsLimitedUnitClass	CyGameCoreUtilsInterface.cpp	62	bool (int /*UnitClassTypes*/ eUnitClass)	bool
+isWorldWonderClass	cyIsWorldWonderClass	CyGameCoreUtilsInterface.cpp	63	bool (int /*BuildingClassTypes*/ eBuildingClass)	bool
+isTeamWonderClass	cyIsTeamWonderClass	CyGameCoreUtilsInterface.cpp	64	bool (int /*BuildingClassTypes*/ eBuildingClass)	bool
+isNationalWonderClass	cyIsNationalWonderClass	CyGameCoreUtilsInterface.cpp	65	bool (int /*BuildingClassTypes*/ eBuildingClass)	bool
+isLimitedWonderClass	cyIsLimitedWonderClass	CyGameCoreUtilsInterface.cpp	66	bool (int /*BuildingClassTypes*/ eBuildingClass)	bool
+isWorldProject	cyIsWorldProject	CyGameCoreUtilsInterface.cpp	67	bool (int /*ProjectTypes*/ eProject)	bool
+isTeamProject	cyIsTeamProject	CyGameCoreUtilsInterface.cpp	68	bool (int /*ProjectTypes*/ eProject)	bool
+isLimitedProject	cyIsLimitedProject	CyGameCoreUtilsInterface.cpp	69	bool (int /*ProjectTypes*/ eProject)	bool
+getCombatOdds	cyGetCombatOdds	CyGameCoreUtilsInterface.cpp	70	int (CyUnit* pAttacker, CyUnit* pDefender)	int
+getEspionageModifier	cyGetEspionageModifier	CyGameCoreUtilsInterface.cpp	71	int (int /*TeamTypes*/ iOurTeam, int /*TeamTypes*/ iTargetTeam)	int
+calculateExperience	cyCalculateExperience	CyGameCoreUtilsInterface.cpp	74	int (int iLevel, int /*PlayerTypes*/ iPlayer)	int
+calculateLevel	cyCalculateLevel	CyGameCoreUtilsInterface.cpp	75	int (int iExperience, int /*PlayerTypes*/ iPlayer)	int

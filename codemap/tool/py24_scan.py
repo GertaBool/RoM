@@ -32,20 +32,51 @@ def dotted(node):
 
 
 def expr(node):
-    # an expression as the resolver reads it: names, attributes and calls; anything else is ?
-    if isinstance(node, ast.Name): return node.name
+    # an expression as the resolver reads it: names, attributes, calls, subscripts, and literal types; else ?
+    if isinstance(node, ast.Name):
+        if node.name == 'None': return '$None'
+        if node.name in ('True', 'False'): return '$bool'
+        return node.name
+    if isinstance(node, ast.Const):
+        if isinstance(node.value, basestring): return '$str'
+        if isinstance(node.value, (int, long, float)): return '$num'
+        return '?'
+    if isinstance(node, ast.List): return '$list'
+    if isinstance(node, ast.ListComp):
+        inner = expr(node.expr)
+        if inner != '?' and '?' not in inner: return '$list<' + inner + '>'
+        return '$list'
+    if isinstance(node, ast.Dict): return '$dict'
+    if isinstance(node, ast.Tuple): return '$tuple'
     if isinstance(node, ast.Getattr): return expr(node.expr) + '.' + node.attrname
     if isinstance(node, ast.CallFunc): return expr(node.node) + '()'
+    if isinstance(node, ast.Subscript): return expr(node.expr) + '[]'
+    if isinstance(node, ast.Slice): return expr(node.expr)
+    if isinstance(node, ast.Mod):
+        if isinstance(node.left, ast.Const) and isinstance(node.left.value, basestring): return '$str'
+    if isinstance(node, ast.Add):
+        le, re_ = expr(node.left), expr(node.right)
+        if le == '$str' or re_ == '$str': return '$str'
     return '?'
 
 
 class Scan:
     def __init__(self, module, out):
-        self.module, self.out, self.stack = module, out, []
+        self.module, self.out, self.stack, self.globals = module, out, [], []
 
     def caller(self):
         if self.stack: return '.'.join(self.stack)
         return '<module>'
+
+    def is_global(self, name):
+        return bool(self.globals) and name in self.globals[-1]
+
+    def rec_assign(self, target, val, lineno):
+        if '.' not in target and self.is_global(target):
+            scope = '<module>'
+        else:
+            scope = self.caller()
+        self.out['a'].append((self.module, scope, target, val, lineno))
 
     def visit(self, node):
         if isinstance(node, ast.Function) or isinstance(node, ast.Class):
@@ -55,12 +86,17 @@ class Scan:
                 self.out['k'].append((self.module, '.'.join(self.stack + [node.name]),
                                       ','.join([expr(b) for b in node.bases]), node.lineno))
             self.stack.append(node.name)
+            self.globals.append({})
             self.out['f'].append((self.module, '.'.join(self.stack), kind, node.lineno))
             if kind == 'def':
                 self.out['p'].append((self.module, '.'.join(self.stack), ','.join([str(a) for a in node.argnames])))
             for c in node.getChildNodes(): self.visit(c)
+            self.globals.pop()
             self.stack.pop()
             return
+        if isinstance(node, ast.Global) and self.globals:
+            for nm in node.names:
+                self.globals[-1][nm] = 1
         if isinstance(node, ast.CallFunc):
             f = node.node
             pos = []
@@ -95,9 +131,32 @@ class Scan:
         if isinstance(node, ast.Assign) and len(node.nodes) == 1:
             t = node.nodes[0]
             if isinstance(t, ast.AssName):
-                self.out['a'].append((self.module, self.caller(), t.name, expr(node.expr), node.lineno))
+                self.rec_assign(t.name, expr(node.expr), node.lineno)
             elif isinstance(t, ast.AssAttr) and isinstance(t.expr, ast.Name):
-                self.out['a'].append((self.module, self.caller(), t.expr.name + '.' + t.attrname, expr(node.expr), node.lineno))
+                self.rec_assign(t.expr.name + '.' + t.attrname, expr(node.expr), node.lineno)
+            elif isinstance(t, (ast.AssTuple, ast.AssList)):
+                if isinstance(node.expr, (ast.Tuple, ast.List)) and len(t.nodes) == len(node.expr.nodes):
+                    for k in range(len(t.nodes)):
+                        tk = t.nodes[k]
+                        ek = expr(node.expr.nodes[k])
+                        if isinstance(tk, ast.AssName):
+                            self.rec_assign(tk.name, ek, node.lineno)
+                        elif isinstance(tk, ast.AssAttr) and isinstance(tk.expr, ast.Name):
+                            self.rec_assign(tk.expr.name + '.' + tk.attrname, ek, node.lineno)
+                else:
+                    rhs = expr(node.expr)
+                    if rhs != '?' and '?' not in rhs:
+                        for k in range(len(t.nodes)):
+                            tk = t.nodes[k]
+                            ek = rhs + '[' + str(k) + ']'
+                            if isinstance(tk, ast.AssName):
+                                self.rec_assign(tk.name, ek, node.lineno)
+                            elif isinstance(tk, ast.AssAttr) and isinstance(tk.expr, ast.Name):
+                                self.rec_assign(tk.expr.name + '.' + tk.attrname, ek, node.lineno)
+        if isinstance(node, ast.For):
+            it = expr(node.list)
+            if isinstance(node.assign, ast.AssName) and it != '?' and '?' not in it:
+                self.rec_assign(node.assign.name, it + '[]', node.lineno)
         if isinstance(node, ast.Return) and node.value is not None:
             self.out['r'].append((self.module, self.caller(), expr(node.value)))
         if isinstance(node, ast.Import):

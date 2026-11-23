@@ -7,7 +7,7 @@ Group: AI. Functions in line order: what each calls (in order of first call), wh
   - takes the address of: CvTeamAI::CvTeamAI, CvTeamAI::~CvTeamAI
   - called by (1): CvGlobals::init
 - **43** `CvTeamAI::freeStatics()` (static)
-  - calls: operator delete[](void*) [CvGameCoreDLL.cpp]
+  - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvTeamAI::`vector deleting dtor'
   - called by (1): CvGlobals::uninit
 - **49** `CvTeamAI::getTeamNonInl(TeamTypes)` (exported; static)
   - calls: CvTeamAI::getTeam [CvTeamAI.h]
@@ -359,3 +359,4 @@ Group: AI. Functions in line order: what each calls (in order of first call), wh
 - **·** `CvTeamAI::`vector deleting dtor'(unsigned int)` (virtual; overrides CvTeam::__vecDelDtor; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvTeamAI::~CvTeamAI
   - takes the address of: CvTeamAI::~CvTeamAI
+  - called by (1): CvTeamAI::freeStatics

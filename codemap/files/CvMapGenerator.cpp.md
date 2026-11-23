@@ -81,3 +81,4 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **·** `CvMapGenerator::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvMapGenerator::~CvMapGenerator
   - takes the address of: CvMapGenerator::~CvMapGenerator
+  - called by (1): CvMapGenerator::FreeInstance

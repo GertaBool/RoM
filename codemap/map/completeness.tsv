@@ -55,8 +55,8 @@ ctags only	CvDLLSymbolIFaceBase.h	78	Hide
 ctags only	CvDLLSymbolIFaceBase.h	79	IsHidden
 ctags only	CvDLLSymbolIFaceBase.h	80	updatePosition
 ctags only	CvDiploParameters.cpp	4	CvDiploParameters
-ctags only	CvGame.cpp	11008	checkCRCs
-ctags only	CvGame.cpp	11014	getWarningStatus
+ctags only	CvGame.cpp	11075	checkCRCs
+ctags only	CvGame.cpp	11081	getWarningStatus
 ctags only	CvGameCoreDLL.cpp	89	DllMain
 ctags only	CvGameCoreDLL.h	62	operator ==
 ctags only	CvGameCoreDLL.h	65	operator +

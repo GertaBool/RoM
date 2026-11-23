@@ -74,3 +74,4 @@ Group: interface, text and messages. Functions in line order: what each calls (i
 - **·** `CvDiploParameters::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: CvDiploParameters::~CvDiploParameters, operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
   - takes the address of: CvDiploParameters::~CvDiploParameters
+  - called by (1): CvPlayer::clearDiplomacy

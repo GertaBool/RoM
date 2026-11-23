@@ -5,6 +5,7 @@ Group: interface, text and messages. Functions in line order: what each calls (i
 - **6** `CvHallOfFameInfo::CvHallOfFameInfo()`
   - called by (1): CyHallOfFameInfo::CyHallOfFameInfo
 - **10** `CvHallOfFameInfo::~CvHallOfFameInfo()` (virtual)
+  - calls: CvReplayInfo::`vector deleting dtor' [CvReplayInfo.cpp]
   - called by (1): CvHallOfFameInfo::`scalar deleting dtor'
 - **18** `CvHallOfFameInfo::loadReplays()`
   - calls: CvDLLUtilityIFaceBase::loadReplays [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]

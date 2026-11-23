@@ -7,7 +7,7 @@ Group: AI. Functions in line order: what each calls (in order of first call), wh
   - called by (2): FFreeListTrashArray<CvCityAI>::add, ReadStreamableFFreeListTrashArray<class CvCityAI>
 - **71** `CvCityAI::~CvCityAI()` (virtual)
   - calls: CvCityAI::AI_uninit, operator delete[](void*) [CvGameCoreDLL.cpp], CvCity::~CvCity [CvCity.cpp]
-  - called by (1): CvCityAI::`scalar deleting dtor'
+  - called by (3): CvCityAI::`scalar deleting dtor', FFreeListTrashArray<CvCityAI>::removeAll, FFreeListTrashArray<CvCityAI>::removeAt
 - **82** `CvCityAI::AI_init()` (virtual; overrides CvCity::AI_init)
   - calls: CvCityAI::AI_reset, CvCityAI::AI_assignWorkingPlots, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateWorkersNeededHere
 - **109** `CvCityAI::AI_uninit()`

@@ -43,7 +43,11 @@ python3 -I "$here/extract_py.py" layers "$w/py_modules.tsv" "$cm/map/py_modules.
 "$here/../../toolchain/clang-gate/forscope-pass.sh" "$w/mirror" >/dev/null
 python3 "$here/members_clang.py" "$w/mirror" "$BTS_SDK_DIR" --jobs "$jobs" --out "$cm/map"
 IFS=: read -r -a xmldirs <<< "${BASE_XML_DIRS:-}"
-python3 "$here/syntax.py" "$src/Assets/CvGameCoreDLL" "$src/Assets/XML" "${xmldirs[@]}"
+extra_xml=()
+[ -d "$src/Assets/Modules" ] && extra_xml+=("mod-module=$src/Assets/Modules")
+[ -d "$src/Assets/res" ] && extra_xml+=("mod-res=$src/Assets/res")
+[ -d "$src/Assets/Config" ] && extra_xml+=("mod-config=$src/Assets/Config")
+python3 "$here/syntax.py" "$src/Assets/CvGameCoreDLL" "$src/Assets/XML" "${xmldirs[@]}" "${extra_xml[@]}"
 
 # 4. the Python's calls resolved as Python resolves them (with the exe's classes when PYAPI_HTML is given)
 if [ -n "${PYAPI_HTML:-}" ]; then python3 "$here/pyapi.py" "$PYAPI_HTML" "$src/Assets/CvGameCoreDLL"; fi

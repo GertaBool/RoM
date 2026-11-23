@@ -4,7 +4,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
 
 - **23** `FVariable::~FVariable()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp]
-  - called by (3): FVariable::`scalar deleting dtor', addVar(std::vector<FVariable, std::allocator<FVariable>>&, int), addVar(std::vector<FVariable, std::allocator<FVariable>>&, unsigned short const*)
+  - called by (4): FVariable::`scalar deleting dtor', FVariableSystem::UnInit, addVar(std::vector<FVariable, std::allocator<FVariable>>&, int), addVar(std::vector<FVariable, std::allocator<FVariable>>&, unsigned short const*)
 - **41** `FVariable::CopyFrom(FVariable const&)`
   - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp]
   - called by (2): FVariable::FVariable(FVariable const&), FVariable::operator=
@@ -18,8 +18,9 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - called by (1): CvGlobals::init
 - **103** `FVariableSystem::~FVariableSystem()` (virtual)
   - calls: FVariableSystem::UnInit
-  - called by (1): FVariableSystem::`scalar deleting dtor'
+  - called by (2): CvGlobals::uninit, FVariableSystem::`scalar deleting dtor'
 - **108** `FVariableSystem::UnInit()`
+  - calls: FVariable::~FVariable
   - called by (2): CvGlobals::clearTypesMap, FVariableSystem::~FVariableSystem
 - **127** `FVariableSystem::GetSize() const`
   - called by (1): CvXMLLoadUtility::SetPostGlobalsGlobalDefines

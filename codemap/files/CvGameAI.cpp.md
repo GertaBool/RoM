@@ -7,7 +7,7 @@ Group: AI. Functions in line order: what each calls (in order of first call), wh
   - called by (1): CvGlobals::init
 - **19** `CvGameAI::~CvGameAI()` (virtual)
   - calls: CvGameAI::AI_uninit, CvGame::~CvGame [CvGame.cpp]
-  - called by (1): CvGameAI::`scalar deleting dtor'
+  - called by (2): CvGameAI::`scalar deleting dtor', CvGlobals::uninit
 - **25** `CvGameAI::AI_init()` (virtual; overrides CvGame::AI_init)
   - calls: CvGameAI::AI_reset
 - **34** `CvGameAI::AI_uninit()`

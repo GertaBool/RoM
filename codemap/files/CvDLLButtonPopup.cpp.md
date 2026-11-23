@@ -5,10 +5,11 @@ Group: interface, text and messages. Functions in line order: what each calls (i
 - **39** `CvDLLButtonPopup::getInstance()` (exported; static)
   - calls: CvDLLButtonPopup::CvDLLButtonPopup, operator new(unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
 - **48** `CvDLLButtonPopup::freeInstance()` (exported; static)
+  - calls: CvDLLButtonPopup::~CvDLLButtonPopup
 - **54** `CvDLLButtonPopup::CvDLLButtonPopup()`
   - called by (1): CvDLLButtonPopup::getInstance
 - **59** `CvDLLButtonPopup::~CvDLLButtonPopup()` (virtual)
-  - called by (1): CvDLLButtonPopup::`scalar deleting dtor'
+  - called by (2): CvDLLButtonPopup::`scalar deleting dtor', CvDLLButtonPopup::freeInstance
 - **63** `CvDLLButtonPopup::OnAltExecute(CvPopup&, PopupReturn const&, CvPopupInfo&)` (exported; virtual)
   - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPopupInfo::CvPopupInfo [CvPopupInfo.cpp], CvPopupInfo::operator= [CvPopupInfo.cpp], CvDLLInterfaceIFaceBase::addPopup [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLInterfaceIFaceBase::popupSetAsCancelled [CvDLLInterfaceIFaceBase.h], operator delete(void*) [CvGameCoreDLL.cpp]
 - **75** `CvDLLButtonPopup::OnOkClicked(CvPopup*, PopupReturn*, CvPopupInfo&)` (exported; virtual)

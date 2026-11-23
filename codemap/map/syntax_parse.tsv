@@ -20,7 +20,7 @@ BetterBTSAI.h	0
 CvArea.cpp	3
 CvArea.h	0
 CvArtFileMgr.cpp	0
-CvArtFileMgr.h	3
+CvArtFileMgr.h	1
 CvBugOptions.cpp	0
 CvBugOptions.h	0
 CvCity.cpp	1
@@ -44,14 +44,14 @@ CvDLLPython.cpp	0
 CvDLLPythonIFaceBase.h	0
 CvDLLSymbolIFaceBase.h	0
 CvDLLUtilityIFaceBase.h	0
-CvDLLWidgetData.cpp	9
+CvDLLWidgetData.cpp	1
 CvDLLWidgetData.h	0
 CvDLLXMLIFaceBase.h	0
 CvDeal.cpp	0
 CvDeal.h	0
 CvDefines.h	0
 CvDefinesModTools.h	0
-CvDiploParameters.cpp	8
+CvDiploParameters.cpp	1
 CvDiploParameters.h	0
 CvDllPythonEvents.cpp	0
 CvDllPythonEvents.h	0
@@ -73,7 +73,7 @@ CvGameCoreDLLUndefNew.h	0
 CvGameCoreUtils.cpp	0
 CvGameCoreUtils.h	0
 CvGameInterface.cpp	0
-CvGameTextMgr.cpp	31
+CvGameTextMgr.cpp	3
 CvGameTextMgr.h	0
 CvGlobals.cpp	7
 CvGlobals.h	0
