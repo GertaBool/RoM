@@ -695,5 +695,47 @@
    "fixes/ai-and-paging-pass2.patch",
    "fixes/ai-and-paging-pass2/"
   ]
+ },
+ {
+  "id": "H12",
+  "type": "hypothesis",
+  "line": "ai-transformation",
+  "text": "XML, Python, and codemap-verified DLL audit of Rise of Mankind (over pass 2 f0d5629) revealed five systemic AI blindspots: (1) broken Colonist/Pioneer/Roman Colonist AI parity (UI-dependent Python CyInterface().getHeadSelectedUnit() + flat UNITAI_SETTLE scoring), luxury trade denial (BONUSCLASS_LUXURY/GENERAL misclassified as strategic via PrereqOrBonuses), 1-move assault capture blindspot, inverted worker/settler and DCM/nuke bugs, and FreeBonus/BonusYield/32-bit GPP bugs; (2) building-line and economic blindspots (RoMEventManager 29 building replacement lines scored gross instead of net delta, BuildingClassNeededs urban chains, Python-scripted Wonders, Peasantry/RevIdx civic co-evaluation, unscaled GameSpeed civic horizon, and uninflated corporation maintenance); (3) strategic defense gaps (peacetime border and offshore staged-army blindness, keeping Open Borders with lethal border buildup, lacking prospective anti-hegemon coalitions and active defensive counterstrokes, and random AI_doPeace demands); (4) city governor specialization dead no-ops, 50% Process parity, negative-food Slave starvation, Financial/Agricultural yield thresholds, and missing FirstFreeUnitClass/TechCityTrade/DisableTechs tech lookahead; and (5) tactical execution gaps (FIFO upgrades, hero unit suicide odds, stalled siege bombard, no wartime promotion banking, 0-caller cargo promotions, and idle combat engineers). Fixing these bugs unconditionally and gating behavioral upgrades behind AI_ECONOMY_FLAGS (15) and AI_CUNNING_FLAGS (1023) without changing the save format produces substantially stronger AI empires without destabilizing 300-turn runs."
+ },
+ {
+  "id": "P17",
+  "type": "prediction",
+  "line": "ai-transformation",
+  "hypotheses": [
+   "H12"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "Over pass 2 (f0d5629, save-compatible, 2,452 exports): Pass 3 unconditional bug fixes (deterministic C++ Colonist/Pioneer/Roman Colonist founding in CvUnit::found + RoMEventManager.py cleanup + AI_unitValue parity, AI_bonusTrade luxury/general fix, AI_isFinancialTrouble slider-diverted commerce, AI_getTotalFloatingDefenders collateral/air filter, setUpgradeAnywhere/processCivics fix, AI_assaultForecast capture fix, 64-bit AI_specialistValue GPP, FreeBonus/Pass-0 BonusYield/isProductionProject fixes, AI_makePeaceTrade/AI_getTechMonopolyValue/64-bit AI_doWar fixes, settler escort/worker/road/inquisition/nuke/DCM bombard fixes); Pass 4 (AIBuildingLinePolicy.h, AI_ECONOMY_FLAGS=15, net-delta building upgrades, BuildingClassNeededs lookahead, obsolescence, Golden Age/military/Python Wonders, Peasantry/RevIdx civic co-eval, GameSpeed civic horizon, inflation-adjusted corporation net profit, multi-pair luxury swaps); Pass 5 (AIStrategicDefensePolicy.h, AI_CUNNING_FLAGS=1023, peacetime staged-army & offshore deterrence, proactive Open Borders cancel, prospective anti-hegemon coalitions + Victory-Level-3 prevention, defensive counterstroke posture, deterministic AI_doPeace); Pass 6 (City Governor specialization, 50% Process parity, slave starvation guard, Financial/Agricultural yield thresholds, FirstFreeUnitClass/TechCityTrade/DisableTechs tech scoring, depth-5/6 research); Pass 7 (priority-ranked upgrades, 65% hero odds floor, non-stall siege bombard, wartime promotion banking, transport cargo promotions, combat engineer road building). Arm a: transformed build over f0d5629; arm b: pass-2 f0d5629 baseline, in the headless harness. Runs complete no less often while advancing AI economy, tech, and military strength.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/AIBuildingLinePolicy.h",
+   "gitlab:Assets/CvGameCoreDLL/AIStrategicDefensePolicy.h",
+   "gitlab:Assets/CvGameCoreDLL/CvCityAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayer.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvSelectionGroup.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvTeamAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnitAI.cpp",
+   "gitlab:Assets/Python/RoMEventManager.py",
+   "gitlab:Assets/XML/BBAI_AI_Variables_GlobalDefines.xml",
+   "fixes/ai-transformation.patch",
+   "fixes/ai-transformation/"
+  ]
  }
 ]
