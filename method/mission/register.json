@@ -737,5 +737,41 @@
    "fixes/ai-transformation.patch",
    "fixes/ai-transformation/"
   ]
+ },
+ {
+  "id": "H13",
+  "type": "hypothesis",
+  "line": "civic-engine-and-ai-pass8",
+  "text": "Forensic edge-case audit of RoM's civic engine, Python/XML helpers, and AI valuation (over 0fabccd) uncovered objective mechanical and code-vs-engine contradictions: (1) CvPlayer::getImprovementUpgradeRate() computes integer (1 * (100 + mod)) / 100, silently truncating 12 of 13 iImprovementUpgradeRateModifier civics (+10%..+50%) to 0% speedup; (2) CvPlayer::getWorkRate() dereferences NO_UNIT across 173 NONE unit entries and workRate() allows -100% worker-speed zero-stall, while CvPlayer::setInquisitionConditions() lacks a NO_CIVIC guard and fails to clear m_bInquisitionConditions on isDisallowInquisitions(); (3) RevCivicsUtils.py freedom/democracy getters return on the first non-zero slot (letting Priesthood shadow Religion and Planned Allocation shadow Employment), and Guilds_CIV4CivicInfos.xml uses unread tag fRevIdxDistanceMod instead of iRevIdxDistanceModifier; (4) CvPlayerAI::AI_civicValue / AI_RevCalcCivicRelEffect / AI_doCivics score World/Team Wonders and unbuildable tech/religion buildings per-city, skip Priesthood's cross-slot state-religion modifiers, drop Occult's largest religion in NonStateReligionHappiness, ignore GAMEOPTION_NO_REVOLUTION in AI_RevCalcCivicRelEffect, truncate fractional _MOD_FRACTRADE trade profit and zero out iTradeRoutes at 0 active routes, invert FavoriteCivic when iValue < 0, carry a dead getAnarchyTurns() > 0 threshold branch, and distort Militia isMilitaryFoodProduction. Fixing these objective defects without changing the save format restores documented civic mechanics and eliminates AI scoring contradictions."
+ },
+ {
+  "id": "P18",
+  "type": "prediction",
+  "line": "civic-engine-and-ai-pass8",
+  "hypotheses": [
+   "H13"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "Over Passes 3-7 (0fabccd, save-compatible, 2,452 exports): (1) AICivicPolicy.h/CvPlot.cpp: exploit-free plot-progress lattice snapping improvementUpgradeStep() and exact O(1) improvementUpgradeTurnsLeft() preserving m_iUpgradeProgress save compatibility without turn-parity micro-exploit or UI flicker, plus isOwned() guard in doImprovementUpgrade(); (2) CvUnit.cpp/CvPlayer.cpp: NO_UNIT guard in getWorkRate(), 10% worker-speed floor via scaledWorkRate(), and NO_CIVIC/disallow-reset fix in setInquisitionConditions(); (3) RevCivicsUtils.py & Guilds_CIV4CivicInfos.xml/Guilds_CIV4GameInfoSchema.xml: primary-category selection eliminating first-match shadowing in freedom/democracy getters and iRevIdxDistanceModifier tag fix on CIVIC_GUILDS; (4) CvPlayerAI.cpp: exclude limited wonders and unbuildable tech/religion buildings from per-city building happiness/health credit, fix cross-slot state-religion evaluation for Priesthood and full-religion count for Occult, guard GAMEOPTION_NO_REVOLUTION in AI_RevCalcCivicRelEffect, sum _MOD_FRACTRADE calculateTradeProfitTimes100 and floor 0-route trade profit estimate, guard FavoriteCivic sign inversion, remove dead getAnarchyTurns() > 0 check in AI_doCivics, and fix Militia isMilitaryFoodProduction scoring. Arm a: patched build over 0fabccd; arm b: unmodified 0fabccd, in the headless harness. Runs complete no less often with the fixes than without.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/AICivicPolicy.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayer.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/Python/Revolution/RevCivicsUtils.py",
+   "gitlab:Assets/Modules/Projects/Vincentz/Guilds/Guilds_CIV4CivicInfos.xml",
+   "gitlab:Assets/Modules/Projects/Vincentz/Guilds/Guilds_CIV4GameInfoSchema.xml",
+   "fixes/civic-engine-and-ai-pass8.patch",
+   "fixes/civic-engine-and-ai-pass8/"
+  ]
  }
 ]
