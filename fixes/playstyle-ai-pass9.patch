@@ -1,4 +1,4 @@
-From e4b70a90499df45e0342acee640a8efe0c548c2c Mon Sep 17 00:00:00 2001
+From 9d903adf4bd9ee846f4c3d38ab74ce932fd77f69 Mon Sep 17 00:00:00 2001
 From: GertaBool <67003432+GertaBool@users.noreply.github.com>
 Date: Wed, 25 Nov 2026 19:18:34 +0000
 Subject: [PATCH] AI Pass 9: Land XML ranged/collateral combat, Camp-spam fix,
@@ -691,7 +691,7 @@ index caf6adb..8bb2661 100644
  		}
  		if (eResourceBuild != NO_BUILD)
 diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
-index aff1509..e685742 100644
+index aff1509..5a24246 100644
 --- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
 +++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
 @@ -9,6 +9,7 @@
@@ -1066,7 +1066,7 @@ index aff1509..e685742 100644
 +			changeCommercePercent(COMMERCE_ESPIONAGE, iIncrement);
 +		}
 +	}
-+	
++
  	if (!bFirstTech && (getGold() < iGoldTarget) && (getCommercePercent(COMMERCE_RESEARCH) > 40))
  	{
  		bool bHurryGold = false;
@@ -1079,13 +1079,13 @@ index aff1509..e685742 100644
 +			if (getCommercePercent(COMMERCE_ESPIONAGE) > iEspFloor)
  			{
 -				changeCommercePercent(COMMERCE_ESPIONAGE, -GC.getDefineINT("COMMERCE_PERCENT_CHANGE_INCREMENTS"));			
-+				changeCommercePercent(COMMERCE_ESPIONAGE, -iIncrement);			
++				changeCommercePercent(COMMERCE_ESPIONAGE, -iIncrement);
  			}
 -			else
 +			else if (getCommercePercent(COMMERCE_RESEARCH) >= 50 + iIncrement)
  			{
 -				changeCommercePercent(COMMERCE_RESEARCH, -GC.getDefineINT("COMMERCE_PERCENT_CHANGE_INCREMENTS"));			
-+				changeCommercePercent(COMMERCE_RESEARCH, -iIncrement);			
++				changeCommercePercent(COMMERCE_RESEARCH, -iIncrement);
  			}
 -			//changeCommercePercent(COMMERCE_GOLD, GC.getDefineINT("COMMERCE_PERCENT_CHANGE_INCREMENTS"));
  		}
