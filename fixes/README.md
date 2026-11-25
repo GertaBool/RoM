@@ -1,5 +1,55 @@
 # Tested source fixes
 
+## Playstyle-aligned tactical & economic AI fixes (Pass 9 over Pass 8 `546d223`)
+
+[playstyle-ai-pass9.patch](playstyle-ai-pass9.patch) applies on top of Pass 8 (`546d223`, apply
+with `git am --keep-cr` on Windows to preserve CRLF). It is not on GitLab yet. It adds pure C++98
+`AIPlaystylePolicy.h` and integrates it across `CvCityAI.cpp`, `CvPlayerAI.cpp`, `CvUnitAI.cpp`,
+and `CvSelectionGroup.cpp` without changing the save format (`2,452` exports unchanged):
+- **Block #1 — Build ladder, `0`-route trade projection & `Walls` (`CvCityAI.cpp`)**: projects
+  trade-route slots added by `Port`/`Harbor`/`River Port` (and a conservative near-term slot for
+  `Lighthouse`/`Jewellery`/`Market`) so `INITIAL_TRADE_ROUTES = 0` no longer zeroes trade-route
+  modifiers in newly founded/conquered cities; moves permanent border-pop culture/`Walls` buildings
+  ahead of `PROCESS_CULTURE`; credits dual Culture+Defense synergy (`Walls`) and removes the `3*pop`
+  random gate for unfortified frontier/young cities; lets non-military peacetime cities finish core
+  infrastructure ahead of random peacetime unit rolls.
+- **Block #2 — Tile development, Great People EV math, Tech-for-Gold & Food Corporations (`CvCityAI.cpp`, `CvPlayerAI.cpp`, `CvUnitAI.cpp`)**:
+  fixes the Camp-spam minimum-`iTime` resource-connector override in `AI_bestPlotBuild()` (`400`-time
+  Camp overriding `500`-time Plantation/Olive Farm/Apple Farm and tied Pasture) by ranking legal
+  resource connectors by net weighted plot yield first; upgrades `AI_calculateGoldenAgeValue()` with
+  city multipliers, zero-anarchy pending civic swaps, and `+100%` GP rate; replaces hardcoded
+  Scientist/Engineer/General waterfalls with marginal expected-value comparisons (Academy NPV vs
+  Golden Age vs Bulb while preserving Corporation HQ priority, gold-hurry discount on Great Engineer
+  wonders, `Courier System`/`Military Academy` priority for non-operational Great Generals); fixes
+  backwards tech-for-gold selling in `AI_doDiplo()` to sell affordable tangential techs while
+  refusing military unlocks to border threats/war targets; weights Food corporations above Production
+  based on happy/health headroom.
+- **Block #3 — Land XML `iAirRange` combat, Collateral Cavalry ordering, Unit ROI & Coastal Defense (`CvPlayerAI.cpp`, `CvCityAI.cpp`, `CvUnitAI.cpp`, `CvSelectionGroup.cpp`)**:
+  scores all 46 land `iAirRange` units, `isEnemyRoute()`/`isAlwaysHeal()` free promotions (Roman
+  legions), chokepoint terrain defense specialists, and unique Warlord/Centurion leaders in
+  `AI_unitValue()`; rewrites `AI_rangeAttack()` to scan every ready ranged unit in a stack at true
+  `airRange()` (fixing range-2 Artillery and mixed stacks) and score targets by effective ranged +
+  collateral damage instead of melee `AI_attackOdds()`; wires pre-melee stack ranged volleys into
+  `CvSelectionGroup::groupAttack()`, `AI_attackCityMove()`, `AI_collateralMove()`, and defensive
+  city/fortified-chokepoint plots; adds circumstantial safe 2-move skirmish step-and-shoot and
+  post-shot retreat (`RANGED_ATTACKS_USE_MOVES = 0`) that never weakens mixed stacks or abandons
+  escorts/cities; boosts collateral cavalry/siege attack priority in `LFBgetBetterAttacker()`;
+  enforces turn-time ROI in `AI_bestUnitAI()` (including Slavery whip); adds coastal naval-threat
+  garrison scaling in `AI_neededDefenders()`.
+- **Block #4 — Espionage/RevDCM slider floors, Spy AI, Mixed `Resource + GPT` Luxuries & Upgrade Reserves (`CvPlayerAI.cpp`)**:
+  enforces a solvent `5–10%` Espionage floor (not zeroed vs Pleased/Friendly rivals and not drained
+  for `HURRY_GOLD`) and an Era 1+ RevolutionDCM-safe `>= 50%` research floor; adds EP-ratio
+  Counter-Espionage and `Switch Civic` missions to `AI_bestPlotEspionage()`; extends the `50%`
+  surplus-sharing reservation floor in `AI_resourceReservationVal()` to global yield-multiplier
+  luxuries (`Coffee`/`Tea`/`Gold`/`Silver`); adds mixed `Spare Resource + GPT` import offers in
+  `AI_doDiplo()`; reserves urgent frontline unit-upgrade cash before `AI_doGoldHurry()` spends
+  treasury ahead of `AI_doTurnUnitsPost()`.
+
+The release DLL builds with MSVC 2003 with 0 warnings and 0 errors (`2,452` exports), `clang-gate`
+reports 0 new errors/warnings across all 4 modified `.cpp` files, `git am --keep-cr` round-trips
+identically over `546d223`, and all native C++98 unit tests pass; full P19 seeded evidence and
+in-game verification are open. See the [details and checks](playstyle-ai-pass9/README.md).
+
 ## Civic engine, Python/XML, and AI semantic bug fixes (Pass 8 over `0fabccd`)
 
 [civic-engine-and-ai-pass8.patch](civic-engine-and-ai-pass8.patch) applies on top of Passes 3–7
