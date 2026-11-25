@@ -773,5 +773,39 @@
    "fixes/civic-engine-and-ai-pass8.patch",
    "fixes/civic-engine-and-ai-pass8/"
   ]
+ },
+ {
+  "id": "H14",
+  "type": "hypothesis",
+  "line": "playstyle-ai-pass9",
+  "text": "Line-by-line C++ audit over Pass 8 (546d223) identified seven concrete tactical and economic AI failure modes against RoM's actual XML/engine rules: (1) CvCityAI::AI_buildingValueThreshold multiplies TradeRouteModifier/ForeignTradeRouteModifier by current getTradeYield() (zeroing Port/Harbor/Lighthouse/Jewellery/Market under INITIAL_TRADE_ROUTES=0) while AI_chooseProduction runs PROCESS_CULTURE before Monument/Walls and buries Walls behind a 3*pop random roll; (2) CvCityAI::AI_bestPlotBuild resource-connector override picks minimum build iTime, forcing 400-time Camp over 500-time Plantation/Olive Farm/Apple Farm and tied Pasture across 21 Camp-eligible resources; (3) AI_scientistMove and AI_engineerMove run hardcoded waterfalls before comparing Academy NPV or gold-hurriable wonders against AI_calculateGoldenAgeValue(), which itself omits city multipliers, zero-anarchy civic swaps, and +100% GP rate; (4) AI_doDiplo tech-for-gold selling picks the single most expensive tech and aborts when the buyer cannot cover it, while Food corporations are weighted identically to Production; (5) AI_unitValue ignores all 46 land iAirRange units, enemy-road/March free promotions, chokepoint defense specialists, and Warlord/Centurion leaders, AI_rangeAttack scores targets with melee AI_attackOdds() on head-unit only across 2 call sites, mixed stacks never fire pre-melee ranged volleys or order collateral cavalry before melee finishers, AI_bestUnitAI skips turn cost under Slavery, and AI_neededDefenders ignores coastal naval threats; (6) AI_doCommerce collapses Espionage to 0% vs Pleased/Friendly rivals and lacks an Era 1+ RevolutionDCM >= 50% research floor, while AI_bestPlotEspionage never runs Switch Civic or EP-ratio Counter-Espionage; (7) AI_doGoldHurry spends gold at CvPlayer.cpp:3974 ahead of AI_doTurnUnitsPost unit upgrades without an upgrade reserve, AI_resourceReservationVal omits global yield-multiplier luxuries, and AI_doDiplo cannot bundle Spare Resource + GPT offers. Fixing all seven via pure C++98 AIPlaystylePolicy.h without altering save format or exports improves AI economic compounding and battlefield lethality."
+ },
+ {
+  "id": "P19",
+  "type": "prediction",
+  "line": "playstyle-ai-pass9",
+  "hypotheses": [
+   "H14"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "Over Pass 8 (546d223, save-compatible, 2,452 exports): add pure C++98 AIPlaystylePolicy.h and wire into CvCityAI.cpp, CvPlayerAI.cpp, CvUnitAI.cpp, and CvSelectionGroup.cpp: (1) projected trade-route base for 0-route cities, border-pop building before PROCESS_CULTURE, frontier Walls priority, and peacetime non-military infrastructure priority; (2) yield-ranked resource connector in AI_bestPlotBuild eliminating 400-time Camp-over-Plantation/Pasture spam; (3) full Golden Age valuation (city multipliers, zero-anarchy civic swaps, +100% GP rate), unified Scientist/Engineer/General EV math, Food corporation headroom weighting, and affordable tangential tech-for-gold sales; (4) land XML iAirRange valuation + enemy-road/March/chokepoint/Warlord scoring in AI_unitValue, group-wide true-airRange ranged damage targeting in AI_rangeAttack, pre-melee ranged volleys in groupAttack/AI_attackCityMove/AI_collateralMove/defensive chokepoints, circumstantial safe 2-move skirmish step-and-shoot and retreat, collateral cavalry/siege attack priority in LFBgetBetterAttacker, turn-time ROI divisor in AI_bestUnitAI, and coastal naval threat scaling in AI_neededDefenders; (5) solvent 5-10% Espionage floor, Era 1+ RevDCM >= 50% research floor, EP-ratio Counter-Espionage and Switch Civic spy missions, yield-multiplier luxury 50% surplus reservation, mixed Resource + GPT luxury import offers, and urgent frontline upgrade reserve before AI_doGoldHurry. Arm a: patched build over 546d223; arm b: unmodified 546d223, in the headless harness. Runs complete no less often with the fixes than without.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/AIPlaystylePolicy.h",
+   "gitlab:Assets/CvGameCoreDLL/CvCityAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvSelectionGroup.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnitAI.cpp",
+   "fixes/playstyle-ai-pass9.patch",
+   "fixes/playstyle-ai-pass9/"
+  ]
  }
 ]
+
