@@ -1,5 +1,36 @@
 # Tested source fixes
 
+## Civic engine, Python/XML, and AI semantic bug fixes (Pass 8 over `0fabccd`)
+
+[civic-engine-and-ai-pass8.patch](civic-engine-and-ai-pass8.patch) applies on top of Passes 3–7
+(`0fabccd`, apply with `git am --keep-cr` on Windows to preserve CRLF). It is not on GitLab yet.
+It fixes verified engine, Python/XML, and AI code-vs-engine bugs without changing the save format
+(`2,452` exports unchanged):
+- **Exploit-free fractional `iImprovementUpgradeRateModifier` (`AICivicPolicy.h`, `CvPlot.cpp`)**:
+  replaces integer `(1 * (100 + mod)) / 100` truncation (which zeroed out 12 of 13 upgrade-rate
+  civics from `+10%` to `+50%`) with deterministic plot-progress lattice snapping and exact O(1)
+  `getUpgradeTimeLeft` (zero turn-parity exploit, zero UI hover flicker, 100% compatible with
+  `short m_iUpgradeProgress`), plus an `isOwned()` guard in `CvPlot::doImprovementUpgrade()`;
+- **Worker-speed & Inquisition safety (`CvPlayer.cpp`, `CvUnit.cpp`)**: fixes the live `NO_UNIT`
+  out-of-bounds read in `CvPlayer::getWorkRate()` (173 `NONE` unit entries), floors stacked negative
+  worker-speed modifiers at `10%` to prevent permanent zero-stall, and fixes `NO_CIVIC` guarding and
+  `isDisallowInquisitions()` reset in `CvPlayer::setInquisitionConditions()`;
+- **Revolution Python & Guilds XML (`RevCivicsUtils.py`, `Guilds_CIV4CivicInfos.xml`, `Guilds_CIV4GameInfoSchema.xml`)**:
+  fixes first-match slot shadowing across all four freedom/democracy getters in `RevCivicsUtils.py`
+  and fixes `CIVIC_GUILDS`'s unread `<fRevIdxDistanceMod>` tag to `<iRevIdxDistanceModifier>5</iRevIdxDistanceModifier>`;
+- **Objective `CvPlayerAI` fixes (`CvPlayerAI.cpp`)**: stops scoring World/Team Wonders and
+  unbuildable tech/religion buildings per-city, fixes cross-slot state-religion scoring for
+  `Priesthood` and full-religion happiness count for `Occult`, guards `GAMEOPTION_NO_REVOLUTION` in
+  `AI_RevCalcCivicRelEffect`, sums `_MOD_FRACTRADE` `calculateTradeProfitTimes100` and floors 0-route
+  `iTradeRoutes` estimates, fixes `FavoriteCivic` negative-score sign inversion, removes the dead
+  `getAnarchyTurns() > 0` check in `AI_doCivics`, and fixes `Militia` `isMilitaryFoodProduction`
+  peace/war distortion.
+
+The release DLL builds with MSVC 2003 with 0 warnings and 0 errors (`2,452` exports), `clang-gate`
+reports 0 new errors/warnings across all 4 modified `.cpp` files, and all native C++98, Python, and
+XML unit tests pass; full P18 seeded evidence and in-game verification are open. See the
+[details and checks](civic-engine-and-ai-pass8/README.md).
+
 ## 5-pass RoM AI transformation (Passes 3–7 over pass 2 `f0d5629`)
 
 [ai-transformation.patch](ai-transformation.patch) applies on top of pass 2 (`f0d5629`, apply with

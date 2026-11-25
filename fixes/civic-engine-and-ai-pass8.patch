@@ -1,0 +1,693 @@
+From 546d2230e81399c705e51150aa7fbd4ef0b88a39 Mon Sep 17 00:00:00 2001
+From: GertaBool <67003432+GertaBool@users.noreply.github.com>
+Date: Tue, 24 Nov 2026 15:59:40 +0000
+Subject: [PATCH] Pass 8: Fix fractional ImprovementUpgradeRate,
+ NO_UNIT/workRate, setInquisitionConditions, RevCivicsUtils, Guilds XML, and
+ objective AI_civicValue bugs
+
+---
+ Assets/CvGameCoreDLL/AICivicPolicy.h          |  79 ++++++++++
+ Assets/CvGameCoreDLL/CvPlayer.cpp             |  31 ++--
+ Assets/CvGameCoreDLL/CvPlayerAI.cpp           | 135 +++++++++++++-----
+ Assets/CvGameCoreDLL/CvPlot.cpp               |  37 ++---
+ Assets/CvGameCoreDLL/CvUnit.cpp               |  14 +-
+ .../Vincentz/Guilds/Guilds_CIV4CivicInfos.xml |   2 +-
+ .../Guilds/Guilds_CIV4GameInfoSchema.xml      |   2 +
+ Assets/Python/Revolution/RevCivicsUtils.py    |  88 +++++-------
+ 8 files changed, 255 insertions(+), 133 deletions(-)
+
+diff --git a/Assets/CvGameCoreDLL/AICivicPolicy.h b/Assets/CvGameCoreDLL/AICivicPolicy.h
+index 64fda83..11019b9 100644
+--- a/Assets/CvGameCoreDLL/AICivicPolicy.h
++++ b/Assets/CvGameCoreDLL/AICivicPolicy.h
+@@ -76,6 +76,85 @@ namespace AICivicPolicy
+ 		const long long iReserve = (iBaseline * iHorizon * iThreshold) / 100;
+ 		return iGain > iSwitchCost + iReserve;
+ 	}
++
++	// Exploit-free fractional improvement upgrade step preserving exact save-format
++	// compatibility on short CvPlot::m_iUpgradeProgress.
++	// For r = 100 + mod >= 100 (all RoM XML modifiers: +10%..+200%), advances each
++	// plot deterministically along its own worked-turn lattice p_k = floor(k*r/100)
++	// via k(p) = floor((100*(p+1)-1)/r), eliminating both turn-parity micro-exploits
++	// and UI hover flicker while snapping legacy/mid-upgrade off-lattice values cleanly.
++	// For hypothetical modded negative modifiers (0 < r < 100), falls back to
++	// turn-keyed Bresenham so fractional rates below 1.0 never stall permanently.
++	inline int improvementUpgradeStep(const int iCurrentProgress, const int iGameTurn,
++		const int iUpgradeRateModifier)
++	{
++		const int iRate100 = std::max(0, 100 + iUpgradeRateModifier);
++		if (iRate100 <= 0)
++		{
++			return 0;
++		}
++		if (iRate100 >= 100)
++		{
++			const long long iProg = iCurrentProgress > 0 ? (long long)iCurrentProgress : 0LL;
++			const long long iK = (100LL * (iProg + 1LL) - 1LL) / iRate100;
++			const long long iNext = ((iK + 1LL) * iRate100) / 100LL;
++			const long long iStep = iNext - iProg;
++			return iStep < 1LL ? 1 : (iStep > INT_MAX ? INT_MAX : (int)iStep);
++		}
++		const long long iTurn = iGameTurn > 0 ? (long long)iGameTurn : 0LL;
++		const long long iPrev = (iTurn * iRate100) / 100LL;
++		const long long iNext = ((iTurn + 1LL) * iRate100) / 100LL;
++		return (int)(iNext - iPrev);
++	}
++
++	// Exact O(1) closed-form turns remaining matching improvementUpgradeStep()
++	// turn-for-turn with zero UI hover flicker and zero off-by-one drift.
++	inline int improvementUpgradeTurnsLeft(const int iCurrentProgress, const int iUpgradeTime,
++		const int iGameTurn, const int iUpgradeRateModifier)
++	{
++		const long long iProg = iCurrentProgress > 0 ? (long long)iCurrentProgress : 0LL;
++		const long long iTarget = iUpgradeTime > 0 ? (long long)iUpgradeTime : 0LL;
++		if (iProg >= iTarget)
++		{
++			return 1;
++		}
++		const int iRate100 = std::max(0, 100 + iUpgradeRateModifier);
++		if (iRate100 <= 0)
++		{
++			const long long iRem = iTarget - iProg;
++			return iRem < 1LL ? 1 : (iRem > INT_MAX ? INT_MAX : (int)iRem);
++		}
++		if (iRate100 >= 100)
++		{
++			const long long iK = (100LL * (iProg + 1LL) - 1LL) / iRate100;
++			const long long iKEnd = (100LL * iTarget + iRate100 - 1LL) / iRate100;
++			const long long iTurns = iKEnd - iK;
++			return iTurns < 1LL ? 1 : (iTurns > INT_MAX ? INT_MAX : (int)iTurns);
++		}
++		const long long iRem = iTarget - iProg;
++		const long long iTurn = iGameTurn > 0 ? (long long)iGameTurn : 0LL;
++		const long long iTargetFloor = (iTurn * iRate100) / 100LL + iRem;
++		const long long iEndTurn = (iTargetFloor * 100LL + iRate100 - 1LL) / iRate100;
++		const long long iTurns = iEndTurn - iTurn;
++		return iTurns < 1LL ? 1 : (iTurns > INT_MAX ? INT_MAX : (int)iTurns);
++	}
++
++	// Floors stacked negative worker-speed modifiers at 10% (and at least 1 work
++	// unit when base rate > 0) so workers cannot stall permanently at 0 progress/turn.
++	inline int scaledWorkRate(const int iBaseRate, const int iWorkerSpeedModifier,
++		const int iAIWorkRateModifier, const bool bApplyAIModifier)
++	{
++		if (iBaseRate <= 0)
++		{
++			return 0;
++		}
++		int iRate = (iBaseRate * std::max(10, iWorkerSpeedModifier + 100)) / 100;
++		if (bApplyAIModifier)
++		{
++			iRate = (iRate * std::max(10, iAIWorkRateModifier + 100)) / 100;
++		}
++		return std::max(1, iRate);
++	}
+ }
+ 
+ #endif
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
+index d8bc2b6..a0feca4 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayer.cpp
+@@ -9,6 +9,7 @@
+ #include "CvRandom.h"
+ #include "CvTeamAI.h"
+ #include "CvGameCoreUtils.h"
++#include "AICivicPolicy.h"
+ #include "CvPlayerAI.h"
+ #include "CvPlayer.h"
+ #include "CvGameCoreUtils.h"
+@@ -10291,7 +10292,12 @@ int CvPlayer::getWorkRate(BuildTypes eBuild) const
+ 
+ 	for (int iI = 0; iI < GC.getNumUnitClassInfos(); iI++)
+ 	{
+-		CvUnitInfo& kUnit = GC.getUnitInfo((UnitTypes)kCiv.getCivilizationUnits(iI));
++		const UnitTypes eUnit = (UnitTypes)kCiv.getCivilizationUnits(iI);
++		if (eUnit == NO_UNIT)
++		{
++			continue;
++		}
++		CvUnitInfo& kUnit = GC.getUnitInfo(eUnit);
+ 
+ 		if (kUnit.getBuilds(eBuild))
+ 		{
+@@ -10300,16 +10306,9 @@ int CvPlayer::getWorkRate(BuildTypes eBuild) const
+ 		}
+ 	}
+ 
+-	iRate *= std::max(0, getWorkerSpeedModifier() + 100);
+-	iRate /= 100;
+-
+-	if (!isHuman() && !isBarbarian())
+-	{
+-		iRate *= std::max(0, (GC.getHandicapInfo(GC.getGameINLINE().getHandicapType()).getAIWorkRateModifier() + 100));
+-		iRate /= 100;
+-	}
+-
+-	return iRate;
++	const bool bApplyAI = (!isHuman() && !isBarbarian());
++	const int iAIMod = bApplyAI ? GC.getHandicapInfo(GC.getGameINLINE().getHandicapType()).getAIWorkRateModifier() : 0;
++	return AICivicPolicy::scaledWorkRate(iRate, getWorkerSpeedModifier(), iAIMod, bApplyAI);
+ }
+ // BUG - Partial Builds - end
+ 
+@@ -10410,11 +10409,17 @@ void CvPlayer::setInquisitionConditions()
+ 		
+ 	for (int iI = 0; iI < GC.getNumCivicOptionInfos(); iI++)
+ 	{
+-		if (GC.getCivicInfo(getCivics((CivicOptionTypes)iI)).isDisallowInquisitions())
++		const CivicTypes eCivic = getCivics((CivicOptionTypes)iI);
++		if (eCivic == NO_CIVIC)
++		{
++			continue;
++		}
++		if (GC.getCivicInfo(eCivic).isDisallowInquisitions())
+ 		{
++			m_bInquisitionConditions = false;
+ 			return;
+ 		}
+-		else if (GC.getCivicInfo(getCivics((CivicOptionTypes)iI)).isAllowInquisitions())
++		else if (GC.getCivicInfo(eCivic).isAllowInquisitions())
+ 		{
+ 			m_bInquisitionConditions = true;
+ 		}
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index 55eaf2c..aff1509 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -13749,6 +13749,9 @@ int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const
+ 	iConnectedForeignCities = countPotentialForeignTradeCitiesConnected();
+ 	int aiActualTradeYield[NUM_YIELD_TYPES] = { 0 };
+ 	int iTotalTradeProfit = 0;
++#ifdef _MOD_FRACTRADE
++	int iTotalTradeProfitTimes100 = 0;
++#endif
+ 	int iActiveTradeRoutes = 0;
+ 	int iForeignTradeRoutes = 0;
+ 	int iTradeLoop;
+@@ -13764,7 +13767,11 @@ int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const
+ 			CvCity* pPartner = pTradeCity->getTradeCity(iRoute);
+ 			if (pPartner != NULL)
+ 			{
++#ifdef _MOD_FRACTRADE
++				iTotalTradeProfitTimes100 += pTradeCity->calculateTradeProfitTimes100(pPartner);
++#else
+ 				iTotalTradeProfit += pTradeCity->calculateTradeProfit(pPartner);
++#endif
+ 				iActiveTradeRoutes++;
+ 				if (pPartner->getTeam() != getTeam())
+ 				{
+@@ -13773,6 +13780,9 @@ int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const
+ 			}
+ 		}
+ 	}
++#ifdef _MOD_FRACTRADE
++	iTotalTradeProfit = iTotalTradeProfitTimes100 / 100;
++#endif
+ 	iTotalReligonCount = countTotalHasReligion();
+ 	ReligionTypes eBestReligion = AI_bestReligion();
+ 	if (eBestReligion == NO_RELIGION)
+@@ -13896,19 +13906,11 @@ int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const
+ 	{
+ 		for (CvCity* pLoopCity = firstCity(&iLoop); pLoopCity != NULL; pLoopCity = nextCity(&iLoop))
+ 		{
+-			iTempValue += pLoopCity->foodDifference(false);
+-		}
+-		//If not at war Food is generally more valuable then hammers
+-		if (!bWarPlan)
+-		{
+-			iTempValue /= -4;
++			iTempValue += std::max(0, pLoopCity->foodDifference(false));
+ 		}
+-		//If we are at war hammers are more valuable
+-		else
+-		{
+-			iTempValue *= 3;
+-		}
+-		iValue += iTempValue;
++		// MilitaryFoodProduction only diverts surplus food in cities actively training
++		// military units; infrastructure cities continue growing normally at peace.
++		iValue += (bWarPlan ? (iTempValue / 2) : (iTempValue / 10));
+ 	}
+ 	
+ 	//Upgrade Anywhere 
+@@ -14046,7 +14048,9 @@ int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const
+ 	int iOpenRouteCapacity = std::max(0, iRouteCapacity * getNumCities() - iActiveTradeRoutes);
+ 	int iCivicAddedRoutes = std::min(iOpenRouteCapacity,
+ 		std::max(0, kCivic.getTradeRoutes()) * getNumCities());
+-	int iAverageTradeProfit = iTotalTradeProfit / std::max(1, iActiveTradeRoutes);
++	int iAverageTradeProfit = (iActiveTradeRoutes > 0)
++		? std::max(1, iTotalTradeProfit / iActiveTradeRoutes)
++		: 1;
+ 	// Removed: multiplying recurring trade value by a horizon here and again in
+ 	// AI_doCivics. Keep every recurring civic term in per-turn utility units.
+ 	int iProjectedTradeValue = 0;
+@@ -14204,7 +14208,38 @@ int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const
+ 		}
+ 	}
+ 	
+-	iValue += (kCivic.getNonStateReligionHappiness() * (iTotalReligonCount - iHighestReligionCount) * 5);
++	bool bHasStateReligionWithCivic = kCivic.isStateReligion();
++	if (!bHasStateReligionWithCivic)
++	{
++		for (int iOpt = 0; iOpt < GC.getNumCivicOptionInfos(); ++iOpt)
++		{
++			if (iOpt != kCivic.getCivicOptionType())
++			{
++				const CivicTypes eOther = getCivics((CivicOptionTypes)iOpt);
++				if (eOther != NO_CIVIC && GC.getCivicInfo(eOther).isStateReligion())
++				{
++					bHasStateReligionWithCivic = true;
++					break;
++				}
++			}
++		}
++	}
++
++	const int iNonStateReligionCountForCivic = bHasStateReligionWithCivic
++		? (iTotalReligonCount - iHighestReligionCount)
++		: iTotalReligonCount;
++	iValue += (kCivic.getNonStateReligionHappiness() * iNonStateReligionCountForCivic * 5);
++
++	if (bHasStateReligionWithCivic && iHighestReligionCount > 0)
++	{
++		iValue += ((kCivic.isNoNonStateReligionSpread()) ? ((getNumCities() - iHighestReligionCount) * 2) : 0);
++		iValue += (kCivic.getStateReligionHappiness() * iHighestReligionCount * 4);
++		iValue += ((kCivic.getStateReligionGreatPeopleRateModifier() * iHighestReligionCount) / 20);
++		iValue += (kCivic.getStateReligionGreatPeopleRateModifier() / 4);
++		iValue += ((kCivic.getStateReligionUnitProductionModifier() * iHighestReligionCount) / 4);
++		iValue += ((kCivic.getStateReligionBuildingProductionModifier() * iHighestReligionCount) / 3);
++		iValue += (kCivic.getStateReligionFreeExperience() * iHighestReligionCount * ((bWarPlan) ? 6 : 2));
++	}
+ 
+ 	if (kCivic.isStateReligion())
+ 	{
+@@ -14212,14 +14247,6 @@ int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const
+ 		{
+ 			iValue += iHighestReligionCount;
+ 
+-			iValue += ((kCivic.isNoNonStateReligionSpread()) ? ((getNumCities() - iHighestReligionCount) * 2) : 0);
+-			iValue += (kCivic.getStateReligionHappiness() * iHighestReligionCount * 4);
+-			iValue += ((kCivic.getStateReligionGreatPeopleRateModifier() * iHighestReligionCount) / 20);
+-			iValue += (kCivic.getStateReligionGreatPeopleRateModifier() / 4);
+-			iValue += ((kCivic.getStateReligionUnitProductionModifier() * iHighestReligionCount) / 4);
+-			iValue += ((kCivic.getStateReligionBuildingProductionModifier() * iHighestReligionCount) / 3);
+-			iValue += (kCivic.getStateReligionFreeExperience() * iHighestReligionCount * ((bWarPlan) ? 6 : 2));
+-
+ 			// Value civic based on current gains from having a state religion
+ 			for (int iI = 0; iI < GC.getNumVoteSourceInfos(); ++iI)
+ 			{
+@@ -14362,10 +14389,23 @@ int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const
+ /************************************************************************************************/
+ 		if (iTempValue != 0)
+ 		{
+-			// Nationalism
+-			if( !isNationalWonderClass((BuildingClassTypes)iI) )
++			// Only credit unbuilt buildings per-city if they are non-wonder buildings
++			// that this civilization can actually build (tech + religion available).
++			if (!isLimitedWonderClass((BuildingClassTypes)iI))
+ 			{
+-				iValue += (iTempValue * getNumCities())/2;
++				const BuildingTypes eOurBuilding = (BuildingTypes)GC.getCivilizationInfo(getCivilizationType()).getCivilizationBuildings(iI);
++				if (eOurBuilding != NO_BUILDING)
++				{
++					const CvBuildingInfo& kBldInfo = GC.getBuildingInfo(eOurBuilding);
++					const TechTypes ePrereqTech = (TechTypes)kBldInfo.getPrereqAndTech();
++					const ReligionTypes ePrereqRel = (ReligionTypes)kBldInfo.getPrereqReligion();
++					const bool bHasTech = (ePrereqTech == NO_TECH) || GET_TEAM(getTeam()).isHasTech(ePrereqTech);
++					const bool bHasRel = (ePrereqRel == NO_RELIGION) || (getHasReligionCount(ePrereqRel) > 0);
++					if (bHasTech && bHasRel)
++					{
++						iValue += (iTempValue * getNumCities()) / 2;
++					}
++				}
+ 			}
+ 			iValue += (iTempValue * getBuildingClassCountPlusMaking((BuildingClassTypes)iI) * 2);
+ 		}
+@@ -14431,10 +14471,13 @@ int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const
+ 	{
+ 		if (!kCivic.isStateReligion() || iHighestReligionCount > 0)
+ 		{
+-			iValue *= 5; 
+-			iValue /= 4; 
++			if (iValue > 0)
++			{
++				iValue *= 5;
++				iValue /= 4;
++			}
+ 			iValue += 6 * getNumCities();
+-			iValue += 20; 
++			iValue += 20;
+ 		}
+ 	}
+ 
+@@ -14589,17 +14632,39 @@ int CvPlayerAI::AI_RevCalcCivicRelEffect(CivicTypes eCivic) const
+ 		return 0;
+ 	if(getNumCities() == 0)
+ 		return 0;
++	if (GC.getGameINLINE().isOption(GAMEOPTION_NO_REVOLUTION))
++		return 0;
+ 
+ 	int iTotalScore = 0;
+ 
+-	if  ( GC.getCivicInfo(eCivic).isStateReligion() )
++	const CvCivicInfo& kRevCivic = GC.getCivicInfo(eCivic);
++	bool bRevStateRelActive = kRevCivic.isStateReligion();
++	if (!bRevStateRelActive &&
++		(kRevCivic.getRevIdxGoodReligionMod() != 0.0f || kRevCivic.getRevIdxBadReligionMod() != 0.0f ||
++		 kRevCivic.getRevIdxHolyCityGood() != 0 || kRevCivic.getRevIdxHolyCityBad() != 0))
++	{
++		for (int iOpt = 0; iOpt < GC.getNumCivicOptionInfos(); ++iOpt)
++		{
++			if (iOpt != kRevCivic.getCivicOptionType())
++			{
++				const CivicTypes eOther = getCivics((CivicOptionTypes)iOpt);
++				if (eOther != NO_CIVIC && GC.getCivicInfo(eOther).isStateReligion())
++				{
++					bRevStateRelActive = true;
++					break;
++				}
++			}
++		}
++	}
++
++	if (bRevStateRelActive)
+ 	{
+ 		int iRelScore = 0;
+ 
+-		float fRelGoodMod = GC.getCivicInfo(eCivic).getRevIdxGoodReligionMod();
+-		float fRelBadMod = GC.getCivicInfo(eCivic).getRevIdxBadReligionMod();
+-		int iHolyCityGood = GC.getCivicInfo(eCivic).getRevIdxHolyCityGood();
+-		int iHolyCityBad = GC.getCivicInfo(eCivic).getRevIdxHolyCityBad();
++		float fRelGoodMod = kRevCivic.getRevIdxGoodReligionMod();
++		float fRelBadMod = kRevCivic.getRevIdxBadReligionMod();
++		int iHolyCityGood = kRevCivic.getRevIdxHolyCityGood();
++		int iHolyCityBad = kRevCivic.getRevIdxHolyCityBad();
+ 
+ 		ReligionTypes eStateReligion = getStateReligion();
+ 
+@@ -17682,10 +17747,6 @@ void CvPlayerAI::AI_doCivics()
+ 			GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getAnarchyPercent())
+ 		: (2 * range(GC.getDefineINT("AI_CIVIC_CHANGE_DELAY"), 6, 500));
+ 	int iThreshold = std::max(0, GC.getDefineINT("AI_CIVIC_SWITCH_THRESHOLD_PERCENT"));
+-	if (getAnarchyTurns() > 0 && !isGoldenAge())
+-	{
+-		iThreshold += 13;
+-	}
+ 
+ 
+ 	if (AICivicPolicy::shouldSwitch(iCurrentPackageValue, iBestPackageValue,
+diff --git a/Assets/CvGameCoreDLL/CvPlot.cpp b/Assets/CvGameCoreDLL/CvPlot.cpp
+index 15c6c0a..8335101 100644
+--- a/Assets/CvGameCoreDLL/CvPlot.cpp
++++ b/Assets/CvGameCoreDLL/CvPlot.cpp
+@@ -17,6 +17,7 @@
+ #include "CvPlayerAI.h"
+ #include "CvTeamAI.h"
+ #include "CvGameCoreUtils.h"
++#include "AICivicPolicy.h"
+ #include "CvRandom.h"
+ #include "CvDLLFAStarIFaceBase.h"
+ #include "CvInfos.h"
+@@ -712,9 +713,12 @@ void CvPlot::doImprovementUpgrade()
+ 		ImprovementTypes eImprovementUpdrade = (ImprovementTypes)GC.getImprovementInfo(getImprovementType()).getImprovementUpgrade();
+ 		if (eImprovementUpdrade != NO_IMPROVEMENT)
+ 		{
+-			if (isBeingWorked() || GC.getImprovementInfo(eImprovementUpdrade).isOutsideBorders())
++			if (isOwned() && (isBeingWorked() || GC.getImprovementInfo(eImprovementUpdrade).isOutsideBorders()))
+ 			{
+-				changeUpgradeProgress(GET_PLAYER(getOwnerINLINE()).getImprovementUpgradeRate());
++				changeUpgradeProgress(AICivicPolicy::improvementUpgradeStep(
++					getUpgradeProgress(),
++					GC.getGameINLINE().getGameTurn(),
++					GET_PLAYER(getOwnerINLINE()).getImprovementUpgradeRateModifier()));
+ 
+ 				if (getUpgradeProgress() >= GC.getGameINLINE().getImprovementUpgradeTime(getImprovementType()))
+ 				{
+@@ -4517,32 +4521,19 @@ int CvPlot::getUpgradeProgress() const
+ 
+ int CvPlot::getUpgradeTimeLeft(ImprovementTypes eImprovement, PlayerTypes ePlayer) const
+ {
+-	int iUpgradeLeft;
+-	int iUpgradeRate;
+-	int iTurnsLeft;
+-
+-	iUpgradeLeft = (GC.getGameINLINE().getImprovementUpgradeTime(eImprovement) - ((getImprovementType() == eImprovement) ? getUpgradeProgress() : 0));
++	const int iUpgradeTime = GC.getGameINLINE().getImprovementUpgradeTime(eImprovement);
++	const int iProgress = (getImprovementType() == eImprovement) ? getUpgradeProgress() : 0;
+ 
+ 	if (ePlayer == NO_PLAYER)
+ 	{
+-		return iUpgradeLeft;
+-	}
+-
+-	iUpgradeRate = GET_PLAYER(ePlayer).getImprovementUpgradeRate();
+-
+-	if (iUpgradeRate == 0)
+-	{
+-		return iUpgradeLeft;
++		return (iUpgradeTime - iProgress);
+ 	}
+ 
+-	iTurnsLeft = (iUpgradeLeft / iUpgradeRate);
+-
+-	if ((iTurnsLeft * iUpgradeRate) < iUpgradeLeft)
+-	{
+-		iTurnsLeft++;
+-	}
+-
+-	return std::max(1, iTurnsLeft);
++	return AICivicPolicy::improvementUpgradeTurnsLeft(
++		iProgress,
++		iUpgradeTime,
++		GC.getGameINLINE().getGameTurn(),
++		GET_PLAYER(ePlayer).getImprovementUpgradeRateModifier());
+ }
+ 
+ 
+diff --git a/Assets/CvGameCoreDLL/CvUnit.cpp b/Assets/CvGameCoreDLL/CvUnit.cpp
+index f8fffe3..c304df1 100644
+--- a/Assets/CvGameCoreDLL/CvUnit.cpp
++++ b/Assets/CvGameCoreDLL/CvUnit.cpp
+@@ -7,6 +7,7 @@
+ #include "CvCity.h"
+ #include "CvGlobals.h"
+ #include "CvGameCoreUtils.h"
++#include "AICivicPolicy.h"
+ #include "CvGameAI.h"
+ #include "CvMap.h"
+ #include "CvPlayerAI.h"
+@@ -8798,16 +8799,9 @@ int CvUnit::workRate(bool bMax) const
+ 
+ 	iRate = m_pUnitInfo->getWorkRate();
+ 
+-	iRate *= std::max(0, (GET_PLAYER(getOwnerINLINE()).getWorkerSpeedModifier() + 100));
+-	iRate /= 100;
+-
+-	if (!isHuman() && !isBarbarian())
+-	{
+-		iRate *= std::max(0, (GC.getHandicapInfo(GC.getGameINLINE().getHandicapType()).getAIWorkRateModifier() + 100));
+-		iRate /= 100;
+-	}
+-
+-	return iRate;
++	const bool bApplyAI = (!isHuman() && !isBarbarian());
++	const int iAIMod = bApplyAI ? GC.getHandicapInfo(GC.getGameINLINE().getHandicapType()).getAIWorkRateModifier() : 0;
++	return AICivicPolicy::scaledWorkRate(iRate, GET_PLAYER(getOwnerINLINE()).getWorkerSpeedModifier(), iAIMod, bApplyAI);
+ }
+ 
+ 
+diff --git a/Assets/Modules/Projects/Vincentz/Guilds/Guilds_CIV4CivicInfos.xml b/Assets/Modules/Projects/Vincentz/Guilds/Guilds_CIV4CivicInfos.xml
+index ac0d33c..72c8408 100644
+--- a/Assets/Modules/Projects/Vincentz/Guilds/Guilds_CIV4CivicInfos.xml
++++ b/Assets/Modules/Projects/Vincentz/Guilds/Guilds_CIV4CivicInfos.xml
+@@ -95,7 +95,7 @@
+ 			<fRevIdxNationalityMod>0.05</fRevIdxNationalityMod>
+ 			<fRevIdxBadReligionMod>0</fRevIdxBadReligionMod>
+ 			<fRevIdxGoodReligionMod>0</fRevIdxGoodReligionMod>
+-			<fRevIdxDistanceMod>0.05</fRevIdxDistanceMod>
++			<iRevIdxDistanceModifier>5</iRevIdxDistanceModifier>
+ 			<fRevViolentMod>0</fRevViolentMod>
+ 			<iRevReligiousFreedom>0</iRevReligiousFreedom>
+ 			<iRevLaborFreedom>0</iRevLaborFreedom>
+diff --git a/Assets/Modules/Projects/Vincentz/Guilds/Guilds_CIV4GameInfoSchema.xml b/Assets/Modules/Projects/Vincentz/Guilds/Guilds_CIV4GameInfoSchema.xml
+index 8aaa4ee..17fcd2f 100644
+--- a/Assets/Modules/Projects/Vincentz/Guilds/Guilds_CIV4GameInfoSchema.xml
++++ b/Assets/Modules/Projects/Vincentz/Guilds/Guilds_CIV4GameInfoSchema.xml
+@@ -842,6 +842,7 @@
+ 	<ElementType name="fRevIdxBadReligionMod" content="textOnly"/>
+ 	<ElementType name="fRevIdxGoodReligionMod" content="textOnly"/>
+ 	<ElementType name="fRevIdxDistanceMod" content="textOnly"/>
++	<ElementType name="iRevIdxDistanceModifier" content="textOnly" dt:type="int"/>
+ 	<ElementType name="fRevViolentMod" content="textOnly"/>
+ 	<ElementType name="iRevReligiousFreedom" content="textOnly" dt:type="int"/>
+ 	<ElementType name="iRevLaborFreedom" content="textOnly" dt:type="int"/>
+@@ -934,6 +935,7 @@
+ 		<element type="fRevIdxBadReligionMod" minOccurs="0"/>
+ 		<element type="fRevIdxGoodReligionMod" minOccurs="0"/>
+ 		<element type="fRevIdxDistanceMod" minOccurs="0"/>
++		<element type="iRevIdxDistanceModifier" minOccurs="0"/>
+ 		<element type="fRevViolentMod" minOccurs="0"/>
+ 		<element type="iRevReligiousFreedom" minOccurs="0"/>
+ 		<element type="iRevLaborFreedom" minOccurs="0"/>
+diff --git a/Assets/Python/Revolution/RevCivicsUtils.py b/Assets/Python/Revolution/RevCivicsUtils.py
+index 493f488..17e8012 100644
+--- a/Assets/Python/Revolution/RevCivicsUtils.py
++++ b/Assets/Python/Revolution/RevCivicsUtils.py
+@@ -327,22 +327,39 @@ def isCanDoElections( iPlayer ) :
+ 
+ 	return False
+ 
+-def getReligiousFreedom( iPlayer ) :
+-	# Returns [freedom level, option type]
+-
++def _getPrimaryCivicMetric( iPlayer, fnMetric ) :
+ 	pPlayer = gc.getPlayer(iPlayer)
+ 
+ 	if( pPlayer.isNone() or not pPlayer.isAlive() ) :
+ 		return [0,None]
+ 
++	if( len(civicsList) < gc.getNumCivicOptionInfos() ) :
++		initCivicsList()
++
++	bestCount = 0
++	bestLevel = 0
++	bestOption = None
++
+ 	for i in range(0,gc.getNumCivicOptionInfos()) :
+ 		iCivic = pPlayer.getCivics(i)
+ 		if( iCivic >= 0 ) :
+-			kCivic = gc.getCivicInfo(iCivic)
+-			if( not kCivic.getRevReligiousFreedom() == 0 ) :
+-				return [kCivic.getRevReligiousFreedom(),i]
++			val = fnMetric(gc.getCivicInfo(iCivic))
++			if( val != 0 ) :
++				optCount = 0
++				for j in civicsList[i] :
++					if( fnMetric(gc.getCivicInfo(j)) != 0 ) :
++						optCount += 1
++				if( bestOption == None or optCount > bestCount or (optCount == bestCount and abs(val) > abs(bestLevel)) ) :
++					bestCount = optCount
++					bestLevel = val
++					bestOption = i
+ 
+-	return [0,None]
++	return [bestLevel,bestOption]
++
++
++def getReligiousFreedom( iPlayer ) :
++	# Returns [freedom level, option type]
++	return _getPrimaryCivicMetric( iPlayer, lambda kCivic: kCivic.getRevReligiousFreedom() )
+ 
+ 
+ def getBestReligiousFreedom( iPlayer, relOptionType ) :
+@@ -353,6 +370,9 @@ def getBestReligiousFreedom( iPlayer, relOptionType ) :
+ 	if( pPlayer.isNone() or not pPlayer.isAlive() or relOptionType == None ) :
+ 		return [0,None]
+ 
++	if( len(civicsList) < gc.getNumCivicOptionInfos() ) :
++		initCivicsList()
++
+ 	bestFreedom = -11
+ 	bestCivic = None
+ 
+@@ -368,20 +388,7 @@ def getBestReligiousFreedom( iPlayer, relOptionType ) :
+ 
+ def getDemocracyLevel( iPlayer ) :
+ 	# Returns [level, option type]
+-
+-	pPlayer = gc.getPlayer(iPlayer)
+-
+-	if( pPlayer.isNone() or not pPlayer.isAlive() ) :
+-		return [0,None]
+-
+-	for i in range(0,gc.getNumCivicOptionInfos()) :
+-		iCivic = pPlayer.getCivics(i)
+-		if( iCivic >= 0 ) :
+-			kCivic = gc.getCivicInfo(iCivic)
+-			if( not kCivic.getRevDemocracyLevel() == 0 ) :
+-				return [kCivic.getRevDemocracyLevel(),i]
+-
+-	return [0,None]
++	return _getPrimaryCivicMetric( iPlayer, lambda kCivic: kCivic.getRevDemocracyLevel() )
+ 
+ 
+ def getBestDemocracyLevel( iPlayer, optionType ) :
+@@ -392,6 +399,9 @@ def getBestDemocracyLevel( iPlayer, optionType ) :
+ 	if( pPlayer.isNone() or not pPlayer.isAlive() or optionType == None ) :
+ 		return [0,None]
+ 
++	if( len(civicsList) < gc.getNumCivicOptionInfos() ) :
++		initCivicsList()
++
+ 	bestLevel = -11
+ 	bestCivic = None
+ 
+@@ -407,20 +417,7 @@ def getBestDemocracyLevel( iPlayer, optionType ) :
+ 
+ def getLaborFreedom( iPlayer ) :
+ 	# Returns [level, option type]
+-
+-	pPlayer = gc.getPlayer(iPlayer)
+-
+-	if( pPlayer.isNone() or not pPlayer.isAlive() ) :
+-		return [0,None]
+-
+-	for i in range(0,gc.getNumCivicOptionInfos()) :
+-		iCivic = pPlayer.getCivics(i)
+-		if( iCivic >= 0 ) :
+-			kCivic = gc.getCivicInfo(iCivic)
+-			if( not kCivic.getRevLaborFreedom() == 0 ) :
+-				return [kCivic.getRevLaborFreedom(),i]
+-
+-	return [0,None]
++	return _getPrimaryCivicMetric( iPlayer, lambda kCivic: kCivic.getRevLaborFreedom() )
+ 
+ 
+ def getBestLaborFreedom( iPlayer, optionType ) :
+@@ -431,6 +428,9 @@ def getBestLaborFreedom( iPlayer, optionType ) :
+ 	if( pPlayer.isNone() or not pPlayer.isAlive() or optionType == None ) :
+ 		return [0,None]
+ 
++	if( len(civicsList) < gc.getNumCivicOptionInfos() ) :
++		initCivicsList()
++
+ 	bestLevel = -11
+ 	bestCivic = None
+ 
+@@ -446,20 +446,7 @@ def getBestLaborFreedom( iPlayer, optionType ) :
+ 
+ def getEnvironmentalProtection( iPlayer ) :
+ 	# Returns [level, option type]
+-
+-	pPlayer = gc.getPlayer(iPlayer)
+-
+-	if( pPlayer.isNone() or not pPlayer.isAlive() ) :
+-		return [0,None]
+-
+-	for i in range(0,gc.getNumCivicOptionInfos()) :
+-		iCivic = pPlayer.getCivics(i)
+-		if( iCivic >= 0 ) :
+-			kCivic = gc.getCivicInfo(iCivic)
+-			if( not kCivic.getRevEnvironmentalProtection() == 0 ) :
+-				return [kCivic.getRevEnvironmentalProtection(),i]
+-
+-	return [0,None]
++	return _getPrimaryCivicMetric( iPlayer, lambda kCivic: kCivic.getRevEnvironmentalProtection() )
+ 
+ 
+ def getBestEnvironmentalProtection( iPlayer, optionType ) :
+@@ -470,6 +457,9 @@ def getBestEnvironmentalProtection( iPlayer, optionType ) :
+ 	if( pPlayer.isNone() or not pPlayer.isAlive() or optionType == None ) :
+ 		return [0,None]
+ 
++	if( len(civicsList) < gc.getNumCivicOptionInfos() ) :
++		initCivicsList()
++
+ 	bestLevel = -11
+ 	bestCivic = None
+ 
+-- 
+2.56.1
+
