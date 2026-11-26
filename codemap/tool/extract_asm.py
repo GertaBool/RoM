@@ -18,8 +18,8 @@ What each table comes from:
 - Classes, bases and the names of virtual slots come from the type records (llvm-readobj --codeview).
 - Exports are the /EXPORT directives of each object's .drectve section.
 - Python bindings: in functions that call boost::python, a function address pushed right before a string
-  (def("name", &f, ...) pushes its arguments right to left). Calls into Python: the two strings pushed
-  in the statement of a call to CvDLLPythonIFaceBase::callFunction. Events: the string passed to
+  (def("name", &f, ...) pushes its arguments right to left). Calls into Python: the module and function arguments of
+  each call to CvDLLPythonIFaceBase::callFunction, read from its statement (a string or a #define of one). Events: the string passed to
   CyArgsList::add in each CvDllPythonEvents report function.
 Calls to the compiler's library, Boost and Python's C API, and imported functions, are left out.
 """
@@ -401,6 +401,23 @@ def main():
         r = resolved.get(o[1])
         return cls_of(classes.get(r[0], {}).get('rets', {}).get(r[1])) if r else None
 
+    simple = dict(re.findall(r'^[ \t]*#[ \t]*define[ \t]+(\w+)[ \t]+("[^"\n]*"|\w+)[ \t]*$', src, re.M))
+
+    def strval(a, depth=0):   # a string literal, or a #define of one, also through other #defines
+        lit = re.fullmatch(r'"([^"]*)"', a)
+        if lit: return lit.group(1)
+        return strval(simple[a], depth + 1) if a in simple and depth < 8 else '?'
+
+    def py_target(s):
+        """(module, function) of a callFunction(module, function, ...) call, each '?' when only known at run time:
+        read from the call's own arguments in the source, a string literal or a #define of one. With only the
+        pushed strings, one literal could not be told apart: callFunction(PYRandomEventModule, name, ...) has a
+        constant module, callFunction(mapScript, "addRivers", ...) a constant function."""
+        m = re.search(r'callFunction\s*\(\s*([^,]+?)\s*,\s*("[^"]*"|[^,)]+?)\s*[,)]', s['text'])
+        if m: return strval(m.group(1)), strval(m.group(2))
+        ps = s['strs']   # the statement's text does not show the call: the two strings pushed, last pushed first
+        return (ps[-1], ps[-2]) if len(ps) >= 2 else ('?', '?')
+
     def at(s, name):
         """The source line of a call: in a statement over several lines, the one where the name is written."""
         return next((n for n, tx in s.get('lines', ()) if re.search(r'\b' + re.escape(name) + r'\s*\(', tx)), s['line'])
@@ -463,9 +480,7 @@ def main():
                      and vft_of[st][sl // 4] in nodes else method_node(cl, s['slot'], n))
                 edges.add((c, k, 'virtual', s['file'], at(s, n), st if st and (cl in chain(st) or st in chain(cl)) else ''))
                 if n == 'callFunction' and cl == 'CvDLLPythonIFaceBase':
-                    ps = s['strs']
-                    pycalls.append((c, ps[-1] if len(ps) >= 2 else '?', ps[-2] if len(ps) >= 2 else (ps[-1] if ps else '?'),
-                                    s['file'], s['line']))
+                    pycalls.append((c, *py_target(s), s['file'], s['line']))
             if len(cands) > 1:
                 unres.append((c, s['file'], s['line'], 'virtual call: several candidate methods',
                               f'{len(cands)} candidates: ' + s['text'][:150]))
