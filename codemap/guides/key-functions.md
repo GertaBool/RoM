@@ -1,7 +1,7 @@
 # The key functions of the DLL
 
 The twelve functions that rank above the rest, what each does, and what a hand rewrite of one has to keep.
-Written by hand from the source at commit `2a8b9a83eb5b`, the commit the map was built from; line numbers
+Written by hand from the source at commit `ede81881b7de`, the commit the map was built from; line numbers
 refer to it. The hard-coded entries are listed in full, and checked, in `../hardcoded.md`.
 
 ## How they rank
@@ -34,17 +34,20 @@ through one large cycle of calls. That is why the rank counts what only one func
 
 **The game tick**
 
-- **`CvGame::update`** (CvGame.cpp:2147). Called by the exe every tick. Outside World Builder it:
+- **`CvGame::update`** (CvGame.cpp:2176). Called by the exe every tick. First, on every tick, it runs `updateGraphicsPaging`:
+  while the graphics are initialised, it measures the graphics memory pressure and, with the define
+  `GRAPHICS_PAGING` above 0, outside World Builder and with an active player, loads and frees plot
+  graphics around the camera's look-at plot. Then, outside World Builder, it:
   1. sends player options and posts the Python event `gameUpdate`;
   2. autosaves on the first tick;
   3. recounts the players whose turn is active and repairs the stored count when it is wrong;
   4. runs `doTurn` when no player's turn is active;
   5. updates score, war, unit moves (`updateMoves`), timers and worker assignment, and checks who is alive;
   6. ends the game when no human is left, unless an AI autoplay or autorun is going.
-- **`CvGame::updateMoves`** (CvGame.cpp:7223). For every living player whose turn is active, in shuffled
+- **`CvGame::updateMoves`** (CvGame.cpp:8361). For every living player whose turn is active, in shuffled
   order when turns are simultaneous, it runs `AI_unitUpdate`. An AI player with no busy or ready unit is
   switched to automatic moves, and every one of its groups then runs its queued mission.
-- **`CvPlayerAI::AI_unitUpdate`** (CvPlayerAI.cpp:1572). It splits the groups marked for separation, except
+- **`CvPlayerAI::AI_unitUpdate`** (CvPlayerAI.cpp:1646). It splits the groups marked for separation, except
   those in the middle of an attack. A human player's groups are updated in cycle order; an AI player's are
   sorted by `AI_movementPriority` first. It stops at the first group whose update returns true, because
   objects may then have been deleted. A guard ends the moves of a unit that keeps losing its group
@@ -63,17 +66,17 @@ through one large cycle of calls. That is why the rank counts what only one func
 
 **The turn change**
 
-- **`CvGame::doTurn`** (CvGame.cpp:5921). The end of the game turn: the begin-turn event, caches and the
+- **`CvGame::doTurn`** (CvGame.cpp:7059). The end of the game turn: the begin-turn event, caches and the
   border-danger flags reset, score and deals, every team's and the map's turn, barbarian cities and units,
   global warming, holy cities, corporation headquarters, diplomatic votes, the AI autoplay countdown, the
   turn counter. It then switches on the first player's turn (all of them at once when turns are
   simultaneous), checks for victory and autosaves.
-- **`CvPlayer::setTurnActive`** (CvPlayer.cpp:12160). Switching on: it writes the AI logs (score, wars,
+- **`CvPlayer::setTurnActive`** (CvPlayer.cpp:12162). Switching on: it writes the AI logs (score, wars,
   war plans), resets the turn timer, makes the player active in hotseat or play-by-email, runs
   `doTurnUnits` (and `doTurn` when turns are simultaneous), plays the new-turn sound or message, and
   writes the war log's turn start. Switching off: it runs `doTurn` when turns are sequential, then switches
   on the next living player or team. This is how the turn moves from player to player.
-- **`CvPlayer::doTurn`** (CvPlayer.cpp:3918). One player's end of turn: `AI_doTurnPre`; the revolution,
+- **`CvPlayer::doTurn`** (CvPlayer.cpp:3916). One player's end of turn: `AI_doTurnPre`; the revolution,
   conversion, free-unit, golden-age and anarchy countdowns; worked plots; gold, research, espionage and the
   AI's gold rushes; every city's `doTurn`; opportunity fire and active defence for every unit; civics,
   trade routes, war weariness and events; the history graphs; `AI_doTurnPost`.

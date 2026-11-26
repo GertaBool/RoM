@@ -3,58 +3,58 @@
 Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
 - **19** `EventTriggeredData::getID() const`
-  - called by (8): CvPlayer::doEvents, CvPlayer::expireEvent, CvPlayer::initTriggeredData, CvPlayer::setEventOccured, CvPlayer::trigger(EventTriggeredData const&), FFreeListTrashArray<EventTriggeredData>::getAt, FFreeListTrashArray<EventTriggeredData>::load, FFreeListTrashArray<EventTriggeredData>::removeAt
+  - called by (8): CvPlayer::doEvents, CvPlayer::expireEvent, CvPlayer::initTriggeredData, CvPlayer::setEventOccured, CvPlayer::trigger(EventTriggeredData const&), FFreeListTrashArray\<EventTriggeredData>::getAt, FFreeListTrashArray\<EventTriggeredData>::load, FFreeListTrashArray\<EventTriggeredData>::removeAt
 - **24** `EventTriggeredData::setID(int)`
-  - called by (1): FFreeListTrashArray<EventTriggeredData>::add
+  - called by (1): FFreeListTrashArray\<EventTriggeredData>::add
 - **29** `EventTriggeredData::read(FDataStreamBase*)`
-  - calls: FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h]
-  - called by (2): CvPlayer::read, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>
+  - calls: FDataStreamBase::Read \[FDataStreamBase.h\], FDataStreamBase::ReadString \[FDataStreamBase.h\]
+  - called by (2): CvPlayer::read, ReadStreamableFFreeListTrashArray\<struct EventTriggeredData>
 - **48** `EventTriggeredData::write(FDataStreamBase*)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h]
-  - called by (2): CvPlayer::write, WriteStreamableFFreeListTrashArray<struct EventTriggeredData>
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], FDataStreamBase::WriteString \[FDataStreamBase.h\]
+  - called by (2): CvPlayer::write, WriteStreamableFFreeListTrashArray\<struct EventTriggeredData>
 - **67** `VoteSelectionData::getID() const`
-  - called by (5): CvGame::addVoteSelection, CvGame::doVoteSelection, FFreeListTrashArray<VoteSelectionData>::getAt, FFreeListTrashArray<VoteSelectionData>::load, FFreeListTrashArray<VoteSelectionData>::removeAt
+  - called by (5): CvGame::addVoteSelection, CvGame::doVoteSelection, FFreeListTrashArray\<VoteSelectionData>::getAt, FFreeListTrashArray\<VoteSelectionData>::load, FFreeListTrashArray\<VoteSelectionData>::removeAt
 - **72** `VoteSelectionData::setID(int)`
-  - called by (1): FFreeListTrashArray<VoteSelectionData>::add
+  - called by (1): FFreeListTrashArray\<VoteSelectionData>::add
 - **77** `VoteSelectionData::read(FDataStreamBase*)`
-  - calls: FDataStreamBase::Read [FDataStreamBase.h], VoteSelectionSubData::VoteSelectionSubData [CvGame.cpp], FDataStreamBase::ReadString [FDataStreamBase.h]
-  - called by (1): ReadStreamableFFreeListTrashArray<struct VoteSelectionData>
+  - calls: FDataStreamBase::Read \[FDataStreamBase.h\], VoteSelectionSubData::VoteSelectionSubData \[CvGame.cpp\], FDataStreamBase::ReadString \[FDataStreamBase.h\]
+  - called by (1): ReadStreamableFFreeListTrashArray\<struct VoteSelectionData>
 - **95** `VoteSelectionData::write(FDataStreamBase*)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h]
-  - called by (1): WriteStreamableFFreeListTrashArray<struct VoteSelectionData>
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], FDataStreamBase::WriteString \[FDataStreamBase.h\]
+  - called by (1): WriteStreamableFFreeListTrashArray\<struct VoteSelectionData>
 - **110** `VoteTriggeredData::getID() const`
-  - called by (7): CvGame::addVoteTriggered(VoteSourceTypes, VoteSelectionSubData const&), CvGame::countVote, CvGame::doVoteResults, CvGame::setVoteOutcome, FFreeListTrashArray<VoteTriggeredData>::getAt, FFreeListTrashArray<VoteTriggeredData>::load, FFreeListTrashArray<VoteTriggeredData>::removeAt
+  - called by (7): CvGame::addVoteTriggered(VoteSourceTypes, VoteSelectionSubData const&), CvGame::countVote, CvGame::doVoteResults, CvGame::setVoteOutcome, FFreeListTrashArray\<VoteTriggeredData>::getAt, FFreeListTrashArray\<VoteTriggeredData>::load, FFreeListTrashArray\<VoteTriggeredData>::removeAt
 - **115** `VoteTriggeredData::setID(int)`
-  - called by (1): FFreeListTrashArray<VoteTriggeredData>::add
+  - called by (1): FFreeListTrashArray\<VoteTriggeredData>::add
 - **120** `VoteTriggeredData::read(FDataStreamBase*)`
-  - calls: FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h]
-  - called by (1): ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
+  - calls: FDataStreamBase::Read \[FDataStreamBase.h\], FDataStreamBase::ReadString \[FDataStreamBase.h\]
+  - called by (1): ReadStreamableFFreeListTrashArray\<struct VoteTriggeredData>
 - **131** `VoteTriggeredData::write(FDataStreamBase*)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h]
-  - called by (1): WriteStreamableFFreeListTrashArray<struct VoteTriggeredData>
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], FDataStreamBase::WriteString \[FDataStreamBase.h\]
+  - called by (1): WriteStreamableFFreeListTrashArray\<struct VoteTriggeredData>
 - **142** `PlotExtraYield::read(FDataStreamBase*)`
-  - calls: FDataStreamBase::Read [FDataStreamBase.h]
+  - calls: FDataStreamBase::Read \[FDataStreamBase.h\]
   - called by (1): CvGame::read
 - **155** `PlotExtraYield::write(FDataStreamBase*)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\]
   - called by (1): CvGame::write
 - **165** `PlotExtraCost::read(FDataStreamBase*)`
-  - calls: FDataStreamBase::Read [FDataStreamBase.h]
+  - calls: FDataStreamBase::Read \[FDataStreamBase.h\]
   - called by (1): CvGame::read
 - **172** `PlotExtraCost::write(FDataStreamBase*)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\]
   - called by (1): CvGame::write
 - **179** `BuildingYieldChange::read(FDataStreamBase*)`
-  - calls: FDataStreamBase::Read [FDataStreamBase.h]
+  - calls: FDataStreamBase::Read \[FDataStreamBase.h\]
   - called by (2): CvCity::read, CvEventInfo::read(FDataStreamBase*)
 - **186** `BuildingYieldChange::write(FDataStreamBase*)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\]
   - called by (2): CvCity::write, CvEventInfo::write
 - **193** `BuildingCommerceChange::read(FDataStreamBase*)`
-  - calls: FDataStreamBase::Read [FDataStreamBase.h]
+  - calls: FDataStreamBase::Read \[FDataStreamBase.h\]
   - called by (2): CvCity::read, CvEventInfo::read(FDataStreamBase*)
 - **200** `BuildingCommerceChange::write(FDataStreamBase*)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\]
   - called by (2): CvCity::write, CvEventInfo::write
 - **207** `checkBattleUnitType(BattleUnitTypes)`
   - called by (16): CvAirMissionDefinition::getDamage, CvAirMissionDefinition::isDead, CvAirMissionDefinition::setDamage, CvBattleDefinition::addDamage, CvBattleDefinition::addFirstStrikes, CvBattleDefinition::getDamage, CvBattleDefinition::getFirstStrikes, CvBattleDefinition::setDamage, CvBattleDefinition::setFirstStrikes, CvBattleRound::addNumKilled, CvBattleRound::getNumAlive, CvBattleRound::getNumKilled …
@@ -93,11 +93,12 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - called by (25): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombard, CvUnit::bombardRanged …
 - **314** `CvMissionDefinition::getUnit(BattleUnitTypes) const` (exported)
   - calls: checkBattleUnitType
-  - called by (4): CvAirMissionDefinition::isDead, CvUnit::computeUnitsToDie, CvUnit::increaseBattleRounds, CvUnit::planBattle
+  - called by (5): CvAirMissionDefinition::isDead, CvUnit::computeUnitsToDie, CvUnit::increaseBattleRounds, CvUnit::planBattle, addEntityMission
 - **320** `CvMissionDefinition::setUnit(BattleUnitTypes, CvUnit*)` (exported)
   - calls: checkBattleUnitType
   - called by (25): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombard, CvUnit::bombardRanged …
 - **326** `CvMissionDefinition::getPlot() const` (exported)
+  - called by (1): addEntityMission
 - **331** `CvMissionDefinition::setPlot(CvPlot const*)` (exported)
   - called by (24): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::doActiveDefense …
 - **342** `CvBattleDefinition::CvBattleDefinition()` (exported)
@@ -166,5 +167,5 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - calls: checkBattleUnitType
   - called by (12): CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::doActiveDefense, CvUnit::nuke, CvUnit::paradrop, CvUnit::recon, CvUnit::resolveAirCombat, CvUnit::updateAirStrike
 - **544** `CvAirMissionDefinition::isDead(BattleUnitTypes) const` (exported)
-  - calls: checkBattleUnitType, CvMissionDefinition::getUnit, CvAirMissionDefinition::getDamage, CvUnit::maxHitPoints [CvUnit.cpp]
+  - calls: checkBattleUnitType, CvMissionDefinition::getUnit, CvAirMissionDefinition::getDamage, CvUnit::maxHitPoints \[CvUnit.cpp\]
 - **554** `PBGameSetupData::PBGameSetupData()` (exported)

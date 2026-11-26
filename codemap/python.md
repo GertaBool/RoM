@@ -2,7 +2,7 @@
 
 The mod's Python and the base game's Python it falls back to (paths starting with base/), scanned by name (`tool/extract_py.py`). Links from Python into the DLL are name matches: a method name exposed by several C++ classes gives several candidates.
 
-266 modules, 6500 functions and classes, 28386 call sites of names the DLL exposes (16265 with one candidate).
+270 modules, 6681 functions and classes, 29043 call sites of names the DLL exposes (16784 with one candidate).
 
 | module | functions and classes | calls into the DLL | of them with one candidate |
 |---|---|---|---|
@@ -135,7 +135,7 @@ The mod's Python and the base game's Python it falls back to (paths starting wit
 | EntryPoints/CvOptionsScreenCallbackInterface.py | 51 | 11 | 5 |
 | EntryPoints/CvRandomEventInterface.py | 365 | 3766 | 2326 |
 | EntryPoints/CvScreenUtilsInterface.py | 1 | 0 | 0 |
-| EntryPoints/CvScreensInterface.py | 181 | 49 | 21 |
+| EntryPoints/CvScreensInterface.py | 182 | 49 | 21 |
 | EntryPoints/CvWBInterface.py | 14 | 19 | 19 |
 | ModTools/ModTools.py | 5 | 104 | 62 |
 | ModTools/ModToolsUtils.py | 1 | 12 | 8 |
@@ -153,7 +153,7 @@ The mod's Python and the base game's Python it falls back to (paths starting wit
 | Revolution/LeaderCivNames.py | 1 | 0 | 0 |
 | Revolution/RebelTypes.py | 1 | 40 | 40 |
 | Revolution/RevBuildingsUtils.py | 3 | 20 | 10 |
-| Revolution/RevCivicsUtils.py | 21 | 175 | 123 |
+| Revolution/RevCivicsUtils.py | 22 | 159 | 113 |
 | Revolution/RevData.py | 14 | 0 | 0 |
 | Revolution/RevDefs.py | 5 | 0 | 0 |
 | Revolution/RevEvents.py | 22 | 654 | 368 |
@@ -161,7 +161,7 @@ The mod's Python and the base game's Python it falls back to (paths starting wit
 | Revolution/RevUtils.py | 32 | 574 | 265 |
 | Revolution/RevolutionInit.py | 8 | 69 | 10 |
 | Revolution/TextUtils.py | 3 | 9 | 0 |
-| RoMEventManager.py | 15 | 211 | 122 |
+| RoMEventManager.py | 15 | 180 | 115 |
 | RoMGameUtils.py | 13 | 157 | 129 |
 | Screens/BugFinanceAdvisor.py | 9 | 113 | 56 |
 | Screens/CvBUGMilitaryAdvisor.py | 37 | 243 | 126 |
@@ -187,61 +187,65 @@ The mod's Python and the base game's Python it falls back to (paths starting wit
 | Screens/RevolutionWatchAdvisor.py | 128 | 540 | 322 |
 | SdToolKitCustom.py | 26 | 29 | 16 |
 | SettlementTrainingProfiler.py | 21 | 226 | 121 |
-| base/CvCameraControls.py | 34 | 8 | 7 |
-| base/CvDebugTools.py | 20 | 85 | 45 |
+| base/CvCameraControls.py | 34 | 7 | 6 |
+| base/CvDebugTools.py | 22 | 101 | 57 |
 | base/CvDefineEditor.py | 15 | 0 | 0 |
-| base/CvEventManager.py | 81 | 186 | 72 |
-| base/CvGameUtils.py | 50 | 30 | 28 |
+| base/CvEventManager.py | 103 | 236 | 99 |
+| base/CvGameUtils.py | 73 | 55 | 50 |
 | base/CvPerfTest.py | 7 | 26 | 18 |
 | base/CvQuestManager.py | 20 | 24 | 23 |
 | base/CvScreenUtils.py | 10 | 2 | 2 |
+| base/DomPyHelpers.py | 45 | 44 | 30 |
 | base/EntryPoints/CvDebugInterface.py | 2 | 1 | 1 |
 | base/EntryPoints/CvDiplomacyInterface.py | 5 | 0 | 0 |
-| base/EntryPoints/CvGameInterface.py | 49 | 7 | 3 |
+| base/EntryPoints/CvGameInterface.py | 71 | 11 | 6 |
 | base/EntryPoints/CvMapScriptInterface.py | 47 | 0 | 0 |
 | base/EntryPoints/CvPopupInterface.py | 2 | 0 | 0 |
-| base/EntryPoints/CvTranslator.py | 2 | 34 | 24 |
+| base/EntryPoints/CvTranslator.py | 2 | 0 | 0 |
 | base/EntryPoints/CvUnitControlInterface.py | 1 | 0 | 0 |
-| base/EntryPoints/PbMain.py | 13 | 3 | 0 |
-| base/PitBoss/PbAdmin.py | 18 | 47 | 8 |
-| base/PitBoss/PbWizard.py | 84 | 142 | 26 |
+| base/EntryPoints/PbMain.py | 14 | 3 | 0 |
+| base/PitBoss/PbAdmin.py | 20 | 54 | 10 |
+| base/PitBoss/PbWizard.py | 87 | 145 | 26 |
 | base/ScreenInput.py | 17 | 0 | 0 |
 | base/Screens/CvAdvisorScreen.py | 32 | 24 | 23 |
 | base/Screens/CvDanQuayle.py | 7 | 23 | 14 |
 | base/Screens/CvDebugInfoScreen.py | 21 | 81 | 48 |
-| base/Screens/CvDomesticAdvisor.py | 9 | 50 | 24 |
+| base/Screens/CvDomesticAdvisor.py | 12 | 137 | 83 |
 | base/Screens/CvEraMovieScreen.py | 4 | 6 | 3 |
 | base/Screens/CvFinanceAdvisor.py | 9 | 53 | 25 |
 | base/Screens/CvGFCScreen.py | 11 | 2 | 2 |
 | base/Screens/CvIntroMovieScreen.py | 8 | 10 | 5 |
-| base/Screens/CvMilitaryAdvisor.py | 19 | 113 | 59 |
-| base/Screens/CvOptionsScreen.py | 21 | 87 | 21 |
-| base/Screens/CvPediaBonus.py | 12 | 77 | 57 |
-| base/Screens/CvPediaBuilding.py | 11 | 107 | 68 |
+| base/Screens/CvMilitaryAdvisor.py | 20 | 125 | 72 |
+| base/Screens/CvOptionsScreen.py | 21 | 100 | 27 |
+| base/Screens/CvPediaBonus.py | 12 | 79 | 59 |
+| base/Screens/CvPediaBuilding.py | 11 | 140 | 95 |
 | base/Screens/CvPediaCivic.py | 9 | 35 | 28 |
-| base/Screens/CvPediaCivilization.py | 9 | 44 | 36 |
+| base/Screens/CvPediaCivilization.py | 10 | 60 | 51 |
+| base/Screens/CvPediaCorporation.py | 8 | 43 | 38 |
 | base/Screens/CvPediaFeature.py | 7 | 24 | 18 |
-| base/Screens/CvPediaImprovement.py | 9 | 96 | 70 |
-| base/Screens/CvPediaLeader.py | 9 | 33 | 28 |
+| base/Screens/CvPediaImprovement.py | 9 | 95 | 70 |
+| base/Screens/CvPediaLeader.py | 9 | 53 | 48 |
 | base/Screens/CvPediaProject.py | 11 | 45 | 28 |
-| base/Screens/CvPediaPromotion.py | 9 | 52 | 43 |
+| base/Screens/CvPediaPromotion.py | 9 | 63 | 53 |
 | base/Screens/CvPediaReligion.py | 8 | 26 | 21 |
 | base/Screens/CvPediaScreen.py | 2 | 3 | 2 |
 | base/Screens/CvPediaSpecialist.py | 7 | 20 | 17 |
-| base/Screens/CvPediaTech.py | 11 | 76 | 54 |
+| base/Screens/CvPediaTech.py | 11 | 78 | 56 |
 | base/Screens/CvPediaTerrain.py | 7 | 24 | 18 |
-| base/Screens/CvPediaUnit.py | 11 | 109 | 81 |
-| base/Screens/CvPediaUnitChart.py | 6 | 42 | 30 |
+| base/Screens/CvPediaUnit.py | 11 | 130 | 99 |
+| base/Screens/CvPediaUnitChart.py | 6 | 48 | 35 |
 | base/Screens/CvReplayScreen.py | 15 | 76 | 44 |
 | base/Screens/CvScreen.py | 8 | 0 | 0 |
-| base/Screens/CvTechSplashScreen.py | 7 | 39 | 32 |
+| base/Screens/CvSpaceShipScreen.py | 7 | 72 | 40 |
+| base/Screens/CvTechSplashScreen.py | 7 | 34 | 27 |
 | base/Screens/CvTopCivs.py | 8 | 69 | 17 |
 | base/Screens/CvTutorialQuestScreen.py | 7 | 15 | 8 |
 | base/Screens/CvUNVictoryScreen.py | 9 | 21 | 14 |
 | base/Screens/CvVictoryMovieScreen.py | 7 | 10 | 6 |
-| base/Screens/CvWonderMovieScreen.py | 6 | 24 | 15 |
-| base/Screens/CvWorldBuilderDiplomacyScreen.py | 23 | 71 | 43 |
-| base/Screens/CvWorldBuilderScreen.py | 114 | 691 | 185 |
+| base/Screens/CvWonderMovieScreen.py | 6 | 21 | 12 |
+| base/Screens/CvWorldBuilderDiplomacyScreen.py | 24 | 119 | 62 |
+| base/Screens/CvWorldBuilderScreen.py | 146 | 802 | 305 |
+| base/Screens/TechTree.py | 6 | 9 | 7 |
 | base/System/email/Charset.py | 16 | 7 | 5 |
 | base/System/email/Encoders.py | 6 | 0 | 0 |
 | base/System/email/Errors.py | 13 | 0 | 0 |
@@ -268,7 +272,7 @@ The mod's Python and the base game's Python it falls back to (paths starting wit
 | base/pyHelper/Unit.py | 4 | 4 | 2 |
 | base/pyHelper/UnitEntity.py | 4 | 4 | 2 |
 | base/pyUnit/CvUnitController.py | 3 | 1 | 1 |
-| base/pyWB/CvWBDesc.py | 58 | 387 | 290 |
+| base/pyWB/CvWBDesc.py | 58 | 480 | 362 |
 | base/pyWB/CvWBPopups.py | 7 | 28 | 9 |
 | base/vector.py | 36 | 0 | 0 |
 | zCivics.py | 9 | 20 | 19 |

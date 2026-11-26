@@ -55,6 +55,6 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **253** `CvSelectionGroup::AI_isFull(…)` (virtual; pure virtual)
   - called by (2): CvUnitAI::AI_assaultSeaMove, CvUnitAI::AI_missileCarrierSeaMove
 - **·** `CvSelectionGroupAI::`vector deleting dtor'(unsigned int)` (virtual; overrides CvSelectionGroup::__vecDelDtor; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvSelectionGroupAI::~CvSelectionGroupAI [CvSelectionGroupAI.cpp]
-  - takes the address of: CvSelectionGroupAI::~CvSelectionGroupAI [CvSelectionGroupAI.cpp]
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], operator delete\[\](void*) \[CvGameCoreDLL.cpp\], CvSelectionGroupAI::~CvSelectionGroupAI \[CvSelectionGroupAI.cpp\]
+  - takes the address of: CvSelectionGroupAI::~CvSelectionGroupAI \[CvSelectionGroupAI.cpp\]
 - **·** `CvSelectionGroup::__vecDelDtor(…)` (virtual; declared, not defined in the source)

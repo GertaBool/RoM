@@ -3,7 +3,7 @@
 Group: game data and XML loading. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
 - **62** `CvArtFileMgr::ArtInfoItem::ArtInfoItem()`
-  - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::addArtInfoItem
+  - calls: CvArtFileMgr::GetInstance \[CvArtFileMgr.cpp\], CvArtFileMgr::addArtInfoItem
   - called by (12): CvAssetArtInfoItem::CvAssetArtInfoItem, CvBonusArtInfoItem::CvBonusArtInfoItem, CvBuildingArtInfoItem::CvBuildingArtInfoItem, CvCivilizationArtInfoItem::CvCivilizationArtInfoItem, CvFeatureArtInfoItem::CvFeatureArtInfoItem, CvImprovementArtInfoItem::CvImprovementArtInfoItem, CvInterfaceArtInfoItem::CvInterfaceArtInfoItem, CvLeaderheadArtInfoItem::CvLeaderheadArtInfoItem, CvMiscArtInfoItem::CvMiscArtInfoItem, CvMovieArtInfoItem::CvMovieArtInfoItem, CvTerrainArtInfoItem::CvTerrainArtInfoItem, CvUnitArtInfoItem::CvUnitArtInfoItem
 - **63** `CvArtFileMgr::ArtInfoItem::init(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvArtFileMgr::Init
@@ -66,5 +66,5 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **105** `CvArtFileMgr::getNumInterfaceArtInfos()` (exported)
   - called by (3): CvInterfaceArtInfoItem::buildMap, CyGlobalContext::getInterfaceArtInfo, CyGlobalContext::getNumInterfaceArtInfos
 - **·** `CvArtFileMgr::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: CvArtFileMgr::~CvArtFileMgr, operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
+  - calls: CvArtFileMgr::~CvArtFileMgr, operator delete(void*) \[CvGameCoreDLL.cpp\], operator delete\[\](void*) \[CvGameCoreDLL.cpp\]
   - takes the address of: CvArtFileMgr::~CvArtFileMgr

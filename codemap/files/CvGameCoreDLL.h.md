@@ -20,11 +20,11 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - calls: NiPoint3::Length
   - called by (3): CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat
 - **·** `CvPlotIndicatorData::~CvPlotIndicatorData()` (exported; written by the compiler)
-  - calls: CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
+  - calls: CvString::~CvString \[CvString.h\], CvWString::~CvWString \[CvString.h\]
   - called by (2): CvPlayer::getResourceLayerColors, CvPlayer::getUnitLayerColors
 - **·** `CvColorInfo::`vector deleting dtor'(unsigned int)` (virtual; overrides CvInfoBase::`vector deleting dtor'; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvColorInfo::~CvColorInfo [CvInfos.cpp]
-  - takes the address of: CvColorInfo::~CvColorInfo [CvInfos.cpp]
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], operator delete\[\](void*) \[CvGameCoreDLL.cpp\], CvColorInfo::~CvColorInfo \[CvInfos.cpp\]
+  - takes the address of: CvColorInfo::~CvColorInfo \[CvInfos.cpp\]
 - **·** `CvUnitFormationInfo::`vector deleting dtor'(unsigned int)` (virtual; overrides CvInfoBase::`vector deleting dtor'; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvUnitFormationInfo::~CvUnitFormationInfo [CvInfos.cpp]
-  - takes the address of: CvUnitFormationInfo::~CvUnitFormationInfo [CvInfos.cpp]
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], operator delete\[\](void*) \[CvGameCoreDLL.cpp\], CvUnitFormationInfo::~CvUnitFormationInfo \[CvInfos.cpp\]
+  - takes the address of: CvUnitFormationInfo::~CvUnitFormationInfo \[CvInfos.cpp\]

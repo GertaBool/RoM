@@ -2,11 +2,11 @@
 
 How control reaches the source from outside, from `map/`.
 
-## Offered to the game exe: exported functions (2446)
+## Offered to the game exe: exported functions (2447)
 
 Functions declared `DllExport` (directly, or as members of a class declared `DllExport`): the DLL offers them to the exe. Which of them the exe actually calls cannot be seen from the source.
 
-- **(global)** (14): DLLPublishToPython, XYCoords::operator<(struct XYCoords) const, XYCoords::operator<=(struct XYCoords) const, XYCoords::operator>(struct XYCoords) const, XYCoords::operator>=(struct XYCoords) const, atWar, directionAngle, estimateDirection, getCity, getUnit, isCardinalDirection, setTradeItem, shuffle
+- **(global)** (14): DLLPublishToPython, XYCoords::operator\<(struct XYCoords) const, XYCoords::operator\<=(struct XYCoords) const, XYCoords::operator>(struct XYCoords) const, XYCoords::operator>=(struct XYCoords) const, atWar, directionAngle, estimateDirection, getCity, getUnit, isCardinalDirection, setTradeItem, shuffle
 - **CombatDetails** (4): CombatDetails, operator=, ~CombatDetails
 - **CvActionInfo** (36): CvActionInfo, getActionInfoIndex, getAutomateType, getButton, getCivilopedia, getCommandData, getCommandType, getControlType, getDescription, getHelp, getHotKey, getHotKeyDescription, getHotKeyPriority, getHotKeyPriorityAlt, getHotKeyVal, getHotKeyValAlt, getInterfaceModeType, getMissionData, getMissionType, getOrderPriority, getOriginalIndex, getStrategy, getSubType, getTextKeyWide, getType, isAltDown, isAltDownAlt, isConfirmCommand, isCtrlDown, isCtrlDownAlt, isShiftDown, isShiftDownAlt, isVisible, setOriginalIndex, setSubType, ~CvActionInfo
 - **CvAirMissionDefinition** (6): CvAirMissionDefinition, getDamage, isDead, operator=, setDamage
@@ -41,7 +41,7 @@ Functions declared `DllExport` (directly, or as members of a class declared `Dll
 - **CvControlInfo** (2): CvControlInfo, ~CvControlInfo
 - **CvCursorInfo** (1): getPath
 - **CvDLLButtonPopup** (6): OnAltExecute, OnFocus, OnOkClicked, freeInstance, getInstance, launchButtonPopup
-- **CvDLLEntity** (27): CvDLLEntity, ExecuteMove, GetSiegeTower, IsSelected, MoveTo, NotifyEntity, PlayAnimation, QueueMove, SetPosition, SetSiegeTower, StopAnimation, createCityEntity, createUnitEntity, destroyEntity, getCityEntity, getEntity, getUnitEntity, operator=, removeEntity, setEntity, setVisible, setup, ~CvDLLEntity
+- **CvDLLEntity** (28): CvDLLEntity, ExecuteMove, GetSiegeTower, IsSelected, MoveTo, NotifyEntity, PlayAnimation, QueueMove, SetPosition, SetSiegeTower, StopAnimation, createCityEntity, createUnitEntity, destroyEntity, getCityEntity, getEntity, getUnitEntity, isGraphicsPagedOut, operator=, removeEntity, setEntity, setVisible, setup, ~CvDLLEntity
 - **CvDLLWidgetData** (6): executeAction, executeAltAction, freeInstance, getInstance, isLink, parseHelp
 - **CvDeal** (20): getFirstPlayer, getGoldItem, getGoldPerTurnItem, getID, getPeaceItem, getSecondPlayer, hasData, headFirstTradesNode, headSecondTradesNode, isAnnual, isCancelable, isDual, isEndWar, isGold, isVassal, isVassalTributeDeal, kill, nextFirstTradesNode, nextSecondTradesNode, turnsToCancel
 - **CvDiploParameters** (37): CvDiploParameters, getAIContact, getChatText, getData, getDiploComment, getDiploCommentArgs, getHumanDiplo, getOurOfferList, getOurOffering, getPendingDelete, getRenegotiate, getTheirOfferList, getTheirOffering, getWhoTalkingTo, read, setAIContact, setChatText, setData, setDiploComment, setHumanDiplo, setOurOfferList, setOurOffering, setPendingDelete, setRenegotiate, setTheirOfferList, setTheirOffering, setWhoTalkingTo, write, ~CvDiploParameters
@@ -288,7 +288,7 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 | PBPlayerAdminData | 3 |
 | PBPlayerSetupData | 1 |
 
-## The DLL calls Python (181 sites)
+## The DLL calls Python (183 sites)
 
 `callFunction(module, "function")` sites. A module shown as ? is chosen at run time (the map script).
 
@@ -344,77 +344,78 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 | CvAppInterface.getOptionINT | EntryPoints/CvAppInterface.py:230 | getBugOptionINT |
 | CvAppInterface.netAddReminder | not found | CvNetAddReminder::Execute |
 | CvEventInterface.onEvent | EntryPoints/CvEventInterface.py:28 | CvDllPythonEvents::postEvent |
-| CvGameInterface.AI_chooseProduction | base/EntryPoints/CvGameInterface.py:148 | CvCityAI::AI_chooseProduction |
-| CvGameInterface.AI_chooseTech | base/EntryPoints/CvGameInterface.py:143 | CvPlayerAI::AI_chooseFreeTech, CvPlayerAI::AI_chooseResearch |
-| CvGameInterface.AI_doDiplo | base/EntryPoints/CvGameInterface.py:163 | CvPlayerAI::AI_doDiplo |
-| CvGameInterface.AI_doWar | base/EntryPoints/CvGameInterface.py:158 | CvTeamAI::AI_doWar |
-| CvGameInterface.AI_unitUpdate | base/EntryPoints/CvGameInterface.py:153 | CvUnitAI::AI_update |
-| CvGameInterface.calculateScore | base/EntryPoints/CvGameInterface.py:168 | CvPlayer::calculateScore |
-| CvGameInterface.canBuild | not found | CvPlot::canBuild |
-| CvGameInterface.canConstruct | base/EntryPoints/CvGameInterface.py:119 | CvCity::canConstruct |
-| CvGameInterface.canCreate | base/EntryPoints/CvGameInterface.py:127 | CvCity::canCreate |
-| CvGameInterface.canDeclareWar | not found | CvTeam::canDeclareWar, CvTeam::canEventuallyDeclareWar |
-| CvGameInterface.canDoCivic | base/EntryPoints/CvGameInterface.py:103 | CvPlayer::canDoCivics |
-| CvGameInterface.canFoundCitiesOnWater | not found | CvPlayer::canFound |
-| CvGameInterface.canMaintain | base/EntryPoints/CvGameInterface.py:135 | CvCity::canMaintain |
-| CvGameInterface.canPickPlot | not found | CvGame::getPlotHighlightColor |
-| CvGameInterface.canRazeCity | not found | CvPlayer::acquireCity, CvPlayer::canRaze |
-| CvGameInterface.canResearch | base/EntryPoints/CvGameInterface.py:95 | CvPlayer::canResearch |
-| CvGameInterface.canTrain | base/EntryPoints/CvGameInterface.py:111 | CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const |
-| CvGameInterface.cannotConstruct | base/EntryPoints/CvGameInterface.py:123 | CvCity::canConstruct |
-| CvGameInterface.cannotCreate | base/EntryPoints/CvGameInterface.py:131 | CvCity::canCreate |
-| CvGameInterface.cannotDoCivic | base/EntryPoints/CvGameInterface.py:107 | CvPlayer::canDoCivics |
-| CvGameInterface.cannotDoControl | base/EntryPoints/CvGameInterface.py:91 | CvGame::canDoControl |
-| CvGameInterface.cannotFoundCity | not found | CvPlayer::canFound |
-| CvGameInterface.cannotHandleAction | base/EntryPoints/CvGameInterface.py:79 | CvGame::canHandleAction |
-| CvGameInterface.cannotMaintain | base/EntryPoints/CvGameInterface.py:139 | CvCity::canMaintain |
-| CvGameInterface.cannotResearch | base/EntryPoints/CvGameInterface.py:99 | CvPlayer::canEverResearch |
-| CvGameInterface.cannotSelectionListGameNetMessage | base/EntryPoints/CvGameInterface.py:87 | CvGame::selectionListGameNetMessage |
-| CvGameInterface.cannotSelectionListMove | base/EntryPoints/CvGameInterface.py:83 | CvGame::selectionListMove |
+| CvGameInterface.AI_chooseProduction | base/EntryPoints/CvGameInterface.py:177 | CvCityAI::AI_chooseProduction |
+| CvGameInterface.AI_chooseTech | base/EntryPoints/CvGameInterface.py:172 | CvPlayerAI::AI_chooseFreeTech, CvPlayerAI::AI_chooseResearch |
+| CvGameInterface.AI_doDiplo | base/EntryPoints/CvGameInterface.py:192 | CvPlayerAI::AI_doDiplo |
+| CvGameInterface.AI_doWar | base/EntryPoints/CvGameInterface.py:187 | CvTeamAI::AI_doWar |
+| CvGameInterface.AI_unitUpdate | base/EntryPoints/CvGameInterface.py:182 | CvUnitAI::AI_update |
+| CvGameInterface.calculateScore | base/EntryPoints/CvGameInterface.py:197 | CvPlayer::calculateScore |
+| CvGameInterface.canBuild | base/EntryPoints/CvGameInterface.py:104 | CvPlot::canBuild |
+| CvGameInterface.canConstruct | base/EntryPoints/CvGameInterface.py:148 | CvCity::canConstruct |
+| CvGameInterface.canCreate | base/EntryPoints/CvGameInterface.py:156 | CvCity::canCreate |
+| CvGameInterface.canDeclareWar | base/EntryPoints/CvGameInterface.py:73 | CvTeam::canDeclareWar, CvTeam::canEventuallyDeclareWar |
+| CvGameInterface.canDoCivic | base/EntryPoints/CvGameInterface.py:132 | CvPlayer::canDoCivics |
+| CvGameInterface.canFoundCitiesOnWater | base/EntryPoints/CvGameInterface.py:260 | CvPlayer::canFound |
+| CvGameInterface.canMaintain | base/EntryPoints/CvGameInterface.py:164 | CvCity::canMaintain |
+| CvGameInterface.canPickPlot | base/EntryPoints/CvGameInterface.py:272 | CvGame::getPlotHighlightColor |
+| CvGameInterface.canRazeCity | base/EntryPoints/CvGameInterface.py:69 | CvPlayer::acquireCity, CvPlayer::canRaze |
+| CvGameInterface.canResearch | base/EntryPoints/CvGameInterface.py:124 | CvPlayer::canResearch |
+| CvGameInterface.canTrain | base/EntryPoints/CvGameInterface.py:140 | CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const |
+| CvGameInterface.cannotConstruct | base/EntryPoints/CvGameInterface.py:152 | CvCity::canConstruct |
+| CvGameInterface.cannotCreate | base/EntryPoints/CvGameInterface.py:160 | CvCity::canCreate |
+| CvGameInterface.cannotDoCivic | base/EntryPoints/CvGameInterface.py:136 | CvPlayer::canDoCivics |
+| CvGameInterface.cannotDoControl | base/EntryPoints/CvGameInterface.py:120 | CvGame::canDoControl |
+| CvGameInterface.cannotFoundCity | base/EntryPoints/CvGameInterface.py:108 | CvPlayer::canFound |
+| CvGameInterface.cannotHandleAction | base/EntryPoints/CvGameInterface.py:100 | CvGame::canHandleAction |
+| CvGameInterface.cannotMaintain | base/EntryPoints/CvGameInterface.py:168 | CvCity::canMaintain |
+| CvGameInterface.cannotResearch | base/EntryPoints/CvGameInterface.py:128 | CvPlayer::canEverResearch |
+| CvGameInterface.cannotSelectionListGameNetMessage | base/EntryPoints/CvGameInterface.py:116 | CvGame::selectionListGameNetMessage |
+| CvGameInterface.cannotSelectionListMove | base/EntryPoints/CvGameInterface.py:112 | CvGame::selectionListMove |
 | CvGameInterface.cannotSpreadReligion | not found | CvUnit::canSpread |
-| CvGameInterface.cannotTrain | base/EntryPoints/CvGameInterface.py:115 | CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const |
-| CvGameInterface.citiesDestroyFeatures | not found | CvCity::init |
-| CvGameInterface.createBarbarianCities | base/EntryPoints/CvGameInterface.py:31 | CvGame::createBarbarianCities |
-| CvGameInterface.createBarbarianUnits | base/EntryPoints/CvGameInterface.py:35 | CvGame::createBarbarianUnits |
-| CvGameInterface.doCityCaptureGold | not found | CvPlayer::acquireCity |
-| CvGameInterface.doCombat | not found | CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack |
-| CvGameInterface.doCulture | base/EntryPoints/CvGameInterface.py:200 | CvCity::doCulture |
-| CvGameInterface.doGold | base/EntryPoints/CvGameInterface.py:180 | CvPlayer::doGold |
-| CvGameInterface.doGoody | base/EntryPoints/CvGameInterface.py:188 | CvPlayer::doGoody |
-| CvGameInterface.doGreatPeople | base/EntryPoints/CvGameInterface.py:212 | CvCity::doGreatPeople |
-| CvGameInterface.doGrowth | base/EntryPoints/CvGameInterface.py:192 | CvCity::doGrowth |
+| CvGameInterface.cannotTrain | base/EntryPoints/CvGameInterface.py:144 | CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const |
+| CvGameInterface.citiesDestroyFeatures | base/EntryPoints/CvGameInterface.py:257 | CvCity::init |
+| CvGameInterface.createBarbarianCities | base/EntryPoints/CvGameInterface.py:41 | CvGame::createBarbarianCities |
+| CvGameInterface.createBarbarianUnits | base/EntryPoints/CvGameInterface.py:45 | CvGame::createBarbarianUnits |
+| CvGameInterface.doCityCaptureGold | base/EntryPoints/CvGameInterface.py:254 | CvPlayer::acquireCity |
+| CvGameInterface.doCombat | base/EntryPoints/CvGameInterface.py:263 | CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack |
+| CvGameInterface.doCulture | base/EntryPoints/CvGameInterface.py:228 | CvCity::doCulture |
+| CvGameInterface.doGold | base/EntryPoints/CvGameInterface.py:208 | CvPlayer::doGold |
+| CvGameInterface.doGoody | base/EntryPoints/CvGameInterface.py:216 | CvPlayer::doGoody |
+| CvGameInterface.doGreatPeople | base/EntryPoints/CvGameInterface.py:240 | CvCity::doGreatPeople |
+| CvGameInterface.doGrowth | base/EntryPoints/CvGameInterface.py:220 | CvCity::doGrowth |
 | CvGameInterface.doHeadquarters | not found | CvGame::doHeadquarters |
-| CvGameInterface.doHolyCity | base/EntryPoints/CvGameInterface.py:172 | CvGame::doHolyCity |
-| CvGameInterface.doHolyCityTech | base/EntryPoints/CvGameInterface.py:176 | CvTeam::setHasTech |
-| CvGameInterface.doMeltdown | base/EntryPoints/CvGameInterface.py:216 | CvCity::doMeltdown |
-| CvGameInterface.doPillageGold | not found | CvUnit::pillage |
-| CvGameInterface.doPlotCulture | base/EntryPoints/CvGameInterface.py:204 | CvCity::doPlotCulture |
-| CvGameInterface.doProduction | base/EntryPoints/CvGameInterface.py:196 | CvCity::doProduction |
-| CvGameInterface.doReligion | base/EntryPoints/CvGameInterface.py:208 | CvCity::doReligion |
-| CvGameInterface.doResearch | base/EntryPoints/CvGameInterface.py:184 | CvPlayer::doResearch |
-| CvGameInterface.doReviveActivePlayer | not found | CvGame::reviveActivePlayer, CvGame::revivePlayer |
-| CvGameInterface.getBuildingCostMod | not found | CvCity::getProductionNeeded(BuildingTypes) const |
-| CvGameInterface.getCityFoundValue | not found | CvPlayerAI::AI_recalculateFoundValues, CvPlayerAI::AI_updateFoundValues, CvPlot::getFoundValue |
-| CvGameInterface.getConscriptUnitType | not found | CvCity::getConscriptUnit |
-| CvGameInterface.getExperienceNeeded | not found | calculateExperience |
-| CvGameInterface.getExtraCost | not found | CvPlayer::calculatePreInflatedCosts |
-| CvGameInterface.getFirstRecommendedTech | base/EntryPoints/CvGameInterface.py:47 | CvDLLButtonPopup::launchChooseTechPopup |
-| CvGameInterface.getRecommendedBuilding | base/EntryPoints/CvGameInterface.py:67 | CvDLLButtonPopup::launchProductionPopup |
-| CvGameInterface.getRecommendedUnit | base/EntryPoints/CvGameInterface.py:63 | CvDLLButtonPopup::launchProductionPopup |
-| CvGameInterface.getSecondRecommendedTech | base/EntryPoints/CvGameInterface.py:51 | CvDLLButtonPopup::launchChooseTechPopup |
-| CvGameInterface.getUnitCostMod | not found | CvPlayer::getProductionNeeded(UnitTypes) const |
-| CvGameInterface.getUpgradePriceOverride | not found | CvUnit::upgradePrice |
-| CvGameInterface.isActionRecommended | base/EntryPoints/CvGameInterface.py:75 | CvUnit::isActionRecommended |
-| CvGameInterface.isPlayerResearch | base/EntryPoints/CvGameInterface.py:27 | CvPlayer::isResearch |
-| CvGameInterface.isVictory | not found | CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const |
-| CvGameInterface.isVictoryTest | base/EntryPoints/CvGameInterface.py:23 | CvGame::testVictory() |
-| CvGameInterface.showExamineCityButton | base/EntryPoints/CvGameInterface.py:59 | CvDLLButtonPopup::launchProductionPopup |
-| CvGameInterface.showTechChooserButton | base/EntryPoints/CvGameInterface.py:43 | CvDLLButtonPopup::launchChooseTechPopup |
-| CvGameInterface.skipProductionPopup | base/EntryPoints/CvGameInterface.py:55 | CvDLLButtonPopup::launchProductionPopup |
-| CvGameInterface.skipResearchPopup | base/EntryPoints/CvGameInterface.py:39 | CvDLLButtonPopup::launchChooseTechPopup |
-| CvGameInterface.unitCannotMoveInto | not found | CvUnit::canMoveInto |
-| CvGameInterface.updateColoredPlots | base/EntryPoints/CvGameInterface.py:71 | CvGame::updateColoredPlots |
+| CvGameInterface.doHolyCity | base/EntryPoints/CvGameInterface.py:200 | CvGame::doHolyCity |
+| CvGameInterface.doHolyCityTech | base/EntryPoints/CvGameInterface.py:204 | CvTeam::setHasTech |
+| CvGameInterface.doMeltdown | base/EntryPoints/CvGameInterface.py:244 | CvCity::doMeltdown |
+| CvGameInterface.doPillageGold | base/EntryPoints/CvGameInterface.py:251 | CvUnit::pillage |
+| CvGameInterface.doPlotCulture | base/EntryPoints/CvGameInterface.py:232 | CvCity::doPlotCulture |
+| CvGameInterface.doProduction | base/EntryPoints/CvGameInterface.py:224 | CvCity::doProduction |
+| CvGameInterface.doReligion | base/EntryPoints/CvGameInterface.py:236 | CvCity::doReligion |
+| CvGameInterface.doResearch | base/EntryPoints/CvGameInterface.py:212 | CvPlayer::doResearch |
+| CvGameInterface.doReviveActivePlayer | base/EntryPoints/CvGameInterface.py:248 | CvGame::reviveActivePlayer, CvGame::revivePlayer |
+| CvGameInterface.getBuildingCostMod | base/EntryPoints/CvGameInterface.py:278 | CvCity::getProductionNeeded(BuildingTypes) const |
+| CvGameInterface.getCityFoundValue | base/EntryPoints/CvGameInterface.py:269 | CvPlayerAI::AI_recalculateFoundValues, CvPlayerAI::AI_updateFoundValues, CvPlot::getFoundValue |
+| CvGameInterface.getConscriptUnitType | base/EntryPoints/CvGameInterface.py:266 | CvCity::getConscriptUnit |
+| CvGameInterface.getExperienceNeeded | base/EntryPoints/CvGameInterface.py:290 | calculateExperience |
+| CvGameInterface.getExtraCost | base/EntryPoints/CvGameInterface.py:37 | CvPlayer::calculatePreInflatedCosts |
+| CvGameInterface.getFirstRecommendedTech | base/EntryPoints/CvGameInterface.py:57 | CvDLLButtonPopup::launchChooseTechPopup |
+| CvGameInterface.getRecommendedBuilding | base/EntryPoints/CvGameInterface.py:85 | CvDLLButtonPopup::launchProductionPopup |
+| CvGameInterface.getRecommendedUnit | base/EntryPoints/CvGameInterface.py:81 | CvDLLButtonPopup::launchProductionPopup |
+| CvGameInterface.getSecondRecommendedTech | base/EntryPoints/CvGameInterface.py:61 | CvDLLButtonPopup::launchChooseTechPopup |
+| CvGameInterface.getUnitCostMod | base/EntryPoints/CvGameInterface.py:275 | CvPlayer::getProductionNeeded(UnitTypes) const |
+| CvGameInterface.getUpgradePriceOverride | base/EntryPoints/CvGameInterface.py:287 | CvUnit::upgradePrice |
+| CvGameInterface.isActionRecommended | base/EntryPoints/CvGameInterface.py:93 | CvUnit::isActionRecommended |
+| CvGameInterface.isPlayerResearch | base/EntryPoints/CvGameInterface.py:33 | CvPlayer::isResearch |
+| CvGameInterface.isVictory | base/EntryPoints/CvGameInterface.py:30 | CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const |
+| CvGameInterface.isVictoryTest | base/EntryPoints/CvGameInterface.py:26 | CvGame::testVictory() |
+| CvGameInterface.showExamineCityButton | base/EntryPoints/CvGameInterface.py:77 | CvDLLButtonPopup::launchProductionPopup |
+| CvGameInterface.showTechChooserButton | base/EntryPoints/CvGameInterface.py:53 | CvDLLButtonPopup::launchChooseTechPopup |
+| CvGameInterface.skipProductionPopup | base/EntryPoints/CvGameInterface.py:65 | CvDLLButtonPopup::launchProductionPopup |
+| CvGameInterface.skipResearchPopup | base/EntryPoints/CvGameInterface.py:49 | CvDLLButtonPopup::launchChooseTechPopup |
+| CvGameInterface.unitCannotMoveInto | base/EntryPoints/CvGameInterface.py:97 | CvUnit::canMoveInto |
+| CvGameInterface.updateColoredPlots | base/EntryPoints/CvGameInterface.py:89 | CvGame::updateColoredPlots |
 | CvScreensInterface.WorldBuilderGetHighlightPlot | EntryPoints/CvScreensInterface.py:680 | CvGame::getNewHighlightPlot |
+| CvScreensInterface.getCameraView | EntryPoints/CvScreensInterface.py:1200 | CvGame::graphicsWindowFromCamera |
 | CvScreensInterface.pediaBack | EntryPoints/CvScreensInterface.py:411 | CvDLLWidgetData::doPediaBack |
 | CvScreensInterface.pediaForward | EntryPoints/CvScreensInterface.py:414 | CvDLLWidgetData::doPediaForward |
 | CvScreensInterface.pediaJumpToBonus | EntryPoints/CvScreensInterface.py:477 | CvDLLWidgetData::doPediaBonusJump |
@@ -450,7 +451,7 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 | CvScreensInterface.showReligionScreen | EntryPoints/CvScreensInterface.py:95 | CvGame::doControl |
 | CvScreensInterface.showTechChooser | EntryPoints/CvScreensInterface.py:81 | CvDLLButtonPopup::OnOkClicked, CvGame::doControl |
 | CvScreensInterface.showVictoryScreen | EntryPoints/CvScreensInterface.py:263 | CvGame::doControl |
-| PbMain.sendEmail | base/EntryPoints/PbMain.py:90 | CvPlayer::sendReminder |
+| PbMain.sendEmail | base/EntryPoints/PbMain.py:95 | CvPlayer::sendReminder |
 
 ## Events posted to Python (81)
 
@@ -458,84 +459,84 @@ Each `CvDllPythonEvents` report function posts one event; the handlers are every
 
 | event | posted by | handlers |
 |---|---|---|
-| BeginGameTurn | CvDllPythonEvents::reportBeginGameTurn | AIAutoPlay.__init__: self.onBeginGameTurn (Revolution/Gameready/AIAutoPlay.py:115); AIAutoPlay.removeEventHandlers: self.customEM.onBeginGameTurn (Revolution/Gameready/AIAutoPlay.py:148); BarbarianCiv.__init__: self.onBeginGameTurn (Revolution/Gameready/BarbarianCiv.py:87); TechDiffusion.__init__: self.onBeginGameTurn (Revolution/Gameready/TechDiffusion.py:42); CvEventManager.onBeginGameTurn (base/CvEventManager.py:85) |
-| BeginPlayerTurn | CvDllPythonEvents::reportBeginPlayerTurn | EspionageEventEvent.__init__: self.onBeginPlayerTurn (Contrib/EspionageEventManager.py:49); AutoLogEvent.__init__: self.onBeginPlayerTurn (Contrib/autologEventManager.py:150); Tester.__init__: self.onBeginPlayerTurn (Revolution/Development/Tester.py:49); AIAutoPlay.__init__: self.onBeginPlayerTurn (Revolution/Gameready/AIAutoPlay.py:94); DynamicCivNames.__init__: self.onBeginPlayerTurn (Revolution/Gameready/DynamicCivNames.py:41); Revolution.__init__: self.onBeginPlayerTurn (Revolution/Gameready/Revolution.py:179); init: onBeginPlayerTurn (Revolution/RevEvents.py:79); RoMEventManager.__init__: self.onBeginPlayerTurn (RoMEventManager.py:46); CvEventManager.onBeginPlayerTurn (base/CvEventManager.py:87); BugUtil.doHotSeatCheck (Config/BUG Core.xml:98); ?.onBeginPlayerTurn (Config/Better Espionage.xml:80); RevDCMReligionControl.onBeginPlayerTurn (Config/RevDCM.xml:16) |
-| EndGameTurn | CvDllPythonEvents::reportEndGameTurn | ReminderEventManager.__init__: self.onEndGameTurn (Contrib/ReminderEventManager.py:65); AutoLogEvent.__init__: self.onEndGameTurn (Contrib/autologEventManager.py:149); init: onEndGameTurn (Revolution/RevEvents.py:78); CvEventManager.onEndGameTurn (base/CvEventManager.py:86) |
-| EndPlayerTurn | CvDllPythonEvents::reportEndPlayerTurn | AutoLogEvent.__init__: self.onEndPlayerTurn (Contrib/autologEventManager.py:151); AIAutoPlay.__init__: self.onEndPlayerTurn (Revolution/Gameready/AIAutoPlay.py:95); BarbarianCiv.__init__: self.onEndPlayerTurn (Revolution/Gameready/BarbarianCiv.py:88); Revolution.__init__: self.onEndPlayerTurn (Revolution/Gameready/Revolution.py:180); init: onEndPlayerTurn (Revolution/Gameready/StartAsMinors.py:51); init: onEndPlayerTurn (Revolution/RevEvents.py:80); CvEventManager.onEndPlayerTurn (base/CvEventManager.py:88) |
-| GameEnd | CvDllPythonEvents::reportGameEnd | AutoLogEvent.__init__: self.onGameEnd (Contrib/autologEventManager.py:148); CvEventManager.onGameEnd (base/CvEventManager.py:83) |
-| GameStart | CvDllPythonEvents::reportGameStart | BugEventManager.__init__: self.resetActiveTurn (BUG/BugEventManager.py:191); AbstractStatefulAlert.__init__: self.onGameStart (Contrib/Civ4lerts.py:167); EventSignsEventHandler.__init__: self.onGameStart (Contrib/EventSigns.py:450); FavoriteCivicDetector.__init__: self.onGameStart (Contrib/FavoriteCivicDetector.py:295); MoreCiv4lertsEvent.__init__: self.reset (Contrib/MoreCiv4lerts.py:66); ReminderEventManager.__init__: self.onGameStart (Contrib/ReminderEventManager.py:67); RevDCM.__init__: self.onGameStart (Contrib/RevDCM.py:29); AutoLogEvent.__init__: self.onGameStart (Contrib/autologEventManager.py:147); AIAutoPlay.__init__: self.onGameStart (Revolution/Gameready/AIAutoPlay.py:97); RevolutionInit.__init__: self.onGameStart (Revolution/RevolutionInit.py:67); RoMEventManager.__init__: self.onGameStart (RoMEventManager.py:45); CvEventManager.onGameStart (base/CvEventManager.py:82); BugData.onGameStart (Config/BUG Core.xml:102); ?.onGameStart (Config/Better Espionage.xml:77); ?.onGameStart (Config/Strategy Overlay.xml:88); CvTechChooser.resetTechPrefs (Config/init.xml:127) |
-| Init | CvDllPythonEvents::reportInit | CvEventManager.onInit (base/CvEventManager.py:76) |
-| ModNetMessage | CvDllPythonEvents::reportModNetMessage | AIAutoPlay.__init__: self.onModNetMessage (Revolution/Gameready/AIAutoPlay.py:89); Revolution.__init__: self.onModNetMessage (Revolution/Gameready/Revolution.py:181); RoMEventManager.__init__: self.onModNetMessage (RoMEventManager.py:43); ?.onModNetMessage (Config/Strategy Overlay.xml:98) |
-| OnPreSave | CvDllPythonEvents::preSave | EventSignsEventHandler.__init__: self.onPreSave (Contrib/EventSigns.py:452); FavoriteCivicDetector.__init__: self.onPreSave (Contrib/FavoriteCivicDetector.py:297); ReminderEventManager.__init__: self.onPreSave (Contrib/ReminderEventManager.py:70); CvEventManager.onPreSave (base/CvEventManager.py:80); ?.onPreSave (Config/Strategy Overlay.xml:91) |
+| BeginGameTurn | CvDllPythonEvents::reportBeginGameTurn | AIAutoPlay.__init__: self.onBeginGameTurn (Revolution/Gameready/AIAutoPlay.py:115); AIAutoPlay.removeEventHandlers: self.customEM.onBeginGameTurn (Revolution/Gameready/AIAutoPlay.py:148); BarbarianCiv.__init__: self.onBeginGameTurn (Revolution/Gameready/BarbarianCiv.py:87); TechDiffusion.__init__: self.onBeginGameTurn (Revolution/Gameready/TechDiffusion.py:42); CvEventManager.onBeginGameTurn (base/CvEventManager.py:92) |
+| BeginPlayerTurn | CvDllPythonEvents::reportBeginPlayerTurn | EspionageEventEvent.__init__: self.onBeginPlayerTurn (Contrib/EspionageEventManager.py:49); AutoLogEvent.__init__: self.onBeginPlayerTurn (Contrib/autologEventManager.py:150); Tester.__init__: self.onBeginPlayerTurn (Revolution/Development/Tester.py:49); AIAutoPlay.__init__: self.onBeginPlayerTurn (Revolution/Gameready/AIAutoPlay.py:94); DynamicCivNames.__init__: self.onBeginPlayerTurn (Revolution/Gameready/DynamicCivNames.py:41); Revolution.__init__: self.onBeginPlayerTurn (Revolution/Gameready/Revolution.py:179); init: onBeginPlayerTurn (Revolution/RevEvents.py:79); RoMEventManager.__init__: self.onBeginPlayerTurn (RoMEventManager.py:46); CvEventManager.onBeginPlayerTurn (base/CvEventManager.py:94); BugUtil.doHotSeatCheck (Config/BUG Core.xml:98); ?.onBeginPlayerTurn (Config/Better Espionage.xml:80); RevDCMReligionControl.onBeginPlayerTurn (Config/RevDCM.xml:16) |
+| EndGameTurn | CvDllPythonEvents::reportEndGameTurn | ReminderEventManager.__init__: self.onEndGameTurn (Contrib/ReminderEventManager.py:65); AutoLogEvent.__init__: self.onEndGameTurn (Contrib/autologEventManager.py:149); init: onEndGameTurn (Revolution/RevEvents.py:78); CvEventManager.onEndGameTurn (base/CvEventManager.py:93) |
+| EndPlayerTurn | CvDllPythonEvents::reportEndPlayerTurn | AutoLogEvent.__init__: self.onEndPlayerTurn (Contrib/autologEventManager.py:151); AIAutoPlay.__init__: self.onEndPlayerTurn (Revolution/Gameready/AIAutoPlay.py:95); BarbarianCiv.__init__: self.onEndPlayerTurn (Revolution/Gameready/BarbarianCiv.py:88); Revolution.__init__: self.onEndPlayerTurn (Revolution/Gameready/Revolution.py:180); init: onEndPlayerTurn (Revolution/Gameready/StartAsMinors.py:51); init: onEndPlayerTurn (Revolution/RevEvents.py:80); CvEventManager.onEndPlayerTurn (base/CvEventManager.py:95) |
+| GameEnd | CvDllPythonEvents::reportGameEnd | AutoLogEvent.__init__: self.onGameEnd (Contrib/autologEventManager.py:148); CvEventManager.onGameEnd (base/CvEventManager.py:86) |
+| GameStart | CvDllPythonEvents::reportGameStart | BugEventManager.__init__: self.resetActiveTurn (BUG/BugEventManager.py:191); AbstractStatefulAlert.__init__: self.onGameStart (Contrib/Civ4lerts.py:167); EventSignsEventHandler.__init__: self.onGameStart (Contrib/EventSigns.py:450); FavoriteCivicDetector.__init__: self.onGameStart (Contrib/FavoriteCivicDetector.py:295); MoreCiv4lertsEvent.__init__: self.reset (Contrib/MoreCiv4lerts.py:66); ReminderEventManager.__init__: self.onGameStart (Contrib/ReminderEventManager.py:67); RevDCM.__init__: self.onGameStart (Contrib/RevDCM.py:29); AutoLogEvent.__init__: self.onGameStart (Contrib/autologEventManager.py:147); AIAutoPlay.__init__: self.onGameStart (Revolution/Gameready/AIAutoPlay.py:97); RevolutionInit.__init__: self.onGameStart (Revolution/RevolutionInit.py:67); RoMEventManager.__init__: self.onGameStart (RoMEventManager.py:45); CvEventManager.onGameStart (base/CvEventManager.py:85); BugData.onGameStart (Config/BUG Core.xml:102); ?.onGameStart (Config/Better Espionage.xml:77); ?.onGameStart (Config/Strategy Overlay.xml:88); CvTechChooser.resetTechPrefs (Config/init.xml:127) |
+| Init | CvDllPythonEvents::reportInit | CvEventManager.onInit (base/CvEventManager.py:79) |
+| ModNetMessage | CvDllPythonEvents::reportModNetMessage | AIAutoPlay.__init__: self.onModNetMessage (Revolution/Gameready/AIAutoPlay.py:89); Revolution.__init__: self.onModNetMessage (Revolution/Gameready/Revolution.py:181); RoMEventManager.__init__: self.onModNetMessage (RoMEventManager.py:43); CvEventManager.onModNetMessage (base/CvEventManager.py:78); ?.onModNetMessage (Config/Strategy Overlay.xml:98) |
+| OnPreSave | CvDllPythonEvents::preSave | EventSignsEventHandler.__init__: self.onPreSave (Contrib/EventSigns.py:452); FavoriteCivicDetector.__init__: self.onPreSave (Contrib/FavoriteCivicDetector.py:297); ReminderEventManager.__init__: self.onPreSave (Contrib/ReminderEventManager.py:70); CvEventManager.onPreSave (base/CvEventManager.py:83); ?.onPreSave (Config/Strategy Overlay.xml:91) |
 | PreEndGameTurn | CvDllPythonEvents::reportPreEndGameTurn | AIAutoPlay.__init__: self.onEndGameTurn (Revolution/Gameready/AIAutoPlay.py:90); Revolution.__init__: self.onEndGameTurn (Revolution/Gameready/Revolution.py:175) |
-| UnInit | CvDllPythonEvents::reportUnInit | CvEventManager.onUnInit (base/CvEventManager.py:78) |
-| UnitRename | CvDllPythonEvents::reportUnitRename | CvEventManager.onUnitRename (base/CvEventManager.py:114) |
-| Update | CvDllPythonEvents::reportUpdate | CvEventManager.onUpdate (base/CvEventManager.py:77) |
-| buildingBuilt | CvDllPythonEvents::reportBuildingBuilt | AutoLogEvent.__init__: self.onBuildingBuilt (Contrib/autologEventManager.py:156); init: onBuildingBuilt (Revolution/RevEvents.py:88); RoMEventManager.__init__: self.onBuildingBuilt (RoMEventManager.py:47); CvEventManager.onBuildingBuilt (base/CvEventManager.py:117); ?.onBuildingBuilt (Config/MovieMod.xml:4) |
-| changeWar | CvDllPythonEvents::reportChangeWar | RefusesToTalk.__init__: self.onChangeWar (Contrib/Civ4lerts.py:823); AutoLogEvent.__init__: self.onChangeWar (Contrib/autologEventManager.py:172); Tester.__init__: self.onChangeWar (Revolution/Development/Tester.py:45); init: onChangeWar (Revolution/RevEvents.py:82); CvEventManager.onChangeWar (base/CvEventManager.py:127) |
-| chat | CvDllPythonEvents::reportChat | CvEventManager.onChat (base/CvEventManager.py:125) |
-| cityAcquired | CvDllPythonEvents::reportCityAcquired | MoreCiv4lertsEvent.__init__: self.OnCityAcquired (Contrib/MoreCiv4lerts.py:61); AutoLogEvent.__init__: self.onCityAcquired (Contrib/autologEventManager.py:176); CvEnhancedTechConquestEventManager.__init__: self.onCityAcquired (EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py:18); BarbarianCiv.__init__: self.onCityAcquired (Revolution/Gameready/BarbarianCiv.py:91); DynamicCivNames.__init__: self.onCityAcquired (Revolution/Gameready/DynamicCivNames.py:44); Revolution.__init__: self.onCityAcquired (Revolution/Gameready/Revolution.py:169); init: onCityAcquired (Revolution/RevEvents.py:86); CvEventManager.onCityAcquired (base/CvEventManager.py:98) |
-| cityAcquiredAndKept | CvDllPythonEvents::reportCityAcquiredAndKept | AbstractCityAlertManager.__init__: self.onCityAcquiredAndKept (Contrib/Civ4lerts.py:202) |
-| cityBuildingBuilding | CvDllPythonEvents::reportCityBuildingBuilding | AbstractCanHurry.__init__: self.onCityBuildingBuilding (Contrib/Civ4lerts.py:634); AutoLogEvent.__init__: self.onCityBuildingBuilding (Contrib/autologEventManager.py:181); CvEventManager.onCityBuildingBuilding (base/CvEventManager.py:104) |
+| UnInit | CvDllPythonEvents::reportUnInit | CvEventManager.onUnInit (base/CvEventManager.py:81) |
+| UnitRename | CvDllPythonEvents::reportUnitRename | CvEventManager.onUnitRename (base/CvEventManager.py:125) |
+| Update | CvDllPythonEvents::reportUpdate | CvEventManager.onUpdate (base/CvEventManager.py:80) |
+| buildingBuilt | CvDllPythonEvents::reportBuildingBuilt | AutoLogEvent.__init__: self.onBuildingBuilt (Contrib/autologEventManager.py:156); init: onBuildingBuilt (Revolution/RevEvents.py:88); RoMEventManager.__init__: self.onBuildingBuilt (RoMEventManager.py:47); CvEventManager.onBuildingBuilt (base/CvEventManager.py:132); ?.onBuildingBuilt (Config/MovieMod.xml:4) |
+| changeWar | CvDllPythonEvents::reportChangeWar | RefusesToTalk.__init__: self.onChangeWar (Contrib/Civ4lerts.py:823); AutoLogEvent.__init__: self.onChangeWar (Contrib/autologEventManager.py:172); Tester.__init__: self.onChangeWar (Revolution/Development/Tester.py:45); init: onChangeWar (Revolution/RevEvents.py:82); CvEventManager.onChangeWar (base/CvEventManager.py:147) |
+| chat | CvDllPythonEvents::reportChat | CvEventManager.onChat (base/CvEventManager.py:144) |
+| cityAcquired | CvDllPythonEvents::reportCityAcquired | MoreCiv4lertsEvent.__init__: self.OnCityAcquired (Contrib/MoreCiv4lerts.py:61); AutoLogEvent.__init__: self.onCityAcquired (Contrib/autologEventManager.py:176); CvEnhancedTechConquestEventManager.__init__: self.onCityAcquired (EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py:18); BarbarianCiv.__init__: self.onCityAcquired (Revolution/Gameready/BarbarianCiv.py:91); DynamicCivNames.__init__: self.onCityAcquired (Revolution/Gameready/DynamicCivNames.py:44); Revolution.__init__: self.onCityAcquired (Revolution/Gameready/Revolution.py:169); init: onCityAcquired (Revolution/RevEvents.py:86); CvEventManager.onCityAcquired (base/CvEventManager.py:106) |
+| cityAcquiredAndKept | CvDllPythonEvents::reportCityAcquiredAndKept | AbstractCityAlertManager.__init__: self.onCityAcquiredAndKept (Contrib/Civ4lerts.py:202); CvEventManager.onCityAcquiredAndKept (base/CvEventManager.py:107) |
+| cityBuildingBuilding | CvDllPythonEvents::reportCityBuildingBuilding | AbstractCanHurry.__init__: self.onCityBuildingBuilding (Contrib/Civ4lerts.py:634); AutoLogEvent.__init__: self.onCityBuildingBuilding (Contrib/autologEventManager.py:181); CvEventManager.onCityBuildingBuilding (base/CvEventManager.py:113) |
 | cityBuildingProcess | CvDllPythonEvents::reportCityBuildingProcess | AbstractCanHurry.__init__: self.onCityBuildingProcess (Contrib/Civ4lerts.py:636) |
 | cityBuildingProject | CvDllPythonEvents::reportCityBuildingProject | AbstractCanHurry.__init__: self.onCityBuildingProject (Contrib/Civ4lerts.py:635) |
-| cityBuildingUnit | CvDllPythonEvents::reportCityBuildingUnit | AbstractCanHurry.__init__: self.onCityBuildingUnit (Contrib/Civ4lerts.py:633); AutoLogEvent.__init__: self.onCityBuildingUnit (Contrib/autologEventManager.py:180); CvEventManager.onCityBuildingUnit (base/CvEventManager.py:103) |
-| cityBuilt | CvDllPythonEvents::reportCityBuilt | MoreCiv4lertsEvent.__init__: self.OnCityBuilt (Contrib/MoreCiv4lerts.py:62); BuildUnitName.__init__: self.onCityBuilt (Contrib/UnitNameEventManager.py:191); AutoLogEvent.__init__: self.onCityBuilt (Contrib/autologEventManager.py:174); AIAutoPlay.__init__: self.onCityBuilt (Revolution/Gameready/AIAutoPlay.py:108); AIAutoPlay.removeEventHandlers: self.customEM.onCityBuilt (Revolution/Gameready/AIAutoPlay.py:145); DynamicCivNames.__init__: self.onCityBuilt (Revolution/Gameready/DynamicCivNames.py:45); init: onCityBuilt (Revolution/RevEvents.py:85); RoMEventManager.__init__: self.onCityBuilt (RoMEventManager.py:50); CvEventManager.onCityBuilt (base/CvEventManager.py:96) |
-| cityDoTurn | CvDllPythonEvents::reportCityProduction | CvEventManager.onCityDoTurn (base/CvEventManager.py:102) |
-| cityGrowth | CvDllPythonEvents::reportCityGrowth | AutoLogEvent.__init__: self.onCityGrowth (Contrib/autologEventManager.py:179); CvEventManager.onCityGrowth (base/CvEventManager.py:101) |
-| cityHurry | CvDllPythonEvents::reportCityHurry | none registered |
-| cityLost | CvDllPythonEvents::reportCityLost | AbstractCityAlertManager.__init__: self.onCityLost (Contrib/Civ4lerts.py:203); MoreCiv4lertsEvent.__init__: self.OnCityLost (Contrib/MoreCiv4lerts.py:64); AutoLogEvent.__init__: self.onCityLost (Contrib/autologEventManager.py:177); Tester.__init__: self.onCityLost (Revolution/Development/Tester.py:46); init: onCityLost (Revolution/RevEvents.py:87); RoMEventManager.__init__: self.onCityLost (RoMEventManager.py:52); CvEventManager.onCityLost (base/CvEventManager.py:99) |
-| cityRazed | CvDllPythonEvents::reportCityRazed | RefusesToTalk.__init__: self.onCityRazed (Contrib/Civ4lerts.py:824); MoreCiv4lertsEvent.__init__: self.OnCityRazed (Contrib/MoreCiv4lerts.py:63); AutoLogEvent.__init__: self.onCityRazed (Contrib/autologEventManager.py:175); RoMEventManager.__init__: self.onCityRazed (RoMEventManager.py:51); CvEventManager.onCityRazed (base/CvEventManager.py:97) |
-| cityRename | CvDllPythonEvents::reportCityRename | CvEventManager.onCityRename (base/CvEventManager.py:105) |
+| cityBuildingUnit | CvDllPythonEvents::reportCityBuildingUnit | AbstractCanHurry.__init__: self.onCityBuildingUnit (Contrib/Civ4lerts.py:633); AutoLogEvent.__init__: self.onCityBuildingUnit (Contrib/autologEventManager.py:180); CvEventManager.onCityBuildingUnit (base/CvEventManager.py:112) |
+| cityBuilt | CvDllPythonEvents::reportCityBuilt | MoreCiv4lertsEvent.__init__: self.OnCityBuilt (Contrib/MoreCiv4lerts.py:62); BuildUnitName.__init__: self.onCityBuilt (Contrib/UnitNameEventManager.py:191); AutoLogEvent.__init__: self.onCityBuilt (Contrib/autologEventManager.py:174); AIAutoPlay.__init__: self.onCityBuilt (Revolution/Gameready/AIAutoPlay.py:108); AIAutoPlay.removeEventHandlers: self.customEM.onCityBuilt (Revolution/Gameready/AIAutoPlay.py:145); DynamicCivNames.__init__: self.onCityBuilt (Revolution/Gameready/DynamicCivNames.py:45); init: onCityBuilt (Revolution/RevEvents.py:85); RoMEventManager.__init__: self.onCityBuilt (RoMEventManager.py:50); CvEventManager.onCityBuilt (base/CvEventManager.py:104) |
+| cityDoTurn | CvDllPythonEvents::reportCityProduction | CvEventManager.onCityDoTurn (base/CvEventManager.py:111) |
+| cityGrowth | CvDllPythonEvents::reportCityGrowth | AutoLogEvent.__init__: self.onCityGrowth (Contrib/autologEventManager.py:179); CvEventManager.onCityGrowth (base/CvEventManager.py:110) |
+| cityHurry | CvDllPythonEvents::reportCityHurry | CvEventManager.onCityHurry (base/CvEventManager.py:115) |
+| cityLost | CvDllPythonEvents::reportCityLost | AbstractCityAlertManager.__init__: self.onCityLost (Contrib/Civ4lerts.py:203); MoreCiv4lertsEvent.__init__: self.OnCityLost (Contrib/MoreCiv4lerts.py:64); AutoLogEvent.__init__: self.onCityLost (Contrib/autologEventManager.py:177); Tester.__init__: self.onCityLost (Revolution/Development/Tester.py:46); init: onCityLost (Revolution/RevEvents.py:87); RoMEventManager.__init__: self.onCityLost (RoMEventManager.py:52); CvEventManager.onCityLost (base/CvEventManager.py:108) |
+| cityRazed | CvDllPythonEvents::reportCityRazed | RefusesToTalk.__init__: self.onCityRazed (Contrib/Civ4lerts.py:824); MoreCiv4lertsEvent.__init__: self.OnCityRazed (Contrib/MoreCiv4lerts.py:63); AutoLogEvent.__init__: self.onCityRazed (Contrib/autologEventManager.py:175); RoMEventManager.__init__: self.onCityRazed (RoMEventManager.py:51); CvEventManager.onCityRazed (base/CvEventManager.py:105) |
+| cityRename | CvDllPythonEvents::reportCityRename | CvEventManager.onCityRename (base/CvEventManager.py:114) |
 | combatLogCollateral | CvDllPythonEvents::reportCombatLogCollateral | none registered |
 | combatLogFlanking | CvDllPythonEvents::reportCombatLogFlanking | none registered |
-| combatResult | CvDllPythonEvents::reportCombatResult | AutoLogEvent.__init__: self.onCombatResult (Contrib/autologEventManager.py:154); CvEventManager.onCombatResult (base/CvEventManager.py:90) |
+| combatResult | CvDllPythonEvents::reportCombatResult | AutoLogEvent.__init__: self.onCombatResult (Contrib/autologEventManager.py:154); CvEventManager.onCombatResult (base/CvEventManager.py:97) |
 | combatRetreat | CvDllPythonEvents::reportCombatRetreat | none registered |
 | combatWithdrawal | CvDllPythonEvents::reportCombatWithdrawal | none registered |
-| corporationFounded | CvDllPythonEvents::reportCorporationFounded | AutoLogEvent.__init__: self.onCorporationFounded (Contrib/autologEventManager.py:167) |
-| corporationRemove | CvDllPythonEvents::reportCorporationRemove | AutoLogEvent.__init__: self.onCorporationRemove (Contrib/autologEventManager.py:169) |
-| corporationSpread | CvDllPythonEvents::reportCorporationSpread | AutoLogEvent.__init__: self.onCorporationSpread (Contrib/autologEventManager.py:168) |
-| cultureExpansion | CvDllPythonEvents::reportCultureExpansion | AutoLogEvent.__init__: self.onCultureExpansion (Contrib/autologEventManager.py:178); CvEventManager.onCultureExpansion (base/CvEventManager.py:100) |
-| endGoldenAge | CvDllPythonEvents::reportEndGoldenAge | AutoLogEvent.__init__: self.onEndGoldenAge (Contrib/autologEventManager.py:171); CvEventManager.onEndGoldenAge (base/CvEventManager.py:124) |
-| firstContact | CvDllPythonEvents::reportFirstContact | AutoLogEvent.__init__: self.onFirstContact (Contrib/autologEventManager.py:152); BarbarianCiv.__init__: self.onFirstContact (Revolution/Gameready/BarbarianCiv.py:89); CvEventManager.onFirstContact (base/CvEventManager.py:95) |
-| goldenAge | CvDllPythonEvents::reportGoldenAge | AutoLogEvent.__init__: self.onGoldenAge (Contrib/autologEventManager.py:170); CvEventManager.onGoldenAge (base/CvEventManager.py:123) |
-| goodyReceived | CvDllPythonEvents::reportGoodyReceived | BuildUnitName.__init__: self.onGoodyReceived (Contrib/UnitNameEventManager.py:192); AutoLogEvent.__init__: self.onGoodyReceived (Contrib/autologEventManager.py:160); CvEventManager.onGoodyReceived (base/CvEventManager.py:115) |
-| gotoPlotSet | CvDllPythonEvents::reportGotoPlotSet | none registered |
-| greatPersonBorn | CvDllPythonEvents::reportGreatPersonBorn | AutoLogEvent.__init__: self.onGreatPersonBorn (Contrib/autologEventManager.py:161); Tester.__init__: self.onGreatPersonBorn (Revolution/Development/Tester.py:42); CvEventManager.onGreatPersonBorn (base/CvEventManager.py:116) |
-| improvementBuilt | CvDllPythonEvents::reportImprovementBuilt | AutoLogEvent.__init__: self.onImprovementBuilt (Contrib/autologEventManager.py:182); CvEventManager.onImprovementBuilt (base/CvEventManager.py:93) |
-| improvementDestroyed | CvDllPythonEvents::reportImprovementDestroyed | AutoLogEvent.__init__: self.onImprovementDestroyed (Contrib/autologEventManager.py:183) |
-| kbdEvent | CvDllPythonEvents::reportKbdEvent | BugEventManager.__init__: self.onKbdEvent (BUG/BugEventManager.py:189); StatusDumpEvent.__init__: self.onKbdEvent (Contrib/StatusDumpEventManager.py:44); BuildUnitName.__init__: self.onKbdEvent (Contrib/UnitNameEventManager.py:189); AutoLogEvent.__init__: self.onKbdEvent (Contrib/autologEventManager.py:145); ChangePlayer.__init__: self.onKbdEvent (Revolution/Development/ChangePlayer.py:40); Tester.__init__: self.onKbdEvent (Revolution/Development/Tester.py:47); AIAutoPlay.__init__: self.onKbdEvent (Revolution/Gameready/AIAutoPlay.py:85); BarbarianCiv.__init__: self.onKbdEvent (Revolution/Gameready/BarbarianCiv.py:95); DynamicCivNames.__init__: self.onKbdEvent (Revolution/Gameready/DynamicCivNames.py:43); Revolution.__init__: self.onKbdEvent (Revolution/Gameready/Revolution.py:184); RevolutionInit.__init__: self.onKbdEvent (Revolution/RevolutionInit.py:66); CvEventManager.onKbdEvent (base/CvEventManager.py:75) |
-| mouseEvent | CvDllPythonEvents::reportMouseEvent | CvEventManager.onMouseEvent (base/CvEventManager.py:74) |
-| nukeExplosion | CvDllPythonEvents::reportNukeExplosion | none registered |
-| playerChangeStateReligion | CvDllPythonEvents::reportPlayerChangeStateReligion | none registered |
-| playerGoldTrade | CvDllPythonEvents::reportPlayerGoldTrade | none registered |
+| corporationFounded | CvDllPythonEvents::reportCorporationFounded | AutoLogEvent.__init__: self.onCorporationFounded (Contrib/autologEventManager.py:167); CvEventManager.onCorporationFounded (base/CvEventManager.py:139) |
+| corporationRemove | CvDllPythonEvents::reportCorporationRemove | AutoLogEvent.__init__: self.onCorporationRemove (Contrib/autologEventManager.py:169); CvEventManager.onCorporationRemove (base/CvEventManager.py:141) |
+| corporationSpread | CvDllPythonEvents::reportCorporationSpread | AutoLogEvent.__init__: self.onCorporationSpread (Contrib/autologEventManager.py:168); CvEventManager.onCorporationSpread (base/CvEventManager.py:140) |
+| cultureExpansion | CvDllPythonEvents::reportCultureExpansion | AutoLogEvent.__init__: self.onCultureExpansion (Contrib/autologEventManager.py:178); CvEventManager.onCultureExpansion (base/CvEventManager.py:109) |
+| endGoldenAge | CvDllPythonEvents::reportEndGoldenAge | AutoLogEvent.__init__: self.onEndGoldenAge (Contrib/autologEventManager.py:171); CvEventManager.onEndGoldenAge (base/CvEventManager.py:143) |
+| firstContact | CvDllPythonEvents::reportFirstContact | AutoLogEvent.__init__: self.onFirstContact (Contrib/autologEventManager.py:152); BarbarianCiv.__init__: self.onFirstContact (Revolution/Gameready/BarbarianCiv.py:89); CvEventManager.onFirstContact (base/CvEventManager.py:103) |
+| goldenAge | CvDllPythonEvents::reportGoldenAge | AutoLogEvent.__init__: self.onGoldenAge (Contrib/autologEventManager.py:170); CvEventManager.onGoldenAge (base/CvEventManager.py:142) |
+| goodyReceived | CvDllPythonEvents::reportGoodyReceived | BuildUnitName.__init__: self.onGoodyReceived (Contrib/UnitNameEventManager.py:192); AutoLogEvent.__init__: self.onGoodyReceived (Contrib/autologEventManager.py:160); CvEventManager.onGoodyReceived (base/CvEventManager.py:130) |
+| gotoPlotSet | CvDllPythonEvents::reportGotoPlotSet | CvEventManager.onGotoPlotSet (base/CvEventManager.py:91) |
+| greatPersonBorn | CvDllPythonEvents::reportGreatPersonBorn | AutoLogEvent.__init__: self.onGreatPersonBorn (Contrib/autologEventManager.py:161); Tester.__init__: self.onGreatPersonBorn (Revolution/Development/Tester.py:42); CvEventManager.onGreatPersonBorn (base/CvEventManager.py:131) |
+| improvementBuilt | CvDllPythonEvents::reportImprovementBuilt | AutoLogEvent.__init__: self.onImprovementBuilt (Contrib/autologEventManager.py:182); CvEventManager.onImprovementBuilt (base/CvEventManager.py:100) |
+| improvementDestroyed | CvDllPythonEvents::reportImprovementDestroyed | AutoLogEvent.__init__: self.onImprovementDestroyed (Contrib/autologEventManager.py:183); CvEventManager.onImprovementDestroyed (base/CvEventManager.py:101) |
+| kbdEvent | CvDllPythonEvents::reportKbdEvent | BugEventManager.__init__: self.onKbdEvent (BUG/BugEventManager.py:189); StatusDumpEvent.__init__: self.onKbdEvent (Contrib/StatusDumpEventManager.py:44); BuildUnitName.__init__: self.onKbdEvent (Contrib/UnitNameEventManager.py:189); AutoLogEvent.__init__: self.onKbdEvent (Contrib/autologEventManager.py:145); ChangePlayer.__init__: self.onKbdEvent (Revolution/Development/ChangePlayer.py:40); Tester.__init__: self.onKbdEvent (Revolution/Development/Tester.py:47); AIAutoPlay.__init__: self.onKbdEvent (Revolution/Gameready/AIAutoPlay.py:85); BarbarianCiv.__init__: self.onKbdEvent (Revolution/Gameready/BarbarianCiv.py:95); DynamicCivNames.__init__: self.onKbdEvent (Revolution/Gameready/DynamicCivNames.py:43); Revolution.__init__: self.onKbdEvent (Revolution/Gameready/Revolution.py:184); RevolutionInit.__init__: self.onKbdEvent (Revolution/RevolutionInit.py:66); CvEventManager.onKbdEvent (base/CvEventManager.py:77) |
+| mouseEvent | CvDllPythonEvents::reportMouseEvent | CvEventManager.onMouseEvent (base/CvEventManager.py:76) |
+| nukeExplosion | CvDllPythonEvents::reportNukeExplosion | CvEventManager.onNukeExplosion (base/CvEventManager.py:90) |
+| playerChangeStateReligion | CvDllPythonEvents::reportPlayerChangeStateReligion | CvEventManager.onPlayerChangeStateReligion (base/CvEventManager.py:149) |
+| playerGoldTrade | CvDllPythonEvents::reportPlayerGoldTrade | CvEventManager.onPlayerGoldTrade (base/CvEventManager.py:150) |
 | playerRevolution | CvDllPythonEvents::reportPlayerRevolution | none registered |
-| plotFeatureRemoved | CvDllPythonEvents::reportPlotFeatureRemoved | none registered |
-| plotPicked | CvDllPythonEvents::reportPlotPicked | none registered |
-| plotRevealed | CvDllPythonEvents::reportPlotRevealed | EventSignsEventHandler.__init__: self.onPlotRevealed (Contrib/EventSigns.py:453); CvEventManager.onPlotRevealed (base/CvEventManager.py:84) |
-| projectBuilt | CvDllPythonEvents::reportProjectBuilt | AutoLogEvent.__init__: self.onProjectBuilt (Contrib/autologEventManager.py:157); RoMEventManager.__init__: self.onProjectBuilt (RoMEventManager.py:48); CvEventManager.onProjectBuilt (base/CvEventManager.py:118) |
-| religionFounded | CvDllPythonEvents::reportReligionFounded | AutoLogEvent.__init__: self.onReligionFounded (Contrib/autologEventManager.py:164); Tester.__init__: self.onReligionFounded (Revolution/Development/Tester.py:44); init: onReligionFounded (Revolution/RevEvents.py:83); CvEventManager.onReligionFounded (base/CvEventManager.py:121) |
-| religionRemove | CvDllPythonEvents::reportReligionRemove | AutoLogEvent.__init__: self.onReligionRemove (Contrib/autologEventManager.py:166) |
-| religionSpread | CvDllPythonEvents::reportReligionSpread | AutoLogEvent.__init__: self.onReligionSpread (Contrib/autologEventManager.py:165); CvEventManager.onReligionSpread (base/CvEventManager.py:122) |
-| routeBuilt | CvDllPythonEvents::reportRouteBuilt | CvEventManager.onRouteBuilt (base/CvEventManager.py:94) |
-| selectionGroupPushMission | CvDllPythonEvents::reportSelectionGroupPushMission | AutoLogEvent.__init__: self.onSelectionGroupPushMission (Contrib/autologEventManager.py:186) |
-| setPlayerAlive | CvDllPythonEvents::reportSetPlayerAlive | AutoLogEvent.__init__: self.onSetPlayerAlive (Contrib/autologEventManager.py:173); BarbarianCiv.__init__: self.onSetPlayerAlive (Revolution/Gameready/BarbarianCiv.py:90); DynamicCivNames.__init__: self.onSetPlayerAlive (Revolution/Gameready/DynamicCivNames.py:42); init: onSetPlayerAlive (Revolution/Gameready/StartAsMinors.py:52); init: onSetPlayerAlive (Revolution/RevEvents.py:81); CvEventManager.onSetPlayerAlive (base/CvEventManager.py:128) |
-| techAcquired | CvDllPythonEvents::reportTechAcquired | AutoLogEvent.__init__: self.onTechAcquired (Contrib/autologEventManager.py:162); init: onTechAcquired (Revolution/Gameready/StartAsMinors.py:53); TechDiffusion.__init__: self.onTechAcquired (Revolution/Gameready/TechDiffusion.py:43); CvEventManager.onTechAcquired (base/CvEventManager.py:119) |
-| techSelected | CvDllPythonEvents::reportTechSelected | AutoLogEvent.__init__: self.onTechSelected (Contrib/autologEventManager.py:163); CvEventManager.onTechSelected (base/CvEventManager.py:120) |
-| unitBuildImprovement | CvDllPythonEvents::reportUnitBuildImprovement | none registered |
-| unitBuilt | CvDllPythonEvents::reportUnitBuilt | BuildUnitName.__init__: self.onUnitBuilt (Contrib/UnitNameEventManager.py:190); AutoLogEvent.__init__: self.onUnitBuilt (Contrib/autologEventManager.py:158); RoMEventManager.__init__: self.onUnitBuilt (RoMEventManager.py:49); CvEventManager.onUnitBuilt (base/CvEventManager.py:109) |
+| plotFeatureRemoved | CvDllPythonEvents::reportPlotFeatureRemoved | CvEventManager.onPlotFeatureRemoved (base/CvEventManager.py:88) |
+| plotPicked | CvDllPythonEvents::reportPlotPicked | CvEventManager.onPlotPicked (base/CvEventManager.py:89) |
+| plotRevealed | CvDllPythonEvents::reportPlotRevealed | EventSignsEventHandler.__init__: self.onPlotRevealed (Contrib/EventSigns.py:453); CvEventManager.onPlotRevealed (base/CvEventManager.py:87) |
+| projectBuilt | CvDllPythonEvents::reportProjectBuilt | AutoLogEvent.__init__: self.onProjectBuilt (Contrib/autologEventManager.py:157); RoMEventManager.__init__: self.onProjectBuilt (RoMEventManager.py:48); CvEventManager.onProjectBuilt (base/CvEventManager.py:133) |
+| religionFounded | CvDllPythonEvents::reportReligionFounded | AutoLogEvent.__init__: self.onReligionFounded (Contrib/autologEventManager.py:164); Tester.__init__: self.onReligionFounded (Revolution/Development/Tester.py:44); init: onReligionFounded (Revolution/RevEvents.py:83); CvEventManager.onReligionFounded (base/CvEventManager.py:136) |
+| religionRemove | CvDllPythonEvents::reportReligionRemove | AutoLogEvent.__init__: self.onReligionRemove (Contrib/autologEventManager.py:166); CvEventManager.onReligionRemove (base/CvEventManager.py:138) |
+| religionSpread | CvDllPythonEvents::reportReligionSpread | AutoLogEvent.__init__: self.onReligionSpread (Contrib/autologEventManager.py:165); CvEventManager.onReligionSpread (base/CvEventManager.py:137) |
+| routeBuilt | CvDllPythonEvents::reportRouteBuilt | CvEventManager.onRouteBuilt (base/CvEventManager.py:102) |
+| selectionGroupPushMission | CvDllPythonEvents::reportSelectionGroupPushMission | AutoLogEvent.__init__: self.onSelectionGroupPushMission (Contrib/autologEventManager.py:186); CvEventManager.onSelectionGroupPushMission (base/CvEventManager.py:116) |
+| setPlayerAlive | CvDllPythonEvents::reportSetPlayerAlive | AutoLogEvent.__init__: self.onSetPlayerAlive (Contrib/autologEventManager.py:173); BarbarianCiv.__init__: self.onSetPlayerAlive (Revolution/Gameready/BarbarianCiv.py:90); DynamicCivNames.__init__: self.onSetPlayerAlive (Revolution/Gameready/DynamicCivNames.py:42); init: onSetPlayerAlive (Revolution/Gameready/StartAsMinors.py:52); init: onSetPlayerAlive (Revolution/RevEvents.py:81); CvEventManager.onSetPlayerAlive (base/CvEventManager.py:148) |
+| techAcquired | CvDllPythonEvents::reportTechAcquired | AutoLogEvent.__init__: self.onTechAcquired (Contrib/autologEventManager.py:162); init: onTechAcquired (Revolution/Gameready/StartAsMinors.py:53); TechDiffusion.__init__: self.onTechAcquired (Revolution/Gameready/TechDiffusion.py:43); CvEventManager.onTechAcquired (base/CvEventManager.py:134) |
+| techSelected | CvDllPythonEvents::reportTechSelected | AutoLogEvent.__init__: self.onTechSelected (Contrib/autologEventManager.py:163); CvEventManager.onTechSelected (base/CvEventManager.py:135) |
+| unitBuildImprovement | CvDllPythonEvents::reportUnitBuildImprovement | CvEventManager.onUnitBuildImprovement (base/CvEventManager.py:129) |
+| unitBuilt | CvDllPythonEvents::reportUnitBuilt | BuildUnitName.__init__: self.onUnitBuilt (Contrib/UnitNameEventManager.py:190); AutoLogEvent.__init__: self.onUnitBuilt (Contrib/autologEventManager.py:158); RoMEventManager.__init__: self.onUnitBuilt (RoMEventManager.py:49); CvEventManager.onUnitBuilt (base/CvEventManager.py:120) |
 | unitCaptured | CvDllPythonEvents::reportUnitCaptured | none registered |
-| unitCreated | CvDllPythonEvents::reportUnitCreated | CvEventManager.onUnitCreated (base/CvEventManager.py:108) |
-| unitGifted | CvDllPythonEvents::reportUnitGifted | none registered |
-| unitKilled | CvDllPythonEvents::reportUnitKilled | CvEventManager.onUnitKilled (base/CvEventManager.py:110) |
-| unitLost | CvDllPythonEvents::reportUnitLost | CvEventManager.onUnitLost (base/CvEventManager.py:111) |
-| unitMove | CvDllPythonEvents::reportUnitMove | CvEventManager.onUnitMove (base/CvEventManager.py:106) |
-| unitPillage | CvDllPythonEvents::reportUnitPillage | AutoLogEvent.__init__: self.onUnitPillage (Contrib/autologEventManager.py:184) |
-| unitPromoted | CvDllPythonEvents::reportUnitPromoted | AutoLogEvent.__init__: self.onUnitPromoted (Contrib/autologEventManager.py:159); CvEventManager.onUnitPromoted (base/CvEventManager.py:112) |
-| unitSelected | CvDllPythonEvents::reportUnitSelected | CvEventManager.onUnitSelected (base/CvEventManager.py:113) |
-| unitSetXY | CvDllPythonEvents::reportUnitSetXY | CvEventManager.onUnitSetXY (base/CvEventManager.py:107) |
-| unitSpreadReligionAttempt | CvDllPythonEvents::reportUnitSpreadReligionAttempt | none registered |
+| unitCreated | CvDllPythonEvents::reportUnitCreated | CvEventManager.onUnitCreated (base/CvEventManager.py:119) |
+| unitGifted | CvDllPythonEvents::reportUnitGifted | CvEventManager.onUnitGifted (base/CvEventManager.py:128) |
+| unitKilled | CvDllPythonEvents::reportUnitKilled | CvEventManager.onUnitKilled (base/CvEventManager.py:121) |
+| unitLost | CvDllPythonEvents::reportUnitLost | CvEventManager.onUnitLost (base/CvEventManager.py:122) |
+| unitMove | CvDllPythonEvents::reportUnitMove | CvEventManager.onUnitMove (base/CvEventManager.py:117) |
+| unitPillage | CvDllPythonEvents::reportUnitPillage | AutoLogEvent.__init__: self.onUnitPillage (Contrib/autologEventManager.py:184); CvEventManager.onUnitPillage (base/CvEventManager.py:126) |
+| unitPromoted | CvDllPythonEvents::reportUnitPromoted | AutoLogEvent.__init__: self.onUnitPromoted (Contrib/autologEventManager.py:159); CvEventManager.onUnitPromoted (base/CvEventManager.py:123) |
+| unitSelected | CvDllPythonEvents::reportUnitSelected | CvEventManager.onUnitSelected (base/CvEventManager.py:124) |
+| unitSetXY | CvDllPythonEvents::reportUnitSetXY | CvEventManager.onUnitSetXY (base/CvEventManager.py:118) |
+| unitSpreadReligionAttempt | CvDllPythonEvents::reportUnitSpreadReligionAttempt | CvEventManager.onUnitSpreadReligionAttempt (base/CvEventManager.py:127) |
 | unitUpgraded | CvDllPythonEvents::reportUnitUpgraded | none registered |
-| vassalState | CvDllPythonEvents::reportVassalState | AutoLogEvent.__init__: self.onVassalState (Contrib/autologEventManager.py:185); DynamicCivNames.__init__: self.onVassalState (Revolution/Gameready/DynamicCivNames.py:46) |
-| victory | CvDllPythonEvents::reportVictory | AIAutoPlay.__init__: self.onVictory (Revolution/Gameready/AIAutoPlay.py:98); CvEventManager.onVictory (base/CvEventManager.py:126) |
-| windowActivation | CvDllPythonEvents::reportWindowActivation | CvEnhancedTechConquestEventManager.__init__: self.onWindowActivation (EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py:19); CvEventManager.onWindowActivation (base/CvEventManager.py:129) |
+| vassalState | CvDllPythonEvents::reportVassalState | AutoLogEvent.__init__: self.onVassalState (Contrib/autologEventManager.py:185); DynamicCivNames.__init__: self.onVassalState (Revolution/Gameready/DynamicCivNames.py:46); CvEventManager.onVassalState (base/CvEventManager.py:146) |
+| victory | CvDllPythonEvents::reportVictory | AIAutoPlay.__init__: self.onVictory (Revolution/Gameready/AIAutoPlay.py:98); CvEventManager.onVictory (base/CvEventManager.py:145) |
+| windowActivation | CvDllPythonEvents::reportWindowActivation | CvEnhancedTechConquestEventManager.__init__: self.onWindowActivation (EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py:19); CvEventManager.onWindowActivation (base/CvEventManager.py:151) |

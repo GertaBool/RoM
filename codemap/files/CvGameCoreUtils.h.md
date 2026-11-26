@@ -5,7 +5,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **44** `getSign<int>(int)`
   - called by (1): CvPlot::canSeeDisplacementPlot
 - **47** `range(int, int, int)`
-  - called by (66): CvCity::angryPopulation, CvCity::changeDefenseDamage, CvCity::doGrowth, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getCitySizeType, CvCity::getRevoltTestProbability, CvCity::setRevIndexAverage, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction, CvCityAI::AI_updateLocalGovernor, CvCityAI::AI_yieldValue, CvDLLWidgetData::parseContactCivHelp …
+  - called by (68): CvCity::angryPopulation, CvCity::changeDefenseDamage, CvCity::doGrowth, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getCitySizeType, CvCity::getRevoltTestProbability, CvCity::setRevIndexAverage, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction, CvCityAI::AI_updateLocalGovernor, CvCityAI::AI_yieldValue, CvDLLWidgetData::parseContactCivHelp …
 - **65** `range(float, float, float)`
   - called by (1): cyFloatRange
 - **83** `coordDistance(int, int, int, bool)`
@@ -13,37 +13,44 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **93** `wrapCoordDifference(int, int, bool)`
   - called by (2): dxWrap, dyWrap
 - **110** `xDistance(int, int)`
-  - calls: coordDistance, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h], CvMap::isWrapXINLINE [CvMap.h]
+  - calls: coordDistance, CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getMapINLINE \[CvGlobals.h\], CvMap::getGridWidthINLINE \[CvMap.h\], CvMap::isWrapXINLINE \[CvMap.h\]
   - called by (3): CvUnitAI::AI_explore, plotDistance, stepDistance
 - **115** `yDistance(int, int)`
-  - calls: coordDistance, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::isWrapYINLINE [CvMap.h]
+  - calls: coordDistance, CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getMapINLINE \[CvGlobals.h\], CvMap::getGridHeightINLINE \[CvMap.h\], CvMap::isWrapYINLINE \[CvMap.h\]
   - called by (3): CvUnitAI::AI_explore, plotDistance, stepDistance
 - **120** `dxWrap(int)`
-  - calls: wrapCoordDifference, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h], CvMap::isWrapXINLINE [CvMap.h]
-  - called by (7): CvGameTextMgr::setPlotListHelp, CvMap::findCity, CvPlot::canSeePlot, cyDxWrap, directionXY(CvPlot const*, CvPlot const*), estimateDirection(CvPlot const*, CvPlot const*), plotCityXY(CvCity const*, CvPlot const*)
+  - calls: wrapCoordDifference, CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getMapINLINE \[CvGlobals.h\], CvMap::getGridWidthINLINE \[CvMap.h\], CvMap::isWrapXINLINE \[CvMap.h\]
+  - called by (9): CvGame::isInGraphicsWindow, CvGame::updateGraphicsPaging, CvGameTextMgr::setPlotListHelp, CvMap::findCity, CvPlot::canSeePlot, cyDxWrap, directionXY(CvPlot const*, CvPlot const*), estimateDirection(CvPlot const*, CvPlot const*), plotCityXY(CvCity const*, CvPlot const*)
 - **125** `dyWrap(int)`
-  - calls: wrapCoordDifference, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::isWrapYINLINE [CvMap.h]
-  - called by (7): CvGameTextMgr::setPlotListHelp, CvMap::findCity, CvPlot::canSeePlot, cyDyWrap, directionXY(CvPlot const*, CvPlot const*), estimateDirection(CvPlot const*, CvPlot const*), plotCityXY(CvCity const*, CvPlot const*)
+  - calls: wrapCoordDifference, CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getMapINLINE \[CvGlobals.h\], CvMap::getGridHeightINLINE \[CvMap.h\], CvMap::isWrapYINLINE \[CvMap.h\]
+  - called by (9): CvGame::isInGraphicsWindow, CvGame::updateGraphicsPaging, CvGameTextMgr::setPlotListHelp, CvMap::findCity, CvPlot::canSeePlot, cyDyWrap, directionXY(CvPlot const*, CvPlot const*), estimateDirection(CvPlot const*, CvPlot const*), plotCityXY(CvCity const*, CvPlot const*)
 - **145** `plotDistance(int, int, int, int)`
   - calls: xDistance, yDistance
-  - called by (68): CvCity::calculateDistanceMaintenanceTimes100, CvCity::cultureDistance, CvCity::doReligion, CvCity::getBaseTradeProfit, CvCity::getLiberationPlayer, CvCityAI::AI_updateRouteToCity, CvGame::normalizeRemoveBadFeatures, CvGame::normalizeRemoveBadTerrain, CvGame::normalizeStartingPlotLocations, CvGame::updateColoredPlots, CvGameTextMgr::setEspionageCostHelp, CvMap::findCity …
+  - called by (69): CvCity::calculateDistanceMaintenanceTimes100, CvCity::cultureDistance, CvCity::doReligion, CvCity::getBaseTradeProfit, CvCity::getLiberationPlayer, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_updateRouteToCity, CvGame::normalizeRemoveBadFeatures, CvGame::normalizeRemoveBadTerrain, CvGame::normalizeStartingPlotLocations, CvGame::updateColoredPlots, CvGameTextMgr::setEspionageCostHelp …
 - **171** `stepDistance(int, int, int, int)`
   - calls: xDistance, yDistance
   - called by (33): CvCityAI::AI_cachePlayerCloseness, CvMap::maxStepDistance, CvMap::updateMinOriginalStartDist, CvPlayer::startingPlotDistanceFactor, CvPlayerAI::AI_advancedStartDoRoute, CvPlayerAI::AI_advancedStartFindCapitalPlot, CvPlayerAI::AI_cityTargetUnitsByPath, CvPlayerAI::AI_countDeadlockedBonuses, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_getAnyPlotDanger, CvPlayerAI::AI_getEnemyPlotStrength, CvPlayerAI::AI_getOurPlotStrength …
 - **176** `plotDirection(int, int, DirectionTypes)`
-  - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvGlobals::getPlotDirectionX [CvGlobals.cpp], CvGlobals::getPlotDirectionY [CvGlobals.cpp]
-  - called by (74): CvCity::cultureStrength, CvCity::init, CvCity::isBlockaded, CvCity::kill, CvCityAI::AI_bestPlotBuild, CvMapGenerator::addRiver, CvMapGenerator::canPlaceBonusAt, CvMapGenerator::getRiverValueAtPlot, CvPlayer::receiveGoody, CvPlayerAI::AI_adjacentPotentialAttackers, CvPlayerAI::AI_getPlotCanalValue, CvPlayerAI::AI_updateSettleReach …
+  - calls: CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getMapINLINE \[CvGlobals.h\], CvMap::plotINLINE \[CvMap.h\], CvGlobals::getPlotDirectionX \[CvGlobals.cpp\], CvGlobals::getPlotDirectionY \[CvGlobals.cpp\]
+  - called by (75): CvCity::cultureStrength, CvCity::init, CvCity::isBlockaded, CvCity::kill, CvCityAI::AI_bestPlotBuild, CvMapGenerator::addRiver, CvMapGenerator::canPlaceBonusAt, CvMapGenerator::getRiverValueAtPlot, CvPlayer::receiveGoody, CvPlayerAI::AI_adjacentPotentialAttackers, CvPlayerAI::AI_getPlotCanalValue, CvPlayerAI::AI_updateSettleReach …
 - **188** `plotCardinalDirection(int, int, CardinalDirectionTypes)`
-  - calls: CvGlobals::getPlotCardinalDirectionX [CvGlobals.cpp], CvGlobals::getPlotCardinalDirectionY [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotINLINE [CvMap.h]
+  - calls: CvGlobals::getPlotCardinalDirectionX \[CvGlobals.cpp\], CvGlobals::getPlotCardinalDirectionY \[CvGlobals.cpp\], CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getMapINLINE \[CvGlobals.h\], CvMap::plotINLINE \[CvMap.h\]
   - called by (9): CvMapGenerator::doRiver, CvPlayerAI::AI_doAdvancedStart, CvPlot::calculateCulturalOwner, CvPlot::canHaveImprovement, CvPlot::doFeature, CvPlot::isRiverSide, CvPlot::setPlotType, cyPlotCardinalDirection, cysPlotCardinalDirection
 - **193** `plotXY(int, int, int, int)`
-  - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotINLINE [CvMap.h]
-  - called by (96): CvCity::doPlotCulture, CvCity::setCultureLevel, CvCityAI::AI_neededAirDefenders, CvDLLWidgetData::parseActionHelp, CvGame::normalizeRemoveBadFeatures, CvGame::normalizeRemoveBadTerrain, CvGame::normalizeRemovePeaks, CvGame::updateColoredPlots, CvMap::findWater, CvMap::syncRandPlot, CvMapGenerator::addNonUniqueBonusType, CvMapGenerator::addUniqueBonusType …
+  - calls: CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getMapINLINE \[CvGlobals.h\], CvMap::plotINLINE \[CvMap.h\]
+  - called by (100): CvCity::doPlotCulture, CvCity::setCultureLevel, CvCityAI::AI_chooseProduction, CvCityAI::AI_isDanger, CvCityAI::AI_neededAirDefenders, CvCityAI::AI_neededDefenders, CvDLLWidgetData::parseActionHelp, CvGame::normalizeRemoveBadFeatures, CvGame::normalizeRemoveBadTerrain, CvGame::normalizeRemovePeaks, CvGame::updateColoredPlots, CvMap::findWater …
 - **198** `directionXY(int, int)`
-  - calls: CvGlobals::getXYDirection [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - calls: CvGlobals::getXYDirection \[CvGlobals.cpp\], CvGlobals::getInstance \[CvGlobals.h\]
   - called by (2): cyDirectionXYFromInt, directionXY(CvPlot const*, CvPlot const*)
 - **210** `directionXY(CvPlot const*, CvPlot const*)`
-  - calls: dxWrap, dyWrap, directionXY(int, int), CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
+  - calls: dxWrap, dyWrap, directionXY(int, int), CvPlot::getX_INLINE \[CvPlot.h\], CvPlot::getY_INLINE \[CvPlot.h\]
   - called by (14): CvGameTextMgr::setCombatPlotHelp, CvPlot::canHaveImprovement, CvPlot::isRiverSide, CvPlot::isTradeNetworkConnected, CvPlot::movementCost, CvUnit::attackForDamage, CvUnit::maxCombatStr, CvUnit::updateCombat, CvUnit::updateStackCombat, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_goToTargetBarbCity, CvUnitAI::AI_goToTargetCity …
+- **·** `PlotExtraYield::PlotExtraYield()` (written by the compiler)
+  - called by (2): CvGame::read, CvGame::setPlotExtraYield
+- **·** `PlotExtraYield::~PlotExtraYield()` (written by the compiler)
+  - called by (2): CvGame::read, CvGame::setPlotExtraYield
+- **·** `CvGame::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: CvGame::~CvGame \[CvGame.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\], operator delete\[\](void*) \[CvGameCoreDLL.cpp\]
+  - takes the address of: CvGame::~CvGame \[CvGame.cpp\]
 - **·** `FFreeListArrayBase<CvArea>::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], FFreeListArrayBase<CvArea>::~FFreeListArrayBase<class CvArea> [FFreeListArrayBase.h]
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], FFreeListArrayBase\<CvArea>::~FFreeListArrayBase\<class CvArea> \[FFreeListArrayBase.h\]

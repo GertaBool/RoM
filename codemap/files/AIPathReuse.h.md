@@ -5,7 +5,7 @@ Group: AI. Functions in line order: what each calls (in order of first call), wh
 - **27** `AIPathReuse::sameKey(AIPathReuse::Key const&, AIPathReuse::Key const&)`
   - called by (1): AIPathReuse::Owner::admit
 - **36** `AIPathReuse::Owner::Owner()`
-  - called by (2): , 
+  - called by (2): _$E10, _$E8
 - **46** `AIPathReuse::Owner::admit(AIPathReuse::Key const&, bool)`
   - calls: AIPathReuse::sameKey
   - called by (1): `anonymous namespace'::generatePathOn

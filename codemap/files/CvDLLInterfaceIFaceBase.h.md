@@ -9,13 +9,13 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **28** `CvDLLInterfaceIFaceBase::canDoInterfaceMode(…)` (virtual; pure virtual, provided by the exe)
   - called by (2): CvGame::canHandleAction, CvGame::handleAction
 - **30** `CvDLLInterfaceIFaceBase::getLookAtPlot(…)` (virtual; pure virtual, provided by the exe)
-  - called by (2): CvGame::canDoControl, CvGame::cycleSelectionGroups
+  - called by (3): CvGame::canDoControl, CvGame::cycleSelectionGroups, CvGame::updateGraphicsPaging
 - **31** `CvDLLInterfaceIFaceBase::getSelectionPlot(…)` (virtual; pure virtual, provided by the exe)
   - called by (11): CvDLLWidgetData::doPlotList, CvDLLWidgetData::parsePlotListHelp, CvGame::canDoControl, CvGame::doControl, CvGame::updateSelectionList, CvSelectionGroup::setActivityType, CvUnit::joinGroup, CvUnit::setCombatUnit, CvUnit::setDamage, CvUnit::setMoves, CvUnit::setXY
 - **32** `CvDLLInterfaceIFaceBase::getInterfacePlotUnit(…)` (virtual; pure virtual, provided by the exe)
   - called by (2): CvDLLWidgetData::doPlotList, CvDLLWidgetData::parsePlotListHelp
 - **34** `CvDLLInterfaceIFaceBase::getHeadSelectedUnit(…)` (virtual; pure virtual, provided by the exe)
-  - called by (24): CvDLLButtonPopup::launchDoEspionagePopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::doRenameUnit, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseEspionageCostHelp, CvDLLWidgetData::parseSelectedHelp, CvDLLWidgetData::parseUnitModelHelp, CvGame::canHandleAction, CvGame::cycleSelectionGroups, CvGame::doControl, CvGame::handleAction, CvGame::selectUnit …
+  - called by (26): CvDLLButtonPopup::launchDoEspionagePopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::doRenameUnit, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseEspionageCostHelp, CvDLLWidgetData::parseSelectedHelp, CvDLLWidgetData::parseUnitModelHelp, CvGame::canHandleAction, CvGame::cycleSelectionGroups, CvGame::doControl, CvGame::handleAction, CvGame::pageGraphics …
 - **35** `CvDLLInterfaceIFaceBase::selectUnit(…)` (virtual; pure virtual, provided by the exe)
   - called by (7): CvCity::conscript, CvGame::applyFlyoutMenu, CvGame::cyclePlotUnits, CvGame::cycleSelectionGroups, CvGame::doControl, CvGame::selectGroup, CvGame::selectionListGameNetMessage
 - **36** `CvDLLInterfaceIFaceBase::selectGroup(…)` (virtual; pure virtual, provided by the exe)
@@ -41,7 +41,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **52** `CvDLLInterfaceIFaceBase::getGotoPlot(…)` (virtual; pure virtual, provided by the exe)
   - called by (2): CvGameTextMgr::getPlotHelp, CvUnit::isActionRecommended
 - **53** `CvDLLInterfaceIFaceBase::getSingleMoveGotoPlot(…)` (virtual; pure virtual, provided by the exe)
-  - called by (1): CvPlot::updateFlagSymbol
+  - called by (3): CvPlot::canPageGraphicsOut, CvPlot::updateFlagSymbol, CvUnit::canPageGraphicsOut
 - **54** `CvDLLInterfaceIFaceBase::getOriginalPlot(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvGame::updateSelectionList
 - **56** `CvDLLInterfaceIFaceBase::playGeneralSound(…)` (virtual; pure virtual, provided by the exe)
@@ -77,13 +77,13 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **75** `CvDLLInterfaceIFaceBase::isCitySelected(…)` (virtual; pure virtual, provided by the exe)
   - called by (2): CvCity::isCitySelected, CvGame::handleCityPlotRightPicked
 - **76** `CvDLLInterfaceIFaceBase::getHeadSelectedCity(…)` (virtual; pure virtual, provided by the exe)
-  - called by (44): CvDLLWidgetData::doAutomateCitizens, CvDLLWidgetData::doAutomateProduction, CvDLLWidgetData::doEmphasize, CvDLLWidgetData::doRenameCity, CvDLLWidgetData::doSelected, CvDLLWidgetData::parseAngryCitizenHelp, CvDLLWidgetData::parseAutomateCitizensHelp, CvDLLWidgetData::parseAutomateProductionHelp, CvDLLWidgetData::parseBuildingHelp, CvDLLWidgetData::parseChangeSpecialistHelp, CvDLLWidgetData::parseCitizenHelp, CvDLLWidgetData::parseCityNameHelp …
+  - called by (46): CvCity::canPageGraphicsOut, CvDLLWidgetData::doAutomateCitizens, CvDLLWidgetData::doAutomateProduction, CvDLLWidgetData::doEmphasize, CvDLLWidgetData::doRenameCity, CvDLLWidgetData::doSelected, CvDLLWidgetData::parseAngryCitizenHelp, CvDLLWidgetData::parseAutomateCitizensHelp, CvDLLWidgetData::parseAutomateProductionHelp, CvDLLWidgetData::parseBuildingHelp, CvDLLWidgetData::parseChangeSpecialistHelp, CvDLLWidgetData::parseCitizenHelp …
 - **77** `CvDLLInterfaceIFaceBase::isCitySelection(…)` (virtual; pure virtual, provided by the exe)
   - called by (10): CvGame::canHandleAction, CvGame::doControl, CvGame::handleMiddleMouse, CvGame::shouldDisplayEndTurn, CvGame::shouldDisplayEndTurnButton, CvGame::shouldDisplayFlag, CvGame::shouldDisplayReturn, CvGame::shouldDisplayWaitingOthers, CvGame::shouldDisplayWaitingYou, CvUnit::kill
 - **78** `CvDLLInterfaceIFaceBase::nextSelectedCitiesNode(…)` (virtual; pure virtual, provided by the exe)
-  - called by (2): CvGame::selectedCitiesGameNetMessage, CvGame::updateColoredPlots
+  - called by (4): CvCity::canPageGraphicsOut, CvGame::pageGraphics, CvGame::selectedCitiesGameNetMessage, CvGame::updateColoredPlots
 - **79** `CvDLLInterfaceIFaceBase::headSelectedCitiesNode(…)` (virtual; pure virtual, provided by the exe)
-  - called by (2): CvGame::selectedCitiesGameNetMessage, CvGame::updateColoredPlots
+  - called by (4): CvCity::canPageGraphicsOut, CvGame::pageGraphics, CvGame::selectedCitiesGameNetMessage, CvGame::updateColoredPlots
 - **81** `CvDLLInterfaceIFaceBase::addMessage(…)` (virtual; pure virtual, provided by the exe)
   - called by (92): CvCity::applyEvent, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::liberate, CvCity::popOrder, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setHasReligion, CvCity::setNumRealBuildingTimed, CvCity::setWeLoveTheKingDay, CvDLLButtonPopup::OnOkClicked …
 - **85** `CvDLLInterfaceIFaceBase::addQuestMessage(…)` (virtual; pure virtual, provided by the exe)
@@ -115,7 +115,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **102** `CvDLLInterfaceIFaceBase::setDiploQueue(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvPlayer::contact
 - **105** `CvDLLInterfaceIFaceBase::setDirty(…)` (virtual; pure virtual, provided by the exe)
-  - called by (120): CvArea::changeCleanPowerCount, CvArea::changeYieldRateModifier, CvCity::hurry, CvCity::kill, CvCity::popOrder, CvCity::pushOrder, CvCity::setBaseYieldRate, CvCity::setBuildingProduction, CvCity::setCitizensAutomated, CvCity::setForceSpecialistCount, CvCity::setFreeSpecialistCount, CvCity::setName …
+  - called by (121): CvArea::changeCleanPowerCount, CvArea::changeYieldRateModifier, CvCity::hurry, CvCity::kill, CvCity::popOrder, CvCity::pushOrder, CvCity::setBaseYieldRate, CvCity::setBuildingProduction, CvCity::setCitizensAutomated, CvCity::setForceSpecialistCount, CvCity::setFreeSpecialistCount, CvCity::setName …
 - **106** `CvDLLInterfaceIFaceBase::makeInterfaceDirty(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvPlayer::changeCiv
 - **107** `CvDLLInterfaceIFaceBase::updateCursorType(…)` (virtual; pure virtual, provided by the exe)

@@ -3,17 +3,17 @@
 Group: game data and XML loading. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
 - **55** `CvInitCore::getGameMultiplayer() const` (exported)
-  - calls: CvInitCore::getMultiplayer [CvInitCore.cpp], CvInitCore::getPitboss [CvInitCore.cpp], CvInitCore::getHotseat [CvInitCore.cpp], CvInitCore::getPbem [CvInitCore.cpp]
+  - calls: CvInitCore::getMultiplayer \[CvInitCore.cpp\], CvInitCore::getPitboss \[CvInitCore.cpp\], CvInitCore::getHotseat \[CvInitCore.cpp\], CvInitCore::getPbem \[CvInitCore.cpp\]
   - called by (1): CvInitCore::resetGame(CvInitCore*, bool, bool)
 - **78** `CvInitCore::getGameName() const` (exported)
   - called by (3): CvDLLButtonPopup::launchAdminPopup, CvGame::getName, CvInitCore::resetGame(CvInitCore*, bool, bool)
 - **79** `CvInitCore::setGameName(CvWString const&)` (exported)
-  - calls: CvWString::operator=(CvWString const&) [CvString.h]
+  - calls: CvWString::operator=(CvWString const&) \[CvString.h\]
   - called by (2): CvGame::setName, CvInitCore::resetGame(CvInitCore*, bool, bool)
 - **81** `CvInitCore::getGamePassword() const` (exported)
   - called by (1): CvInitCore::resetGame(CvInitCore*, bool, bool)
 - **82** `CvInitCore::setGamePassword(CvWString const&)` (exported)
-  - calls: CvWString::operator=(CvWString const&) [CvString.h]
+  - calls: CvWString::operator=(CvWString const&) \[CvString.h\]
   - called by (1): CvInitCore::resetGame(CvInitCore*, bool, bool)
 - **84** `CvInitCore::getAdminPassword() const` (exported)
   - called by (4): CvDLLButtonPopup::OnOkClicked, CvGame::canDoControl, CvGame::doControl, CvInitCore::resetGame(CvInitCore*, bool, bool)

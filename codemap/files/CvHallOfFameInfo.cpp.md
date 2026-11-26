@@ -7,11 +7,11 @@ Group: interface, text and messages. Functions in line order: what each calls (i
 - **10** `CvHallOfFameInfo::~CvHallOfFameInfo()` (virtual)
   - called by (1): CvHallOfFameInfo::`scalar deleting dtor'
 - **18** `CvHallOfFameInfo::loadReplays()`
-  - calls: CvDLLUtilityIFaceBase::loadReplays [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
+  - calls: CvDLLUtilityIFaceBase::loadReplays \[CvDLLUtilityIFaceBase.h\], CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getDLLIFace \[CvGlobals.h\]
   - called by (1): CyHallOfFameInfo::loadReplays
 - **23** `CvHallOfFameInfo::getNumGames() const`
   - called by (1): CyHallOfFameInfo::getNumGames
 - **28** `CvHallOfFameInfo::getReplayInfo(int)`
   - called by (1): CyHallOfFameInfo::getReplayInfo
 - **·** `CvHallOfFameInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvHallOfFameInfo::~CvHallOfFameInfo
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], CvHallOfFameInfo::~CvHallOfFameInfo

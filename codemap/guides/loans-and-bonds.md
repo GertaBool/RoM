@@ -1,7 +1,7 @@
 # Adding loans and a bond market
 
 Where loans between players and a bond market would go in the code, and what to watch. A plan, not an
-implementation. Written by hand from the source at commit `2a8b9a83eb5b`, the commit the map was built
+implementation. Written by hand from the source at commit `ede81881b7de`, the commit the map was built
 from; line numbers refer to it. Nothing like debt exists in the mod today.
 
 The work falls in three places:
@@ -11,34 +11,34 @@ The work falls in three places:
 
 ## 1. Where the money moves (DLL)
 
-Every turn's gold passes through one function: `CvPlayer::calculateBaseNetGold` (CvPlayer.cpp:8342). It
+Every turn's gold passes through one function: `CvPlayer::calculateBaseNetGold` (CvPlayer.cpp:8340). It
 adds gold commerce and gold-per-turn deals and subtracts the inflated costs. Loan payments added there
 reach everything else on their own:
-- the turn's payment through `calculateGoldRate` (8491), applied by `doGold` (15284);
+- the turn's payment through `calculateGoldRate` (8489), applied by `doGold` (15289);
 - the top bar's gold rate in `Python/Screens/CvMainInterface.py` (3313) and its tooltip `setGoldStr`
   (CvGameTextMgr.cpp:271);
 - the research slider.
 
 Three things to watch:
-- **Speed.** The comment in `calculatePreInflatedCosts` (8236) says the AI calls this path tens of
+- **Speed.** The comment in `calculatePreInflatedCosts` (8234) says the AI calls this path tens of
   thousands of times per turn. Keep the turn's loan total in a member variable, updated when a loan changes;
   never loop over loans there.
-- **Inflation.** Inside `calculateInflatedCosts` (8311) loan payments would inflate; beside it, debt stays
+- **Inflation.** Inside `calculateInflatedCosts` (8309) loan payments would inflate; beside it, debt stays
   in nominal gold. That is a design choice.
 - **Missing a payment.** `doGold` already handles running out of gold: gold is set to 0, a strike starts
   and units are disbanded. Missed payments and default belong there.
 
-Taking a loan pays the principal through `changeGold` (9846). It is exported to the exe: keep its
+Taking a loan pays the principal through `changeGold` (9844). It is exported to the exe: keep its
 signature.
 
 ## 2. State and saves
 
 - **Each player's loans** go in `CvPlayer`, reset in `CvPlayer::reset`. Write them at the end of
-  `CvPlayer::write` (19012) and raise its version flag from 1 to 2; in `CvPlayer::read` (18457) read the new
+  `CvPlayer::write` (19044) and raise its version flag from 1 to 2; in `CvPlayer::read` (18489) read the new
   fields only when the flag is at least 2, so older saves still load.
 - **The market** (interest rate, bonds outstanding) goes in `CvGame`, versioned the same way in
-  `CvGame::read` and `CvGame::write` (8285, 8529). Update it once per game turn in `CvGame::doTurn`
-  (CvGame.cpp:5921), after `doDeals`.
+  `CvGame::read` and `CvGame::write` (9423, 9667). Update it once per game turn in `CvGame::doTurn`
+  (CvGame.cpp:7059), after `doDeals`.
 - **Rates and limits** are global defines. `XML/GlobalDefinesAlt.xml` works as it is; a new defines file
   needs its own `ReadGlobalDefines` line in `CvXMLLoadUtility::SetGlobalDefines`
   (CvXMLLoadUtilitySet.cpp:208–238).
@@ -47,13 +47,13 @@ signature.
 
 **Route A: build on existing deals (recommended).** A loan is a lump of gold to the borrower
 (`TRADE_GOLD`) and gold per turn back to the lender (`TRADE_GOLD_PER_TURN`). That works end to end today:
-the exe's diplomacy screen, the AI's valuation (`CvPlayerAI::AI_dealVal` 8823, `AI_considerOffer`), saves and
+the exe's diplomacy screen, the AI's valuation (`CvPlayerAI::AI_dealVal` 8950, `AI_considerOffer`), saves and
 network games. `CvDeal::startTrade` moves the per-turn gold into each side's `m_iGoldPerTurn`, which
 `calculateBaseNetGold` adds in.
 
 What is missing is a term. Either side can cancel a deal after `PEACE_TREATY_LENGTH` turns
-(`CvDeal::turnsToCancel`, CvDeal.cpp:1294), so a borrower could stop paying. Add a term to `CvDeal`, refuse
-cancelling in `isCancelable` (1275) until the loan is repaid, and end the deal at maturity in
+(`CvDeal::turnsToCancel`, CvDeal.cpp:1298), so a borrower could stop paying. Add a term to `CvDeal`, refuse
+cancelling in `isCancelable` (1279) until the loan is repaid, and end the deal at maturity in
 `CvDeal::doTurn` (297).
 
 **Route B: a new trade item `TRADE_LOAN`.** The exe's diplomacy screen asks the DLL for its items through
@@ -76,10 +76,10 @@ number generator.
 
 ## 5. The AI
 
-- **Borrowing and lending:** in `CvPlayerAI::AI_doTurnPost` (543) or `AI_doCommerce` (16250), where the
-  sliders are set. Borrow when `AI_isFinancialTrouble` (4112) is true; lend when gold is above
-  `AI_goldTarget` (4199).
-- **Offering loans** to other players: `AI_doDiplo` (16949).
+- **Borrowing and lending:** in `CvPlayerAI::AI_doTurnPost` (545) or `AI_doCommerce` (17182), where the
+  sliders are set. Borrow when `AI_isFinancialTrouble` (4188) is true; lend when gold is above
+  `AI_goldTarget` (4281).
+- **Offering loans** to other players: `AI_doDiplo` (17883).
 - **Counting debt.** `AI_isFinancialTrouble` is called from many places. If it does not count loan
   payments, the AI borrows its way into strikes.
 - **Judging it.** AI changes are judged by the seeded experiment of `method/docs/framework.md` (section 7),

@@ -17,7 +17,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - calls: CvRandom::uninit
   - called by (4): CvGame::reset, CvRandom::CvRandom, CvRandom::init, CvRandom::read
 - **54** `CvRandom::get(unsigned short, char const*)` (exported; Python: get)
-  - calls: CvGlobals::getLogging [CvGlobals.cpp], CvGlobals::getRandLogging [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGame::getTurnSlice [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvRandom::getSeed, CvDLLUtilityIFaceBase::messageControlLog [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
+  - calls: CvGlobals::getLogging \[CvGlobals.cpp\], CvGlobals::getRandLogging \[CvGlobals.cpp\], CvGlobals::getInstance \[CvGlobals.h\], CvGame::getTurnSlice \[CvGame.cpp\], CvGlobals::getGameINLINE \[CvGlobals.h\], CvRandom::getSeed, CvDLLUtilityIFaceBase::messageControlLog \[CvDLLUtilityIFaceBase.h\], CvGlobals::getDLLIFace \[CvGlobals.h\]
   - called by (20): CvCity::getVisibleEffects, CvCityAI::AI_bestBuildingThreshold, CvCityAI::AI_bestUnit, CvCityAI::AI_bestUnitAI, CvFractal::fracInitInternal, CvGame::getMapRandNum, CvGame::getNextSoundtrack, CvGame::getSorenRandNum, CvGame::init, CvMapGenerator::getRiverValueAtPlot, CvPlayer::doEspionageMission, CvPlayer::verifyAlive …
 - **77** `CvRandom::getFloat()` (exported)
   - calls: CvRandom::get
@@ -27,8 +27,8 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **89** `CvRandom::getSeed()` (exported)
   - called by (2): CvGame::calculateSyncChecksum, CvRandom::get
 - **95** `CvRandom::read(FDataStreamBase*)`
-  - calls: CvRandom::reset, FDataStreamBase::Read [FDataStreamBase.h]
+  - calls: CvRandom::reset, FDataStreamBase::Read \[FDataStreamBase.h\]
   - called by (1): CvGame::read
 - **103** `CvRandom::write(FDataStreamBase*)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\]
   - called by (1): CvGame::write

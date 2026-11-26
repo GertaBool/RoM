@@ -3,47 +3,47 @@
 Group: game objects. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
 - **19** `CvArea::CvArea()`
-  - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp], `vector ctor iterator', CvArea::reset, operator delete[](void*) [CvGameCoreDLL.cpp]
-  - takes the address of: IDInfo::`default ctor closure' [CvStructs.h]
-  - called by (2): FFreeListTrashArray<CvArea>::add, ReadStreamableFFreeListTrashArray<class CvArea>
+  - calls: operator new\[\](unsigned int) \[CvGameCoreDLL.cpp\], `vector ctor iterator', CvArea::reset, operator delete\[\](void*) \[CvGameCoreDLL.cpp\]
+  - takes the address of: IDInfo::`default ctor closure' \[CvStructs.h\]
+  - called by (2): FFreeListTrashArray\<CvArea>::add, ReadStreamableFFreeListTrashArray\<class CvArea>
 - **63** `CvArea::~CvArea()` (virtual)
-  - calls: CvArea::uninit, operator delete[](void*) [CvGameCoreDLL.cpp]
+  - calls: CvArea::uninit, operator delete\[\](void*) \[CvGameCoreDLL.cpp\]
   - called by (1): CvArea::`scalar deleting dtor'
 - **100** `CvArea::init(int, bool)`
   - calls: CvArea::reset
   - called by (2): CvMap::calculateAreas, CvPlot::setPlotType
 - **114** `CvArea::uninit()`
-  - calls: operator delete[](void*) [CvGameCoreDLL.cpp]
+  - calls: operator delete\[\](void*) \[CvGameCoreDLL.cpp\]
   - called by (2): CvArea::reset, CvArea::~CvArea
 - **123** `CvArea::reset(int, bool, bool)`
-  - calls: CvArea::uninit, IDInfo::reset [CvStructs.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumImprovementInfos [CvGlobals.cpp]
+  - calls: CvArea::uninit, IDInfo::reset \[CvStructs.h\], CvGlobals::getNumBonusInfos \[CvGlobals.cpp\], operator new\[\](unsigned int) \[CvGameCoreDLL.cpp\], CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getNumImprovementInfos \[CvGlobals.cpp\]
   - called by (3): CvArea::CvArea, CvArea::init, CvArea::read
 - **206** `CvArea::getID() const`
   - called by (35): CvArea::calculateTotalBestNatureYield, CvArea::countCoastalLand, CvArea::countHasCorporation, CvArea::countHasReligion, CvCity::getLiberationPlayer, CvCityAI::AI_chooseProduction, CvDLLButtonPopup::launchFreeColonyPopup, CvGame::createAnimals, CvGame::createBarbarianUnits, CvGameTextMgr::setPlotHelp, CvMap::calculateAreas, CvMapGenerator::addUniqueBonusType …
 - **212** `CvArea::setID(int)`
-  - called by (1): FFreeListTrashArray<CvArea>::add
+  - called by (1): FFreeListTrashArray\<CvArea>::add
 - **218** `CvArea::calculateTotalBestNatureYield() const`
-  - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvArea::getID, CvPlot::getArea [CvPlot.cpp], CvPlot::calculateTotalBestNatureYield [CvPlot.cpp]
+  - calls: CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getMapINLINE \[CvGlobals.h\], CvMap::numPlotsINLINE \[CvMap.h\], CvMap::plotByIndexINLINE \[CvMap.h\], CvArea::getID, CvPlot::getArea \[CvPlot.cpp\], CvPlot::calculateTotalBestNatureYield \[CvPlot.cpp\]
   - called by (2): CvPlayer::findStartingArea, CyArea::calculateTotalBestNatureYield
 - **240** `CvArea::countCoastalLand() const`
-  - calls: CvArea::isWater, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvArea::getID, CvPlot::getArea [CvPlot.cpp], CvPlot::isCoastalLand [CvPlot.cpp]
+  - calls: CvArea::isWater, CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getMapINLINE \[CvGlobals.h\], CvMap::numPlotsINLINE \[CvMap.h\], CvMap::plotByIndexINLINE \[CvMap.h\], CvArea::getID, CvPlot::getArea \[CvPlot.cpp\], CvPlot::isCoastalLand \[CvPlot.cpp\]
   - called by (2): CvPlayer::findStartingArea, CyArea::countCoastalLand
 - **270** `CvArea::countNumUniqueBonusTypes() const`
-  - calls: CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvArea::getNumBonuses, CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvBonusInfo::isOneArea [CvInfos.cpp]
+  - calls: CvGlobals::getNumBonusInfos \[CvGlobals.cpp\], CvGlobals::getInstance \[CvGlobals.h\], CvArea::getNumBonuses, CvGlobals::getBonusInfo(BonusTypes) \[CvGlobals.cpp\], CvBonusInfo::isOneArea \[CvInfos.cpp\]
   - called by (2): CvMapGenerator::addUniqueBonusType, CyArea::countNumUniqueBonusTypes
 - **292** `CvArea::countHasReligion(ReligionTypes, PlayerTypes) const`
-  - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::firstCity [CvPlayer.cpp], CvPlayer::nextCity [CvPlayer.cpp], CvArea::getID, CvCity::area [CvCity.cpp], CvCity::isHasReligion [CvCity.cpp]
+  - calls: CvPlayer::isAlive \[CvPlayer.cpp\], CvPlayerAI::getPlayer \[CvPlayerAI.h\], CvPlayer::firstCity \[CvPlayer.cpp\], CvPlayer::nextCity \[CvPlayer.cpp\], CvArea::getID, CvCity::area \[CvCity.cpp\], CvCity::isHasReligion \[CvCity.cpp\]
   - called by (3): CvPlayerAI::AI_missionaryValue, CvPlayerAI::AI_neededMissionaries, CyArea::countHasReligion
 - **324** `CvArea::countHasCorporation(CorporationTypes, PlayerTypes) const`
-  - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::firstCity [CvPlayer.cpp], CvPlayer::nextCity [CvPlayer.cpp], CvArea::getID, CvCity::area [CvCity.cpp], CvCity::isHasCorporation [CvCity.cpp]
+  - calls: CvPlayer::isAlive \[CvPlayer.cpp\], CvPlayerAI::getPlayer \[CvPlayerAI.h\], CvPlayer::firstCity \[CvPlayer.cpp\], CvPlayer::nextCity \[CvPlayer.cpp\], CvArea::getID, CvCity::area \[CvCity.cpp\], CvCity::isHasCorporation \[CvCity.cpp\]
   - called by (4): CvPlayerAI::AI_executiveValue, CvPlayerAI::AI_neededExecutives, CvPlayerAI::AI_unitValue, CyArea::countHasCorporation
 - **353** `CvArea::getNumTiles() const`
   - called by (23): CvArea::getNumUnownedTiles, CvArea::getNumUnrevealedTiles, CvArea::isLake, CvCity::isValidBuildingLocation, CvCityAI::AI_bestUnit, CvCityAI::AI_chooseProduction, CvGame::createBarbarianCities, CvMap::findBiggestArea, CvMapGenerator::addGoodies, CvMapGenerator::addRivers, CvMapGenerator::addUniqueBonusType, CvPlayer::findStartingArea …
 - **359** `CvArea::isLake() const`
-  - calls: CvArea::getNumTiles, CvArea::isWater, CvGlobals::getLAKE_MAX_AREA_SIZE [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - calls: CvArea::getNumTiles, CvArea::isWater, CvGlobals::getLAKE_MAX_AREA_SIZE \[CvGlobals.cpp\], CvGlobals::getInstance \[CvGlobals.h\]
   - called by (5): CvArea::changeNumTiles, CvPlot::isLake, CvUnit::getUpgradeCity(UnitTypes, bool, int*) const, CvUnitAI::AI_airOffenseBaseValue, CyArea::isLake
 - **365** `CvArea::changeNumTiles(int)`
-  - calls: CvArea::isLake, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::updateIrrigated [CvMap.cpp], CvMap::updateYield [CvMap.cpp]
+  - calls: CvArea::isLake, CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getMapINLINE \[CvGlobals.h\], CvMap::updateIrrigated \[CvMap.cpp\], CvMap::updateYield \[CvMap.cpp\]
   - called by (1): CvPlot::processArea
 - **385** `CvArea::getNumOwnedTiles() const`
   - called by (4): CvArea::getNumUnownedTiles, CvGame::createBarbarianCities, CvTeamAI::AI_isLandTarget, CyArea::getNumOwnedTiles
@@ -87,22 +87,22 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **529** `CvArea::getBuildingGoodHealth(PlayerTypes) const`
   - called by (2): CvCity::totalGoodBuildingHealth, CyArea::getBuildingGoodHealth
 - **537** `CvArea::changeBuildingGoodHealth(PlayerTypes, int)`
-  - calls: CvPlayerAI::AI_makeAssignWorkDirty [CvPlayerAI.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+  - calls: CvPlayerAI::AI_makeAssignWorkDirty \[CvPlayerAI.cpp\], CvPlayerAI::getPlayer \[CvPlayerAI.h\]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
 - **552** `CvArea::getBuildingBadHealth(PlayerTypes) const`
   - called by (2): CvCity::totalBadBuildingHealth, CyArea::getBuildingBadHealth
 - **560** `CvArea::changeBuildingBadHealth(PlayerTypes, int)`
-  - calls: CvPlayerAI::AI_makeAssignWorkDirty [CvPlayerAI.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+  - calls: CvPlayerAI::AI_makeAssignWorkDirty \[CvPlayerAI.cpp\], CvPlayerAI::getPlayer \[CvPlayerAI.h\]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
 - **575** `CvArea::getBuildingHappiness(PlayerTypes) const`
   - called by (5): CvCity::happyLevel, CvCity::unhappyLevel, CvGameTextMgr::setAngerHelp, CvGameTextMgr::setHappyHelp, CyArea::getBuildingHappiness
 - **583** `CvArea::changeBuildingHappiness(PlayerTypes, int)`
-  - calls: CvPlayerAI::AI_makeAssignWorkDirty [CvPlayerAI.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+  - calls: CvPlayerAI::AI_makeAssignWorkDirty \[CvPlayerAI.cpp\], CvPlayerAI::getPlayer \[CvPlayerAI.h\]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
 - **597** `CvArea::getFreeSpecialist(PlayerTypes) const`
   - called by (2): CvCity::totalFreeSpecialists, CyArea::getFreeSpecialist
 - **605** `CvArea::changeFreeSpecialist(PlayerTypes, int)`
-  - calls: CvPlayerAI::AI_makeAssignWorkDirty [CvPlayerAI.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+  - calls: CvPlayerAI::AI_makeAssignWorkDirty \[CvPlayerAI.cpp\], CvPlayerAI::getPlayer \[CvPlayerAI.h\]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
 - **620** `CvArea::getPower(PlayerTypes) const`
   - called by (4): CvTeam::countEnemyPowerByArea, CvTeam::countPowerByArea, CvUnitAI::AI_assaultSeaReinforce, CyArea::getPower
@@ -125,7 +125,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - calls: CvArea::getCleanPowerCount
   - called by (4): CvArea::changeCleanPowerCount, CvCity::isAreaCleanPower, CvCityAI::AI_buildingValueThreshold, CyArea::isCleanPower
 - **691** `CvArea::changeCleanPowerCount(TeamTypes, int)`
-  - calls: CvArea::isCleanPower, CvTeam::updateCommerce [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::updatePowerHealth [CvTeam.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
+  - calls: CvArea::isCleanPower, CvTeam::updateCommerce \[CvTeam.cpp\], CvTeamAI::getTeam \[CvTeamAI.h\], CvTeam::updatePowerHealth \[CvTeam.cpp\], CvGame::getActiveTeam \[CvGame.cpp\], CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getGameINLINE \[CvGlobals.h\], CvDLLInterfaceIFaceBase::setDirty \[CvDLLInterfaceIFaceBase.h\], CvDLLUtilityIFaceBase::getInterfaceIFace \[CvDLLUtilityIFaceBase.h\], CvGlobals::getDLLIFace \[CvGlobals.h\]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
 - **718** `CvArea::getBorderObstacleCount(TeamTypes) const`
   - called by (1): CvArea::isBorderObstacle
@@ -133,22 +133,22 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - calls: CvArea::getBorderObstacleCount
   - called by (4): CvCityAI::AI_buildingValueThreshold, CvPlayer::doWarnings, CvUnit::canEnterArea, CyArea::isBorderObstacle
 - **731** `CvArea::changeBorderObstacleCount(TeamTypes, int)`
-  - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::verifyUnitValidPlot [CvMap.cpp]
+  - calls: CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getMapINLINE \[CvGlobals.h\], CvMap::verifyUnitValidPlot \[CvMap.cpp\]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
 - **746** `CvArea::getAreaAIType(TeamTypes) const`
   - called by (38): CvCityAI::AI_bestUnit, CvCityAI::AI_chooseProduction, CvCityAI::AI_cityValue, CvCityAI::AI_doDraft, CvCityAI::AI_doHurry, CvCityAI::AI_doPanic, CvCityAI::AI_neededDefenders, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateSpecialYieldMultiplier, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvPlayerAI::AI_convertUnitAITypesForCrush …
 - **754** `CvArea::setAreaAIType(TeamTypes, AreaAITypes)`
   - called by (1): CvTeamAI::AI_updateAreaStragies
 - **762** `CvArea::getTargetCity(PlayerTypes) const`
-  - calls: getCity [CvGameCoreUtils.cpp]
+  - calls: getCity \[CvGameCoreUtils.cpp\]
   - called by (14): CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvPlot::processArea, CvUnitAI::AI_RbombardNaval, CvUnitAI::AI_airBombDefenses, CvUnitAI::AI_airOffenseBaseValue, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_getEspionageTargetValue, CvUnitAI::AI_offensiveAirlift, CvUnitAI::AI_pickTargetCity, CvUnitAI::AI_pillage, CvUnitAI::AI_pillageRange …
 - **770** `CvArea::setTargetCity(PlayerTypes, CvCity*)`
-  - calls: CvCity::getIDInfo [CvCity.cpp], IDInfo::reset [CvStructs.h]
+  - calls: CvCity::getIDInfo \[CvCity.cpp\], IDInfo::reset \[CvStructs.h\]
   - called by (3): CvPlayer::handleDiploEvent, CvPlayerAI::AI_updateAreaTargets, CvPlot::processArea
 - **786** `CvArea::getYieldRateModifier(PlayerTypes, YieldTypes) const`
   - called by (3): CvCity::getBaseYieldRateModifier, CvGameTextMgr::setYieldHelp, CyArea::getYieldRateModifier
 - **796** `CvArea::changeYieldRateModifier(PlayerTypes, YieldTypes, int)`
-  - calls: CvPlayer::invalidateYieldRankCache [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::updateCommerce() [CvPlayer.cpp], CvPlayerAI::AI_makeAssignWorkDirty [CvPlayerAI.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getTeam [CvPlayer.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
+  - calls: CvPlayer::invalidateYieldRankCache \[CvPlayer.cpp\], CvPlayerAI::getPlayer \[CvPlayerAI.h\], CvPlayer::updateCommerce() \[CvPlayer.cpp\], CvPlayerAI::AI_makeAssignWorkDirty \[CvPlayerAI.cpp\], CvGame::getActiveTeam \[CvGame.cpp\], CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getGameINLINE \[CvGlobals.h\], CvPlayer::getTeam \[CvPlayer.cpp\], CvDLLInterfaceIFaceBase::setDirty \[CvDLLInterfaceIFaceBase.h\], CvDLLUtilityIFaceBase::getInterfaceIFace \[CvDLLUtilityIFaceBase.h\], CvGlobals::getDLLIFace \[CvGlobals.h\]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
 - **824** `CvArea::getNumTrainAIUnits(PlayerTypes, UnitAITypes) const`
   - called by (3): CvPlayerAI::AI_getOperationRoleTarget, CvPlayerAI::AI_totalAreaUnitAIs, CyArea::getNumTrainAIUnits
@@ -161,7 +161,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **866** `CvArea::getNumBonuses(BonusTypes) const`
   - called by (2): CvArea::countNumUniqueBonusTypes, CyArea::getNumBonuses
 - **874** `CvArea::getNumTotalBonuses() const`
-  - calls: CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - calls: CvGlobals::getNumBonusInfos \[CvGlobals.cpp\], CvGlobals::getInstance \[CvGlobals.h\]
   - called by (2): CvPlot::canTrain, CyArea::getNumTotalBonuses
 - **887** `CvArea::changeNumBonuses(BonusTypes, int)`
   - called by (2): CvPlot::processArea, CvPlot::setBonusType
@@ -170,12 +170,12 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **904** `CvArea::changeNumImprovements(ImprovementTypes, int)`
   - called by (2): CvPlot::processArea, CvPlot::setImprovementType
 - **913** `CvArea::read(FDataStreamBase*)` (virtual)
-  - calls: CvArea::reset, FDataStreamBase::Read [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumImprovementInfos [CvGlobals.cpp]
-  - called by (2): ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>
+  - calls: CvArea::reset, FDataStreamBase::Read \[FDataStreamBase.h\], CvGlobals::getNumBonusInfos \[CvGlobals.cpp\], CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getNumImprovementInfos \[CvGlobals.cpp\]
+  - called by (2): ReadStreamableFFreeListTrashArray\<class CvArea>, ReadStreamableFFreeListTrashArray\<class CvSelectionGroupAI>
 - **974** `CvArea::write(FDataStreamBase*)` (virtual)
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumImprovementInfos [CvGlobals.cpp]
-  - called by (1): WriteStreamableFFreeListTrashArray<class CvArea>
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvGlobals::getNumBonusInfos \[CvGlobals.cpp\], CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getNumImprovementInfos \[CvGlobals.cpp\]
+  - called by (1): WriteStreamableFFreeListTrashArray\<class CvArea>
 - **·** `CvArea::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: CvArea::~CvArea, operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvArea::~CvArea, operator delete(void*) \[CvGameCoreDLL.cpp\]
 - **·** ``vector ctor iterator'(void*, unsigned int, int, void* (__thiscall*)(void*))` (written by the compiler)
   - called by (5): CvArea::CvArea, CvCity::reset, CvGame::reset, CyGlobalContext::getCyPlayer, CyGlobalContext::getCyTeam

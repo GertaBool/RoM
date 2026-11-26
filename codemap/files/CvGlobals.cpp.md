@@ -17,23 +17,23 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **60** `deleteInfoArray<class CvBonusClassInfo>(std::vector<CvBonusClassInfo*, std::allocator<CvBonusClassInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvBonusInfo>(std::vector<CvBonusInfo*, std::allocator<CvBonusInfo*>>&)`
-  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvBonusInfo>
+  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray\<class CvBonusInfo>
 - **60** `deleteInfoArray<class CvBuildInfo>(std::vector<CvBuildInfo*, std::allocator<CvBuildInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvBuildingClassInfo>(std::vector<CvBuildingClassInfo*, std::allocator<CvBuildingClassInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvBuildingInfo>(std::vector<CvBuildingInfo*, std::allocator<CvBuildingInfo*>>&)`
-  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvBuildingInfo>
+  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray\<class CvBuildingInfo>
 - **60** `deleteInfoArray<class CvCameraInfo>(std::vector<CvCameraInfo*, std::allocator<CvCameraInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvCameraOverlayInfo>(std::vector<CvCameraOverlayInfo*, std::allocator<CvCameraOverlayInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvCivicInfo>(std::vector<CvCivicInfo*, std::allocator<CvCivicInfo*>>&)`
-  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvCivicInfo>
+  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray\<class CvCivicInfo>
 - **60** `deleteInfoArray<class CvCivicOptionInfo>(std::vector<CvCivicOptionInfo*, std::allocator<CvCivicOptionInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvCivilizationInfo>(std::vector<CvCivilizationInfo*, std::allocator<CvCivilizationInfo*>>&)`
-  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvCivilizationInfo>
+  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray\<class CvCivilizationInfo>
 - **60** `deleteInfoArray<class CvClimateInfo>(std::vector<CvClimateInfo*, std::allocator<CvClimateInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvColorInfo>(std::vector<CvColorInfo*, std::allocator<CvColorInfo*>>&)`
@@ -51,7 +51,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **60** `deleteInfoArray<class CvCursorInfo>(std::vector<CvCursorInfo*, std::allocator<CvCursorInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvDiplomacyInfo>(std::vector<CvDiplomacyInfo*, std::allocator<CvDiplomacyInfo*>>&)`
-  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvDiplomacyInfo>
+  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray\<class CvDiplomacyInfo>
 - **60** `deleteInfoArray<class CvEffectInfo>(std::vector<CvEffectInfo*, std::allocator<CvEffectInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvEmphasizeInfo>(std::vector<CvEmphasizeInfo*, std::allocator<CvEmphasizeInfo*>>&)`
@@ -63,9 +63,9 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **60** `deleteInfoArray<class CvEspionageMissionInfo>(std::vector<CvEspionageMissionInfo*, std::allocator<CvEspionageMissionInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvEventInfo>(std::vector<CvEventInfo*, std::allocator<CvEventInfo*>>&)`
-  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvEventInfo>
+  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray\<class CvEventInfo>
 - **60** `deleteInfoArray<class CvEventTriggerInfo>(std::vector<CvEventTriggerInfo*, std::allocator<CvEventTriggerInfo*>>&)`
-  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvEventTriggerInfo>
+  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray\<class CvEventTriggerInfo>
 - **60** `deleteInfoArray<class CvFeatureInfo>(std::vector<CvFeatureInfo*, std::allocator<CvFeatureInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvForceControlInfo>(std::vector<CvForceControlInfo*, std::allocator<CvForceControlInfo*>>&)`
@@ -79,11 +79,11 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **60** `deleteInfoArray<class CvGraphicOptionInfo>(std::vector<CvGraphicOptionInfo*, std::allocator<CvGraphicOptionInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvHandicapInfo>(std::vector<CvHandicapInfo*, std::allocator<CvHandicapInfo*>>&)`
-  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvHandicapInfo>
+  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray\<class CvHandicapInfo>
 - **60** `deleteInfoArray<class CvHurryInfo>(std::vector<CvHurryInfo*, std::allocator<CvHurryInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvImprovementInfo>(std::vector<CvImprovementInfo*, std::allocator<CvImprovementInfo*>>&)`
-  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvImprovementInfo>
+  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray\<class CvImprovementInfo>
 - **60** `deleteInfoArray<class CvInfoBase>(std::vector<CvInfoBase*, std::allocator<CvInfoBase*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvInterfaceModeInfo>(std::vector<CvInterfaceModeInfo*, std::allocator<CvInterfaceModeInfo*>>&)`
@@ -91,7 +91,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **60** `deleteInfoArray<class CvLandscapeInfo>(std::vector<CvLandscapeInfo*, std::allocator<CvLandscapeInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvLeaderHeadInfo>(std::vector<CvLeaderHeadInfo*, std::allocator<CvLeaderHeadInfo*>>&)`
-  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvLeaderHeadInfo>
+  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray\<class CvLeaderHeadInfo>
 - **60** `deleteInfoArray<class CvMPOptionInfo>(std::vector<CvMPOptionInfo*, std::allocator<CvMPOptionInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvMainMenuInfo>(std::vector<CvMainMenuInfo*, std::allocator<CvMainMenuInfo*>>&)`
@@ -109,7 +109,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **60** `deleteInfoArray<class CvProjectInfo>(std::vector<CvProjectInfo*, std::allocator<CvProjectInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvPromotionInfo>(std::vector<CvPromotionInfo*, std::allocator<CvPromotionInfo*>>&)`
-  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvPromotionInfo>
+  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray\<class CvPromotionInfo>
 - **60** `deleteInfoArray<class CvPythonModulesInfo>(std::vector<CvPythonModulesInfo*, std::allocator<CvPythonModulesInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvQuestInfo>(std::vector<CvQuestInfo*, std::allocator<CvQuestInfo*>>&)`
@@ -139,7 +139,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **60** `deleteInfoArray<class CvSpecialistInfo>(std::vector<CvSpecialistInfo*, std::allocator<CvSpecialistInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvTechInfo>(std::vector<CvTechInfo*, std::allocator<CvTechInfo*>>&)`
-  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvTechInfo>
+  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray\<class CvTechInfo>
 - **60** `deleteInfoArray<class CvTerrainInfo>(std::vector<CvTerrainInfo*, std::allocator<CvTerrainInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvTerrainPlaneInfo>(std::vector<CvTerrainPlaneInfo*, std::allocator<CvTerrainPlaneInfo*>>&)`
@@ -163,7 +163,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **60** `deleteInfoArray<class CvUnitFormationInfo>(std::vector<CvUnitFormationInfo*, std::allocator<CvUnitFormationInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvUnitInfo>(std::vector<CvUnitInfo*, std::allocator<CvUnitInfo*>>&)`
-  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray<class CvUnitInfo>
+  - called by (2): CvGlobals::deleteInfoArrays, readInfoArray\<class CvUnitInfo>
 - **60** `deleteInfoArray<class CvUpkeepInfo>(std::vector<CvUpkeepInfo*, std::allocator<CvUpkeepInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **60** `deleteInfoArray<class CvVictoryInfo>(std::vector<CvVictoryInfo*, std::allocator<CvVictoryInfo*>>&)`
@@ -181,98 +181,98 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **60** `deleteInfoArray<class CvYieldInfo>(std::vector<CvYieldInfo*, std::allocator<CvYieldInfo*>>&)`
   - called by (1): CvGlobals::deleteInfoArrays
 - **71** `readInfoArray<class CvBonusInfo>(FDataStreamBase*, std::vector<CvBonusInfo*, std::allocator<CvBonusInfo*>>&, char const*)`
-  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read [FDataStreamBase.h], deleteInfoArray<class CvBonusInfo>, operator new(unsigned int) [CvGameCoreDLL.cpp], CvBonusInfo::CvBonusInfo() [CvInfos.cpp], CvInfoBase::read(FDataStreamBase*) [CvInfos.cpp] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType [CvInfos.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance \[CvGlobals.h\], FDataStreamBase::Read \[FDataStreamBase.h\], deleteInfoArray\<class CvBonusInfo>, operator new(unsigned int) \[CvGameCoreDLL.cpp\], CvBonusInfo::CvBonusInfo() \[CvInfos.cpp\], CvInfoBase::read(FDataStreamBase*) \[CvInfos.cpp\] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType \[CvInfos.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\]
   - called by (1): CvGlobals::readBonusInfoArray
 - **71** `readInfoArray<class CvBuildingInfo>(FDataStreamBase*, std::vector<CvBuildingInfo*, std::allocator<CvBuildingInfo*>>&, char const*)`
-  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read [FDataStreamBase.h], deleteInfoArray<class CvBuildingInfo>, operator new(unsigned int) [CvGameCoreDLL.cpp], CvBuildingInfo::CvBuildingInfo() [CvInfos.cpp], CvInfoBase::read(FDataStreamBase*) [CvInfos.cpp] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType [CvInfos.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance \[CvGlobals.h\], FDataStreamBase::Read \[FDataStreamBase.h\], deleteInfoArray\<class CvBuildingInfo>, operator new(unsigned int) \[CvGameCoreDLL.cpp\], CvBuildingInfo::CvBuildingInfo() \[CvInfos.cpp\], CvInfoBase::read(FDataStreamBase*) \[CvInfos.cpp\] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType \[CvInfos.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\]
   - called by (1): CvGlobals::readBuildingInfoArray
 - **71** `readInfoArray<class CvCivicInfo>(FDataStreamBase*, std::vector<CvCivicInfo*, std::allocator<CvCivicInfo*>>&, char const*)`
-  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read [FDataStreamBase.h], deleteInfoArray<class CvCivicInfo>, operator new(unsigned int) [CvGameCoreDLL.cpp], CvCivicInfo::CvCivicInfo() [CvInfos.cpp], CvInfoBase::read(FDataStreamBase*) [CvInfos.cpp] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType [CvInfos.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance \[CvGlobals.h\], FDataStreamBase::Read \[FDataStreamBase.h\], deleteInfoArray\<class CvCivicInfo>, operator new(unsigned int) \[CvGameCoreDLL.cpp\], CvCivicInfo::CvCivicInfo() \[CvInfos.cpp\], CvInfoBase::read(FDataStreamBase*) \[CvInfos.cpp\] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType \[CvInfos.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\]
   - called by (1): CvGlobals::readCivicInfoArray
 - **71** `readInfoArray<class CvCivilizationInfo>(FDataStreamBase*, std::vector<CvCivilizationInfo*, std::allocator<CvCivilizationInfo*>>&, char const*)`
-  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read [FDataStreamBase.h], deleteInfoArray<class CvCivilizationInfo>, operator new(unsigned int) [CvGameCoreDLL.cpp], CvCivilizationInfo::CvCivilizationInfo() [CvInfos.cpp], CvInfoBase::read(FDataStreamBase*) [CvInfos.cpp] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType [CvInfos.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance \[CvGlobals.h\], FDataStreamBase::Read \[FDataStreamBase.h\], deleteInfoArray\<class CvCivilizationInfo>, operator new(unsigned int) \[CvGameCoreDLL.cpp\], CvCivilizationInfo::CvCivilizationInfo() \[CvInfos.cpp\], CvInfoBase::read(FDataStreamBase*) \[CvInfos.cpp\] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType \[CvInfos.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\]
   - called by (1): CvGlobals::readCivilizationInfoArray
 - **71** `readInfoArray<class CvDiplomacyInfo>(FDataStreamBase*, std::vector<CvDiplomacyInfo*, std::allocator<CvDiplomacyInfo*>>&, char const*)`
-  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read [FDataStreamBase.h], deleteInfoArray<class CvDiplomacyInfo>, operator new(unsigned int) [CvGameCoreDLL.cpp], CvDiplomacyInfo::CvDiplomacyInfo() [CvInfos.cpp], CvInfoBase::read(FDataStreamBase*) [CvInfos.cpp] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType [CvInfos.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance \[CvGlobals.h\], FDataStreamBase::Read \[FDataStreamBase.h\], deleteInfoArray\<class CvDiplomacyInfo>, operator new(unsigned int) \[CvGameCoreDLL.cpp\], CvDiplomacyInfo::CvDiplomacyInfo() \[CvInfos.cpp\], CvInfoBase::read(FDataStreamBase*) \[CvInfos.cpp\] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType \[CvInfos.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\]
   - called by (1): CvGlobals::readDiplomacyInfoArray
 - **71** `readInfoArray<class CvEventInfo>(FDataStreamBase*, std::vector<CvEventInfo*, std::allocator<CvEventInfo*>>&, char const*)`
-  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read [FDataStreamBase.h], deleteInfoArray<class CvEventInfo>, operator new(unsigned int) [CvGameCoreDLL.cpp], CvEventInfo::CvEventInfo() [CvInfos.cpp], CvInfoBase::read(FDataStreamBase*) [CvInfos.cpp] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType [CvInfos.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance \[CvGlobals.h\], FDataStreamBase::Read \[FDataStreamBase.h\], deleteInfoArray\<class CvEventInfo>, operator new(unsigned int) \[CvGameCoreDLL.cpp\], CvEventInfo::CvEventInfo() \[CvInfos.cpp\], CvInfoBase::read(FDataStreamBase*) \[CvInfos.cpp\] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType \[CvInfos.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\]
   - called by (1): CvGlobals::readEventInfoArray
 - **71** `readInfoArray<class CvEventTriggerInfo>(FDataStreamBase*, std::vector<CvEventTriggerInfo*, std::allocator<CvEventTriggerInfo*>>&, char const*)`
-  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read [FDataStreamBase.h], deleteInfoArray<class CvEventTriggerInfo>, operator new(unsigned int) [CvGameCoreDLL.cpp], CvEventTriggerInfo::CvEventTriggerInfo() [CvInfos.cpp], CvInfoBase::read(FDataStreamBase*) [CvInfos.cpp] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType [CvInfos.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance \[CvGlobals.h\], FDataStreamBase::Read \[FDataStreamBase.h\], deleteInfoArray\<class CvEventTriggerInfo>, operator new(unsigned int) \[CvGameCoreDLL.cpp\], CvEventTriggerInfo::CvEventTriggerInfo() \[CvInfos.cpp\], CvInfoBase::read(FDataStreamBase*) \[CvInfos.cpp\] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType \[CvInfos.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\]
   - called by (1): CvGlobals::readEventTriggerInfoArray
 - **71** `readInfoArray<class CvHandicapInfo>(FDataStreamBase*, std::vector<CvHandicapInfo*, std::allocator<CvHandicapInfo*>>&, char const*)`
-  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read [FDataStreamBase.h], deleteInfoArray<class CvHandicapInfo>, operator new(unsigned int) [CvGameCoreDLL.cpp], CvHandicapInfo::CvHandicapInfo() [CvInfos.cpp], CvInfoBase::read(FDataStreamBase*) [CvInfos.cpp] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType [CvInfos.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance \[CvGlobals.h\], FDataStreamBase::Read \[FDataStreamBase.h\], deleteInfoArray\<class CvHandicapInfo>, operator new(unsigned int) \[CvGameCoreDLL.cpp\], CvHandicapInfo::CvHandicapInfo() \[CvInfos.cpp\], CvInfoBase::read(FDataStreamBase*) \[CvInfos.cpp\] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType \[CvInfos.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\]
   - called by (1): CvGlobals::readHandicapInfoArray
 - **71** `readInfoArray<class CvImprovementInfo>(FDataStreamBase*, std::vector<CvImprovementInfo*, std::allocator<CvImprovementInfo*>>&, char const*)`
-  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read [FDataStreamBase.h], deleteInfoArray<class CvImprovementInfo>, operator new(unsigned int) [CvGameCoreDLL.cpp], CvImprovementInfo::CvImprovementInfo() [CvInfos.cpp], CvInfoBase::read(FDataStreamBase*) [CvInfos.cpp] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType [CvInfos.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance \[CvGlobals.h\], FDataStreamBase::Read \[FDataStreamBase.h\], deleteInfoArray\<class CvImprovementInfo>, operator new(unsigned int) \[CvGameCoreDLL.cpp\], CvImprovementInfo::CvImprovementInfo() \[CvInfos.cpp\], CvInfoBase::read(FDataStreamBase*) \[CvInfos.cpp\] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType \[CvInfos.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\]
   - called by (1): CvGlobals::readImprovementInfoArray
 - **71** `readInfoArray<class CvLeaderHeadInfo>(FDataStreamBase*, std::vector<CvLeaderHeadInfo*, std::allocator<CvLeaderHeadInfo*>>&, char const*)`
-  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read [FDataStreamBase.h], deleteInfoArray<class CvLeaderHeadInfo>, operator new(unsigned int) [CvGameCoreDLL.cpp], CvLeaderHeadInfo::CvLeaderHeadInfo [CvInfos.cpp], CvInfoBase::read(FDataStreamBase*) [CvInfos.cpp] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType [CvInfos.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance \[CvGlobals.h\], FDataStreamBase::Read \[FDataStreamBase.h\], deleteInfoArray\<class CvLeaderHeadInfo>, operator new(unsigned int) \[CvGameCoreDLL.cpp\], CvLeaderHeadInfo::CvLeaderHeadInfo \[CvInfos.cpp\], CvInfoBase::read(FDataStreamBase*) \[CvInfos.cpp\] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType \[CvInfos.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\]
   - called by (1): CvGlobals::readLeaderHeadInfoArray
 - **71** `readInfoArray<class CvPromotionInfo>(FDataStreamBase*, std::vector<CvPromotionInfo*, std::allocator<CvPromotionInfo*>>&, char const*)`
-  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read [FDataStreamBase.h], deleteInfoArray<class CvPromotionInfo>, operator new(unsigned int) [CvGameCoreDLL.cpp], CvPromotionInfo::CvPromotionInfo() [CvInfos.cpp], CvInfoBase::read(FDataStreamBase*) [CvInfos.cpp] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType [CvInfos.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance \[CvGlobals.h\], FDataStreamBase::Read \[FDataStreamBase.h\], deleteInfoArray\<class CvPromotionInfo>, operator new(unsigned int) \[CvGameCoreDLL.cpp\], CvPromotionInfo::CvPromotionInfo() \[CvInfos.cpp\], CvInfoBase::read(FDataStreamBase*) \[CvInfos.cpp\] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType \[CvInfos.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\]
   - called by (1): CvGlobals::readPromotionInfoArray
 - **71** `readInfoArray<class CvTechInfo>(FDataStreamBase*, std::vector<CvTechInfo*, std::allocator<CvTechInfo*>>&, char const*)`
-  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read [FDataStreamBase.h], deleteInfoArray<class CvTechInfo>, operator new(unsigned int) [CvGameCoreDLL.cpp], CvTechInfo::CvTechInfo() [CvInfos.cpp], CvInfoBase::read(FDataStreamBase*) [CvInfos.cpp] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType [CvInfos.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance \[CvGlobals.h\], FDataStreamBase::Read \[FDataStreamBase.h\], deleteInfoArray\<class CvTechInfo>, operator new(unsigned int) \[CvGameCoreDLL.cpp\], CvTechInfo::CvTechInfo() \[CvInfos.cpp\], CvInfoBase::read(FDataStreamBase*) \[CvInfos.cpp\] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType \[CvInfos.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\]
   - called by (1): CvGlobals::readTechInfoArray
 - **71** `readInfoArray<class CvUnitInfo>(FDataStreamBase*, std::vector<CvUnitInfo*, std::allocator<CvUnitInfo*>>&, char const*)`
-  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read [FDataStreamBase.h], deleteInfoArray<class CvUnitInfo>, operator new(unsigned int) [CvGameCoreDLL.cpp], CvUnitInfo::CvUnitInfo() [CvInfos.cpp], CvInfoBase::read(FDataStreamBase*) [CvInfos.cpp] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType [CvInfos.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance \[CvGlobals.h\], FDataStreamBase::Read \[FDataStreamBase.h\], deleteInfoArray\<class CvUnitInfo>, operator new(unsigned int) \[CvGameCoreDLL.cpp\], CvUnitInfo::CvUnitInfo() \[CvInfos.cpp\], CvInfoBase::read(FDataStreamBase*) \[CvInfos.cpp\] ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), CvGlobals::setInfoTypeFromString, CvInfoBase::getType \[CvInfos.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\]
   - called by (1): CvGlobals::readUnitInfoArray
 - **101** `writeInfoArray<class CvBonusInfo>(FDataStreamBase*, std::vector<CvBonusInfo*, std::allocator<CvBonusInfo*>>&)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvBonusInfo::write [CvInfos.cpp]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvBonusInfo::write \[CvInfos.cpp\]
   - called by (1): CvGlobals::writeBonusInfoArray
 - **101** `writeInfoArray<class CvBuildingInfo>(FDataStreamBase*, std::vector<CvBuildingInfo*, std::allocator<CvBuildingInfo*>>&)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvBuildingInfo::write [CvInfos.cpp]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvBuildingInfo::write \[CvInfos.cpp\]
   - called by (1): CvGlobals::writeBuildingInfoArray
 - **101** `writeInfoArray<class CvCivicInfo>(FDataStreamBase*, std::vector<CvCivicInfo*, std::allocator<CvCivicInfo*>>&)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvCivicInfo::write [CvInfos.cpp]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvCivicInfo::write \[CvInfos.cpp\]
   - called by (1): CvGlobals::writeCivicInfoArray
 - **101** `writeInfoArray<class CvCivilizationInfo>(FDataStreamBase*, std::vector<CvCivilizationInfo*, std::allocator<CvCivilizationInfo*>>&)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvCivilizationInfo::write [CvInfos.cpp]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvCivilizationInfo::write \[CvInfos.cpp\]
   - called by (1): CvGlobals::writeCivilizationInfoArray
 - **101** `writeInfoArray<class CvDiplomacyInfo>(FDataStreamBase*, std::vector<CvDiplomacyInfo*, std::allocator<CvDiplomacyInfo*>>&)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvDiplomacyInfo::write [CvInfos.cpp]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvDiplomacyInfo::write \[CvInfos.cpp\]
   - called by (1): CvGlobals::writeDiplomacyInfoArray
 - **101** `writeInfoArray<class CvEventInfo>(FDataStreamBase*, std::vector<CvEventInfo*, std::allocator<CvEventInfo*>>&)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvEventInfo::write [CvInfos.cpp]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvEventInfo::write \[CvInfos.cpp\]
   - called by (1): CvGlobals::writeEventInfoArray
 - **101** `writeInfoArray<class CvEventTriggerInfo>(FDataStreamBase*, std::vector<CvEventTriggerInfo*, std::allocator<CvEventTriggerInfo*>>&)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvEventTriggerInfo::write [CvInfos.cpp]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvEventTriggerInfo::write \[CvInfos.cpp\]
   - called by (1): CvGlobals::writeEventTriggerInfoArray
 - **101** `writeInfoArray<class CvHandicapInfo>(FDataStreamBase*, std::vector<CvHandicapInfo*, std::allocator<CvHandicapInfo*>>&)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvHandicapInfo::write [CvInfos.cpp]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvHandicapInfo::write \[CvInfos.cpp\]
   - called by (1): CvGlobals::writeHandicapInfoArray
 - **101** `writeInfoArray<class CvImprovementInfo>(FDataStreamBase*, std::vector<CvImprovementInfo*, std::allocator<CvImprovementInfo*>>&)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvImprovementInfo::write [CvInfos.cpp]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvImprovementInfo::write \[CvInfos.cpp\]
   - called by (1): CvGlobals::writeImprovementInfoArray
 - **101** `writeInfoArray<class CvLeaderHeadInfo>(FDataStreamBase*, std::vector<CvLeaderHeadInfo*, std::allocator<CvLeaderHeadInfo*>>&)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvLeaderHeadInfo::write [CvInfos.cpp]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvLeaderHeadInfo::write \[CvInfos.cpp\]
   - called by (1): CvGlobals::writeLeaderHeadInfoArray
 - **101** `writeInfoArray<class CvPromotionInfo>(FDataStreamBase*, std::vector<CvPromotionInfo*, std::allocator<CvPromotionInfo*>>&)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvPromotionInfo::write [CvInfos.cpp]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvPromotionInfo::write \[CvInfos.cpp\]
   - called by (1): CvGlobals::writePromotionInfoArray
 - **101** `writeInfoArray<class CvTechInfo>(FDataStreamBase*, std::vector<CvTechInfo*, std::allocator<CvTechInfo*>>&)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvTechInfo::write [CvInfos.cpp]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvTechInfo::write \[CvInfos.cpp\]
   - called by (1): CvGlobals::writeTechInfoArray
 - **101** `writeInfoArray<class CvUnitInfo>(FDataStreamBase*, std::vector<CvUnitInfo*, std::allocator<CvUnitInfo*>>&)`
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvUnitInfo::write [CvInfos.cpp]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvUnitInfo::write \[CvInfos.cpp\]
   - called by (1): CvGlobals::writeUnitInfoArray
-- **115** ``
-  - calls: CvString::CvString() [CvString.h], AIPathReuse::Owner::Owner [AIPathReuse.h], CvGlobals::CvGlobals, AIMissionTargetIndex::Index::Index [AIMissionTargetIndex.h]
-  - takes the address of: _$E9 [CvGameCoreUtils.cpp]
+- **115** `_$E8`
+  - calls: CvGlobals::CvGlobals
+  - takes the address of: _$E9
 - **373** `CvGlobals::CvGlobals()` (exported)
-  - calls: NiPoint3::NiPoint3() [CvGameCoreDLL.h], CvString::CvString() [CvString.h], CvString::~CvString [CvString.h]
-  - called by (1): 
+  - calls: NiPoint3::NiPoint3() \[CvGameCoreDLL.h\], CvString::CvString() \[CvString.h\], CvString::~CvString \[CvString.h\]
+  - called by (1): _$E8
 - **377** `CvGlobals::~CvGlobals()` (exported; virtual)
-  - calls: CvString::~CvString [CvString.h]
-  - called by (1): _$E9
+  - calls: CvString::~CvString \[CvString.h\]
+  - called by (2): CvGlobals::`vector deleting dtor', _$E9
 - **384** `CvGlobals::init()` (exported)
-  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], FVariableSystem::FVariableSystem [FVariableSystem.inl], CvRandom::CvRandom [CvRandom.cpp], CvInitCore::CvInitCore [CvInitCore.cpp], CvDLLUtilityIFaceBase::initGlobals [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGameAI::CvGameAI [CvGameAI.cpp], CvMap::CvMap [CvMap.cpp], CvPlayerAI::initStatics [CvPlayerAI.cpp], CvTeamAI::initStatics [CvTeamAI.cpp], NiPoint3::NiPoint3(float, float, float) [CvGameCoreDLL.h], operator new[](unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: operator new(unsigned int) \[CvGameCoreDLL.cpp\], FVariableSystem::FVariableSystem \[FVariableSystem.inl\], CvRandom::CvRandom \[CvRandom.cpp\], CvInitCore::CvInitCore \[CvInitCore.cpp\], CvDLLUtilityIFaceBase::initGlobals \[CvDLLUtilityIFaceBase.h\], CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getDLLIFace \[CvGlobals.h\], CvGameAI::CvGameAI \[CvGameAI.cpp\], CvMap::CvMap \[CvMap.cpp\], CvPlayerAI::initStatics \[CvPlayerAI.cpp\], CvTeamAI::initStatics \[CvTeamAI.cpp\], NiPoint3::NiPoint3(float, float, float) \[CvGameCoreDLL.h\], operator new\[\](unsigned int) \[CvGameCoreDLL.cpp\], operator delete(void*) \[CvGameCoreDLL.cpp\]
 - **529** `CvGlobals::uninit()` (exported)
-  - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvPlayerAI::freeStatics [CvPlayerAI.cpp], CvTeamAI::freeStatics [CvTeamAI.cpp], CvSelectionGroup::releaseSecondaryPathFinder [CvSelectionGroup.cpp], CvDLLUtilityIFaceBase::uninitGlobals [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
+  - calls: operator delete\[\](void*) \[CvGameCoreDLL.cpp\], CvPlayerAI::freeStatics \[CvPlayerAI.cpp\], CvTeamAI::freeStatics \[CvTeamAI.cpp\], CvSelectionGroup::releaseSecondaryPathFinder \[CvSelectionGroup.cpp\], CvDLLUtilityIFaceBase::uninitGlobals \[CvDLLUtilityIFaceBase.h\], CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getDLLIFace \[CvGlobals.h\]
 - **582** `CvGlobals::clearTypesMap()` (exported)
-  - calls: FVariableSystem::UnInit [FVariableSystem.inl]
+  - calls: FVariableSystem::UnInit \[FVariableSystem.inl\]
   - called by (1): CvGlobals::deleteInfoArrays
 - **592** `CvGlobals::getDiplomacyScreen()` (exported)
 - **597** `CvGlobals::getMPDiplomacyScreen()` (exported)
@@ -384,48 +384,48 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **958** `CvGlobals::getModLoadControlVectorSize()`
   - called by (4): CvInitCore::resetGame(CvInitCore*, bool, bool), CvInitCore::write, CvXMLLoadUtilitySetMod::loadModControlArray, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
 - **963** `CvGlobals::setModLoadControlVector(char const*)`
-  - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h]
+  - calls: CvString::CvString(char const*) \[CvString.h\], CvString::~CvString \[CvString.h\]
   - called by (1): CvXMLLoadUtilitySetMod::setModLoadControlDirArray
 - **968** `CvGlobals::getModLoadControlVector(int)`
-  - calls: CvString::CvString(CvString const&) [CvString.h]
+  - calls: CvString::CvString(CvString const&) \[CvString.h\]
   - called by (3): CvInitCore::resetGame(CvInitCore*, bool, bool), CvInitCore::write, CvXMLLoadUtilitySetMod::loadModControlArray
 - **973** `CvGlobals::getTotalNumModules()`
 - **978** `CvGlobals::setTotalNumModules()`
   - called by (1): CvModLoadControlInfo::read
 - **983** `CvGlobals::getNumModLoadControlInfos()`
-  - called by (2): CvXMLLoadUtility::LoadModLoadControlInfo<class CvModLoadControlInfo>, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
+  - called by (2): CvXMLLoadUtility::LoadModLoadControlInfo\<class CvModLoadControlInfo>, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
 - **988** `CvGlobals::getModLoadControlInfos()`
   - called by (1): CvXMLLoadUtility::ModularLoadingControlXML
 - **993** `CvGlobals::getModLoadControlInfos(int)` (exported)
-  - called by (2): CvXMLLoadUtility::LoadModLoadControlInfo<class CvModLoadControlInfo>, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
+  - called by (2): CvXMLLoadUtility::LoadModLoadControlInfo\<class CvModLoadControlInfo>, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
 - **1000** `CvGlobals::resetDependencies()`
-  - called by (194): CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::SetGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMisc> …
+  - called by (194): CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::SetGlobalClassInfo\<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoMisc> …
 - **1008** `CvGlobals::isAnyDependency()`
-  - called by (194): CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::SetGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMisc> …
+  - called by (194): CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::SetGlobalClassInfo\<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoMisc> …
 - **1013** `CvGlobals::setAnyDependency(bool)`
   - called by (1): CvInfoBase::read(CvXMLLoadUtility*)
 - **1018** `CvGlobals::getTypeDependency()`
-  - called by (194): CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::SetGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMisc> …
+  - called by (194): CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::SetGlobalClassInfo\<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoMisc> …
 - **1023** `CvGlobals::setTypeDependency(bool)`
-  - called by (193): CvXMLLoadUtility::SetGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMisc>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMovie> …
+  - called by (193): CvXMLLoadUtility::SetGlobalClassInfo\<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoMisc>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoMovie> …
 - **1028** `CvGlobals::getAndNumDependencyTypes() const`
-  - called by (193): CvXMLLoadUtility::SetGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMisc>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMovie> …
+  - called by (193): CvXMLLoadUtility::SetGlobalClassInfo\<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoMisc>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoMovie> …
 - **1033** `CvGlobals::setAndDependencyTypes(char const*)`
-  - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h]
+  - calls: CvString::CvString(char const*) \[CvString.h\], CvString::~CvString \[CvString.h\]
   - called by (1): CvInfoBase::read(CvXMLLoadUtility*)
 - **1038** `CvGlobals::getAndDependencyTypes(int) const`
-  - calls: CvString::CvString(CvString const&) [CvString.h]
-  - called by (193): CvXMLLoadUtility::SetGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMisc>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMovie> …
+  - calls: CvString::CvString(CvString const&) \[CvString.h\]
+  - called by (193): CvXMLLoadUtility::SetGlobalClassInfo\<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoMisc>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoMovie> …
 - **1045** `CvGlobals::getOrNumDependencyTypes() const`
-  - called by (193): CvXMLLoadUtility::SetGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMisc>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMovie> …
+  - called by (193): CvXMLLoadUtility::SetGlobalClassInfo\<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoMisc>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoMovie> …
 - **1050** `CvGlobals::setOrDependencyTypes(char const*)`
-  - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h]
+  - calls: CvString::CvString(char const*) \[CvString.h\], CvString::~CvString \[CvString.h\]
   - called by (1): CvInfoBase::read(CvXMLLoadUtility*)
 - **1055** `CvGlobals::getOrDependencyTypes(int) const`
-  - calls: CvString::CvString(CvString const&) [CvString.h]
-  - called by (193): CvXMLLoadUtility::SetGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMisc>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMovie> …
+  - calls: CvString::CvString(CvString const&) \[CvString.h\]
+  - called by (193): CvXMLLoadUtility::SetGlobalClassInfo\<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoLeaderhead>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoMisc>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoMovie> …
 - **1069** `CvGlobals::setModDir(char const*)`
-  - called by (98): CvXMLLoadUtility::LoadDiplomacyInfo, CvXMLLoadUtility::LoadGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoCivilization>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoFeature>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoImprovement>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoInterface>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoLeaderhead>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoMisc> …
+  - called by (98): CvXMLLoadUtility::LoadDiplomacyInfo, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvAdvisorInfo>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvAnimationCategoryInfo>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvAnimationPathInfo>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoBonus>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoBuilding>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoCivilization>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoFeature>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoImprovement>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoInterface>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoLeaderhead>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoMisc> …
 - **1074** `CvGlobals::getModDir()`
   - called by (114): CvArtInfoAsset::read, CvArtInfoBonus::read, CvArtInfoFeature::read, CvArtInfoImprovement::read, CvArtInfoLeaderhead::read, CvArtInfoTerrain::read, CvArtInfoUnit::read, CvAssetInfoBase::read, CvAttachableInfo::read, CvCameraInfo::read, CvEffectInfo::read, CvInfoBase::read(CvXMLLoadUtility*) …
 - **1082** `CvGlobals::getNumColorInfos()` (exported)
@@ -530,7 +530,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **1434** `CvGlobals::getBonusInfo()`
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **1439** `CvGlobals::getBonusInfo(BonusTypes)` (exported)
-  - called by (66): CvArea::countNumUniqueBonusTypes, CvCity::getBonusHappiness, CvCity::getBonusHealth, CvCity::processBonus, CvCity::setHasCorporation, CvCity::updateCorporationBonus, CvCityAI::AI_plotValue, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchVassalDemandTributePopup, CvDLLButtonPopup::launchVassalGrantTributePopup, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseDescriptionHelp …
+  - called by (67): CvArea::countNumUniqueBonusTypes, CvCity::getBonusHappiness, CvCity::getBonusHealth, CvCity::processBonus, CvCity::setHasCorporation, CvCity::updateCorporationBonus, CvCityAI::AI_plotValue, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchVassalDemandTributePopup, CvDLLButtonPopup::launchVassalGrantTributePopup, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseDescriptionHelp …
 - **1446** `CvGlobals::getNumFeatureInfos()` (exported)
   - called by (50): CvBonusInfo::copyNonDefaults, CvBonusInfo::read(CvXMLLoadUtility*), CvBonusInfo::read(FDataStreamBase*), CvBonusInfo::write, CvBuildInfo::copyNonDefaults, CvCity::kill, CvCivicInfo::copyNonDefaults, CvCivicInfo::read(CvXMLLoadUtility*), CvCivicInfo::read(FDataStreamBase*), CvCivicInfo::write, CvGame::getWidgetShow(BonusTypes) const, CvGame::normalizeAddExtras …
 - **1451** `CvGlobals::getFeatureInfo()`
@@ -542,11 +542,11 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **1468** `CvGlobals::getNumAIPlayableCivilizationInfos()` (exported)
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **1473** `CvGlobals::getNumCivilizationInfos()` (exported)
-  - called by (17): CvDiplomacyResponse::read(CvXMLLoadUtility*), CvDiplomacyResponse::read(FDataStreamBase*), CvDiplomacyResponse::write, CvDiplomacyTextInfo::Response::read, CvDiplomacyTextInfo::Response::write, CvDiplomacyTextInfo::read(CvXMLLoadUtility*), CvGame::initScoreCalculation, CvGame::isBuildingEverActive, CvGame::isUnitEverActive, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::getNewCityName …
+  - called by (18): CvDiplomacyResponse::read(CvXMLLoadUtility*), CvDiplomacyResponse::read(FDataStreamBase*), CvDiplomacyResponse::write, CvDiplomacyTextInfo::Response::read, CvDiplomacyTextInfo::Response::write, CvDiplomacyTextInfo::read(CvXMLLoadUtility*), CvGame::initScoreCalculation, CvGame::isBuildingEverActive, CvGame::isUnitEverActive, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::getNewCityName …
 - **1478** `CvGlobals::getCivilizationInfo()`
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **1483** `CvGlobals::getCivilizationInfo(CivilizationTypes)` (exported)
-  - called by (142): CvCity::allUpgradesAvailable, CvCity::applyEvent, CvCity::canApplyEvent, CvCity::canConstruct, CvCity::canTrain(UnitCombatTypes) const, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getConscriptUnit, CvCity::getProductionExperience, CvCity::getTriggerValue, CvCity::init, CvCity::isForceObsoleteUnitClassAvailable, CvCity::isPlotTrainable …
+  - called by (145): CvCity::allUpgradesAvailable, CvCity::applyEvent, CvCity::canApplyEvent, CvCity::canConstruct, CvCity::canTrain(UnitCombatTypes) const, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getConscriptUnit, CvCity::getProductionExperience, CvCity::getTriggerValue, CvCity::init, CvCity::isForceObsoleteUnitClassAvailable, CvCity::isPlotTrainable …
 - **1491** `CvGlobals::getNumLeaderHeadInfos()` (exported)
   - called by (19): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility*), CvCivilizationInfo::read(FDataStreamBase*), CvCivilizationInfo::write, CvDiplomacyInfo::FindResponseIndex, CvDiplomacyInfo::copyNonDefaults, CvDiplomacyResponse::UpdateDiplomacies, CvDiplomacyResponse::read(CvXMLLoadUtility*), CvDiplomacyResponse::read(FDataStreamBase*), CvDiplomacyResponse::write, CvDiplomacyTextInfo::Response::read, CvDiplomacyTextInfo::Response::write …
 - **1496** `CvGlobals::getLeaderHeadInfo()`
@@ -554,11 +554,11 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **1501** `CvGlobals::getLeaderHeadInfo(LeaderHeadTypes)` (exported)
   - called by (86): CvCity::getMusicScriptId, CvCityAI::AI_bestBuildingThreshold, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_bestUnit, CvCityAI::AI_buildUnitProb, CvCityAI::AI_chooseProduction, CvCityAI::AI_getImprovementValue, CvDLLWidgetData::parseDescriptionHelp, CvGameTextMgr::parseLeaderShortTraits, CvGameTextMgr::parseLeaderTraits, CvPlayer::getIntroMusicScriptId, CvPlayer::getMusicScriptId …
 - **1509** `CvGlobals::getNumTraitInfos()`
-  - called by (43): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility*), CvBuildingInfo::read(FDataStreamBase*), CvBuildingInfo::write, CvCityAI::AI_bestUnitAI, CvCivicOptionInfo::copyNonDefaults, CvCivicOptionInfo::read, CvGameTextMgr::parseGreatPeopleHelp, CvGameTextMgr::parseLeaderShortTraits, CvGameTextMgr::parseLeaderTraits, CvGameTextMgr::parsePlayerTraits, CvGameTextMgr::setBasicUnitHelpWithCity …
+  - called by (44): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility*), CvBuildingInfo::read(FDataStreamBase*), CvBuildingInfo::write, CvCityAI::AI_bestUnitAI, CvCivicOptionInfo::copyNonDefaults, CvCivicOptionInfo::read, CvGameTextMgr::parseGreatPeopleHelp, CvGameTextMgr::parseLeaderShortTraits, CvGameTextMgr::parseLeaderTraits, CvGameTextMgr::parsePlayerTraits, CvGameTextMgr::setBasicUnitHelpWithCity …
 - **1514** `CvGlobals::getTraitInfo()`
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **1519** `CvGlobals::getTraitInfo(TraitTypes)`
-  - called by (22): CvCityAI::AI_bestUnitAI, CvGameTextMgr::parseGreatPeopleHelp, CvGameTextMgr::parseLeaderShortTraits, CvGameTextMgr::parsePlayerTraits, CvGameTextMgr::parseTraits, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setCommerceHelp, CvGameTextMgr::setProductionHelp, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::found …
+  - called by (23): CvCityAI::AI_bestUnitAI, CvGameTextMgr::parseGreatPeopleHelp, CvGameTextMgr::parseLeaderShortTraits, CvGameTextMgr::parsePlayerTraits, CvGameTextMgr::parseTraits, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setCommerceHelp, CvGameTextMgr::setProductionHelp, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::found …
 - **1527** `CvGlobals::getNumCursorInfos()` (exported)
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **1532** `CvGlobals::getCursorInfo()`
@@ -598,7 +598,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **1668** `CvGlobals::getUnitInfo()`
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **1673** `CvGlobals::getUnitInfo(UnitTypes)`
-  - called by (158): AI_isSacrificeWorth, CvActionInfo::getCommandType, CvActionInfo::getHotkeyInfo, CvCity::allUpgradesAvailable, CvCity::canTrain(UnitCombatTypes) const, CvCity::doCheckProduction, CvCity::getBuildQueue, CvCity::getConscriptPopulation, CvCity::getConscriptUnit, CvCity::getHurryCostModifier(UnitTypes, bool) const, CvCity::getProductionExperience, CvCity::getProductionModifier(UnitTypes) const …
+  - called by (159): AI_isSacrificeWorth, CvActionInfo::getCommandType, CvActionInfo::getHotkeyInfo, CvCity::allUpgradesAvailable, CvCity::canTrain(UnitCombatTypes) const, CvCity::doCheckProduction, CvCity::getBuildQueue, CvCity::getConscriptPopulation, CvCity::getConscriptUnit, CvCity::getHurryCostModifier(UnitTypes, bool) const, CvCity::getProductionExperience, CvCity::getProductionModifier(UnitTypes) const …
 - **1680** `CvGlobals::getNumSpecialUnitInfos()`
   - called by (7): CvGame::init, CvGame::read, CvGame::reset, CvGame::write, CvGameTextMgr::parseTraits, CyGlobalContext::getNumSpecialUnitInfos, CyGlobalContext::getSpecialUnitInfo
 - **1685** `CvGlobals::getSpecialUnitInfo()`
@@ -720,7 +720,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **2036** `CvGlobals::getRouteInfo()`
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **2041** `CvGlobals::getRouteInfo(RouteTypes)` (exported)
-  - called by (23): CvCityAI::AI_bestPlotBuild, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::buildMoveString, CvGameTextMgr::getImprovementDataForAS, CvGameTextMgr::getTerrainDataForWB, CvGameTextMgr::setEventHelp, CvGameTextMgr::setPlotHelp, CvPlayer::doEspionageMission, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getBestRoute, CvPlayer::initTriggeredData, CvPlayerAI::AI_baseBonusVal …
+  - called by (24): CvCityAI::AI_bestPlotBuild, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::buildMoveString, CvGameTextMgr::getImprovementDataForAS, CvGameTextMgr::getTerrainDataForWB, CvGameTextMgr::setEventHelp, CvGameTextMgr::setPlotHelp, CvPlayer::doEspionageMission, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getBestRoute, CvPlayer::initTriggeredData, CvPlayerAI::AI_baseBonusVal …
 - **2048** `CvGlobals::getNumImprovementInfos()` (exported)
   - called by (52): CvArea::read, CvArea::reset, CvArea::write, CvBonusInfo::read(FDataStreamBase*), CvBonusInfo::write, CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility*), CvBuildingInfo::read(FDataStreamBase*), CvBuildingInfo::write, CvCity::processBuilding, CvCity::read, CvCity::reset …
 - **2053** `CvGlobals::getImprovementInfo()`
@@ -734,11 +734,11 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **2075** `CvGlobals::getGoodyInfo(GoodyTypes)` (exported)
   - called by (4): CvHandicapInfo::copyNonDefaults, CvPlayer::canReceiveGoody, CvPlayer::receiveGoody, CyGlobalContext::getGoodyInfo
 - **2082** `CvGlobals::getNumBuildInfos()` (exported)
-  - called by (32): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_getImprovementValue, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setTechTradeHelp, CvPlayer::countUnimprovedBonuses, CvPlayer::doAdvancedStartAction, CvPlayer::getAdvancedStartImprovementCost, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getBestRoute, CvPlayerAI::AI_baseBonusVal …
+  - called by (34): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_getImprovementValue, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setTechTradeHelp, CvPlayer::countUnimprovedBonuses, CvPlayer::doAdvancedStartAction, CvPlayer::getAdvancedStartImprovementCost, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getBestRoute, CvPlayerAI::AI_baseBonusVal …
 - **2087** `CvGlobals::getBuildInfo()`
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **2092** `CvGlobals::getBuildInfo(BuildTypes)` (exported)
-  - called by (48): CvActionInfo::getHotkeyInfo, CvActionInfo::getMissionType, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateWorkersNeededHere, CvDLLWidgetData::doPediaBuildJump, CvDLLWidgetData::parseActionHelp …
+  - called by (50): CvActionInfo::getHotkeyInfo, CvActionInfo::getMissionType, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateWorkersNeededHere, CvDLLWidgetData::doPediaBuildJump, CvDLLWidgetData::parseActionHelp …
 - **2099** `CvGlobals::getNumHandicapInfos()` (exported)
   - called by (2): CyGlobalContext::getHandicapInfo, CyGlobalContext::getNumHandicapInfos
 - **2104** `CvGlobals::getHandicapInfo()`
@@ -750,7 +750,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **2121** `CvGlobals::getGameSpeedInfo()`
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **2126** `CvGlobals::getGameSpeedInfo(GameSpeedTypes)` (exported)
-  - called by (78): CvCity::doDecay, CvCity::doMeltdown, CvCity::flatConscriptAngerLength, CvCity::flatDefyResolutionAngerLength, CvCity::flatHurryAngerLength, CvCity::getBuildingProductionDecayTurns, CvCity::getRevRequestPercentAnger, CvCity::getRevSuccessHappiness, CvCity::getUnitProductionDecayTurns, CvCity::isBuildingProductionDecay, CvCity::isRecentlyAcquired, CvCity::isUnitProductionDecay …
+  - called by (79): CvCity::doDecay, CvCity::doMeltdown, CvCity::flatConscriptAngerLength, CvCity::flatDefyResolutionAngerLength, CvCity::flatHurryAngerLength, CvCity::getBuildingProductionDecayTurns, CvCity::getRevRequestPercentAnger, CvCity::getRevSuccessHappiness, CvCity::getUnitProductionDecayTurns, CvCity::isBuildingProductionDecay, CvCity::isRecentlyAcquired, CvCity::isUnitProductionDecay …
 - **2133** `CvGlobals::getNumTurnTimerInfos()` (exported)
   - called by (3): CvInitCore::getTurnTimerKey, CvInitCore::setTurnTimer(CvWString const&), CyGlobalContext::getNumTurnTimerInfos
 - **2138** `CvGlobals::getTurnTimerInfo()`
@@ -762,7 +762,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **2155** `CvGlobals::getProcessInfo()`
   - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
 - **2160** `CvGlobals::getProcessInfo(ProcessTypes)`
-  - called by (17): CvCity::getBuildQueue, CvCity::getCityBillboardProductionIcon, CvCity::getProductionName, CvCity::getProductionNameKey, CvCity::processProcess, CvCity::pushOrder, CvCity::setCultureLevel, CvCityAI::AI_processValue(ProcessTypes, CommerceTypes), CvDLLButtonPopup::launchProductionPopup, CvGame::loadBuildQueue, CvGame::startFlyoutMenu, CvGameTextMgr::buildProcessInfoString …
+  - called by (18): CvCity::getBuildQueue, CvCity::getCityBillboardProductionIcon, CvCity::getProductionName, CvCity::getProductionNameKey, CvCity::processProcess, CvCity::pushOrder, CvCity::setCultureLevel, CvCityAI::AI_processValue(ProcessTypes, CommerceTypes), CvCityAI::AI_yieldValue, CvDLLButtonPopup::launchProductionPopup, CvGame::loadBuildQueue, CvGame::startFlyoutMenu …
 - **2167** `CvGlobals::getNumVoteInfos()`
   - called by (12): CvDLLButtonPopup::launchChooseElectionPopup, CvGame::addVoteSelection, CvGame::canHaveSecretaryGeneral, CvGame::clearSecretaryGeneral, CvGame::doVoteSelection, CvGame::getSecretaryGeneral, CvGame::read, CvGame::reset, CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const, CvGame::write, CyGlobalContext::getNumVoteInfos, CyGlobalContext::getVoteInfo
 - **2172** `CvGlobals::getVoteInfo()`
@@ -776,17 +776,17 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **2194** `CvGlobals::getProjectInfo(ProjectTypes)`
   - called by (53): CvCity::doCheckProduction, CvCity::getBuildQueue, CvCity::getCityBillboardProductionIcon, CvCity::getProductionModifier(ProjectTypes) const, CvCity::getProductionName, CvCity::getProductionNameKey, CvCity::hurry, CvCity::popOrder, CvCity::pushOrder, CvCityAI::AI_bestProject, CvCityAI::AI_projectValue, CvDLLButtonPopup::launchDoEspionageTargetPopup …
 - **2201** `CvGlobals::getNumBuildingClassInfos()`
-  - called by (83): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility*), CvBuildingInfo::read(FDataStreamBase*), CvBuildingInfo::write, CvCity::applyEvent, CvCity::canConstruct, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getProductionExperience, CvCity::init, CvCity::isPlotTrainable, CvCityAI::AI_bestBuildingThreshold, CvCityAI::AI_buildingValueThreshold …
+  - called by (84): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility*), CvBuildingInfo::read(FDataStreamBase*), CvBuildingInfo::write, CvCity::applyEvent, CvCity::canConstruct, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getProductionExperience, CvCity::init, CvCity::isPlotTrainable, CvCityAI::AI_bestBuildingThreshold, CvCityAI::AI_buildingValueThreshold …
 - **2206** `CvGlobals::getBuildingClassInfo()`
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **2211** `CvGlobals::getBuildingClassInfo(BuildingClassTypes)`
   - called by (28): CvCity::canConstruct, CvCity::popOrder, CvCity::setNumRealBuildingTimed, CvCityAI::AI_bestBuildingThreshold, CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility*), CvGame::isBuildingClassMaxedOut, CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::parseCivInfos, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::parseTraits …
 - **2218** `CvGlobals::getNumBuildingInfos()`
-  - called by (85): CvCity::doCheckProduction, CvCity::doDecay, CvCity::doMeltdown, CvCity::getAddedFreeSpecialistCount, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::getBonusHappiness, CvCity::getBonusHealth, CvCity::getBonusPower, CvCity::getBonusYieldRateModifier(YieldTypes, BonusTypes) const, CvCity::getNumActiveWorldWonders, CvCity::getVisibleBuildings, CvCity::hasActiveWorldWonder …
+  - called by (86): CvCity::doCheckProduction, CvCity::doDecay, CvCity::doMeltdown, CvCity::getAddedFreeSpecialistCount, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::getBonusHappiness, CvCity::getBonusHealth, CvCity::getBonusPower, CvCity::getBonusYieldRateModifier(YieldTypes, BonusTypes) const, CvCity::getNumActiveWorldWonders, CvCity::getVisibleBuildings, CvCity::hasActiveWorldWonder …
 - **2223** `CvGlobals::getBuildingInfo()`
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **2228** `CvGlobals::getBuildingInfo(BuildingTypes)`
-  - called by (149): CvActionInfo::getHotkeyInfo, CvActionInfo::getMissionType, CvCity::canConstruct, CvCity::doCheckProduction, CvCity::doMeltdown, CvCity::getAddedFreeSpecialistCount, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getAdditionalBaseGreatPeopleRateByBuilding, CvCity::getAdditionalBaseYieldRateByBuilding, CvCity::getAdditionalBombardDefenseByBuilding, CvCity::getAdditionalCommerceRateModifierByBuildingImpl, CvCity::getAdditionalDefenseByBuilding …
+  - called by (152): CvActionInfo::getHotkeyInfo, CvActionInfo::getMissionType, CvCity::canConstruct, CvCity::doCheckProduction, CvCity::doMeltdown, CvCity::getAddedFreeSpecialistCount, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getAdditionalBaseGreatPeopleRateByBuilding, CvCity::getAdditionalBaseYieldRateByBuilding, CvCity::getAdditionalBombardDefenseByBuilding, CvCity::getAdditionalCommerceRateModifierByBuildingImpl, CvCity::getAdditionalDefenseByBuilding …
 - **2235** `CvGlobals::getNumSpecialBuildingInfos()`
   - called by (19): CvCivicInfo::copyNonDefaults, CvCivicInfo::read(CvXMLLoadUtility*), CvCivicInfo::read(FDataStreamBase*), CvCivicInfo::write, CvGame::init, CvGame::read, CvGame::reset, CvGame::write, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::parseTraits, CvGameTextMgr::setTechTradeHelp, CvPlayer::processCivics …
 - **2240** `CvGlobals::getSpecialBuildingInfo()`
@@ -794,11 +794,11 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **2245** `CvGlobals::getSpecialBuildingInfo(SpecialBuildingTypes)`
   - called by (17): CvGame::init, CvGame::makeSpecialBuildingValid, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::buildObsoleteSpecialString, CvGameTextMgr::buildSpecialBuildingString, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::parseTraits, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setProductionHelp, CvGameTextMgr::setProjectHelp, CvGameTextMgr::setTechTradeHelp, CvPlayer::canConstruct …
 - **2252** `CvGlobals::getNumUnitClassInfos()`
-  - called by (78): CvCity::allUpgradesAvailable, CvCity::canTrain(UnitCombatTypes) const, CvCity::getConscriptUnit, CvCity::isForceObsoleteUnitClassAvailable, CvCityAI::AI_bestSpreadUnit, CvCityAI::AI_bestUnitAI, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction, CvCityAI::AI_trainInquisitor, CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility*), CvCivilizationInfo::read(FDataStreamBase*) …
+  - called by (79): CvCity::allUpgradesAvailable, CvCity::canTrain(UnitCombatTypes) const, CvCity::getConscriptUnit, CvCity::isForceObsoleteUnitClassAvailable, CvCityAI::AI_bestSpreadUnit, CvCityAI::AI_bestUnitAI, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction, CvCityAI::AI_trainInquisitor, CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility*), CvCivilizationInfo::read(FDataStreamBase*) …
 - **2257** `CvGlobals::getUnitClassInfo()`
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **2262** `CvGlobals::getUnitClassInfo(UnitClassTypes)`
-  - called by (33): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility*), CvGame::isUnitClassMaxedOut, CvGameTextMgr::buildFreeUnitString, CvGameTextMgr::parseCivInfos, CvGameTextMgr::parseTraits, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setCorporationHelp, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setReligionHelp …
+  - called by (35): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility*), CvGame::isUnitClassMaxedOut, CvGameTextMgr::buildFreeUnitString, CvGameTextMgr::parseCivInfos, CvGameTextMgr::parseTraits, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setCorporationHelp, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setReligionHelp …
 - **2269** `CvGlobals::getNumActionInfos()` (exported)
   - called by (3): CvXMLLoadUtility::SetGlobalActionInfo, CyGlobalContext::getActionInfo, CyGlobalContext::getNumActionInfos
 - **2274** `CvGlobals::getActionInfo()`
@@ -834,7 +834,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **2362** `CvGlobals::getTechInfo()`
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **2367** `CvGlobals::getTechInfo(TechTypes)`
-  - called by (99): CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseDescriptionHelp, CvDLLWidgetData::parseTechPrereqHelp, CvDeal::startTrade, CvGame::initFreeState, CvGame::initScoreCalculation, CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CvGameTextMgr::buildAdjustString, CvGameTextMgr::buildBridgeString …
+  - called by (101): CvCityAI::AI_buildingValueThreshold, CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseDescriptionHelp, CvDLLWidgetData::parseTechPrereqHelp, CvDeal::startTrade, CvGame::initFreeState, CvGame::initScoreCalculation, CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CvGameTextMgr::buildAdjustString …
 - **2374** `CvGlobals::getNumReligionInfos()`
   - called by (87): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility*), CvBuildingInfo::read(FDataStreamBase*), CvBuildingInfo::write, CvCity::doReligion, CvCity::getReligionCount, CvCity::isHolyCity() const, CvCity::isInquisitionConditions, CvCity::kill, CvCity::processBuilding, CvCity::read, CvCity::reset …
 - **2379** `CvGlobals::getReligionInfo()`
@@ -854,17 +854,17 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **2418** `CvGlobals::getSpecialistInfo(SpecialistTypes)`
   - called by (29): CvActionInfo::getHotkeyInfo, CvActionInfo::getMissionType, CvCity::getAdditionalBaseCommerceRateBySpecialistImpl, CvCity::getAdditionalBaseGreatPeopleRateBySpecialist, CvCity::getAdditionalBaseYieldRateBySpecialist, CvCity::getBestYieldAvailable, CvCity::processSpecialist, CvCityAI::AI_countGoodSpecialists, CvCityAI::AI_foodAvailable, CvCityAI::AI_specialistValue, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseChangeSpecialistHelp …
 - **2425** `CvGlobals::getNumCivicOptionInfos()`
-  - called by (41): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility*), CvCivilizationInfo::read(FDataStreamBase*), CvCivilizationInfo::write, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchChangeCivicsPopup, CvDeal::startTrade, CvDllPythonEvents::reportPlayerRevolution, CvGame::doGlobalWarming, CvGameTextMgr::buildFinanceCivicUpkeepString, CvGameTextMgr::getTradeScreenIcons, CvGameTextMgr::parseGreatPeopleHelp …
+  - called by (43): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility*), CvCivilizationInfo::read(FDataStreamBase*), CvCivilizationInfo::write, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchChangeCivicsPopup, CvDeal::startTrade, CvDllPythonEvents::reportPlayerRevolution, CvGame::doGlobalWarming, CvGameTextMgr::buildFinanceCivicUpkeepString, CvGameTextMgr::getTradeScreenIcons, CvGameTextMgr::parseGreatPeopleHelp …
 - **2430** `CvGlobals::getCivicOptionInfo()`
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **2435** `CvGlobals::getCivicOptionInfo(CivicOptionTypes)`
   - called by (7): CvGameTextMgr::parseTraits, CvGameTextMgr::setBuildingHelpActual, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CyGlobalContext::getCivicOptionInfo
 - **2442** `CvGlobals::getNumCivicInfos()`
-  - called by (39): CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::setWeLoveTheKingDay, CvCity::unhappyLevel, CvCityAI::AI_buildingValueThreshold, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseConscriptHelp, CvDLLWidgetData::parseHurryHelp, CvGame::isForceCivicOption, CvGame::processVote, CvGame::read, CvGame::reset, CvGame::write …
+  - called by (41): CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::setWeLoveTheKingDay, CvCity::unhappyLevel, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_buildingValueThreshold, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseConscriptHelp, CvDLLWidgetData::parseHurryHelp, CvGame::isForceCivicOption, CvGame::processVote, CvGame::read, CvGame::reset …
 - **2447** `CvGlobals::getCivicInfo()`
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
 - **2452** `CvGlobals::getCivicInfo(CivicTypes)`
-  - called by (55): CvCity::setWeLoveTheKingDay, CvCityAI::AI_buildingValueThreshold, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseConscriptHelp, CvDLLWidgetData::parseDescriptionHelp, CvDLLWidgetData::parseHurryHelp, CvDLLWidgetData::parseTradeItem, CvDeal::startTrade, CvGame::doGlobalWarming, CvGame::isForceCivicOption, CvGameTextMgr::buildCivicRevealString …
+  - called by (56): CvCity::setWeLoveTheKingDay, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_buildingValueThreshold, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseConscriptHelp, CvDLLWidgetData::parseDescriptionHelp, CvDLLWidgetData::parseHurryHelp, CvDLLWidgetData::parseTradeItem, CvDeal::startTrade, CvGame::doGlobalWarming, CvGame::isForceCivicOption …
 - **2459** `CvGlobals::getNumDiplomacyInfos()`
   - called by (1): CyGlobalContext::getNumDiplomacyInfos
 - **2464** `CvGlobals::getDiplomacyInfo()`
@@ -997,51 +997,51 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
   - called by (4): CvFeatureInfo::read, CvGlobals::deleteInfoArrays, CvTerrainInfo::read, CvXMLLoadUtility::SetGlobalTypes
 - **2835** `CvGlobals::getFootstepAudioTypes(int)` (exported)
 - **2842** `CvGlobals::getFootstepAudioTypeByTag(CvString)` (exported)
-  - calls: CvString::GetLength [CvString.h], CvString::~CvString [CvString.h], CvString::operator char const * [CvString.h], CvString::CompareNoCase [CvString.h]
+  - calls: CvString::GetLength \[CvString.h\], CvString::~CvString \[CvString.h\], CvString::operator char const * \[CvString.h\], CvString::CompareNoCase \[CvString.h\]
   - called by (1): CvArtInfoUnit::read
 - **2863** `CvGlobals::getFootstepAudioTags()`
   - called by (2): CvGlobals::deleteInfoArrays, CvXMLLoadUtility::SetGlobalTypes
 - **2868** `CvGlobals::getFootstepAudioTags(int)` (exported)
 - **2875** `CvGlobals::setCurrentXMLFile(char const*)`
-  - calls: CvString::operator=(char const*) [CvString.h]
+  - calls: CvString::operator=(char const*) \[CvString.h\]
   - called by (1): CvXMLLoadUtility::LoadCivXml
 - **2880** `CvGlobals::getCurrentXMLFile()`
-  - called by (123): CvGlobals::getInfoTypeForString, CvXMLLoadUtility::CreateFXml, CvXMLLoadUtility::FindInInfoClass, CvXMLLoadUtility::LoadDiplomacyInfo, CvXMLLoadUtility::LoadGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoCivilization>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoFeature>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoImprovement> …
+  - called by (123): CvGlobals::getInfoTypeForString, CvXMLLoadUtility::CreateFXml, CvXMLLoadUtility::FindInInfoClass, CvXMLLoadUtility::LoadDiplomacyInfo, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvAdvisorInfo>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvAnimationCategoryInfo>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvAnimationPathInfo>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoBonus>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoBuilding>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoCivilization>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoFeature>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoImprovement> …
 - **2885** `CvGlobals::getDefinesVarSystem()` (exported)
-  - called by (14): CvGlobals::getDefineBOOL, CvGlobals::getDefineFLOAT, CvGlobals::getDefineINT(char const*) const, CvGlobals::getDefineINT(char const*, int) const, CvGlobals::getDefineSTRING, CvGlobals::setDefineFLOAT, CvGlobals::setDefineINT, CvGlobals::setDefineSTRING, CvXMLLoadUtility::LoadPreMenuGlobals, CvXMLLoadUtility::ReadGlobalDefines, CvXMLLoadUtility::SetGlobalDefine<char const>, CvXMLLoadUtility::SetPostGlobalsGlobalDefines …
+  - called by (14): CvGlobals::getDefineBOOL, CvGlobals::getDefineFLOAT, CvGlobals::getDefineINT(char const*) const, CvGlobals::getDefineINT(char const*, int) const, CvGlobals::getDefineSTRING, CvGlobals::setDefineFLOAT, CvGlobals::setDefineINT, CvGlobals::setDefineSTRING, CvXMLLoadUtility::LoadPreMenuGlobals, CvXMLLoadUtility::ReadGlobalDefines, CvXMLLoadUtility::SetGlobalDefine\<char const>, CvXMLLoadUtility::SetPostGlobalsGlobalDefines …
 - **2890** `CvGlobals::cacheGlobals()` (exported)
   - calls: CvGlobals::getDefineINT(char const*) const, CvGlobals::getDefineFLOAT, CvGlobals::getDefineINT(char const*, int) const
   - called by (4): CvGlobals::setDefineFLOAT, CvGlobals::setDefineINT, CvGlobals::setDefineSTRING, CvXMLLoadUtility::SetGlobalDefines
 - **3079** `CvGlobals::getDefineBOOL(char const*) const` (exported)
-  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::GetValue(char const*, bool&) const [FVariableSystem.inl]
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance \[CvGlobals.h\], FVariableSystem::GetValue(char const*, bool&) const \[FVariableSystem.inl\]
   - called by (1): CyGlobalContext::getDefineBOOL
 - **3094** `CvGlobals::getDefineINT(char const*, int) const`
-  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::GetValue(char const*, int&) const [FVariableSystem.inl]
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance \[CvGlobals.h\], FVariableSystem::GetValue(char const*, int&) const \[FVariableSystem.inl\]
   - called by (4): CvGlobals::cacheGlobals, CvPlayerAI::AI_getStrategyHash, CvSelectionGroup::groupAttack, CvUnitAI::AI_stackAttackCity
 - **3110** `CvGlobals::getDefineINT(char const*) const` (exported)
-  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::GetValue(char const*, int&) const [FVariableSystem.inl]
-  - called by (337): CvCity::alterSpecialistCount, CvCity::alterWorkingPlot, CvCity::calculateDistanceMaintenanceTimes100, CvCity::canConscript, CvCity::clearTradeRoutes, CvCity::conscriptMinCityPopulation, CvCity::cultureStrength, CvCity::doCheckProduction, CvCity::doDecay, CvCity::doPlotCulture, CvCity::doReligion, CvCity::doTurn …
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance \[CvGlobals.h\], FVariableSystem::GetValue(char const*, int&) const \[FVariableSystem.inl\]
+  - called by (350): CvCity::alterSpecialistCount, CvCity::alterWorkingPlot, CvCity::calculateDistanceMaintenanceTimes100, CvCity::canConscript, CvCity::canPageGraphicsOut, CvCity::clearTradeRoutes, CvCity::conscriptMinCityPopulation, CvCity::cultureStrength, CvCity::doCheckProduction, CvCity::doDecay, CvCity::doPlotCulture, CvCity::doReligion …
 - **3117** `CvGlobals::getDefineFLOAT(char const*) const` (exported)
-  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::GetValue(char const*, float&) const [FVariableSystem.inl]
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance \[CvGlobals.h\], FVariableSystem::GetValue(char const*, float&) const \[FVariableSystem.inl\]
   - called by (8): CvCity::emergencyConscript, CvCity::getVisibleBuildings, CvGlobals::cacheGlobals, CvUnit::doPillageInfluence, CvUnit::doVictoryInfluence, CvUnit::getHealthBarModifier, CvUnit::influencePlots, CyGlobalContext::getDefineFLOAT
 - **3124** `CvGlobals::getDefineSTRING(char const*) const` (exported)
-  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::GetValue(char const*, char const*&) const [FVariableSystem.inl]
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance \[CvGlobals.h\], FVariableSystem::GetValue(char const*, char const*&) const \[FVariableSystem.inl\]
   - called by (2): CvCity::getVisibleBuildings, CyGlobalContext::getDefineSTRING
 - **3131** `CvGlobals::setDefineINT(char const*, int)` (exported)
-  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::SetValue(char const*, int) [FVariableSystem.inl], CvGlobals::cacheGlobals
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance \[CvGlobals.h\], FVariableSystem::SetValue(char const*, int) \[FVariableSystem.inl\], CvGlobals::cacheGlobals
   - called by (1): CyGlobalContext::setDefineINT
 - **3137** `CvGlobals::setDefineFLOAT(char const*, float)` (exported)
-  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::SetValue(char const*, float) [FVariableSystem.inl], CvGlobals::cacheGlobals
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance \[CvGlobals.h\], FVariableSystem::SetValue(char const*, float) \[FVariableSystem.inl\], CvGlobals::cacheGlobals
   - called by (1): CyGlobalContext::setDefineFLOAT
 - **3143** `CvGlobals::setDefineSTRING(char const*, char const*)` (exported)
-  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::SetValue(char const*, char const*) [FVariableSystem.inl], CvGlobals::cacheGlobals
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance \[CvGlobals.h\], FVariableSystem::SetValue(char const*, char const*) \[FVariableSystem.inl\], CvGlobals::cacheGlobals
   - called by (1): CyGlobalContext::setDefineSTRING
 - **3149** `CvGlobals::getMOVE_DENOMINATOR()`
   - called by (25): CvDLLWidgetData::parseActionHelp, CvGameTextMgr::buildMoveString, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlot::movementCost, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airStrike, CvUnit::archerBombard …
 - **3154** `CvGlobals::getNUM_UNIT_PREREQ_OR_BONUSES()`
-  - called by (13): CvGame::createBarbarianUnits, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::addFreeUnitAI, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_getStrategyHash, CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CvUnitInfo::read(CvXMLLoadUtility*), CvUnitInfo::read(FDataStreamBase*), CvUnitInfo::write, CyGlobalContext::getNUM_UNIT_PREREQ_OR_BONUSES …
+  - called by (14): CvGame::createBarbarianUnits, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::addFreeUnitAI, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_bonusUnlockVal, CvPlayerAI::AI_getStrategyHash, CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CvUnitInfo::read(CvXMLLoadUtility*), CvUnitInfo::read(FDataStreamBase*), CvUnitInfo::write …
 - **3159** `CvGlobals::getNUM_BUILDING_PREREQ_OR_BONUSES()`
-  - called by (9): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility*), CvBuildingInfo::read(FDataStreamBase*), CvBuildingInfo::write, CvCity::canConstruct, CvGameTextMgr::buildBuildingRequiresString, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CyGlobalContext::getNUM_BUILDING_PREREQ_OR_BONUSES
+  - called by (10): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility*), CvBuildingInfo::read(FDataStreamBase*), CvBuildingInfo::write, CvCity::canConstruct, CvGameTextMgr::buildBuildingRequiresString, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_bonusUnlockVal, CyGlobalContext::getNUM_BUILDING_PREREQ_OR_BONUSES
 - **3164** `CvGlobals::getFOOD_CONSUMPTION_PER_POPULATION()`
   - called by (20): CvCity::foodConsumption, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doEmphasize, CvCityAI::AI_doHurry, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMagicValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_potentialPlot, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateLocalGovernor, CvCityAI::AI_yieldValue …
 - **3169** `CvGlobals::getMAX_HIT_POINTS()`
@@ -1081,7 +1081,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **3254** `CvGlobals::getLAKE_MAX_AREA_SIZE()`
   - called by (2): CvArea::isLake, CyGlobalContext::getLAKE_MAX_AREA_SIZE
 - **3259** `CvGlobals::getNUM_ROUTE_PREREQ_OR_BONUSES()`
-  - called by (6): CvDLLWidgetData::parseActionHelp, CvPlayerAI::AI_baseBonusVal, CvPlot::canBuild, CvRouteInfo::copyNonDefaults, CvRouteInfo::read, CyGlobalContext::getNUM_ROUTE_PREREQ_OR_BONUSES
+  - called by (7): CvDLLWidgetData::parseActionHelp, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CvPlot::canBuild, CvRouteInfo::copyNonDefaults, CvRouteInfo::read, CyGlobalContext::getNUM_ROUTE_PREREQ_OR_BONUSES
 - **3264** `CvGlobals::getNUM_BUILDING_AND_TECH_PREREQS()`
   - called by (13): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility*), CvBuildingInfo::read(FDataStreamBase*), CvBuildingInfo::write, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setTechTradeHelp, CvPlayer::canConstruct, CvPlayer::getAdvancedStartTechCost, CvPlayerAI::AI_baseBonusVal, CyGlobalContext::getNUM_BUILDING_AND_TECH_PREREQS, `anonymous namespace'::AI_buildingTechReadinessPercent, `anonymous namespace'::AI_hasBuildingTechs …
 - **3269** `CvGlobals::getMIN_WATER_SIZE_FOR_OCEAN()`
@@ -1117,19 +1117,19 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **3344** `CvGlobals::getAIR_BOMB_HEIGHT()` (exported)
   - called by (1): CyGlobalContext::getAIR_BOMB_HEIGHT
 - **3349** `CvGlobals::getPLOT_SIZE()` (exported)
-  - called by (10): CvMap::getHeightCoords, CvMap::getWidthCoords, CvMap::plotXToPointX, CvMap::plotYToPointY, CvPlot::getSymbolOffsetX, CvPlot::getSymbolOffsetY, CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat, CyGlobalContext::getPLOT_SIZE
+  - called by (11): CvGame::graphicsWindowFromCamera, CvMap::getHeightCoords, CvMap::getWidthCoords, CvMap::plotXToPointX, CvMap::plotYToPointY, CvPlot::getSymbolOffsetX, CvPlot::getSymbolOffsetY, CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat, CyGlobalContext::getPLOT_SIZE
 - **3354** `CvGlobals::getCAMERA_SPECIAL_PITCH()` (exported)
   - called by (1): CyGlobalContext::getCAMERA_SPECIAL_PITCH
 - **3359** `CvGlobals::getCAMERA_MAX_TURN_OFFSET()` (exported)
   - called by (1): CyGlobalContext::getCAMERA_MAX_TURN_OFFSET
 - **3364** `CvGlobals::getCAMERA_MIN_DISTANCE()` (exported)
-  - called by (1): CyGlobalContext::getCAMERA_MIN_DISTANCE
+  - called by (2): CvGame::graphicsWindowFromCamera, CyGlobalContext::getCAMERA_MIN_DISTANCE
 - **3369** `CvGlobals::getCAMERA_UPPER_PITCH()` (exported)
   - called by (1): CyGlobalContext::getCAMERA_UPPER_PITCH
 - **3374** `CvGlobals::getCAMERA_LOWER_PITCH()` (exported)
   - called by (1): CyGlobalContext::getCAMERA_LOWER_PITCH
 - **3379** `CvGlobals::getFIELD_OF_VIEW()` (exported)
-  - called by (1): CyGlobalContext::getFIELD_OF_VIEW
+  - called by (2): CvGame::graphicsWindowFromCamera, CyGlobalContext::getFIELD_OF_VIEW
 - **3384** `CvGlobals::getSHADOW_SCALE()` (exported)
   - called by (1): CyGlobalContext::getSHADOW_SCALE
 - **3389** `CvGlobals::getUNIT_MULTISELECT_DISTANCE()` (exported)
@@ -1184,9 +1184,9 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **3514** `CvGlobals::getUSE_ON_UNIT_LOST_CALLBACK()`
   - called by (1): CvDllPythonEvents::reportUnitLost
 - **3524** `CvGlobals::getTGA_RELIGIONS()`
-  - called by (4): CvCorporationInfo::setChar, CvCorporationInfo::setHeadquarterChar, CvXMLLoadUtility::AddTGABogus<class CvCorporationInfo>, CvXMLLoadUtility::AddTGABogus<class CvReligionInfo>
+  - called by (4): CvCorporationInfo::setChar, CvCorporationInfo::setHeadquarterChar, CvXMLLoadUtility::AddTGABogus\<class CvCorporationInfo>, CvXMLLoadUtility::AddTGABogus\<class CvReligionInfo>
 - **3529** `CvGlobals::getTGA_CORPORATIONS()`
-  - called by (2): CvXMLLoadUtility::AddTGABogus<class CvCorporationInfo>, CvXMLLoadUtility::AddTGABogus<class CvReligionInfo>
+  - called by (2): CvXMLLoadUtility::AddTGABogus\<class CvCorporationInfo>, CvXMLLoadUtility::AddTGABogus\<class CvReligionInfo>
 - **3537** `CvGlobals::getMAX_CIV_PLAYERS()` (exported)
   - called by (1): CyGlobalContext::getMAX_CIV_PLAYERS
 - **3542** `CvGlobals::getMAX_PLAYERS()` (exported)
@@ -1213,57 +1213,57 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **3602** `CvGlobals::isDLLProfilerEnabled() const`
   - called by (2): startProfilingDLL, stopProfilingDLL
 - **3607** `CvGlobals::readBuildingInfoArray(FDataStreamBase*)` (exported)
-  - calls: readInfoArray<class CvBuildingInfo>
+  - calls: readInfoArray\<class CvBuildingInfo>
 - **3612** `CvGlobals::writeBuildingInfoArray(FDataStreamBase*)` (exported)
-  - calls: writeInfoArray<class CvBuildingInfo>
+  - calls: writeInfoArray\<class CvBuildingInfo>
 - **3617** `CvGlobals::readTechInfoArray(FDataStreamBase*)` (exported)
-  - calls: readInfoArray<class CvTechInfo>
+  - calls: readInfoArray\<class CvTechInfo>
 - **3622** `CvGlobals::writeTechInfoArray(FDataStreamBase*)` (exported)
-  - calls: writeInfoArray<class CvTechInfo>
+  - calls: writeInfoArray\<class CvTechInfo>
 - **3627** `CvGlobals::readUnitInfoArray(FDataStreamBase*)` (exported)
-  - calls: readInfoArray<class CvUnitInfo>
+  - calls: readInfoArray\<class CvUnitInfo>
 - **3632** `CvGlobals::writeUnitInfoArray(FDataStreamBase*)` (exported)
-  - calls: writeInfoArray<class CvUnitInfo>
+  - calls: writeInfoArray\<class CvUnitInfo>
 - **3637** `CvGlobals::readLeaderHeadInfoArray(FDataStreamBase*)` (exported)
-  - calls: readInfoArray<class CvLeaderHeadInfo>
+  - calls: readInfoArray\<class CvLeaderHeadInfo>
 - **3642** `CvGlobals::writeLeaderHeadInfoArray(FDataStreamBase*)` (exported)
-  - calls: writeInfoArray<class CvLeaderHeadInfo>
+  - calls: writeInfoArray\<class CvLeaderHeadInfo>
 - **3647** `CvGlobals::readCivilizationInfoArray(FDataStreamBase*)` (exported)
-  - calls: readInfoArray<class CvCivilizationInfo>
+  - calls: readInfoArray\<class CvCivilizationInfo>
 - **3652** `CvGlobals::writeCivilizationInfoArray(FDataStreamBase*)` (exported)
-  - calls: writeInfoArray<class CvCivilizationInfo>
+  - calls: writeInfoArray\<class CvCivilizationInfo>
 - **3657** `CvGlobals::readPromotionInfoArray(FDataStreamBase*)` (exported)
-  - calls: readInfoArray<class CvPromotionInfo>
+  - calls: readInfoArray\<class CvPromotionInfo>
 - **3662** `CvGlobals::writePromotionInfoArray(FDataStreamBase*)` (exported)
-  - calls: writeInfoArray<class CvPromotionInfo>
+  - calls: writeInfoArray\<class CvPromotionInfo>
 - **3667** `CvGlobals::readDiplomacyInfoArray(FDataStreamBase*)` (exported)
-  - calls: readInfoArray<class CvDiplomacyInfo>
+  - calls: readInfoArray\<class CvDiplomacyInfo>
 - **3672** `CvGlobals::writeDiplomacyInfoArray(FDataStreamBase*)` (exported)
-  - calls: writeInfoArray<class CvDiplomacyInfo>
+  - calls: writeInfoArray\<class CvDiplomacyInfo>
 - **3677** `CvGlobals::readCivicInfoArray(FDataStreamBase*)` (exported)
-  - calls: readInfoArray<class CvCivicInfo>
+  - calls: readInfoArray\<class CvCivicInfo>
 - **3682** `CvGlobals::writeCivicInfoArray(FDataStreamBase*)` (exported)
-  - calls: writeInfoArray<class CvCivicInfo>
+  - calls: writeInfoArray\<class CvCivicInfo>
 - **3687** `CvGlobals::readHandicapInfoArray(FDataStreamBase*)` (exported)
-  - calls: readInfoArray<class CvHandicapInfo>
+  - calls: readInfoArray\<class CvHandicapInfo>
 - **3692** `CvGlobals::writeHandicapInfoArray(FDataStreamBase*)` (exported)
-  - calls: writeInfoArray<class CvHandicapInfo>
+  - calls: writeInfoArray\<class CvHandicapInfo>
 - **3697** `CvGlobals::readBonusInfoArray(FDataStreamBase*)` (exported)
-  - calls: readInfoArray<class CvBonusInfo>
+  - calls: readInfoArray\<class CvBonusInfo>
 - **3702** `CvGlobals::writeBonusInfoArray(FDataStreamBase*)` (exported)
-  - calls: writeInfoArray<class CvBonusInfo>
+  - calls: writeInfoArray\<class CvBonusInfo>
 - **3707** `CvGlobals::readImprovementInfoArray(FDataStreamBase*)` (exported)
-  - calls: readInfoArray<class CvImprovementInfo>
+  - calls: readInfoArray\<class CvImprovementInfo>
 - **3712** `CvGlobals::writeImprovementInfoArray(FDataStreamBase*)` (exported)
-  - calls: writeInfoArray<class CvImprovementInfo>
+  - calls: writeInfoArray\<class CvImprovementInfo>
 - **3717** `CvGlobals::readEventInfoArray(FDataStreamBase*)` (exported)
-  - calls: readInfoArray<class CvEventInfo>
+  - calls: readInfoArray\<class CvEventInfo>
 - **3722** `CvGlobals::writeEventInfoArray(FDataStreamBase*)` (exported)
-  - calls: writeInfoArray<class CvEventInfo>
+  - calls: writeInfoArray\<class CvEventInfo>
 - **3727** `CvGlobals::readEventTriggerInfoArray(FDataStreamBase*)` (exported)
-  - calls: readInfoArray<class CvEventTriggerInfo>
+  - calls: readInfoArray\<class CvEventTriggerInfo>
 - **3732** `CvGlobals::writeEventTriggerInfoArray(FDataStreamBase*)` (exported)
-  - calls: writeInfoArray<class CvEventTriggerInfo>
+  - calls: writeInfoArray\<class CvEventTriggerInfo>
 - **3742** `CvGlobals::getTypesEnum(char const*) const` (exported)
   - called by (9): CvAnimationPathInfo::read, CvAutomateInfo::read, CvCivilizationInfo::read(CvXMLLoadUtility*), CvCommandInfo::read, CvXMLLoadUtility::SetVariableListTagPair(CvString**, char const*, CvString*, int, CvString), CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, CvString*, int, bool), CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, CvString*, int, int), CvXMLLoadUtility::SetVariableListTagPairForAudioScripts(int**, char const*, CvString*, int, int), CyGlobalContext::getTypesEnum
 - **3755** `CvGlobals::setTypesEnum(char const*, int)` (exported)
@@ -1279,31 +1279,31 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **3798** `CvGlobals::getNUM_CONTROL_TYPES() const` (exported)
 - **3803** `CvGlobals::getNUM_LEADERANIM_TYPES() const` (exported)
 - **3809** `CvGlobals::deleteInfoArrays()`
-  - calls: deleteInfoArray<class CvBuildingClassInfo>, deleteInfoArray<class CvBuildingInfo>, deleteInfoArray<class CvSpecialBuildingInfo>, deleteInfoArray<class CvLeaderHeadInfo>, deleteInfoArray<class CvTraitInfo>, deleteInfoArray<class CvCivilizationInfo>, deleteInfoArray<class CvUnitArtStyleTypeInfo>, deleteInfoArray<class CvVoteSourceInfo>, deleteInfoArray<class CvInfoBase>, deleteInfoArray<class CvMainMenuInfo>, deleteInfoArray<class CvPythonModulesInfo>, deleteInfoArray<class CvModLoadControlInfo>, deleteInfoArray<class CvGoodyInfo>, deleteInfoArray<class CvHandicapInfo>, deleteInfoArray<class CvGameSpeedInfo>, deleteInfoArray<class CvTurnTimerInfo>, deleteInfoArray<class CvVictoryInfo>, deleteInfoArray<class CvHurryInfo>, deleteInfoArray<class CvWorldInfo>, deleteInfoArray<class CvSeaLevelInfo>, deleteInfoArray<class CvClimateInfo>, deleteInfoArray<class CvProcessInfo>, deleteInfoArray<class CvVoteInfo>, deleteInfoArray<class CvProjectInfo>, deleteInfoArray<class CvReligionInfo>, deleteInfoArray<class CvCorporationInfo>, deleteInfoArray<class CvCommerceInfo>, deleteInfoArray<class CvEmphasizeInfo>, deleteInfoArray<class CvUpkeepInfo>, deleteInfoArray<class CvCultureLevelInfo>, deleteInfoArray<class CvColorInfo>, deleteInfoArray<class CvPlayerColorInfo>, deleteInfoArray<class CvInterfaceModeInfo>, deleteInfoArray<class CvCameraInfo>, deleteInfoArray<class CvAdvisorInfo>, deleteInfoArray<class CvThroneRoomCamera>, deleteInfoArray<class CvThroneRoomInfo>, deleteInfoArray<class CvThroneRoomStyleInfo>, deleteInfoArray<class CvSlideShowInfo>, deleteInfoArray<class CvSlideShowRandomInfo>, deleteInfoArray<class CvWorldPickerInfo>, deleteInfoArray<class CvSpaceShipInfo>, deleteInfoArray<class CvCivicInfo>, deleteInfoArray<class CvImprovementInfo>, deleteInfoArray<class CvRouteInfo>, deleteInfoArray<class CvRouteModelInfo>, deleteInfoArray<class CvRiverInfo>, deleteInfoArray<class CvRiverModelInfo>, deleteInfoArray<class CvWaterPlaneInfo>, deleteInfoArray<class CvTerrainPlaneInfo>, deleteInfoArray<class CvCameraOverlayInfo>, deleteInfoArray<class CvEraInfo>, deleteInfoArray<class CvEffectInfo>, deleteInfoArray<class CvAttachableInfo>, deleteInfoArray<class CvTechInfo>, deleteInfoArray<class CvDiplomacyInfo>, deleteInfoArray<class CvBuildInfo>, deleteInfoArray<class CvUnitClassInfo>, deleteInfoArray<class CvUnitInfo>, deleteInfoArray<class CvSpecialUnitInfo>, deleteInfoArray<class CvSpecialistInfo>, deleteInfoArray<class CvActionInfo>, deleteInfoArray<class CvMissionInfo>, deleteInfoArray<class CvControlInfo>, deleteInfoArray<class CvCommandInfo>, deleteInfoArray<class CvAutomateInfo>, deleteInfoArray<class CvPromotionInfo>, deleteInfoArray<class CvGameOptionInfo>, deleteInfoArray<class CvMPOptionInfo>, deleteInfoArray<class CvForceControlInfo>, deleteInfoArray<class CvPlayerOptionInfo>, deleteInfoArray<class CvGraphicOptionInfo>, deleteInfoArray<class CvYieldInfo>, deleteInfoArray<class CvTerrainInfo>, deleteInfoArray<class CvFeatureInfo>, deleteInfoArray<class CvBonusClassInfo>, deleteInfoArray<class CvBonusInfo>, deleteInfoArray<class CvLandscapeInfo>, deleteInfoArray<class CvUnitFormationInfo>, deleteInfoArray<class CvCivicOptionInfo>, deleteInfoArray<class CvCursorInfo>, CvGlobals::getEntityEventTypes(), CvGlobals::getInstance [CvGlobals.h], CvString::`vector deleting dtor' [CvInfos.cpp], CvGlobals::getAnimationOperatorTypes(), CvGlobals::getFunctionTypes(), CvGlobals::getFlavorTypes(), CvGlobals::getArtStyleTypes(), CvGlobals::getCitySizeTypes(), CvGlobals::getContactTypes(), CvGlobals::getDiplomacyPowerTypes(), CvGlobals::getAutomateTypes(), CvGlobals::getDirectionTypes(), CvGlobals::getFootstepAudioTypes(), CvGlobals::getFootstepAudioTags(), deleteInfoArray<class CvQuestInfo>, deleteInfoArray<class CvTutorialInfo>, deleteInfoArray<class CvEventInfo>, deleteInfoArray<class CvEventTriggerInfo>, deleteInfoArray<class CvEspionageMissionInfo>, deleteInfoArray<class CvEntityEventInfo>, deleteInfoArray<class CvAnimationCategoryInfo>, deleteInfoArray<class CvAnimationPathInfo>, CvGlobals::clearTypesMap
+  - calls: deleteInfoArray\<class CvBuildingClassInfo>, deleteInfoArray\<class CvBuildingInfo>, deleteInfoArray\<class CvSpecialBuildingInfo>, deleteInfoArray\<class CvLeaderHeadInfo>, deleteInfoArray\<class CvTraitInfo>, deleteInfoArray\<class CvCivilizationInfo>, deleteInfoArray\<class CvUnitArtStyleTypeInfo>, deleteInfoArray\<class CvVoteSourceInfo>, deleteInfoArray\<class CvInfoBase>, deleteInfoArray\<class CvMainMenuInfo>, deleteInfoArray\<class CvPythonModulesInfo>, deleteInfoArray\<class CvModLoadControlInfo>, deleteInfoArray\<class CvGoodyInfo>, deleteInfoArray\<class CvHandicapInfo>, deleteInfoArray\<class CvGameSpeedInfo>, deleteInfoArray\<class CvTurnTimerInfo>, deleteInfoArray\<class CvVictoryInfo>, deleteInfoArray\<class CvHurryInfo>, deleteInfoArray\<class CvWorldInfo>, deleteInfoArray\<class CvSeaLevelInfo>, deleteInfoArray\<class CvClimateInfo>, deleteInfoArray\<class CvProcessInfo>, deleteInfoArray\<class CvVoteInfo>, deleteInfoArray\<class CvProjectInfo>, deleteInfoArray\<class CvReligionInfo>, deleteInfoArray\<class CvCorporationInfo>, deleteInfoArray\<class CvCommerceInfo>, deleteInfoArray\<class CvEmphasizeInfo>, deleteInfoArray\<class CvUpkeepInfo>, deleteInfoArray\<class CvCultureLevelInfo>, deleteInfoArray\<class CvColorInfo>, deleteInfoArray\<class CvPlayerColorInfo>, deleteInfoArray\<class CvInterfaceModeInfo>, deleteInfoArray\<class CvCameraInfo>, deleteInfoArray\<class CvAdvisorInfo>, deleteInfoArray\<class CvThroneRoomCamera>, deleteInfoArray\<class CvThroneRoomInfo>, deleteInfoArray\<class CvThroneRoomStyleInfo>, deleteInfoArray\<class CvSlideShowInfo>, deleteInfoArray\<class CvSlideShowRandomInfo>, deleteInfoArray\<class CvWorldPickerInfo>, deleteInfoArray\<class CvSpaceShipInfo>, deleteInfoArray\<class CvCivicInfo>, deleteInfoArray\<class CvImprovementInfo>, deleteInfoArray\<class CvRouteInfo>, deleteInfoArray\<class CvRouteModelInfo>, deleteInfoArray\<class CvRiverInfo>, deleteInfoArray\<class CvRiverModelInfo>, deleteInfoArray\<class CvWaterPlaneInfo>, deleteInfoArray\<class CvTerrainPlaneInfo>, deleteInfoArray\<class CvCameraOverlayInfo>, deleteInfoArray\<class CvEraInfo>, deleteInfoArray\<class CvEffectInfo>, deleteInfoArray\<class CvAttachableInfo>, deleteInfoArray\<class CvTechInfo>, deleteInfoArray\<class CvDiplomacyInfo>, deleteInfoArray\<class CvBuildInfo>, deleteInfoArray\<class CvUnitClassInfo>, deleteInfoArray\<class CvUnitInfo>, deleteInfoArray\<class CvSpecialUnitInfo>, deleteInfoArray\<class CvSpecialistInfo>, deleteInfoArray\<class CvActionInfo>, deleteInfoArray\<class CvMissionInfo>, deleteInfoArray\<class CvControlInfo>, deleteInfoArray\<class CvCommandInfo>, deleteInfoArray\<class CvAutomateInfo>, deleteInfoArray\<class CvPromotionInfo>, deleteInfoArray\<class CvGameOptionInfo>, deleteInfoArray\<class CvMPOptionInfo>, deleteInfoArray\<class CvForceControlInfo>, deleteInfoArray\<class CvPlayerOptionInfo>, deleteInfoArray\<class CvGraphicOptionInfo>, deleteInfoArray\<class CvYieldInfo>, deleteInfoArray\<class CvTerrainInfo>, deleteInfoArray\<class CvFeatureInfo>, deleteInfoArray\<class CvBonusClassInfo>, deleteInfoArray\<class CvBonusInfo>, deleteInfoArray\<class CvLandscapeInfo>, deleteInfoArray\<class CvUnitFormationInfo>, deleteInfoArray\<class CvCivicOptionInfo>, deleteInfoArray\<class CvCursorInfo>, CvGlobals::getEntityEventTypes(), CvGlobals::getInstance \[CvGlobals.h\], CvString::`vector deleting dtor' \[CvInfos.cpp\], CvGlobals::getAnimationOperatorTypes(), CvGlobals::getFunctionTypes(), CvGlobals::getFlavorTypes(), CvGlobals::getArtStyleTypes(), CvGlobals::getCitySizeTypes(), CvGlobals::getContactTypes(), CvGlobals::getDiplomacyPowerTypes(), CvGlobals::getAutomateTypes(), CvGlobals::getDirectionTypes(), CvGlobals::getFootstepAudioTypes(), CvGlobals::getFootstepAudioTags(), deleteInfoArray\<class CvQuestInfo>, deleteInfoArray\<class CvTutorialInfo>, deleteInfoArray\<class CvEventInfo>, deleteInfoArray\<class CvEventTriggerInfo>, deleteInfoArray\<class CvEspionageMissionInfo>, deleteInfoArray\<class CvEntityEventInfo>, deleteInfoArray\<class CvAnimationCategoryInfo>, deleteInfoArray\<class CvAnimationPathInfo>, CvGlobals::clearTypesMap
   - called by (2): CvGlobals::doResetInfoClasses, CvXMLLoadUtility::CleanUpGlobalVariables
 - **3969** `CvGlobals::doResetInfoClasses(int, std::vector<CvString, std::allocator<CvString>>)`
-  - calls: CvGlobals::StoreExeSettings, CvGlobals::deleteInfoArrays, CvGlobals::infoTypeFromStringReset, CvXMLLoadUtility::CvXMLLoadUtility [CvXMLLoadUtility.cpp], CvXMLLoadUtility::doResetGlobalInfoClasses [CvXMLLoadUtilitySet.cpp], CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::CvArtFileMgr(CvArtFileMgr const&), CvArtFileMgr::Reset [CvArtFileMgr.cpp], CvXMLLoadUtility::doResetInfoClasses [CvXMLLoadUtilitySet.cpp], CvGlobals::LoadExeSettings, CvArtFileMgr::~CvArtFileMgr [CvArtFileMgr.h], CvXMLLoadUtility::~CvXMLLoadUtility [CvXMLLoadUtility.cpp]
+  - calls: CvGlobals::StoreExeSettings, CvGlobals::deleteInfoArrays, CvGlobals::infoTypeFromStringReset, CvXMLLoadUtility::CvXMLLoadUtility \[CvXMLLoadUtility.cpp\], CvXMLLoadUtility::doResetGlobalInfoClasses \[CvXMLLoadUtilitySet.cpp\], CvArtFileMgr::GetInstance \[CvArtFileMgr.cpp\], CvArtFileMgr::CvArtFileMgr(CvArtFileMgr const&), CvArtFileMgr::Reset \[CvArtFileMgr.cpp\], CvXMLLoadUtility::doResetInfoClasses \[CvXMLLoadUtilitySet.cpp\], CvGlobals::LoadExeSettings, CvArtFileMgr::~CvArtFileMgr \[CvArtFileMgr.h\], CvXMLLoadUtility::~CvXMLLoadUtility \[CvXMLLoadUtility.cpp\]
   - called by (1): CvInitCore::doReloadInfoClasses
 - **4002** `CvGlobals::StoreExeSettings()`
-  - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getCommerceInfo(CommerceTypes), CvCommerceInfo::getChar [CvInfos.cpp], CvGlobals::getYieldInfo(YieldTypes), CvYieldInfo::getChar [CvInfos.cpp], CvGlobals::getNumReligionInfos, CvGlobals::getReligionInfo(ReligionTypes), CvReligionInfo::getChar [CvInfos.cpp], CvGlobals::getNumCorporationInfos, CvGlobals::getCorporationInfo(CorporationTypes), CvCorporationInfo::getChar [CvInfos.cpp], CvGlobals::getNumBonusInfos, CvGlobals::getBonusInfo(BonusTypes), CvBonusInfo::getChar [CvInfos.cpp]
+  - calls: operator new\[\](unsigned int) \[CvGameCoreDLL.cpp\], CvGlobals::getCommerceInfo(CommerceTypes), CvCommerceInfo::getChar \[CvInfos.cpp\], CvGlobals::getYieldInfo(YieldTypes), CvYieldInfo::getChar \[CvInfos.cpp\], CvGlobals::getNumReligionInfos, CvGlobals::getReligionInfo(ReligionTypes), CvReligionInfo::getChar \[CvInfos.cpp\], CvGlobals::getNumCorporationInfos, CvGlobals::getCorporationInfo(CorporationTypes), CvCorporationInfo::getChar \[CvInfos.cpp\], CvGlobals::getNumBonusInfos, CvGlobals::getBonusInfo(BonusTypes), CvBonusInfo::getChar \[CvInfos.cpp\]
   - called by (1): CvGlobals::doResetInfoClasses
 - **4035** `CvGlobals::LoadExeSettings()`
-  - calls: CvGlobals::getCommerceInfo(CommerceTypes), CvCommerceInfo::setChar [CvInfos.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvGlobals::getYieldInfo(YieldTypes), CvYieldInfo::setChar [CvInfos.cpp], CvGlobals::getNumReligionInfos, CvGlobals::getReligionInfo(ReligionTypes), CvReligionInfo::setChar [CvInfos.cpp], CvGlobals::getNumCorporationInfos, CvGlobals::getCorporationInfo(CorporationTypes), CvCorporationInfo::setChar [CvInfos.cpp], CvGlobals::getNumBonusInfos, CvGlobals::getBonusInfo(BonusTypes), CvBonusInfo::setChar [CvInfos.cpp]
+  - calls: CvGlobals::getCommerceInfo(CommerceTypes), CvCommerceInfo::setChar \[CvInfos.cpp\], operator delete\[\](void*) \[CvGameCoreDLL.cpp\], CvGlobals::getYieldInfo(YieldTypes), CvYieldInfo::setChar \[CvInfos.cpp\], CvGlobals::getNumReligionInfos, CvGlobals::getReligionInfo(ReligionTypes), CvReligionInfo::setChar \[CvInfos.cpp\], CvGlobals::getNumCorporationInfos, CvGlobals::getCorporationInfo(CorporationTypes), CvCorporationInfo::setChar \[CvInfos.cpp\], CvGlobals::getNumBonusInfos, CvGlobals::getBonusInfo(BonusTypes), CvBonusInfo::setChar \[CvInfos.cpp\]
   - called by (1): CvGlobals::doResetInfoClasses
 - **4077** `CvGlobals::getInfoTypeForString(char const*, bool) const` (exported)
-  - calls: CvString::CvString() [CvString.h], CvGlobals::getCurrentXMLFile, CvGlobals::getInstance [CvGlobals.h], CvString::GetCString [CvString.h], CvString::Format [CvString.h], CvDLLUtilityIFaceBase::logMsg [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvString::operator char const * [CvString.h], CvString::~CvString [CvString.h]
-  - called by (365): CvBuildingClassInfo::readPass3, CvCity::applyEvent, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::liberate, CvCity::popOrder, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setHasReligion, CvCity::setNumRealBuildingTimed, CvCity::setWeLoveTheKingDay …
+  - calls: CvString::CvString() \[CvString.h\], CvGlobals::getCurrentXMLFile, CvGlobals::getInstance \[CvGlobals.h\], CvString::GetCString \[CvString.h\], CvString::Format \[CvString.h\], CvDLLUtilityIFaceBase::logMsg \[CvDLLUtilityIFaceBase.h\], CvGlobals::getDLLIFace \[CvGlobals.h\], CvString::operator char const * \[CvString.h\], CvString::~CvString \[CvString.h\]
+  - called by (371): CvBuildingClassInfo::readPass3, CvCity::applyEvent, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::liberate, CvCity::popOrder, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setHasReligion, CvCity::setNumRealBuildingTimed, CvCity::setWeLoveTheKingDay …
 - **4116** `CvGlobals::setInfoTypeFromString(char const*, int, bool)`
-  - called by (118): CvXMLLoadUtility::ArrangeTGA<class CvCorporationInfo>, CvXMLLoadUtility::ArrangeTGA<class CvReligionInfo>, CvXMLLoadUtility::SetDiplomacyInfo, CvXMLLoadUtility::SetGlobalAnimationPathInfo, CvXMLLoadUtility::SetGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoImprovement> …
+  - called by (118): CvXMLLoadUtility::ArrangeTGA\<class CvCorporationInfo>, CvXMLLoadUtility::ArrangeTGA\<class CvReligionInfo>, CvXMLLoadUtility::SetDiplomacyInfo, CvXMLLoadUtility::SetGlobalAnimationPathInfo, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfo\<class CvArtInfoImprovement> …
 - **4130** `CvGlobals::logInfoTypeMap(char const*)`
-  - calls: CvString::CvString() [CvString.h], CvString::Format [CvString.h], CvDLLUtilityIFaceBase::logMsg [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvString::~CvString [CvString.h]
+  - calls: CvString::CvString() \[CvString.h\], CvString::Format \[CvString.h\], CvDLLUtilityIFaceBase::logMsg \[CvDLLUtilityIFaceBase.h\], CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getDLLIFace \[CvGlobals.h\], CvString::~CvString \[CvString.h\]
   - called by (1): CvXMLLoadUtility::SetGlobalTypes
 - **4164** `CvGlobals::infoTypeFromStringReset()` (exported)
   - called by (1): CvGlobals::doResetInfoClasses
 - **4169** `CvGlobals::addToInfosVectors(void*)` (exported)
-  - called by (111): CvXMLLoadUtility::LoadGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoCivilization>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoFeature>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoImprovement>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoInterface>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoLeaderhead>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoMisc>, CvXMLLoadUtility::LoadGlobalClassInfo<class CvArtInfoMovie> …
+  - called by (111): CvXMLLoadUtility::LoadGlobalClassInfo\<class CvAdvisorInfo>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvAnimationCategoryInfo>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvAnimationPathInfo>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoBonus>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoBuilding>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoCivilization>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoFeature>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoImprovement>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoInterface>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoLeaderhead>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoMisc>, CvXMLLoadUtility::LoadGlobalClassInfo\<class CvArtInfoMovie> …
 - **4175** `CvGlobals::infosReset()` (exported)
-  - calls: CvInfoBase::reset [CvInfos.cpp] ⇢ CvCivilizationInfo::reset, CvQuestInfo::reset
+  - calls: CvInfoBase::reset \[CvInfos.cpp\] ⇢ CvCivilizationInfo::reset, CvQuestInfo::reset
 - **4184** `CvGlobals::getNumDirections() const` (exported)
 - **4185** `CvGlobals::getNumGameOptions() const` (exported)
 - **4186** `CvGlobals::getNumMPOptions() const` (exported)
@@ -1330,7 +1330,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **4206** `CvGlobals::getGamePointer()` (exported)
 - **4209** `CvGlobals::getMaxCivPlayers() const` (exported)
 - **4213** `CvGlobals::IsGraphicsInitialized() const` (exported)
-  - called by (29): CvCity::setupGraphical, CvCity::updateVisibility, CvGame::setActivePlayer, CvMap::setupGraphical, CvPlayer::setupGraphical, CvPlot::setLayoutDirty, CvPlot::setPlotType, CvPlot::setRevealedOwner, CvPlot::setTerrainType, CvPlot::setupGraphical, CvPlot::updateCenterUnit, CvPlot::updateFeatureSymbol …
+  - called by (39): CvCity::pageGraphics, CvCity::setupGraphical, CvCity::updateVisibility, CvGame::deferRevealedGraphics, CvGame::endBulkReveal, CvGame::processDeferredReveals, CvGame::setActivePlayer, CvGame::updateGraphicsPaging, CvMap::setupGraphical, CvPlayer::setupGraphical, CvPlot::pageGraphics, CvPlot::refreshRevealedGraphics …
 - **4214** `CvGlobals::SetGraphicsInitialized(bool)` (exported)
 - **4215** `CvGlobals::setInterface(CvInterface*)` (exported)
 - **4216** `CvGlobals::setDiplomacyScreen(CvDiplomacyScreen*)` (exported)
@@ -1362,7 +1362,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **4247** `CvGlobals::getBullVersion() const`
   - called by (1): CyGlobalContext::getBullVersion
 - **4251** `CvGlobals::setIsBug(bool)`
-  - calls: setIsBug [CvBugOptions.cpp]
+  - calls: setIsBug \[CvBugOptions.cpp\]
   - called by (1): CyGlobalContext::setIsBug
 - **4270** `CvGlobals::getBBAI_AIR_COMBAT()`
   - called by (1): CvUnit::resolveAirCombat
@@ -1478,3 +1478,6 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
   - called by (8): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvSelectionGroup::canDoInterfaceMode, CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::startMission, CvUnit::canFEngage, CvUnitAI::AI_FEngage, CyGlobalContext::getDCM_FIGHTER_ENGAGE
 - **·** `CvArtFileMgr::CvArtFileMgr(CvArtFileMgr const&)` (written by the compiler)
   - called by (1): CvGlobals::doResetInfoClasses
+- **·** `_$E9` (written by the compiler)
+  - calls: CvGlobals::~CvGlobals
+  - called by (1): _$E8

@@ -3,7 +3,7 @@
 Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
 - **15** `XYCoords::XYCoords(int, int)` (exported)
-  - called by (5): CLLNode<XYCoords>::CLLNode<struct XYCoords>, CLinkList<XYCoords>::Read, CvPlotGroup::addPlot, CvPlotGroup::recalculatePlots, XYCoords::`default ctor closure'
+  - called by (5): CLLNode\<XYCoords>::CLLNode\<struct XYCoords>, CLinkList\<XYCoords>::Read, CvPlotGroup::addPlot, CvPlotGroup::recalculatePlots, XYCoords::`default ctor closure'
 - **19** `XYCoords::operator<(struct XYCoords) const` (exported)
 - **20** `XYCoords::operator<=(struct XYCoords) const` (exported)
 - **21** `XYCoords::operator!=(XYCoords) const` (exported)
@@ -11,7 +11,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **23** `XYCoords::operator>=(struct XYCoords) const` (exported)
 - **24** `XYCoords::operator>(struct XYCoords) const` (exported)
 - **30** `IDInfo::IDInfo(PlayerTypes, int)` (exported)
-  - called by (13): CLLNode<IDInfo>::CLLNode<struct IDInfo>, CLinkList<IDInfo>::Read, CvCity::getIDInfo, CvCityAI::CvCityAI, CvPlayerAI::AI_unitUpdate, CvPlot::CvPlot, CvSelectionGroupAI::AI_setMissionAI, CvSelectionGroupAI::CvSelectionGroupAI, CvUnit::CvUnit, CvUnit::canDoCommand, CvUnit::doCommand, CvUnit::getIDInfo …
+  - called by (13): CLLNode\<IDInfo>::CLLNode\<struct IDInfo>, CLinkList\<IDInfo>::Read, CvCity::getIDInfo, CvCityAI::CvCityAI, CvPlayerAI::AI_unitUpdate, CvPlot::CvPlot, CvSelectionGroupAI::AI_setMissionAI, CvSelectionGroupAI::CvSelectionGroupAI, CvUnit::CvUnit, CvUnit::canDoCommand, CvUnit::doCommand, CvUnit::getIDInfo …
 - **35** `IDInfo::operator==(IDInfo const&) const` (exported)
   - called by (1): CvSelectionGroupAI::AI_setMissionAI
 - **40** `IDInfo::reset()` (exported)
@@ -39,42 +39,42 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **249** `PBPlayerAdminData::getScore()` (exported; Python: getScore)
   - called by (1): CyStructsPythonInterface1
 - **418** `CvPlotIndicatorData::CvPlotIndicatorData()` (exported)
-  - calls: NiPoint2::NiPoint2() [CvGameCoreDLL.h], CvString::CvString() [CvString.h], CvWString::CvWString() [CvString.h], CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
+  - calls: NiPoint2::NiPoint2() \[CvGameCoreDLL.h\], CvString::CvString() \[CvString.h\], CvWString::CvWString() \[CvString.h\], CvString::~CvString \[CvString.h\], CvWString::~CvWString \[CvString.h\]
   - called by (2): CvPlayer::getResourceLayerColors, CvPlayer::getUnitLayerColors
 - **435** `CvGlobeLayerData::CvGlobeLayerData(GlobeLayerTypes)` (exported)
-  - calls: CvString::CvString() [CvString.h], CvString::~CvString [CvString.h]
+  - calls: CvString::CvString() \[CvString.h\], CvString::~CvString \[CvString.h\]
   - called by (1): CvGame::getGlobeLayers
 - **447** `CvFlyoutMenuData::CvFlyoutMenuData(FlyoutTypes, int, int, int, unsigned short const*)` (exported)
-  - calls: CvWString::CvWString(unsigned short const*) [CvString.h]
+  - calls: CvWString::CvWString(unsigned short const*) \[CvString.h\]
   - called by (1): CvGame::startFlyoutMenu
 - **457** `CvStatBase::CvStatBase(char const*)` (exported)
-  - calls: CvString::CvString(char const*) [CvString.h]
+  - calls: CvString::CvString(char const*) \[CvString.h\]
   - called by (3): CvStatFloat::CvStatFloat(char const*, float), CvStatInt::CvStatInt(char const*, int), CvStatString::CvStatString(char const*, char const*)
 - **458** `CvStatBase::~CvStatBase()` (exported; virtual)
-  - calls: CvString::~CvString [CvString.h]
+  - calls: CvString::~CvString \[CvString.h\]
   - called by (7): CvStatBase::`scalar deleting dtor', CvStatBase::`vector deleting dtor', CvStatFloat::~CvStatFloat, CvStatInt::~CvStatInt, CvStatString::CvStatString(CvStatString const&), CvStatString::CvStatString(char const*, char const*), CvStatString::~CvStatString
 - **464** `CvStatInt::CvStatInt(char const*, int)` (exported)
   - calls: CvStatBase::CvStatBase(char const*)
   - called by (2): CvEventReporter::getGameStatistics, CvEventReporter::getPlayerStatistics
 - **470** `CvStatString::CvStatString(char const*, char const*)` (exported)
-  - calls: CvString::CvString(char const*) [CvString.h], CvStatBase::CvStatBase(char const*), CvStatBase::~CvStatBase
+  - calls: CvString::CvString(char const*) \[CvString.h\], CvStatBase::CvStatBase(char const*), CvStatBase::~CvStatBase
   - called by (1): CvEventReporter::getGameStatistics
 - **476** `CvStatFloat::CvStatFloat(char const*, float)` (exported)
   - calls: CvStatBase::CvStatBase(char const*)
 - **482** `CvWBData::CvWBData(int, unsigned short const*, char const*)` (exported)
-  - calls: CvString::CvString(char const*) [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h]
+  - calls: CvString::CvString(char const*) \[CvString.h\], CvWString::CvWString(unsigned short const*) \[CvString.h\], CvWString::~CvWString \[CvString.h\]
   - called by (15): CvGameTextMgr::getBonusDataForWB, CvGameTextMgr::getBuildingDataForWB, CvGameTextMgr::getCityDataForAS, CvGameTextMgr::getCorporationDataForWB, CvGameTextMgr::getImprovementDataForAS, CvGameTextMgr::getImprovementDataForWB, CvGameTextMgr::getPromotionDataForWB, CvGameTextMgr::getReligionDataForWB, CvGameTextMgr::getTechDataForAS, CvGameTextMgr::getTechDataForWB, CvGameTextMgr::getTerrainDataForWB, CvGameTextMgr::getTerritoryDataForWB …
 - **·** `CvStatBase::CvStatBase(CvStatBase const&)` (exported; written by the compiler)
-  - calls: CvString::CvString(CvString const&) [CvString.h]
+  - calls: CvString::CvString(CvString const&) \[CvString.h\]
   - called by (3): CvStatFloat::CvStatFloat(CvStatFloat const&), CvStatInt::CvStatInt(CvStatInt const&), CvStatString::CvStatString(CvStatString const&)
 - **·** `CvStatFloat::CvStatFloat(CvStatFloat const&)` (exported; written by the compiler)
   - calls: CvStatBase::CvStatBase(CvStatBase const&)
 - **·** `CvStatInt::CvStatInt(CvStatInt const&)` (exported; written by the compiler)
   - calls: CvStatBase::CvStatBase(CvStatBase const&)
 - **·** `CvStatString::CvStatString(CvStatString const&)` (exported; written by the compiler)
-  - calls: CvString::CvString(CvString const&) [CvString.h], CvStatBase::CvStatBase(CvStatBase const&), CvStatBase::~CvStatBase
+  - calls: CvString::CvString(CvString const&) \[CvString.h\], CvStatBase::CvStatBase(CvStatBase const&), CvStatBase::~CvStatBase
 - **·** `CvWBData::CvWBData(CvWBData const&)` (exported; written by the compiler)
-  - calls: CvString::CvString(CvString const&) [CvString.h], CvWString::CvWString(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h]
+  - calls: CvString::CvString(CvString const&) \[CvString.h\], CvWString::CvWString(CvWString const&) \[CvString.h\], CvWString::~CvWString \[CvString.h\]
 - **·** `PBGameSetupData::PBGameSetupData(PBGameSetupData const&)` (exported; written by the compiler)
 - **·** `PBPlayerAdminData::PBPlayerAdminData(PBPlayerAdminData const&)` (exported; written by the compiler)
 - **·** `PBPlayerAdminData::PBPlayerAdminData()` (exported; written by the compiler)
@@ -84,10 +84,10 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - calls: CvStatBase::~CvStatBase
   - called by (2): CvStatFloat::`scalar deleting dtor', CvStatFloat::`vector deleting dtor'
 - **·** `CvStatString::~CvStatString()` (exported; virtual; written by the compiler)
-  - calls: CvString::~CvString [CvString.h], CvStatBase::~CvStatBase
+  - calls: CvString::~CvString \[CvString.h\], CvStatBase::~CvStatBase
   - called by (2): CvStatString::`scalar deleting dtor', CvStatString::`vector deleting dtor'
 - **·** `CvWBData::~CvWBData()` (exported; written by the compiler)
-  - calls: CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
+  - calls: CvString::~CvString \[CvString.h\], CvWString::~CvWString \[CvString.h\]
   - called by (15): CvGameTextMgr::getBonusDataForWB, CvGameTextMgr::getBuildingDataForWB, CvGameTextMgr::getCityDataForAS, CvGameTextMgr::getCorporationDataForWB, CvGameTextMgr::getImprovementDataForAS, CvGameTextMgr::getImprovementDataForWB, CvGameTextMgr::getPromotionDataForWB, CvGameTextMgr::getReligionDataForWB, CvGameTextMgr::getTechDataForAS, CvGameTextMgr::getTechDataForWB, CvGameTextMgr::getTerrainDataForWB, CvGameTextMgr::getTerritoryDataForWB …
 - **·** `PBGameSetupData::~PBGameSetupData()` (exported; written by the compiler)
 - **·** `PBPlayerAdminData::~PBPlayerAdminData()` (exported; written by the compiler)
@@ -97,16 +97,16 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **·** `CvBattleRound::operator=(CvBattleRound const&)` (exported; written by the compiler)
 - **·** `CvMissionDefinition::operator=(CvMissionDefinition const&)` (exported; written by the compiler)
 - **·** `CvStatBase::operator=(CvStatBase const&)` (exported; written by the compiler)
-  - calls: CvString::operator=(CvString const&) [CvString.h]
+  - calls: CvString::operator=(CvString const&) \[CvString.h\]
   - called by (3): CvStatFloat::operator=, CvStatInt::operator=, CvStatString::operator=
 - **·** `CvStatFloat::operator=(CvStatFloat const&)` (exported; written by the compiler)
   - calls: CvStatBase::operator=
 - **·** `CvStatInt::operator=(CvStatInt const&)` (exported; written by the compiler)
   - calls: CvStatBase::operator=
 - **·** `CvStatString::operator=(CvStatString const&)` (exported; written by the compiler)
-  - calls: CvString::operator=(CvString const&) [CvString.h], CvStatBase::operator=
+  - calls: CvString::operator=(CvString const&) \[CvString.h\], CvStatBase::operator=
 - **·** `CvWBData::operator=(CvWBData const&)` (exported; written by the compiler)
-  - calls: CvString::operator=(CvString const&) [CvString.h], CvWString::operator=(CvWString const&) [CvString.h]
+  - calls: CvString::operator=(CvString const&) \[CvString.h\], CvWString::operator=(CvWString const&) \[CvString.h\]
 - **·** `CvWidgetDataStruct::operator=(CvWidgetDataStruct const&)` (exported; written by the compiler)
 - **·** `FOWVis::operator=(FOWVis const&)` (exported; written by the compiler)
 - **·** `GameTurnInfo::operator=(GameTurnInfo const&)` (exported; written by the compiler)
@@ -119,10 +119,10 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **·** `TradeData::operator=(TradeData const&)` (exported; written by the compiler)
 - **·** `XYCoords::operator=(XYCoords const&)` (exported; written by the compiler)
 - **·** `CvStatFloat::`vector deleting dtor'(unsigned int)` (virtual; overrides CvStatBase::`vector deleting dtor'; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvStatFloat::~CvStatFloat
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], operator delete\[\](void*) \[CvGameCoreDLL.cpp\], CvStatFloat::~CvStatFloat
   - takes the address of: CvStatFloat::~CvStatFloat
 - **·** `CvStatString::`vector deleting dtor'(unsigned int)` (virtual; overrides CvStatBase::`vector deleting dtor'; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvStatString::~CvStatString
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], operator delete\[\](void*) \[CvGameCoreDLL.cpp\], CvStatString::~CvStatString
   - takes the address of: CvStatString::~CvStatString
 - **·** `IDInfo::`default ctor closure'()` (exported; written by the compiler)
   - calls: IDInfo::IDInfo
@@ -130,12 +130,12 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **·** `XYCoords::`default ctor closure'()` (exported; written by the compiler)
   - calls: XYCoords::XYCoords
 - **·** `CLLNode<IDInfo>::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CLLNode<IDInfo>::~CLLNode<struct IDInfo> [LinkedList.h]
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], CLLNode\<IDInfo>::~CLLNode\<struct IDInfo> \[LinkedList.h\]
 - **·** `CvStatBase::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvStatBase::~CvStatBase
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], CvStatBase::~CvStatBase
 - **·** `CvStatFloat::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvStatFloat::~CvStatFloat
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], CvStatFloat::~CvStatFloat
 - **·** `CvStatInt::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvStatInt::~CvStatInt [CvString.h]
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], CvStatInt::~CvStatInt \[CvString.h\]
 - **·** `CvStatString::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvStatString::~CvStatString
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], CvStatString::~CvStatString

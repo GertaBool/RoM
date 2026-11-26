@@ -3,10 +3,10 @@
 Group: interface, text and messages. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
 - **10** `CvGameRecord::CvGameRecord()`
-  - calls: CvString::CvString() [CvString.h], CvGameRecord::init, CvString::~CvString [CvString.h]
+  - calls: CvString::CvString() \[CvString.h\], CvGameRecord::init, CvString::~CvString \[CvString.h\]
   - called by (1): CvStatistics::CvStatistics
 - **15** `CvGameRecord::~CvGameRecord()`
-  - calls: CvGameRecord::uninit, CvString::~CvString [CvString.h]
+  - calls: CvGameRecord::uninit, CvString::~CvString \[CvString.h\]
   - called by (2): CvStatistics::CvStatistics, CvStatistics::~CvStatistics
 - **20** `CvGameRecord::init()`
   - calls: CvGameRecord::reset
@@ -17,7 +17,7 @@ Group: interface, text and messages. Functions in line order: what each calls (i
   - calls: CvGameRecord::uninit
   - called by (2): CvGameRecord::init, CvGameRecord::read
 - **38** `CvGameRecord::setMapName(char const*)`
-  - calls: CvString::operator=(char const*) [CvString.h]
+  - calls: CvString::operator=(char const*) \[CvString.h\]
   - called by (1): CvStatistics::setMapName
 - **43** `CvGameRecord::getMapName() const`
   - called by (1): CvStatistics::getMapName
@@ -26,10 +26,10 @@ Group: interface, text and messages. Functions in line order: what each calls (i
 - **53** `CvGameRecord::getEra() const`
   - called by (1): CvStatistics::getEra
 - **58** `CvGameRecord::read(FDataStreamBase*)` (virtual)
-  - calls: CvGameRecord::reset, FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h]
+  - calls: CvGameRecord::reset, FDataStreamBase::Read \[FDataStreamBase.h\], FDataStreamBase::ReadString \[FDataStreamBase.h\]
   - called by (1): CvEventReporter::readStatistics
 - **71** `CvGameRecord::write(FDataStreamBase*)` (virtual)
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], FDataStreamBase::WriteString \[FDataStreamBase.h\]
   - called by (1): CvEventReporter::writeStatistics
 - **81** `CvPlayerRecord::CvPlayerRecord()`
   - calls: CvPlayerRecord::init
@@ -41,23 +41,23 @@ Group: interface, text and messages. Functions in line order: what each calls (i
   - calls: CvPlayerRecord::reset
   - called by (2): CvPlayerRecord::CvPlayerRecord, CvStatistics::getPlayerRecord
 - **102** `CvPlayerRecord::uninit()`
-  - calls: operator delete[](void*) [CvGameCoreDLL.cpp]
+  - calls: operator delete\[\](void*) \[CvGameCoreDLL.cpp\]
   - called by (2): CvPlayerRecord::reset, CvPlayerRecord::~CvPlayerRecord
 - **112** `CvPlayerRecord::reset()`
-  - calls: CvPlayerRecord::uninit, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp]
+  - calls: CvPlayerRecord::uninit, operator new\[\](unsigned int) \[CvGameCoreDLL.cpp\], CvGlobals::getNumUnitInfos \[CvGlobals.cpp\], CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getNumBuildingInfos \[CvGlobals.cpp\], CvGlobals::getNumReligionInfos \[CvGlobals.cpp\]
   - called by (2): CvPlayerRecord::init, CvPlayerRecord::read
 - **151** `CvPlayerRecord::unitBuilt(CvUnit*)`
-  - calls: CvUnit::getUnitType [CvUnit.cpp]
+  - calls: CvUnit::getUnitType \[CvUnit.cpp\]
   - called by (1): CvStatistics::unitBuilt
 - **156** `CvPlayerRecord::getNumUnitsBuilt(int) const` (exported)
   - called by (1): CvEventReporter::getPlayerStatistics
 - **161** `CvPlayerRecord::unitKilled(CvUnit*)`
-  - calls: CvUnit::getUnitType [CvUnit.cpp]
+  - calls: CvUnit::getUnitType \[CvUnit.cpp\]
   - called by (1): CvStatistics::unitKilled
 - **166** `CvPlayerRecord::getNumUnitsKilled(int) const` (exported)
   - called by (1): CvEventReporter::getPlayerStatistics
 - **171** `CvPlayerRecord::unitWasKilled(CvUnit*)`
-  - calls: CvUnit::getUnitType [CvUnit.cpp]
+  - calls: CvUnit::getUnitType \[CvUnit.cpp\]
   - called by (1): CvStatistics::unitKilled
 - **176** `CvPlayerRecord::getNumUnitsWasKilled(int) const` (exported)
   - called by (1): CvEventReporter::getPlayerStatistics
@@ -97,10 +97,10 @@ Group: interface, text and messages. Functions in line order: what each calls (i
 - **266** `CvPlayerRecord::getNumGoldenAges() const` (exported)
   - called by (1): CvEventReporter::getPlayerStatistics
 - **271** `CvPlayerRecord::read(FDataStreamBase*)` (virtual)
-  - calls: CvPlayerRecord::reset, FDataStreamBase::Read [FDataStreamBase.h], CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp]
+  - calls: CvPlayerRecord::reset, FDataStreamBase::Read \[FDataStreamBase.h\], CvGlobals::getNumUnitInfos \[CvGlobals.cpp\], CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getNumBuildingInfos \[CvGlobals.cpp\], CvGlobals::getNumReligionInfos \[CvGlobals.cpp\]
   - called by (2): CvEventReporter::readStatistics, CvStatistics::read
 - **296** `CvPlayerRecord::write(FDataStreamBase*)` (virtual)
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], CvGlobals::getNumUnitInfos \[CvGlobals.cpp\], CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getNumBuildingInfos \[CvGlobals.cpp\], CvGlobals::getNumReligionInfos \[CvGlobals.cpp\]
   - called by (2): CvEventReporter::writeStatistics, CvStatistics::write
 - **322** `CvStatistics::~CvStatistics()`
   - calls: CvStatistics::uninit, CvGameRecord::~CvGameRecord
@@ -120,7 +120,7 @@ Group: interface, text and messages. Functions in line order: what each calls (i
   - calls: CvGameRecord::setEra
   - called by (1): CvEventReporter::newGame
 - **362** `CvStatistics::setVictory(TeamTypes, VictoryTypes)`
-  - calls: CvPlayer::isEverAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTeam [CvPlayer.cpp], CvPlayer::isHuman [CvPlayer.cpp], CvPlayerRecord::setVictory, CvStatistics::getPlayerRecord
+  - calls: CvPlayer::isEverAlive \[CvPlayer.cpp\], CvPlayerAI::getPlayer \[CvPlayerAI.h\], CvPlayer::getTeam \[CvPlayer.cpp\], CvPlayer::isHuman \[CvPlayer.cpp\], CvPlayerRecord::setVictory, CvStatistics::getPlayerRecord
   - called by (1): CvEventReporter::victory
 - **384** `CvStatistics::setTimePlayed(PlayerTypes, int)`
   - calls: CvPlayerRecord::setTimePlayed, CvStatistics::getPlayerRecord
@@ -129,19 +129,19 @@ Group: interface, text and messages. Functions in line order: what each calls (i
   - calls: CvPlayerRecord::setLeader, CvStatistics::getPlayerRecord
   - called by (1): CvEventReporter::newPlayer
 - **396** `CvStatistics::unitBuilt(CvUnit*)`
-  - calls: CvPlayerRecord::unitBuilt, CvStatistics::getPlayerRecord, CvUnit::getOwner [CvUnit.cpp]
+  - calls: CvPlayerRecord::unitBuilt, CvStatistics::getPlayerRecord, CvUnit::getOwner \[CvUnit.cpp\]
   - called by (2): CvEventReporter::greatPersonBorn, CvEventReporter::unitBuilt
 - **400** `CvStatistics::unitKilled(CvUnit*, PlayerTypes)`
-  - calls: CvPlayerRecord::unitKilled, CvStatistics::getPlayerRecord, CvPlayerRecord::unitWasKilled, CvUnit::getOwner [CvUnit.cpp]
+  - calls: CvPlayerRecord::unitKilled, CvStatistics::getPlayerRecord, CvPlayerRecord::unitWasKilled, CvUnit::getOwner \[CvUnit.cpp\]
   - called by (1): CvEventReporter::unitKilled
 - **405** `CvStatistics::cityBuilt(CvCity*)`
-  - calls: CvCity::getOwner [CvCity.cpp], CvPlayerRecord::cityBuilt, CvStatistics::getPlayerRecord
+  - calls: CvCity::getOwner \[CvCity.cpp\], CvPlayerRecord::cityBuilt, CvStatistics::getPlayerRecord
   - called by (1): CvEventReporter::cityBuilt
 - **409** `CvStatistics::cityRazed(CvCity*, PlayerTypes)`
   - calls: CvPlayerRecord::cityRazed, CvStatistics::getPlayerRecord
   - called by (1): CvEventReporter::cityRazed
 - **413** `CvStatistics::buildingBuilt(CvCity*, BuildingTypes)`
-  - calls: CvCity::getOwner [CvCity.cpp], CvPlayerRecord::buildingBuilt, CvStatistics::getPlayerRecord
+  - calls: CvCity::getOwner \[CvCity.cpp\], CvPlayerRecord::buildingBuilt, CvStatistics::getPlayerRecord
   - called by (1): CvEventReporter::buildingBuilt
 - **417** `CvStatistics::religionFounded(ReligionTypes, PlayerTypes)`
   - calls: CvPlayerRecord::religionFounded, CvStatistics::getPlayerRecord
@@ -150,20 +150,20 @@ Group: interface, text and messages. Functions in line order: what each calls (i
   - calls: CvPlayerRecord::goldenAge, CvStatistics::getPlayerRecord
   - called by (1): CvEventReporter::goldenAge
 - **426** `CvStatistics::read(FDataStreamBase*)` (virtual)
-  - calls: CvStatistics::read, CvPlayer::isEverAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayerRecord::read, CvStatistics::getPlayerRecord
+  - calls: CvStatistics::read, CvPlayer::isEverAlive \[CvPlayer.cpp\], CvPlayerAI::getPlayer \[CvPlayerAI.h\], CvPlayerRecord::read, CvStatistics::getPlayerRecord
   - called by (2): CvEventReporter::readStatistics, CvStatistics::read
 - **441** `CvStatistics::write(FDataStreamBase*)` (virtual)
-  - calls: CvStatistics::write, CvPlayer::isEverAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayerRecord::write, CvStatistics::getPlayerRecord
+  - calls: CvStatistics::write, CvPlayer::isEverAlive \[CvPlayer.cpp\], CvPlayerAI::getPlayer \[CvPlayerAI.h\], CvPlayerRecord::write, CvStatistics::getPlayerRecord
   - called by (2): CvEventReporter::writeStatistics, CvStatistics::write
 - **459** `CvStatistics::getPlayerRecord(int)` (exported)
-  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlayerRecord::CvPlayerRecord, CvPlayerRecord::init, CvPlayerRecord::setPlayerID, operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: operator new(unsigned int) \[CvGameCoreDLL.cpp\], CvPlayerRecord::CvPlayerRecord, CvPlayerRecord::init, CvPlayerRecord::setPlayerID, operator delete(void*) \[CvGameCoreDLL.cpp\]
   - called by (13): CvEventReporter::getPlayerStatistics, CvStatistics::buildingBuilt, CvStatistics::cityBuilt, CvStatistics::cityRazed, CvStatistics::goldenAge, CvStatistics::read, CvStatistics::religionFounded, CvStatistics::setLeader, CvStatistics::setTimePlayed, CvStatistics::setVictory, CvStatistics::unitBuilt, CvStatistics::unitKilled …
 - **477** `CvStatistics::getMapName() const`
-  - calls: CvGameRecord::getMapName, CvString::GetCString [CvString.h]
+  - calls: CvGameRecord::getMapName, CvString::GetCString \[CvString.h\]
   - called by (1): CvEventReporter::getGameStatistics
 - **482** `CvStatistics::getEra() const`
   - calls: CvGameRecord::getEra
   - called by (1): CvEventReporter::getGameStatistics
 - **·** `CvPlayerRecord::`scalar deleting dtor'(unsigned int)` (written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvPlayerRecord::~CvPlayerRecord
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], CvPlayerRecord::~CvPlayerRecord
   - called by (1): CvStatistics::uninit

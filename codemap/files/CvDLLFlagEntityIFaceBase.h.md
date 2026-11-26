@@ -13,4 +13,4 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **39** `CvDLLFlagEntityIFaceBase::updateGraphicEra(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvPlot::updateGraphicEra
 - **41** `CvDLLFlagEntityIFaceBase::destroy(…)` (virtual; pure virtual, provided by the exe)
-  - called by (2): CvPlot::uninit, CvPlot::updateFlagSymbol
+  - called by (3): CvPlot::pageGraphics, CvPlot::uninit, CvPlot::updateFlagSymbol

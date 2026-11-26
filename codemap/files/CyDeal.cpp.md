@@ -9,40 +9,40 @@ Group: Python wrappers. Functions in line order: what each calls (in order of fi
 - **20** `CyDeal::isNone()` (Python: isNone)
   - called by (1): CyGamePythonInterface
 - **25** `CyDeal::getID() const` (Python: getID)
-  - calls: CvDeal::getID [CvDeal.cpp]
+  - calls: CvDeal::getID \[CvDeal.cpp\]
   - called by (1): CyGamePythonInterface
 - **30** `CyDeal::getInitialGameTurn() const` (Python: getInitialGameTurn)
-  - calls: CvDeal::getInitialGameTurn [CvDeal.cpp]
+  - calls: CvDeal::getInitialGameTurn \[CvDeal.cpp\]
   - called by (1): CyGamePythonInterface
 - **35** `CyDeal::getFirstPlayer() const` (Python: getFirstPlayer)
-  - calls: CvDeal::getFirstPlayer [CvDeal.cpp]
+  - calls: CvDeal::getFirstPlayer \[CvDeal.cpp\]
   - called by (1): CyGamePythonInterface
 - **40** `CyDeal::getSecondPlayer() const` (Python: getSecondPlayer)
-  - calls: CvDeal::getSecondPlayer [CvDeal.cpp]
+  - calls: CvDeal::getSecondPlayer \[CvDeal.cpp\]
   - called by (1): CyGamePythonInterface
 - **45** `CyDeal::getLengthFirstTrades() const` (Python: getLengthFirstTrades)
-  - calls: CvDeal::getLengthFirstTrades [CvDeal.cpp]
+  - calls: CvDeal::getLengthFirstTrades \[CvDeal.cpp\]
   - called by (2): CyDeal::getFirstTrade, CyGamePythonInterface
 - **50** `CyDeal::getLengthSecondTrades() const` (Python: getLengthSecondTrades)
-  - calls: CvDeal::getLengthSecondTrades [CvDeal.cpp]
+  - calls: CvDeal::getLengthSecondTrades \[CvDeal.cpp\]
   - called by (2): CyDeal::getSecondTrade, CyGamePythonInterface
 - **55** `CyDeal::getFirstTrade(int) const` (Python: getFirstTrade)
-  - calls: CvDeal::getFirstTrades [CvDeal.cpp], CyDeal::getLengthFirstTrades, CLinkList<TradeData>::next [LinkedList.h], CLinkList<TradeData>::head [LinkedList.h]
+  - calls: CvDeal::getFirstTrades \[CvDeal.cpp\], CyDeal::getLengthFirstTrades, CLinkList\<TradeData>::next \[LinkedList.h\], CLinkList\<TradeData>::head \[LinkedList.h\]
   - called by (1): CyGamePythonInterface
 - **73** `CyDeal::getSecondTrade(int) const` (Python: getSecondTrade)
-  - calls: CvDeal::getSecondTrades [CvDeal.cpp], CyDeal::getLengthSecondTrades, CLinkList<TradeData>::next [LinkedList.h], CLinkList<TradeData>::head [LinkedList.h]
+  - calls: CvDeal::getSecondTrades \[CvDeal.cpp\], CyDeal::getLengthSecondTrades, CLinkList\<TradeData>::next \[LinkedList.h\], CLinkList\<TradeData>::head \[LinkedList.h\]
   - called by (1): CyGamePythonInterface
 - **91** `CyDeal::kill()` (Python: kill)
-  - calls: CvDeal::kill [CvDeal.cpp]
+  - calls: CvDeal::kill \[CvDeal.cpp\]
   - called by (1): CyGamePythonInterface
 - **100** `CyDeal::isCancelable(int, bool) const` (Python: isCancelable)
-  - calls: CvDeal::isUncancelableVassalDeal [CvDeal.cpp], CvDeal::isCancelable [CvDeal.cpp]
+  - calls: CvDeal::isUncancelableVassalDeal \[CvDeal.cpp\], CvDeal::isCancelable \[CvDeal.cpp\]
   - called by (1): CyGamePythonInterface
 - **115** `CyDeal::getCannotCancelReason(int) const` (Python: getCannotCancelReason)
-  - calls: CvWString::CvWString() [CvString.h], CvDeal::isCancelable [CvDeal.cpp], CvWString::~CvWString [CvString.h]
+  - calls: CvWString::CvWString() \[CvString.h\], CvDeal::isCancelable \[CvDeal.cpp\], CvWString::~CvWString \[CvString.h\]
   - called by (1): CyGamePythonInterface
 - **125** `CyDeal::turnsToCancel(int) const` (Python: turnsToCancel)
-  - calls: CvDeal::turnsToCancel [CvDeal.cpp]
+  - calls: CvDeal::turnsToCancel \[CvDeal.cpp\]
   - called by (1): CyGamePythonInterface
 - **·** `CyDeal::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CyDeal::~CyDeal
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], CyDeal::~CyDeal

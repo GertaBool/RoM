@@ -3,13 +3,13 @@
 Group: interface, text and messages. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
 - **13** `CvPopupInfo::CvPopupInfo(ButtonPopupTypes, int, int, int, int, bool, bool)` (exported)
-  - calls: CvString::CvString() [CvString.h], CvWString::CvWString() [CvString.h], CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
+  - calls: CvString::CvString() \[CvString.h\], CvWString::CvWString() \[CvString.h\], CvString::~CvString \[CvString.h\], CvWString::~CvWString \[CvString.h\]
   - called by (34): CvCity::chooseProduction, CvCity::popOrder, CvCity::setHasReligion, CvDLLButtonPopup::OnAltExecute, CvDLLButtonPopup::OnOkClicked, CvDLLWidgetData::doContactCiv, CvDLLWidgetData::doDealKill, CvDLLWidgetData::doLaunch, CvDLLWidgetData::doMenu, CvGame::addVoteTriggered(VoteSourceTypes, VoteSelectionSubData const&), CvGame::cheatSpaceship, CvGame::doControl …
 - **17** `CvPopupInfo::~CvPopupInfo()` (exported; virtual)
-  - calls: CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
+  - calls: CvString::~CvString \[CvString.h\], CvWString::~CvWString \[CvString.h\]
   - called by (1): CvPopupInfo::`vector deleting dtor'
 - **21** `CvPopupInfo::operator=(CvPopupInfo const&)` (exported)
-  - calls: CvPopupInfo::setButtonPopupType, CvPopupInfo::getButtonPopupType, CvPopupInfo::setData1, CvPopupInfo::getData1, CvPopupInfo::setData2, CvPopupInfo::getData2, CvPopupInfo::setData3, CvPopupInfo::getData3, CvPopupInfo::setFlags, CvPopupInfo::getFlags, CvPopupInfo::setOption1, CvPopupInfo::getOption1, CvPopupInfo::setOption2, CvPopupInfo::getOption2, CvPopupInfo::setText, CvPopupInfo::getText, CvWString::operator unsigned short const * [CvString.h], CvPopupInfo::getPendingDelete, CvPopupInfo::setPendingDelete, CvPopupInfo::setOnFocusPythonCallback, CvPopupInfo::getOnFocusPythonCallback, CvString::operator char const * [CvString.h], CvPopupInfo::setOnClickedPythonCallback, CvPopupInfo::getOnClickedPythonCallback, CvPopupInfo::setPythonModule, CvPopupInfo::getPythonModule, CvPopupInfo::getNumPythonButtons
+  - calls: CvPopupInfo::setButtonPopupType, CvPopupInfo::getButtonPopupType, CvPopupInfo::setData1, CvPopupInfo::getData1, CvPopupInfo::setData2, CvPopupInfo::getData2, CvPopupInfo::setData3, CvPopupInfo::getData3, CvPopupInfo::setFlags, CvPopupInfo::getFlags, CvPopupInfo::setOption1, CvPopupInfo::getOption1, CvPopupInfo::setOption2, CvPopupInfo::getOption2, CvPopupInfo::setText, CvPopupInfo::getText, CvWString::operator unsigned short const * \[CvString.h\], CvPopupInfo::getPendingDelete, CvPopupInfo::setPendingDelete, CvPopupInfo::setOnFocusPythonCallback, CvPopupInfo::getOnFocusPythonCallback, CvString::operator char const * \[CvString.h\], CvPopupInfo::setOnClickedPythonCallback, CvPopupInfo::getOnClickedPythonCallback, CvPopupInfo::setPythonModule, CvPopupInfo::getPythonModule, CvPopupInfo::getNumPythonButtons
   - called by (1): CvDLLButtonPopup::OnAltExecute
 - **45** `CvPopupInfo::getData1() const` (exported)
   - called by (21): CvDLLButtonPopup::OnFocus, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchChangeReligionPopup, CvDLLButtonPopup::launchChooseElectionPopup, CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchConfirmCommandPopup, CvDLLButtonPopup::launchDeclareWarMovePopup, CvDLLButtonPopup::launchDiploVotePopup, CvDLLButtonPopup::launchDisbandCityPopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLButtonPopup::launchEventPopup …
@@ -52,37 +52,37 @@ Group: interface, text and messages. Functions in line order: what each calls (i
 - **142** `CvPopupInfo::setButtonPopupType(ButtonPopupTypes)` (exported)
   - called by (1): CvPopupInfo::operator=
 - **147** `CvPopupInfo::setText(unsigned short const*)` (exported)
-  - calls: CvWString::operator=(unsigned short const*) [CvString.h]
+  - calls: CvWString::operator=(unsigned short const*) \[CvString.h\]
   - called by (13): CvCity::popOrder, CvDLLButtonPopup::OnOkClicked, CvDLLWidgetData::doDealKill, CvGame::cheatSpaceship, CvGame::doVoteResults, CvGame::showEndGameSequence, CvPlayer::applyEvent, CvPlayer::chooseTech, CvPlayer::doEspionageMission, CvPlayer::setCurrentEra, CvPlayer::showSpaceShip, CvPopupInfo::operator= …
 - **152** `CvPopupInfo::getPendingDelete() const` (exported)
   - called by (1): CvPopupInfo::operator=
 - **157** `CvPopupInfo::setPendingDelete(bool)` (exported)
   - called by (1): CvPopupInfo::operator=
 - **163** `CvPopupInfo::setOnFocusPythonCallback(char const*)` (exported)
-  - calls: CvString::operator=(char const*) [CvString.h]
+  - calls: CvString::operator=(char const*) \[CvString.h\]
   - called by (1): CvPopupInfo::operator=
 - **168** `CvPopupInfo::setOnClickedPythonCallback(char const*)` (exported)
-  - calls: CvString::operator=(char const*) [CvString.h]
+  - calls: CvString::operator=(char const*) \[CvString.h\]
   - called by (1): CvPopupInfo::operator=
 - **173** `CvPopupInfo::setPythonModule(char const*)` (exported)
-  - calls: CvString::operator=(char const*) [CvString.h]
+  - calls: CvString::operator=(char const*) \[CvString.h\]
   - called by (1): CvPopupInfo::operator=
 - **178** `CvPopupInfo::addPythonButton(unsigned short const*, char const*)` (exported)
-  - calls: CvPopupButtonPython::CvPopupButtonPython, CvWString::operator=(unsigned short const*) [CvString.h], CvString::operator=(char const*) [CvString.h], CvPopupButtonPython::~CvPopupButtonPython
+  - calls: CvPopupButtonPython::CvPopupButtonPython, CvWString::operator=(unsigned short const*) \[CvString.h\], CvString::operator=(char const*) \[CvString.h\], CvPopupButtonPython::~CvPopupButtonPython
 - **186** `CvPopupInfo::getNumPythonButtons() const` (exported)
   - called by (2): CvDLLButtonPopup::launchPythonPopup, CvPopupInfo::operator=
 - **192** `CvPopupInfo::read(FDataStreamBase&)` (exported)
-  - calls: FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h], CvPopupButtonPython::CvPopupButtonPython, CvPopupButtonPython::~CvPopupButtonPython
+  - calls: FDataStreamBase::Read \[FDataStreamBase.h\], FDataStreamBase::ReadString \[FDataStreamBase.h\], CvPopupButtonPython::CvPopupButtonPython, CvPopupButtonPython::~CvPopupButtonPython
   - called by (1): CvPlayer::read
 - **220** `CvPopupInfo::write(FDataStreamBase&) const` (exported)
-  - calls: FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h]
+  - calls: FDataStreamBase::Write \[FDataStreamBase.h\], FDataStreamBase::WriteString \[FDataStreamBase.h\]
   - called by (1): CvPlayer::write
 - **·** `CvPopupButtonPython::CvPopupButtonPython()` (written by the compiler)
-  - calls: CvString::CvString() [CvString.h], CvWString::CvWString() [CvString.h], CvWString::~CvWString [CvString.h]
+  - calls: CvString::CvString() \[CvString.h\], CvWString::CvWString() \[CvString.h\], CvWString::~CvWString \[CvString.h\]
   - called by (2): CvPopupInfo::addPythonButton, CvPopupInfo::read
 - **·** `CvPopupButtonPython::~CvPopupButtonPython()` (written by the compiler)
-  - calls: CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
+  - calls: CvString::~CvString \[CvString.h\], CvWString::~CvWString \[CvString.h\]
   - called by (2): CvPopupInfo::addPythonButton, CvPopupInfo::read
 - **·** `CvPopupInfo::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvPopupInfo::~CvPopupInfo
+  - calls: operator delete(void*) \[CvGameCoreDLL.cpp\], operator delete\[\](void*) \[CvGameCoreDLL.cpp\], CvPopupInfo::~CvPopupInfo
   - takes the address of: CvPopupInfo::~CvPopupInfo

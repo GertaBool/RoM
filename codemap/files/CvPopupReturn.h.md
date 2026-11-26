@@ -11,7 +11,7 @@ Group: interface, text and messages. Functions in line order: what each calls (i
 - **66** `PopupReturn::getCheckboxSize() const`
   - called by (2): PopupReturn::PopupReturn, PopupReturn::operator=
 - **79** `PopupReturn::getEditBoxString(int) const`
-  - calls: CvWString::operator unsigned short const * [CvString.h]
+  - calls: CvWString::operator unsigned short const * \[CvString.h\]
   - called by (3): CvDLLButtonPopup::OnOkClicked, PopupReturn::PopupReturn, PopupReturn::operator=
 - **88** `PopupReturn::getEditboxSize() const`
   - called by (2): PopupReturn::PopupReturn, PopupReturn::operator=
