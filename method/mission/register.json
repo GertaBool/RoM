@@ -557,5 +557,41 @@
    "fixes/graphics-paging-camera/",
    "builds/graphics-paging-camera/"
   ]
+ },
+ {
+  "id": "H9",
+  "type": "hypothesis",
+  "line": "codemap-errors",
+  "text": "The code map's checks (codemap/guides/systems-and-errors.md, at GitLab ede81881b7de) found five errors that follow from the source and change no AI decision: C1 and C1b, the Advanced Combat Odds option ACO__IgnoreBarbFreeWins read as a nonexistent global define in getCombatOddsSpecific and with the opposite sense in CvGameTextMgr::setCombatPlotHelp (both interface only); C2, CvCity::canConstruct reading m_paBuildingInfo[-1] before its NO_BUILDING test, which BarbarianCiv.py reaches with -1 (C3); D1, 21 building classes whose DefaultBuilding names a building nothing defines (5 of them in the Guilds module), loaded as NO_BUILDING; D2, BONUS_WOOL naming TECH_WEAVING, which does not exist, as its TechCityTrade, which shows an XML error dialog at load and is loaded as NO_TECH. Fixing them as the game already loads them (NONE in the XML), reading the option once with the sense of its name, and testing NO_BUILDING first removes the errors without changing any game the harness plays. Contradicted if a harness run fails with the fix that completes without it, or if a game played with the fix differs from the same seed without it."
+ },
+ {
+  "id": "P14",
+  "type": "prediction",
+  "line": "codemap-errors",
+  "hypotheses": [
+   "H9"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "fixes/0022-codemap-errors.patch on GitLab main ede81881b7de: setCombatPlotHelp reads ACO__IgnoreBarbFreeWins once (getBugOptionBOOL), applies the barbarian free-win section when it is off and gives it to getCombatOddsSpecific (setCombatOddsIgnoreBarbFreeWins), which no longer reads GC.getDefineINT(\"ACO_IgnoreBarbFreeWins\"); CvCity::canConstruct tests NO_BUILDING before GC.getBuildingInfo; the 21 DefaultBuilding entries and BONUS_WOOL's TechCityTrade say NONE. Arm a: a harness DLL of the builds/balance source (2a8b9a8 plus staging-defence and balance, tree 68a00fc0) with the patch applied, its XML patched too; arm b: the same without the patch. Both from turn 0 of the mod's Mediterranean, Standard WorldBuilder map (PrivateMaps, wbs2scn.py), all seats AI, Noble, 200 turns per run (harness.exe scenario), seeds from ledger.py seeds. The harness has no Python and draws no tooltip, so C1 and C3 are judged by reading; the run checks that nothing else changes.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameTextMgr.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/XML/Buildings/CIV4BuildingClassInfos.xml",
+   "gitlab:Assets/Modules/Projects/Vincentz/Guilds/Guildhalls_CIV4BuildingClassInfos.xml",
+   "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml",
+   "fixes/0022-codemap-errors.patch",
+   "fixes/codemap-errors/",
+   "builds/codemap-errors/"
+  ]
  }
 ]
