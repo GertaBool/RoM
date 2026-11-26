@@ -1,77 +1,18 @@
 caller	file	line	reason	what
-95	CvArea.cpp		through a function pointer	
-95	CvCity.cpp		through a function pointer	
-95	CvGame.cpp		through a function pointer	
-95	CyGlobalContext.cpp		through a function pointer	
-6086	CvInfos.cpp	8537	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
-7310	CvPlayer.cpp	15007	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(pInfo);
-8199	CvPlot.cpp	3473	through a function pointer	    {      func(pLoopUnit, iData1, iData2);
-8200	CvPlot.cpp	3499	through a function pointer	    {      if ((funcA == NULL) || funcA(pLoopUnit, iData1A, iData2A))
-8200	CvPlot.cpp	3501	through a function pointer	     {       if ((funcB == NULL) || funcB(pLoopUnit, iData1B, iData2B))
-8202	CvPlot.cpp	3530	through a function pointer	    {      if (funcA(pLoopUnit, iData1A, iData2A))
-8202	CvPlot.cpp	3532	through a function pointer	     {       if ((funcB == NULL) || funcB(pLoopUnit, iData1B, iData2B))
-10486	CvXMLLoadUtility.cpp	156	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(GC.getLandscapeInfo()[i]);
-10487	CvXMLLoadUtility.cpp	175	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(GC.getEffectInfo()[i]);
-10496	CvXMLLoadUtility.cpp	677	through a function pointer	  {    m_pCBFxn(++m_iCurProgressStep, GetNumProgressSteps(), CvString::format("Reading XML %s",     szMessage ? szMessage : "").c_str());
-10759	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10760	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10761	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10762	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10763	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10764	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10765	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10766	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10767	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10768	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10769	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10770	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10771	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10772	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10773	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10774	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10775	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10776	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10777	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10778	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10779	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10780	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10781	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10782	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10783	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10784	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10785	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10786	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10787	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10788	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10789	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10790	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10791	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10792	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10793	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10794	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10795	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10796	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10797	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10798	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10799	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10800	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10801	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10802	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10803	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10804	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10805	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10806	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10807	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10808	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10809	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10810	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10811	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10812	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10813	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10814	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10815	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10816	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10817	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+141	CvArea.cpp		through a function pointer	
+141	CvCity.cpp		through a function pointer	
+141	CvGame.cpp		through a function pointer	
+141	CyGlobalContext.cpp		through a function pointer	
+6137	CvInfos.cpp	8537	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
+7359	CvPlayer.cpp	15009	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(pInfo);
+8252	CvPlot.cpp	3491	through a function pointer	    {      func(pLoopUnit, iData1, iData2);
+8253	CvPlot.cpp	3517	through a function pointer	    {      if ((funcA == NULL) || funcA(pLoopUnit, iData1A, iData2A))
+8253	CvPlot.cpp	3519	through a function pointer	     {       if ((funcB == NULL) || funcB(pLoopUnit, iData1B, iData2B))
+8254	CvPlot.cpp	3548	through a function pointer	    {      if (funcA(pLoopUnit, iData1A, iData2A))
+8254	CvPlot.cpp	3550	through a function pointer	     {       if ((funcB == NULL) || funcB(pLoopUnit, iData1B, iData2B))
+10545	CvXMLLoadUtility.cpp	156	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(GC.getLandscapeInfo()[i]);
+10546	CvXMLLoadUtility.cpp	175	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(GC.getEffectInfo()[i]);
+10555	CvXMLLoadUtility.cpp	677	through a function pointer	  {    m_pCBFxn(++m_iCurProgressStep, GetNumProgressSteps(), CvString::format("Reading XML %s",     szMessage ? szMessage : "").c_str());
 10818	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
 10819	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
 10820	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
@@ -109,47 +50,106 @@ caller	file	line	reason	what
 10852	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
 10853	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
 10854	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10855	CvXMLLoadUtilitySet.cpp	2405	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-13730	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13731	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13732	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13733	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13734	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13735	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13736	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13737	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13738	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13853	FVariableSystem.inl	537	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
-13854	FVariableSystem.inl	647	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
-13854	FVariableSystem.inl	647	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
-13856	FVariableSystem.inl	691	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
-13856	FVariableSystem.inl	691	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
-13857	FVariableSystem.inl	735	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
-13857	FVariableSystem.inl	735	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
-13876	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13876	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13876	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13877	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13877	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13877	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13877	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13878	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13879	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13880	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13880	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13880	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13880	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13880	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13880	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13880	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13880	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13881	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13883	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13905	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
-13905	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
-13906	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
-13906	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
-13907	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
-13908	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
-13909	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
-13910	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+10855	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10856	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10857	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10858	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10859	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10860	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10861	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10862	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10863	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10864	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10865	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10866	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10867	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10868	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10869	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10870	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10871	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10872	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10873	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10874	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10875	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10876	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10877	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10878	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10879	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10880	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10881	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10882	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10883	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10884	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10885	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10886	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10887	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10888	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10889	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10890	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10891	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10892	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10893	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10894	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10895	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10896	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10897	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10898	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10899	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10900	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10901	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10902	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10903	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10904	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10905	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10906	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10907	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10908	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10909	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10910	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10911	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10912	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10913	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10914	CvXMLLoadUtilitySet.cpp	2405	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+13789	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13790	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13791	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13792	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13793	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13794	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13795	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13796	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13797	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13912	FVariableSystem.inl	537	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
+13913	FVariableSystem.inl	647	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
+13913	FVariableSystem.inl	647	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
+13915	FVariableSystem.inl	691	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
+13915	FVariableSystem.inl	691	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
+13916	FVariableSystem.inl	735	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
+13916	FVariableSystem.inl	735	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
+13936	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13936	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13936	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13937	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13937	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13937	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13937	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13938	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13939	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13940	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13940	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13940	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13940	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13940	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13940	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13940	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13940	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13941	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13943	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13965	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+13965	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+13966	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+13966	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+13967	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+13968	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+13969	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+13970	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);

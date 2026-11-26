@@ -26748,63 +26748,47 @@ Revolution/RevCivicsUtils.py	isCanDoElections	getNumCivicOptionInfos	320	dll
 Revolution/RevCivicsUtils.py	isCanDoElections	getCivics	321	dll	
 Revolution/RevCivicsUtils.py	isCanDoElections	getCivicInfo	323	dll	
 Revolution/RevCivicsUtils.py	isCanDoElections	isCanDoElection	324	dll	
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getPlayer	333	dll	
-Revolution/RevCivicsUtils.py	getReligiousFreedom	isNone	335	both	CyEngine,CyGTabCtrl,CyGlobeLayer,CyPopup,CyPopupInfo,CyPopupReturn,CyUnitEntity,CyUnitSubEntity,CyVariableSystem
-Revolution/RevCivicsUtils.py	getReligiousFreedom	isAlive	335	dll	
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getNumCivicOptionInfos	338	dll	
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getCivics	339	dll	
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getCivicInfo	341	dll	
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getRevReligiousFreedom	342	dll	
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getRevReligiousFreedom	343	dll	
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getPlayer	351	dll	
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	isNone	353	both	CyEngine,CyGTabCtrl,CyGlobeLayer,CyPopup,CyPopupInfo,CyPopupReturn,CyUnitEntity,CyUnitSubEntity,CyVariableSystem
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	isAlive	353	dll	
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getCivicInfo	360	dll	
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getRevReligiousFreedom	361	dll	
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	canDoCivics	362	dll	
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getRevReligiousFreedom	363	dll	
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getPlayer	372	dll	
-Revolution/RevCivicsUtils.py	getDemocracyLevel	isNone	374	both	CyEngine,CyGTabCtrl,CyGlobeLayer,CyPopup,CyPopupInfo,CyPopupReturn,CyUnitEntity,CyUnitSubEntity,CyVariableSystem
-Revolution/RevCivicsUtils.py	getDemocracyLevel	isAlive	374	dll	
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getNumCivicOptionInfos	377	dll	
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getCivics	378	dll	
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getCivicInfo	380	dll	
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getRevDemocracyLevel	381	dll	
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getRevDemocracyLevel	382	dll	
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getPlayer	390	dll	
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	isNone	392	both	CyEngine,CyGTabCtrl,CyGlobeLayer,CyPopup,CyPopupInfo,CyPopupReturn,CyUnitEntity,CyUnitSubEntity,CyVariableSystem
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	isAlive	392	dll	
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getCivicInfo	399	dll	
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getRevDemocracyLevel	400	dll	
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	canDoCivics	401	dll	
-Revolution/RevCivicsUtils.py	getLaborFreedom	getPlayer	411	dll	
-Revolution/RevCivicsUtils.py	getLaborFreedom	isNone	413	both	CyEngine,CyGTabCtrl,CyGlobeLayer,CyPopup,CyPopupInfo,CyPopupReturn,CyUnitEntity,CyUnitSubEntity,CyVariableSystem
-Revolution/RevCivicsUtils.py	getLaborFreedom	isAlive	413	dll	
-Revolution/RevCivicsUtils.py	getLaborFreedom	getNumCivicOptionInfos	416	dll	
-Revolution/RevCivicsUtils.py	getLaborFreedom	getCivics	417	dll	
-Revolution/RevCivicsUtils.py	getLaborFreedom	getCivicInfo	419	dll	
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getPlayer	331	dll	
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	isNone	333	both	CyEngine,CyGTabCtrl,CyGlobeLayer,CyPopup,CyPopupInfo,CyPopupReturn,CyUnitEntity,CyUnitSubEntity,CyVariableSystem
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	isAlive	333	dll	
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getNumCivicOptionInfos	336	dll	
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getNumCivicOptionInfos	343	dll	
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getCivics	344	dll	
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getCivicInfo	346	dll	
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getCivicInfo	350	dll	
+Revolution/RevCivicsUtils.py	getReligiousFreedom	getRevReligiousFreedom	362	dll	
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getPlayer	368	dll	
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	isNone	370	both	CyEngine,CyGTabCtrl,CyGlobeLayer,CyPopup,CyPopupInfo,CyPopupReturn,CyUnitEntity,CyUnitSubEntity,CyVariableSystem
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	isAlive	370	dll	
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getNumCivicOptionInfos	373	dll	
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getCivicInfo	380	dll	
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getRevReligiousFreedom	381	dll	
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	canDoCivics	382	dll	
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getRevReligiousFreedom	383	dll	
+Revolution/RevCivicsUtils.py	getDemocracyLevel	getRevDemocracyLevel	391	dll	
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getPlayer	397	dll	
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	isNone	399	both	CyEngine,CyGTabCtrl,CyGlobeLayer,CyPopup,CyPopupInfo,CyPopupReturn,CyUnitEntity,CyUnitSubEntity,CyVariableSystem
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	isAlive	399	dll	
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getNumCivicOptionInfos	402	dll	
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getCivicInfo	409	dll	
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getRevDemocracyLevel	410	dll	
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	canDoCivics	411	dll	
 Revolution/RevCivicsUtils.py	getLaborFreedom	getRevLaborFreedom	420	dll	
-Revolution/RevCivicsUtils.py	getLaborFreedom	getRevLaborFreedom	421	dll	
-Revolution/RevCivicsUtils.py	getBestLaborFreedom	getPlayer	429	dll	
-Revolution/RevCivicsUtils.py	getBestLaborFreedom	isNone	431	both	CyEngine,CyGTabCtrl,CyGlobeLayer,CyPopup,CyPopupInfo,CyPopupReturn,CyUnitEntity,CyUnitSubEntity,CyVariableSystem
-Revolution/RevCivicsUtils.py	getBestLaborFreedom	isAlive	431	dll	
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	getPlayer	426	dll	
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	isNone	428	both	CyEngine,CyGTabCtrl,CyGlobeLayer,CyPopup,CyPopupInfo,CyPopupReturn,CyUnitEntity,CyUnitSubEntity,CyVariableSystem
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	isAlive	428	dll	
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	getNumCivicOptionInfos	431	dll	
 Revolution/RevCivicsUtils.py	getBestLaborFreedom	getCivicInfo	438	dll	
 Revolution/RevCivicsUtils.py	getBestLaborFreedom	getRevLaborFreedom	439	dll	
 Revolution/RevCivicsUtils.py	getBestLaborFreedom	canDoCivics	440	dll	
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getPlayer	450	dll	
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	isNone	452	both	CyEngine,CyGTabCtrl,CyGlobeLayer,CyPopup,CyPopupInfo,CyPopupReturn,CyUnitEntity,CyUnitSubEntity,CyVariableSystem
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	isAlive	452	dll	
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getNumCivicOptionInfos	455	dll	
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getCivics	456	dll	
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getCivicInfo	458	dll	
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getRevEnvironmentalProtection	459	dll	
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getRevEnvironmentalProtection	460	dll	
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getPlayer	468	dll	
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	isNone	470	both	CyEngine,CyGTabCtrl,CyGlobeLayer,CyPopup,CyPopupInfo,CyPopupReturn,CyUnitEntity,CyUnitSubEntity,CyVariableSystem
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	isAlive	470	dll	
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getCivicInfo	477	dll	
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getRevEnvironmentalProtection	478	dll	
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	canDoCivics	479	dll	
+Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getRevEnvironmentalProtection	449	dll	
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getPlayer	455	dll	
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	isNone	457	both	CyEngine,CyGTabCtrl,CyGlobeLayer,CyPopup,CyPopupInfo,CyPopupReturn,CyUnitEntity,CyUnitSubEntity,CyVariableSystem
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	isAlive	457	dll	
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getNumCivicOptionInfos	460	dll	
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getCivicInfo	467	dll	
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getRevEnvironmentalProtection	468	dll	
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	canDoCivics	469	dll	
 Revolution/RevData.py	revLoad	sdLoad	27	python	
 Revolution/RevData.py	revObjectInit	sdObjectInit	39	python	
 Revolution/RevData.py	revObjectWipe	sdObjectWipe	45	python	
@@ -28836,53 +28820,18 @@ RoMEventManager.py	RoMEventManager.onProjectBuilt	addMessage	433	exe	CyInterface
 RoMEventManager.py	RoMEventManager.onProjectBuilt	getText	433	both	CyGTabCtrl,CyPopupInfo,CyTranslator
 RoMEventManager.py	RoMEventManager.onUnitBuilt	getOwner	439	dll	
 RoMEventManager.py	RoMEventManager.onCityBuilt	recordCityBuilt	459	python	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getHeadSelectedUnit	461	exe	CyInterface
-RoMEventManager.py	RoMEventManager.onCityBuilt	getDefineINT	463	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getUnitClassType	467	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getInfoTypeForString	467	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	plot	469	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	469	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	469	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	info	471	python	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	472	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	473	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getOwner	474	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getID	475	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	sendModNetMessage	476	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getUnitClassType	478	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getInfoTypeForString	478	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	plot	479	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	479	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	479	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	info	481	python	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	482	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	483	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getOwner	484	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getID	485	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	sendModNetMessage	486	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getUnitClassType	488	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getInfoTypeForString	488	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	plot	489	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	489	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	489	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	info	491	python	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	492	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	493	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getOwner	494	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getID	495	dll	
-RoMEventManager.py	RoMEventManager.onCityBuilt	sendModNetMessage	496	dll	
-RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	504	dll	
-RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	504	dll	
-RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	504	dll	
-RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	504	dll	
-RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	504	dll	
-RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	504	dll	
-RoMEventManager.py	RoMEventManager.onCityRazed	getID	505	dll	
-RoMEventManager.py	RoMEventManager.onCityLost	getOwner	511	dll	
-RoMEventManager.py	RoMEventManager.onCityLost	getID	513	dll	
-RoMEventManager.py	RoMEventManager.onCityLost	setImprovementType	514	dll	
-RoMEventManager.py	RoMEventManager.onCityLost	plot	514	dll	
-RoMEventManager.py	RoMEventManager.onCityLost	getInfoTypeForString	514	dll	
+RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	469	dll	
+RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	469	dll	
+RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	469	dll	
+RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	469	dll	
+RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	469	dll	
+RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	469	dll	
+RoMEventManager.py	RoMEventManager.onCityRazed	getID	470	dll	
+RoMEventManager.py	RoMEventManager.onCityLost	getOwner	476	dll	
+RoMEventManager.py	RoMEventManager.onCityLost	getID	478	dll	
+RoMEventManager.py	RoMEventManager.onCityLost	setImprovementType	479	dll	
+RoMEventManager.py	RoMEventManager.onCityLost	plot	479	dll	
+RoMEventManager.py	RoMEventManager.onCityLost	getInfoTypeForString	479	dll	
 RoMGameUtils.py	<module>	zCivics	25	python	
 RoMGameUtils.py	<module>	fixSets	28	python	
 RoMGameUtils.py	RoMGameUtils.__init__	isOption	36	dll	

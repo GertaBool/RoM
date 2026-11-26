@@ -3825,6 +3825,7 @@ Revolution/RevCivicsUtils.py	isCommunism	iPlayer
 Revolution/RevCivicsUtils.py	canDoFreeSpeech	iPlayer
 Revolution/RevCivicsUtils.py	isFreeSpeech	iPlayer
 Revolution/RevCivicsUtils.py	isCanDoElections	iPlayer
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	iPlayer,fnMetric
 Revolution/RevCivicsUtils.py	getReligiousFreedom	iPlayer
 Revolution/RevCivicsUtils.py	getBestReligiousFreedom	iPlayer,relOptionType
 Revolution/RevCivicsUtils.py	getDemocracyLevel	iPlayer

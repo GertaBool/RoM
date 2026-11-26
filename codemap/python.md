@@ -2,7 +2,7 @@
 
 The mod's Python and the base game's Python it falls back to (paths starting with base/), scanned by name (`tool/extract_py.py`). Links from Python into the DLL are name matches: a method name exposed by several C++ classes gives several candidates.
 
-270 modules, 6680 functions and classes, 29090 call sites of names the DLL exposes (16801 with one candidate).
+270 modules, 6681 functions and classes, 29043 call sites of names the DLL exposes (16784 with one candidate).
 
 | module | functions and classes | calls into the DLL | of them with one candidate |
 |---|---|---|---|
@@ -153,7 +153,7 @@ The mod's Python and the base game's Python it falls back to (paths starting wit
 | Revolution/LeaderCivNames.py | 1 | 0 | 0 |
 | Revolution/RebelTypes.py | 1 | 40 | 40 |
 | Revolution/RevBuildingsUtils.py | 3 | 20 | 10 |
-| Revolution/RevCivicsUtils.py | 21 | 175 | 123 |
+| Revolution/RevCivicsUtils.py | 22 | 159 | 113 |
 | Revolution/RevData.py | 14 | 0 | 0 |
 | Revolution/RevDefs.py | 5 | 0 | 0 |
 | Revolution/RevEvents.py | 22 | 654 | 368 |
@@ -161,7 +161,7 @@ The mod's Python and the base game's Python it falls back to (paths starting wit
 | Revolution/RevUtils.py | 32 | 574 | 265 |
 | Revolution/RevolutionInit.py | 8 | 69 | 10 |
 | Revolution/TextUtils.py | 3 | 9 | 0 |
-| RoMEventManager.py | 15 | 211 | 122 |
+| RoMEventManager.py | 15 | 180 | 115 |
 | RoMGameUtils.py | 13 | 157 | 129 |
 | Screens/BugFinanceAdvisor.py | 9 | 113 | 56 |
 | Screens/CvBUGMilitaryAdvisor.py | 37 | 243 | 126 |

@@ -155,7 +155,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **834** `CvArea::changeNumTrainAIUnits(PlayerTypes, UnitAITypes, int)`
   - called by (4): CvCity::doCheckProduction, CvCity::popOrder, CvCity::pushOrder, CvPlot::processArea
 - **845** `CvArea::getNumAIUnits(PlayerTypes, UnitAITypes) const`
-  - called by (9): CvCityAI::AI_doHurry, CvPlayerAI::AI_totalAreaUnitAIs, CvSelectionGroup::calculateIsStranded, CvTeam::countNumAIUnitsByArea, CvUnitAI::AI_exploreAir, CvUnitAI::AI_group, CvUnitAI::AI_groupMergeRange, CvUnitAI::AI_load, CyArea::getNumAIUnits
+  - called by (10): CvCityAI::AI_doHurry, CvCityAI::AI_neededDefenders, CvPlayerAI::AI_totalAreaUnitAIs, CvSelectionGroup::calculateIsStranded, CvTeam::countNumAIUnitsByArea, CvUnitAI::AI_exploreAir, CvUnitAI::AI_group, CvUnitAI::AI_groupMergeRange, CvUnitAI::AI_load, CyArea::getNumAIUnits
 - **855** `CvArea::changeNumAIUnits(PlayerTypes, UnitAITypes, int)`
   - called by (4): CvPlot::processArea, CvUnit::setXY, CvUnitAI::AI_init, CvUnitAI::AI_setUnitAIType
 - **866** `CvArea::getNumBonuses(BonusTypes) const`

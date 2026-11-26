@@ -1,4 +1,5 @@
 file	errors
+AIBuildingLinePolicy.h	0
 AICityGovernorPolicy.h	0
 AICivicPolicy.h	0
 AIDecisionPolicy.h	0
@@ -9,10 +10,12 @@ AIHierarchyPolicy.h	0
 AIMissionTargetIndex.h	0
 AIPathPolicy.h	0
 AIPathReuse.h	0
+AIPlaystylePolicy.h	0
 AIProductionChainPolicy.h	0
 AIResearchPolicy.h	0
 AISettlementPolicy.h	0
 AIStrategicContextPolicy.h	0
+AIStrategicDefensePolicy.h	0
 AIWellbeingPolicy.h	0
 AI_Defines.h	0
 BetterBTSAI.cpp	0
@@ -20,7 +23,7 @@ BetterBTSAI.h	0
 CvArea.cpp	3
 CvArea.h	0
 CvArtFileMgr.cpp	0
-CvArtFileMgr.h	1
+CvArtFileMgr.h	3
 CvBugOptions.cpp	0
 CvBugOptions.h	0
 CvCity.cpp	1

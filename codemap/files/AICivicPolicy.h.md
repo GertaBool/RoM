@@ -12,3 +12,9 @@ Group: AI. Functions in line order: what each calls (in order of first call), wh
   - called by (1): CvPlayerAI::AI_civicValue
 - **65** `AICivicPolicy::shouldSwitch(__int64, __int64, int, int, int)`
   - called by (1): CvPlayerAI::AI_doCivics
+- **90** `AICivicPolicy::improvementUpgradeStep(int, int, int)`
+  - called by (1): CvPlot::doImprovementUpgrade
+- **114** `AICivicPolicy::improvementUpgradeTurnsLeft(int, int, int, int)`
+  - called by (1): CvPlot::getUpgradeTimeLeft
+- **146** `AICivicPolicy::scaledWorkRate(int, int, int, bool)`
+  - called by (2): CvPlayer::getWorkRate, CvUnit::workRate

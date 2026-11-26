@@ -224,30 +224,30 @@ base/pyWB/CvWBDesc.py	bts	pyWB/CvWBDesc.py
 base/CvDefineEditor.py	civ4	CvDefineEditor.py
 base/CvQuestManager.py	civ4	CvQuestManager.py
 base/CvScreenUtils.py	civ4	CvScreenUtils.py
-base/EntryPoints/CvDebugInterface.py	civ4	EntryPoints (1)/CvDebugInterface.py
-base/EntryPoints/CvDiplomacyInterface.py	civ4	EntryPoints (1)/CvDiplomacyInterface.py
-base/EntryPoints/CvMapScriptInterface.py	civ4	EntryPoints (1)/CvMapScriptInterface.py
-base/EntryPoints/CvPopupInterface.py	civ4	EntryPoints (1)/CvPopupInterface.py
-base/EntryPoints/CvUnitControlInterface.py	civ4	EntryPoints (1)/CvUnitControlInterface.py
+base/EntryPoints/CvDebugInterface.py	civ4	EntryPoints/CvDebugInterface.py
+base/EntryPoints/CvDiplomacyInterface.py	civ4	EntryPoints/CvDiplomacyInterface.py
+base/EntryPoints/CvMapScriptInterface.py	civ4	EntryPoints/CvMapScriptInterface.py
+base/EntryPoints/CvPopupInterface.py	civ4	EntryPoints/CvPopupInterface.py
+base/EntryPoints/CvUnitControlInterface.py	civ4	EntryPoints/CvUnitControlInterface.py
 base/ScreenInput.py	civ4	ScreenInput.py
-base/Screens/CvAdvisorScreen.py	civ4	Screens (1)/CvAdvisorScreen.py
-base/Screens/CvDanQuayle.py	civ4	Screens (1)/CvDanQuayle.py
-base/Screens/CvDebugInfoScreen.py	civ4	Screens (1)/CvDebugInfoScreen.py
-base/Screens/CvEraMovieScreen.py	civ4	Screens (1)/CvEraMovieScreen.py
-base/Screens/CvFinanceAdvisor.py	civ4	Screens (1)/CvFinanceAdvisor.py
-base/Screens/CvGFCScreen.py	civ4	Screens (1)/CvGFCScreen.py
-base/Screens/CvPediaCivic.py	civ4	Screens (1)/CvPediaCivic.py
-base/Screens/CvPediaFeature.py	civ4	Screens (1)/CvPediaFeature.py
-base/Screens/CvPediaReligion.py	civ4	Screens (1)/CvPediaReligion.py
-base/Screens/CvPediaScreen.py	civ4	Screens (1)/CvPediaScreen.py
-base/Screens/CvPediaSpecialist.py	civ4	Screens (1)/CvPediaSpecialist.py
-base/Screens/CvPediaTerrain.py	civ4	Screens (1)/CvPediaTerrain.py
-base/Screens/CvReplayScreen.py	civ4	Screens (1)/CvReplayScreen.py
-base/Screens/CvScreen.py	civ4	Screens (1)/CvScreen.py
-base/Screens/CvTopCivs.py	civ4	Screens (1)/CvTopCivs.py
-base/Screens/CvTutorialQuestScreen.py	civ4	Screens (1)/CvTutorialQuestScreen.py
-base/Screens/CvUNVictoryScreen.py	civ4	Screens (1)/CvUNVictoryScreen.py
-base/Screens/CvVictoryMovieScreen.py	civ4	Screens (1)/CvVictoryMovieScreen.py
+base/Screens/CvAdvisorScreen.py	civ4	Screens/CvAdvisorScreen.py
+base/Screens/CvDanQuayle.py	civ4	Screens/CvDanQuayle.py
+base/Screens/CvDebugInfoScreen.py	civ4	Screens/CvDebugInfoScreen.py
+base/Screens/CvEraMovieScreen.py	civ4	Screens/CvEraMovieScreen.py
+base/Screens/CvFinanceAdvisor.py	civ4	Screens/CvFinanceAdvisor.py
+base/Screens/CvGFCScreen.py	civ4	Screens/CvGFCScreen.py
+base/Screens/CvPediaCivic.py	civ4	Screens/CvPediaCivic.py
+base/Screens/CvPediaFeature.py	civ4	Screens/CvPediaFeature.py
+base/Screens/CvPediaReligion.py	civ4	Screens/CvPediaReligion.py
+base/Screens/CvPediaScreen.py	civ4	Screens/CvPediaScreen.py
+base/Screens/CvPediaSpecialist.py	civ4	Screens/CvPediaSpecialist.py
+base/Screens/CvPediaTerrain.py	civ4	Screens/CvPediaTerrain.py
+base/Screens/CvReplayScreen.py	civ4	Screens/CvReplayScreen.py
+base/Screens/CvScreen.py	civ4	Screens/CvScreen.py
+base/Screens/CvTopCivs.py	civ4	Screens/CvTopCivs.py
+base/Screens/CvTutorialQuestScreen.py	civ4	Screens/CvTutorialQuestScreen.py
+base/Screens/CvUNVictoryScreen.py	civ4	Screens/CvUNVictoryScreen.py
+base/Screens/CvVictoryMovieScreen.py	civ4	Screens/CvVictoryMovieScreen.py
 base/System/email/Charset.py	civ4	System/email/Charset.py
 base/System/email/Encoders.py	civ4	System/email/Encoders.py
 base/System/email/Errors.py	civ4	System/email/Errors.py

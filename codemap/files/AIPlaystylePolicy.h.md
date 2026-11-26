@@ -1,0 +1,50 @@
+# AIPlaystylePolicy.h
+
+Group: AI. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **18** `AIPlaystylePolicy::clamp(int, int, int)`
+  - called by (7): AIPlaystylePolicy::academyConstructNpv, AIPlaystylePolicy::coastalNavalThreatDefenders, AIPlaystylePolicy::collateralAttackPriorityBonus, AIPlaystylePolicy::goldenAgeTotalValue, AIPlaystylePolicy::landRangedUnitValueBonus, AIPlaystylePolicy::rangeTargetScore, AIPlaystylePolicy::unitTurnTimeDivisor
+- **23** `AIPlaystylePolicy::saturatingInt(__int64)`
+  - called by (9): AIPlaystylePolicy::academyConstructNpv, AIPlaystylePolicy::collateralAttackPriorityBonus, AIPlaystylePolicy::goldenAgeTotalValue, AIPlaystylePolicy::landRangedUnitValueBonus, AIPlaystylePolicy::projectedTradeYield, AIPlaystylePolicy::rangeTargetScore, AIPlaystylePolicy::tangentialTechSaleScore, AIPlaystylePolicy::urgentUpgradeReserve, CvPlayerAI::AI_doGoldHurry
+- **40** `AIPlaystylePolicy::projectedTradeYield(int, int, int, int, bool)`
+  - calls: AIPlaystylePolicy::saturatingInt
+  - called by (1): CvCityAI::AI_buildingValueThreshold
+- **76** `AIPlaystylePolicy::goldenAgeTotalValue(int, int, int, int, int, int, bool)`
+  - calls: AIPlaystylePolicy::clamp, AIPlaystylePolicy::saturatingInt
+  - called by (1): CvPlayerAI::AI_calculateGoldenAgeValue
+- **106** `AIPlaystylePolicy::academyConstructNpv(int, int, int)`
+  - calls: AIPlaystylePolicy::clamp, AIPlaystylePolicy::saturatingInt
+  - called by (1): `anonymous namespace'::bestScientistAcademyNpv
+- **122** `AIPlaystylePolicy::engineerWonderHurryDiscountPct(bool, int, int, int)`
+  - called by (1): CvUnitAI::AI_engineerMove
+- **143** `AIPlaystylePolicy::foodCorporationYieldWeight(int, int)`
+  - called by (1): CvPlayerAI::AI_corporationValue
+- **160** `AIPlaystylePolicy::tangentialTechSaleScore(int, int, bool, bool, bool, bool, bool)`
+  - calls: AIPlaystylePolicy::saturatingInt
+  - called by (1): CvPlayerAI::AI_doDiplo
+- **205** `AIPlaystylePolicy::rangeTargetScore(int, int, int, int, bool, int, bool, bool)`
+  - calls: AIPlaystylePolicy::clamp, AIPlaystylePolicy::saturatingInt
+  - called by (1): `anonymous namespace'::scoreGroupRangeStrikePlot
+- **247** `AIPlaystylePolicy::collateralAttackPriorityBonus(int, int, int, int)`
+  - calls: AIPlaystylePolicy::clamp, AIPlaystylePolicy::saturatingInt
+  - called by (1): CvUnitAI::LFBgetBetterAttacker
+- **271** `AIPlaystylePolicy::landRangedUnitValueBonus(int, int, int, int, bool)`
+  - calls: AIPlaystylePolicy::clamp, AIPlaystylePolicy::saturatingInt
+  - called by (1): CvPlayerAI::AI_unitValue
+- **292** `AIPlaystylePolicy::shouldSkirmishStepAndShoot(int, int, int, bool, bool, bool)`
+  - called by (1): `anonymous namespace'::trySkirmishStepAndShoot
+- **307** `AIPlaystylePolicy::shouldSkirmishRetreatAfterShot(int, int, int, int, bool, bool, bool)`
+  - called by (1): `anonymous namespace'::trySkirmishRetreatAfterShot
+- **320** `AIPlaystylePolicy::unitTurnTimeDivisor(int, bool)`
+  - calls: AIPlaystylePolicy::clamp
+  - called by (1): CvCityAI::AI_bestUnitAI
+- **342** `AIPlaystylePolicy::espionageFloorPercent(int, int, bool, bool, int)`
+  - called by (1): CvPlayerAI::AI_doCommerce
+- **361** `AIPlaystylePolicy::revDcmResearchFloorPercent(int, bool, int, int)`
+  - called by (1): CvPlayerAI::AI_doCommerce
+- **378** `AIPlaystylePolicy::urgentUpgradeReserve(int, bool, bool, bool, int)`
+  - calls: AIPlaystylePolicy::saturatingInt
+  - called by (1): CvPlayerAI::AI_doGoldHurry
+- **404** `AIPlaystylePolicy::coastalNavalThreatDefenders(int, int, bool)`
+  - calls: AIPlaystylePolicy::clamp
+  - called by (1): CvCityAI::AI_neededDefenders

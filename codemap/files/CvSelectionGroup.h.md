@@ -13,7 +13,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **221** `CvSelectionGroup::AI_update(…)` (virtual; pure virtual)
   - called by (2): CvPlayerAI::AI_unitUpdate, CvUnitAI::AI_carrierSeaTransport
 - **222** `CvSelectionGroup::AI_attackOdds(…)` (virtual; pure virtual)
-  - called by (7): CvUnitAI::AI_anyAttack, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_bombardCity, CvUnitAI::AI_cityAttack, CvUnitAI::AI_leaveAttack, CvUnitAI::AI_protect, CvUnitAI::AI_rangeAttack
+  - called by (6): CvUnitAI::AI_anyAttack, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_bombardCity, CvUnitAI::AI_cityAttack, CvUnitAI::AI_leaveAttack, CvUnitAI::AI_protect
 - **223** `CvSelectionGroup::AI_getBestGroupAttacker(…)` (virtual; pure virtual)
   - called by (3): CvGameTextMgr::setCombatPlotHelp, CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack
 - **224** `CvSelectionGroup::AI_getBestGroupSacrifice(…)` (virtual; pure virtual)

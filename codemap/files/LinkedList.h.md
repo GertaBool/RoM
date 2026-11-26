@@ -63,7 +63,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **71** `CLinkList<OrderData>::head() const`
   - called by (2): CLinkList<OrderData>::Write, CvCity::headOrderQueueNode
 - **71** `CLinkList<TradeData>::head() const`
-  - called by (25): CLinkList<TradeData>::Write, CvDLLWidgetData::parseKillDealHelp, CvDeal::addTrades, CvDeal::endTeamTrade, CvDeal::headFirstTradesNode, CvDeal::headSecondTradesNode, CvDeal::isPeaceDealBetweenOthers, CvDeal::isVassalTrade, CvDeal::isVassalTributeDeal, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList, CvGameTextMgr::getDealString(CvWStringBuffer&, PlayerTypes, PlayerTypes, CLinkList<TradeData> const*, CLinkList<TradeData> const*, PlayerTypes), CvPlayer::updateTradeList, CvPlayerAI::AI_considerOffer, CvPlayerAI::AI_counterPropose, CvPlayerAI::AI_dealVal, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_goldDeal, CvPlayerAI::AI_tradeGiveVal, CvTeam::addTeam, CvTeam::freeVassal, CvTeam::setVassal, CyDeal::getFirstTrade, CyDeal::getSecondTrade, warLogDeal
+  - called by (26): CLinkList<TradeData>::Write, CvDLLWidgetData::parseKillDealHelp, CvDeal::addTrades, CvDeal::endTeamTrade, CvDeal::headFirstTradesNode, CvDeal::headSecondTradesNode, CvDeal::isPeaceDealBetweenOthers, CvDeal::isVassalTrade, CvDeal::isVassalTributeDeal, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList, CvGameTextMgr::getDealString(CvWStringBuffer&, PlayerTypes, PlayerTypes, CLinkList<TradeData> const*, CLinkList<TradeData> const*, PlayerTypes), CvPlayer::updateTradeList, CvPlayerAI::AI_considerOffer, CvPlayerAI::AI_counterPropose, CvPlayerAI::AI_dealVal, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_goldDeal, CvPlayerAI::AI_tradeGiveVal, CvPlayerAI::AI_tradeReservationVal, CvTeam::addTeam, CvTeam::freeVassal, CvTeam::setVassal, CyDeal::getFirstTrade, CyDeal::getSecondTrade, warLogDeal
 - **71** `CLinkList<XYCoords>::head() const`
   - called by (3): CLinkList<XYCoords>::Write, CvPlotGroup::headPlotsNode, CvPlotGroup::recalculatePlots
 - **71** `CLinkList<CvWString>::head() const`
@@ -195,7 +195,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **324** `CLinkList<OrderData>::next(CLLNode<OrderData>*) const`
   - called by (2): CLinkList<OrderData>::Write, CvCity::nextOrderQueueNode
 - **324** `CLinkList<TradeData>::next(CLLNode<TradeData>*) const`
-  - called by (25): CLinkList<TradeData>::Write, CvDLLWidgetData::parseKillDealHelp, CvDeal::addTrades, CvDeal::endTeamTrade, CvDeal::isPeaceDealBetweenOthers, CvDeal::isVassalTrade, CvDeal::isVassalTributeDeal, CvDeal::nextFirstTradesNode, CvDeal::nextSecondTradesNode, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList, CvGameTextMgr::getDealString(CvWStringBuffer&, PlayerTypes, PlayerTypes, CLinkList<TradeData> const*, CLinkList<TradeData> const*, PlayerTypes), CvPlayer::updateTradeList, CvPlayerAI::AI_considerOffer, CvPlayerAI::AI_counterPropose, CvPlayerAI::AI_dealVal, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_goldDeal, CvPlayerAI::AI_tradeGiveVal, CvTeam::addTeam, CvTeam::freeVassal, CvTeam::setVassal, CyDeal::getFirstTrade, CyDeal::getSecondTrade, warLogDeal
+  - called by (26): CLinkList<TradeData>::Write, CvDLLWidgetData::parseKillDealHelp, CvDeal::addTrades, CvDeal::endTeamTrade, CvDeal::isPeaceDealBetweenOthers, CvDeal::isVassalTrade, CvDeal::isVassalTributeDeal, CvDeal::nextFirstTradesNode, CvDeal::nextSecondTradesNode, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList, CvGameTextMgr::getDealString(CvWStringBuffer&, PlayerTypes, PlayerTypes, CLinkList<TradeData> const*, CLinkList<TradeData> const*, PlayerTypes), CvPlayer::updateTradeList, CvPlayerAI::AI_considerOffer, CvPlayerAI::AI_counterPropose, CvPlayerAI::AI_dealVal, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_goldDeal, CvPlayerAI::AI_tradeGiveVal, CvPlayerAI::AI_tradeReservationVal, CvTeam::addTeam, CvTeam::freeVassal, CvTeam::setVassal, CyDeal::getFirstTrade, CyDeal::getSecondTrade, warLogDeal
 - **324** `CLinkList<XYCoords>::next(CLLNode<XYCoords>*) const`
   - called by (2): CLinkList<XYCoords>::Write, CvPlotGroup::nextPlotsNode
 - **324** `CLinkList<CvWString>::next(CLLNode<CvWString>*) const`
@@ -260,6 +260,9 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **387** `CLinkList<TechTypes>::Write(FDataStreamBase*) const`
   - calls: CLinkList<TechTypes>::getLength, FDataStreamBase::Write [FDataStreamBase.h], CLinkList<TechTypes>::head, CLinkList<TechTypes>::next
   - called by (1): CvPlayer::write
+- **·** `EventTriggeredData::EventTriggeredData(EventTriggeredData const&)` (written by the compiler)
+  - calls: CvWString::CvWString(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (1): CvPlayer::applyEvent
 - **·** `CLLNode<int>::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], CLLNode<int>::~CLLNode<int>
 - **·** `CLLNode<MissionData>::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)

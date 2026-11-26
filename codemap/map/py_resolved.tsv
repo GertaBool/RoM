@@ -31604,67 +31604,66 @@ Revolution/RevCivicsUtils.py	isCanDoElections	getNumCivicOptionInfos	1	320	gc	cp
 Revolution/RevCivicsUtils.py	isCanDoElections	getCivics	1	321	pPlayer	cpp	CyPlayer::getCivics
 Revolution/RevCivicsUtils.py	isCanDoElections	getCivicInfo	1	323	gc	cpp	CyGlobalContext::getCivicInfo
 Revolution/RevCivicsUtils.py	isCanDoElections	isCanDoElection	1	324	kCivic	cpp	CvCivicInfo::isCanDoElection
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getPlayer	1	333	gc	cpp	CyGlobalContext::getCyPlayer
-Revolution/RevCivicsUtils.py	getReligiousFreedom	isNone	1	335	pPlayer	cpp	CyPlayer::isNone
-Revolution/RevCivicsUtils.py	getReligiousFreedom	isAlive	1	335	pPlayer	cpp	CyPlayer::isAlive
-Revolution/RevCivicsUtils.py	getReligiousFreedom	range	0	338		builtin	range
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getNumCivicOptionInfos	1	338	gc	cpp	CyGlobalContext::getNumCivicOptionInfos
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getCivics	1	339	pPlayer	cpp	CyPlayer::getCivics
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getCivicInfo	1	341	gc	cpp	CyGlobalContext::getCivicInfo
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getRevReligiousFreedom	1	342	kCivic	cpp	CvCivicInfo::getRevReligiousFreedom
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getRevReligiousFreedom	1	343	kCivic	cpp	CvCivicInfo::getRevReligiousFreedom
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getPlayer	1	351	gc	cpp	CyGlobalContext::getCyPlayer
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	isNone	1	353	pPlayer	cpp	CyPlayer::isNone
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	isAlive	1	353	pPlayer	cpp	CyPlayer::isAlive
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getCivicInfo	1	360	gc	cpp	CyGlobalContext::getCivicInfo
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getRevReligiousFreedom	1	361	kCivic	cpp	CvCivicInfo::getRevReligiousFreedom
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	canDoCivics	1	362	pPlayer	cpp	CyPlayer::canDoCivics
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getRevReligiousFreedom	1	363	kCivic	cpp	CvCivicInfo::getRevReligiousFreedom
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getPlayer	1	372	gc	cpp	CyGlobalContext::getCyPlayer
-Revolution/RevCivicsUtils.py	getDemocracyLevel	isNone	1	374	pPlayer	cpp	CyPlayer::isNone
-Revolution/RevCivicsUtils.py	getDemocracyLevel	isAlive	1	374	pPlayer	cpp	CyPlayer::isAlive
-Revolution/RevCivicsUtils.py	getDemocracyLevel	range	0	377		builtin	range
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getNumCivicOptionInfos	1	377	gc	cpp	CyGlobalContext::getNumCivicOptionInfos
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getCivics	1	378	pPlayer	cpp	CyPlayer::getCivics
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getCivicInfo	1	380	gc	cpp	CyGlobalContext::getCivicInfo
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getRevDemocracyLevel	1	381	kCivic	cpp	CvCivicInfo::getRevDemocracyLevel
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getRevDemocracyLevel	1	382	kCivic	cpp	CvCivicInfo::getRevDemocracyLevel
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getPlayer	1	390	gc	cpp	CyGlobalContext::getCyPlayer
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	isNone	1	392	pPlayer	cpp	CyPlayer::isNone
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	isAlive	1	392	pPlayer	cpp	CyPlayer::isAlive
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getCivicInfo	1	399	gc	cpp	CyGlobalContext::getCivicInfo
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getRevDemocracyLevel	1	400	kCivic	cpp	CvCivicInfo::getRevDemocracyLevel
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	canDoCivics	1	401	pPlayer	cpp	CyPlayer::canDoCivics
-Revolution/RevCivicsUtils.py	getLaborFreedom	getPlayer	1	411	gc	cpp	CyGlobalContext::getCyPlayer
-Revolution/RevCivicsUtils.py	getLaborFreedom	isNone	1	413	pPlayer	cpp	CyPlayer::isNone
-Revolution/RevCivicsUtils.py	getLaborFreedom	isAlive	1	413	pPlayer	cpp	CyPlayer::isAlive
-Revolution/RevCivicsUtils.py	getLaborFreedom	range	0	416		builtin	range
-Revolution/RevCivicsUtils.py	getLaborFreedom	getNumCivicOptionInfos	1	416	gc	cpp	CyGlobalContext::getNumCivicOptionInfos
-Revolution/RevCivicsUtils.py	getLaborFreedom	getCivics	1	417	pPlayer	cpp	CyPlayer::getCivics
-Revolution/RevCivicsUtils.py	getLaborFreedom	getCivicInfo	1	419	gc	cpp	CyGlobalContext::getCivicInfo
-Revolution/RevCivicsUtils.py	getLaborFreedom	getRevLaborFreedom	1	420	kCivic	cpp	CvCivicInfo::getRevLaborFreedom
-Revolution/RevCivicsUtils.py	getLaborFreedom	getRevLaborFreedom	1	421	kCivic	cpp	CvCivicInfo::getRevLaborFreedom
-Revolution/RevCivicsUtils.py	getBestLaborFreedom	getPlayer	1	429	gc	cpp	CyGlobalContext::getCyPlayer
-Revolution/RevCivicsUtils.py	getBestLaborFreedom	isNone	1	431	pPlayer	cpp	CyPlayer::isNone
-Revolution/RevCivicsUtils.py	getBestLaborFreedom	isAlive	1	431	pPlayer	cpp	CyPlayer::isAlive
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getPlayer	1	331	gc	cpp	CyGlobalContext::getCyPlayer
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	isNone	1	333	pPlayer	cpp	CyPlayer::isNone
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	isAlive	1	333	pPlayer	cpp	CyPlayer::isAlive
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	len	0	336		builtin	len
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getNumCivicOptionInfos	1	336	gc	cpp	CyGlobalContext::getNumCivicOptionInfos
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	initCivicsList	0	337		py	Revolution/RevCivicsUtils.py:initCivicsList
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	range	0	343		builtin	range
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getNumCivicOptionInfos	1	343	gc	cpp	CyGlobalContext::getNumCivicOptionInfos
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getCivics	1	344	pPlayer	cpp	CyPlayer::getCivics
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	fnMetric	0	346		unresolved	
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getCivicInfo	1	346	gc	cpp	CyGlobalContext::getCivicInfo
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	fnMetric	0	350		unresolved	
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getCivicInfo	1	350	gc	cpp	CyGlobalContext::getCivicInfo
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	abs	0	352		builtin	abs
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	abs	0	352		builtin	abs
+Revolution/RevCivicsUtils.py	getReligiousFreedom	_getPrimaryCivicMetric	0	362		py	Revolution/RevCivicsUtils.py:_getPrimaryCivicMetric
+Revolution/RevCivicsUtils.py	getReligiousFreedom	getRevReligiousFreedom	1	362	kCivic	cpp-only	CvCivicInfo::getRevReligiousFreedom
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getPlayer	1	368	gc	cpp	CyGlobalContext::getCyPlayer
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	isNone	1	370	pPlayer	cpp	CyPlayer::isNone
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	isAlive	1	370	pPlayer	cpp	CyPlayer::isAlive
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	len	0	373		builtin	len
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getNumCivicOptionInfos	1	373	gc	cpp	CyGlobalContext::getNumCivicOptionInfos
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	initCivicsList	0	374		py	Revolution/RevCivicsUtils.py:initCivicsList
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getCivicInfo	1	380	gc	cpp	CyGlobalContext::getCivicInfo
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getRevReligiousFreedom	1	381	kCivic	cpp	CvCivicInfo::getRevReligiousFreedom
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	canDoCivics	1	382	pPlayer	cpp	CyPlayer::canDoCivics
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getRevReligiousFreedom	1	383	kCivic	cpp	CvCivicInfo::getRevReligiousFreedom
+Revolution/RevCivicsUtils.py	getDemocracyLevel	_getPrimaryCivicMetric	0	391		py	Revolution/RevCivicsUtils.py:_getPrimaryCivicMetric
+Revolution/RevCivicsUtils.py	getDemocracyLevel	getRevDemocracyLevel	1	391	kCivic	cpp-only	CvCivicInfo::getRevDemocracyLevel
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getPlayer	1	397	gc	cpp	CyGlobalContext::getCyPlayer
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	isNone	1	399	pPlayer	cpp	CyPlayer::isNone
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	isAlive	1	399	pPlayer	cpp	CyPlayer::isAlive
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	len	0	402		builtin	len
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getNumCivicOptionInfos	1	402	gc	cpp	CyGlobalContext::getNumCivicOptionInfos
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	initCivicsList	0	403		py	Revolution/RevCivicsUtils.py:initCivicsList
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getCivicInfo	1	409	gc	cpp	CyGlobalContext::getCivicInfo
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getRevDemocracyLevel	1	410	kCivic	cpp	CvCivicInfo::getRevDemocracyLevel
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	canDoCivics	1	411	pPlayer	cpp	CyPlayer::canDoCivics
+Revolution/RevCivicsUtils.py	getLaborFreedom	_getPrimaryCivicMetric	0	420		py	Revolution/RevCivicsUtils.py:_getPrimaryCivicMetric
+Revolution/RevCivicsUtils.py	getLaborFreedom	getRevLaborFreedom	1	420	kCivic	cpp-only	CvCivicInfo::getRevLaborFreedom
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	getPlayer	1	426	gc	cpp	CyGlobalContext::getCyPlayer
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	isNone	1	428	pPlayer	cpp	CyPlayer::isNone
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	isAlive	1	428	pPlayer	cpp	CyPlayer::isAlive
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	len	0	431		builtin	len
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	getNumCivicOptionInfos	1	431	gc	cpp	CyGlobalContext::getNumCivicOptionInfos
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	initCivicsList	0	432		py	Revolution/RevCivicsUtils.py:initCivicsList
 Revolution/RevCivicsUtils.py	getBestLaborFreedom	getCivicInfo	1	438	gc	cpp	CyGlobalContext::getCivicInfo
 Revolution/RevCivicsUtils.py	getBestLaborFreedom	getRevLaborFreedom	1	439	kCivic	cpp	CvCivicInfo::getRevLaborFreedom
 Revolution/RevCivicsUtils.py	getBestLaborFreedom	canDoCivics	1	440	pPlayer	cpp	CyPlayer::canDoCivics
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getPlayer	1	450	gc	cpp	CyGlobalContext::getCyPlayer
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	isNone	1	452	pPlayer	cpp	CyPlayer::isNone
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	isAlive	1	452	pPlayer	cpp	CyPlayer::isAlive
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	range	0	455		builtin	range
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getNumCivicOptionInfos	1	455	gc	cpp	CyGlobalContext::getNumCivicOptionInfos
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getCivics	1	456	pPlayer	cpp	CyPlayer::getCivics
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getCivicInfo	1	458	gc	cpp	CyGlobalContext::getCivicInfo
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getRevEnvironmentalProtection	1	459	kCivic	cpp	CvCivicInfo::getRevEnvironmentalProtection
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getRevEnvironmentalProtection	1	460	kCivic	cpp	CvCivicInfo::getRevEnvironmentalProtection
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getPlayer	1	468	gc	cpp	CyGlobalContext::getCyPlayer
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	isNone	1	470	pPlayer	cpp	CyPlayer::isNone
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	isAlive	1	470	pPlayer	cpp	CyPlayer::isAlive
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getCivicInfo	1	477	gc	cpp	CyGlobalContext::getCivicInfo
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getRevEnvironmentalProtection	1	478	kCivic	cpp	CvCivicInfo::getRevEnvironmentalProtection
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	canDoCivics	1	479	pPlayer	cpp	CyPlayer::canDoCivics
+Revolution/RevCivicsUtils.py	getEnvironmentalProtection	_getPrimaryCivicMetric	0	449		py	Revolution/RevCivicsUtils.py:_getPrimaryCivicMetric
+Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getRevEnvironmentalProtection	1	449	kCivic	cpp-only	CvCivicInfo::getRevEnvironmentalProtection
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getPlayer	1	455	gc	cpp	CyGlobalContext::getCyPlayer
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	isNone	1	457	pPlayer	cpp	CyPlayer::isNone
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	isAlive	1	457	pPlayer	cpp	CyPlayer::isAlive
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	len	0	460		builtin	len
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getNumCivicOptionInfos	1	460	gc	cpp	CyGlobalContext::getNumCivicOptionInfos
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	initCivicsList	0	461		py	Revolution/RevCivicsUtils.py:initCivicsList
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getCivicInfo	1	467	gc	cpp	CyGlobalContext::getCivicInfo
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getRevEnvironmentalProtection	1	468	kCivic	cpp	CvCivicInfo::getRevEnvironmentalProtection
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	canDoCivics	1	469	pPlayer	cpp	CyPlayer::canDoCivics
 Revolution/RevData.py	revLoad	sdLoad	1	27	SdToolKitCustom	py	SdToolKitCustom.py:sdLoad
 Revolution/RevData.py	revObjectInit	sdObjectInit	1	39	SdToolKitCustom	py	SdToolKitCustom.py:sdObjectInit
 Revolution/RevData.py	revObjectWipe	sdObjectWipe	1	45	SdToolKitCustom	py	SdToolKitCustom.py:sdObjectWipe
@@ -34065,61 +34064,19 @@ RoMEventManager.py	RoMEventManager.onProjectBuilt	ColorTypes	0	433		api-enum	Col
 RoMEventManager.py	RoMEventManager.onUnitBuilt	PyPlayer	0	439		py	PyHelpers.py:PyPlayer.__init__
 RoMEventManager.py	RoMEventManager.onUnitBuilt	getOwner	1	439	city	unresolved	
 RoMEventManager.py	RoMEventManager.onCityBuilt	recordCityBuilt	1	459	self.settlementTrainingProfiler	py	SettlementTrainingProfiler.py:SettlementTrainingProfiler.recordCityBuilt
-RoMEventManager.py	RoMEventManager.onCityBuilt	getHeadSelectedUnit	1	461	CyInterface()	exe	CyInterface.getHeadSelectedUnit
-RoMEventManager.py	RoMEventManager.onCityBuilt	CyInterface	0	461		api-class	CyInterface
-RoMEventManager.py	RoMEventManager.onCityBuilt	getDefineINT	1	463	gc	cpp	CyGlobalContext::getDefineINT
-RoMEventManager.py	RoMEventManager.onCityBuilt	getUnitClassType	1	467	pUnit	cpp	CyUnit::getUnitClassType
-RoMEventManager.py	RoMEventManager.onCityBuilt	getInfoTypeForString	1	467	gc	cpp	CyGlobalContext::getInfoTypeForString
-RoMEventManager.py	RoMEventManager.onCityBuilt	plot	1	469	CyMap()	cpp	CyMap::plot
-RoMEventManager.py	RoMEventManager.onCityBuilt	CyMap	0	469		api-class	CyMap
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	1	469	pUnit	cpp	CyUnit::getX
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	1	469	pUnit	cpp	CyUnit::getY
-RoMEventManager.py	RoMEventManager.onCityBuilt	info	1	471	BugUtil	py	BUG/BugUtil.py:info
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	1	472	pPlot	cpp	CyPlot::getX
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	1	473	pPlot	cpp	CyPlot::getY
-RoMEventManager.py	RoMEventManager.onCityBuilt	getOwner	1	474	pUnit	cpp	CyUnit::getOwner
-RoMEventManager.py	RoMEventManager.onCityBuilt	getID	1	475	pUnit	cpp	CyUnit::getID
-RoMEventManager.py	RoMEventManager.onCityBuilt	sendModNetMessage	1	476	CyMessageControl()	cpp	CyMessageControl::sendModNetMessage
-RoMEventManager.py	RoMEventManager.onCityBuilt	CyMessageControl	0	476		api-class	CyMessageControl
-RoMEventManager.py	RoMEventManager.onCityBuilt	getUnitClassType	1	478	pUnit	cpp	CyUnit::getUnitClassType
-RoMEventManager.py	RoMEventManager.onCityBuilt	getInfoTypeForString	1	478	gc	cpp	CyGlobalContext::getInfoTypeForString
-RoMEventManager.py	RoMEventManager.onCityBuilt	plot	1	479	CyMap()	cpp	CyMap::plot
-RoMEventManager.py	RoMEventManager.onCityBuilt	CyMap	0	479		api-class	CyMap
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	1	479	pUnit	cpp	CyUnit::getX
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	1	479	pUnit	cpp	CyUnit::getY
-RoMEventManager.py	RoMEventManager.onCityBuilt	info	1	481	BugUtil	py	BUG/BugUtil.py:info
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	1	482	pPlot	cpp	CyPlot::getX
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	1	483	pPlot	cpp	CyPlot::getY
-RoMEventManager.py	RoMEventManager.onCityBuilt	getOwner	1	484	pUnit	cpp	CyUnit::getOwner
-RoMEventManager.py	RoMEventManager.onCityBuilt	getID	1	485	pUnit	cpp	CyUnit::getID
-RoMEventManager.py	RoMEventManager.onCityBuilt	sendModNetMessage	1	486	CyMessageControl()	cpp	CyMessageControl::sendModNetMessage
-RoMEventManager.py	RoMEventManager.onCityBuilt	CyMessageControl	0	486		api-class	CyMessageControl
-RoMEventManager.py	RoMEventManager.onCityBuilt	getUnitClassType	1	488	pUnit	cpp	CyUnit::getUnitClassType
-RoMEventManager.py	RoMEventManager.onCityBuilt	getInfoTypeForString	1	488	gc	cpp	CyGlobalContext::getInfoTypeForString
-RoMEventManager.py	RoMEventManager.onCityBuilt	plot	1	489	CyMap()	cpp	CyMap::plot
-RoMEventManager.py	RoMEventManager.onCityBuilt	CyMap	0	489		api-class	CyMap
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	1	489	pUnit	cpp	CyUnit::getX
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	1	489	pUnit	cpp	CyUnit::getY
-RoMEventManager.py	RoMEventManager.onCityBuilt	info	1	491	BugUtil	py	BUG/BugUtil.py:info
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	1	492	pPlot	cpp	CyPlot::getX
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	1	493	pPlot	cpp	CyPlot::getY
-RoMEventManager.py	RoMEventManager.onCityBuilt	getOwner	1	494	pUnit	cpp	CyUnit::getOwner
-RoMEventManager.py	RoMEventManager.onCityBuilt	getID	1	495	pUnit	cpp	CyUnit::getID
-RoMEventManager.py	RoMEventManager.onCityBuilt	sendModNetMessage	1	496	CyMessageControl()	cpp	CyMessageControl::sendModNetMessage
-RoMEventManager.py	RoMEventManager.onCityBuilt	CyMessageControl	0	496		api-class	CyMessageControl
-RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	1	504	city	cpp-only	CyCity::getNumRealBuilding
-RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	1	504	gc	cpp	CyGlobalContext::getInfoTypeForString
-RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	1	504	city	cpp-only	CyCity::getNumRealBuilding
-RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	1	504	gc	cpp	CyGlobalContext::getInfoTypeForString
-RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	1	504	city	cpp-only	CyCity::getNumRealBuilding
-RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	1	504	gc	cpp	CyGlobalContext::getInfoTypeForString
-RoMEventManager.py	RoMEventManager.onCityRazed	getID	1	505	city	unresolved	
-RoMEventManager.py	RoMEventManager.onCityLost	PyPlayer	0	511		py	PyHelpers.py:PyPlayer.__init__
-RoMEventManager.py	RoMEventManager.onCityLost	getOwner	1	511	city	unresolved	
-RoMEventManager.py	RoMEventManager.onCityLost	getID	1	513	city	unresolved	
-RoMEventManager.py	RoMEventManager.onCityLost	setImprovementType	1	514	city.plot()	cpp-only	CyPlot::setImprovementType
-RoMEventManager.py	RoMEventManager.onCityLost	plot	1	514	city	unresolved	
-RoMEventManager.py	RoMEventManager.onCityLost	getInfoTypeForString	1	514	gc	cpp	CyGlobalContext::getInfoTypeForString
+RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	1	469	city	cpp-only	CyCity::getNumRealBuilding
+RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	1	469	gc	cpp	CyGlobalContext::getInfoTypeForString
+RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	1	469	city	cpp-only	CyCity::getNumRealBuilding
+RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	1	469	gc	cpp	CyGlobalContext::getInfoTypeForString
+RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	1	469	city	cpp-only	CyCity::getNumRealBuilding
+RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	1	469	gc	cpp	CyGlobalContext::getInfoTypeForString
+RoMEventManager.py	RoMEventManager.onCityRazed	getID	1	470	city	unresolved	
+RoMEventManager.py	RoMEventManager.onCityLost	PyPlayer	0	476		py	PyHelpers.py:PyPlayer.__init__
+RoMEventManager.py	RoMEventManager.onCityLost	getOwner	1	476	city	unresolved	
+RoMEventManager.py	RoMEventManager.onCityLost	getID	1	478	city	unresolved	
+RoMEventManager.py	RoMEventManager.onCityLost	setImprovementType	1	479	city.plot()	cpp-only	CyPlot::setImprovementType
+RoMEventManager.py	RoMEventManager.onCityLost	plot	1	479	city	unresolved	
+RoMEventManager.py	RoMEventManager.onCityLost	getInfoTypeForString	1	479	gc	cpp	CyGlobalContext::getInfoTypeForString
 RoMGameUtils.py	<module>	CyGlobalContext	0	20		api-class	CyGlobalContext
 RoMGameUtils.py	<module>	zCivics	1	25	zCivics	py	zCivics.py:zCivics.__init__
 RoMGameUtils.py	<module>	fixSets	1	28	BugUtil	py	BUG/BugUtil.py:fixSets

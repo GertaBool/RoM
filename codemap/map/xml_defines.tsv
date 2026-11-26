@@ -286,6 +286,7 @@ BBAI_BOMBARD_ATTACK_STACK_FRACTION	BBAI_AI_Variables_GlobalDefines.xml	mod	1
 BBAI_BOMBARD_ATTACK_CITY_MAX_STACK_FRACTION	BBAI_AI_Variables_GlobalDefines.xml	mod	1
 AI_CUNNING_FLAGS	BBAI_AI_Variables_GlobalDefines.xml	mod	1
 AI_DIPLOMACY_FLAGS	BBAI_AI_Variables_GlobalDefines.xml	mod	1
+AI_ECONOMY_FLAGS	BBAI_AI_Variables_GlobalDefines.xml	mod	1
 CIV4_VERSION	GlobalDefines.xml	mod	1
 MIN_VERSION	GlobalDefines.xml	mod	1
 SAVE_VERSION	GlobalDefines.xml	mod	1
@@ -1130,6 +1131,7 @@ PATH_DAMAGE_WEIGHT	GlobalDefines.xml	bts	0
 USE_SPIES_NO_ENTER_BORDERS	GlobalDefines.xml	bts	0
 NO_ESPIONAGE_CULTURE_LEVEL_MODIFIER	GlobalDefines.xml	bts	0
 FORCE_UNOWNED_CITY_TIMER	GlobalDefines.xml	bts	0
+MODS_SHOULD_OVERRIDE_GLOBAL_DEFINES_HERE	GlobalDefinesAlt.xml	civ4	0
 CIV4_VERSION	GlobalDefines.xml	civ4	0
 SAVE_VERSION	GlobalDefines.xml	civ4	0
 MAX_NUM_LANGUAGES	GlobalDefines.xml	civ4	0
@@ -1424,6 +1426,5 @@ TURN_LOG_MAX_HEIGHT	GlobalDefines.xml	civ4	0
 TURN_LOG_MIN_HEIGHT	GlobalDefines.xml	civ4	0
 LEADERHEAD_RANDOM	GlobalDefines.xml	civ4	0
 SINGLE_UNIT_GFX_EXTRA_SCALE	GlobalDefines.xml	civ4	0
-MODS_SHOULD_OVERRIDE_GLOBAL_DEFINES_HERE	GlobalDefinesAlt.xml	civ4	0
 GAMEFONT_TGA_RELIGIONS	res/Fonts/GameFont_GlobalDefines.xml	mod-res	1
 GAMEFONT_TGA_CORPORATIONS	res/Fonts/GameFont_GlobalDefines.xml	mod-res	1
