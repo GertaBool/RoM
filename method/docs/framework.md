@@ -158,9 +158,11 @@ was read in each book and what was judged not to apply.
   (sections 14.1 and 15.1). Where a change acts through a formula, its effect is computed
   exactly, not simulated. The upgrade-rate truncation is an example
   (`research/ai-warfare/decisions/workers-game4.md`). Simulation is for effects that emerge from play.
-- **Runs.** Each variant gets at least `30` independent runs, each with its own seed (Luke,
-  section 11.1.2: "always run each technique at least `30` times"). The harness provides this:
-  `HARNESS_RESEED=n` gives independent continuations of one save.
+- **Runs.** Each variant gets at least `10` independent runs, each with its own seed. Luke
+  advises more (section 11.1.2: "always run each technique at least `30` times"); the user set
+  `10` so that compute is not spent on checks whose answer is rarely in doubt. Fewer runs detect
+  only larger effects, so a claim decided on `10` runs per arm says less than one on `30`. The
+  harness provides the runs: `HARNESS_RESEED=n` gives independent continuations of one save.
 - **Duplicability.** The same seed run twice must give identical results (Luke,
   section 11.1.1).
 - **Test.** A two-tailed Welch t-test on ranks: pool the results, rank them, then apply

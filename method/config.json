@@ -30,7 +30,7 @@
   "analysis_python": "~/.cache/rom-ana/bin/python",
   "stall_commits": 10,
   "max_depth": 2,
-  "min_runs": 30,
+  "min_runs": 10,
   "min_games_state": 5,
   "external_prefix": "gitlab:",
  "text_only": {

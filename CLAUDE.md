@@ -28,7 +28,7 @@ Hard rules (details in the protocol):
      list may only shrink.
 9. **AI changes are judged by experiment** (`method/docs/framework.md`, section 7).
    - An effect that follows from a formula is computed, not simulated.
-   - Otherwise each variant gets at least `30` independent seeded runs (`HARNESS_RESEED`),
+   - Otherwise each variant gets at least `10` independent seeded runs (`HARNESS_RESEED`),
      tested with Welch's test on ranks against the best existing version, and judged against
      fixed opponents, never by self-play alone.
    - Fewer runs give an anecdote, not a result.
