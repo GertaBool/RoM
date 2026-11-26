@@ -1,0 +1,25 @@
+{
+ "serves": [
+  "P14"
+ ],
+ "patch": "fixes/0022-codemap-errors.patch",
+ "build_id": "d3408ab30362",
+ "source": "GitLab main ede81881b7de plus fixes/0022-codemap-errors.patch: the ACO option ACO__IgnoreBarbFreeWins read once with the sense of its name; CvCity::canConstruct tests NO_BUILDING first; 21 DefaultBuilding entries and BONUS_WOOL's TechCityTrade say NONE",
+ "source_commit": "c7fac029aaa19c09f5c84258768b2aba3d131905 (local commit)",
+ "source_tree": "e8368deace7072943c0f5ce142a2da921d2367a7",
+ "base_commit": "ede81881b7de29fbd58f441294e4eddd7ff74f67",
+ "dll_sha256": "e8b51e7fff4dc7aae97770b2878c47332d9817a526aa2b190c4c8948821b1088",
+ "dll_size": 6189056,
+ "files": {
+  "CIV4BuildingClassInfos.xml": "cdf5ec38d780497f7734afd5c9a0d414af7f9c1965f61d31f43570231f5cce47",
+  "CIV4BonusInfos.xml": "06faacb145cb41fb5f5be49a579126cbe372e3b679f616dbccb8fb671190958f",
+  "Guildhalls_CIV4BuildingClassInfos.xml": "6feabe76137ffbe1a89b4785797ec4ce5d9999832ca35fc0be772e7d04647b3f"
+ },
+ "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine 9.0, TARGET=release; 0 errors, 0 warnings",
+ "tests": "clang gate on CvGameCoreUtils.cpp, CvGameTextMgr.cpp and CvCity.cpp against ede81881b7de: 0 new diagnostics (baseline and patched 1 error, 50 warnings; fixes/codemap-errors/clang-gate.log). codemap/tool/check_links.py on the patched tree: 0 type references in the loaded XML defined nowhere (22 before), 2 undefined defines (3 before; the 2 left are the dormant D3 and C5)",
+ "tested_headless": "P14 evidence pending",
+ "tested_in_game": false,
+ "previous": "GitLab main ede81881b7de",
+ "merge_request": "not opened yet",
+ "gitlab_commit": "not pushed to GitLab"
+}

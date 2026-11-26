@@ -1,0 +1,327 @@
+From c7fac029aaa19c09f5c84258768b2aba3d131905 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Thu, 26 Nov 2026 21:09:15 +0000
+Subject: [PATCH] Fix the errors found by the code map's checks
+ (codemap/guides/systems-and-errors.md)
+
+- Advanced Combat Odds: the BUG option "Ignore Barb Free Wins" was read as a global define
+  that does not exist in getCombatOddsSpecific (always 0: free wins always applied), and with
+  the opposite sense in CvGameTextMgr::setCombatPlotHelp (free wins applied only when the
+  option said to ignore them). setCombatPlotHelp now reads the option once, with the sense of
+  its name, and gives it to getCombatOddsSpecific (setCombatOddsIgnoreBarbFreeWins).
+- CvCity::canConstruct took the building's info before its NO_BUILDING test, reading
+  m_paBuildingInfo[-1] for NO_BUILDING (BarbarianCiv.py passes -1 for the granary class). The
+  test now comes first, as in the original SDK.
+- 21 building classes named a default building that nothing defines (16 in
+  CIV4BuildingClassInfos.xml, 5 in the Guilds module); the game loaded each as NO_BUILDING and
+  logged it. They now say NONE: the same classes, indices and game.
+- BONUS_WOOL named TECH_WEAVING, which does not exist, as its trade technology; loading showed
+  an XML error dialog and the bonus was tradeable from the start. It now says NONE: the same
+  game, without the dialog.
+
+Serves: P14
+---
+ Assets/CvGameCoreDLL/CvCity.cpp               |  4 +--
+ Assets/CvGameCoreDLL/CvGameCoreUtils.cpp      | 10 +++++-
+ Assets/CvGameCoreDLL/CvGameCoreUtils.h        |  1 +
+ Assets/CvGameCoreDLL/CvGameTextMgr.cpp        |  4 ++-
+ .../Guildhalls_CIV4BuildingClassInfos.xml     | 10 +++---
+ .../XML/Buildings/CIV4BuildingClassInfos.xml  | 32 +++++++++----------
+ Assets/XML/Terrain/CIV4BonusInfos.xml         |  2 +-
+ 7 files changed, 37 insertions(+), 26 deletions(-)
+
+diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
+index fb93ced..7b53cae 100644
+--- a/Assets/CvGameCoreDLL/CvCity.cpp
++++ b/Assets/CvGameCoreDLL/CvCity.cpp
+@@ -2340,13 +2340,13 @@ bool CvCity::canConstruct(BuildingTypes eBuilding, bool bContinue, bool bTestVis
+ /*                                                                                              */
+ /* CanConstruct Performance                                                                     */
+ /************************************************************************************************/
+-	CvBuildingInfo& kBuilding = GC.getBuildingInfo(eBuilding);
+-
+ 	if (eBuilding == NO_BUILDING)
+ 	{
+ 		return false;
+ 	}
+ 
++	CvBuildingInfo& kBuilding = GC.getBuildingInfo(eBuilding);
++
+ 	if(GC.getUSE_CAN_CONSTRUCT_CALLBACK())
+ 	{
+ 		CyCity* pyCity = new CyCity((CvCity*)this);
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+index d4486ed..f832344 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+@@ -1004,6 +1004,14 @@ int getCombatOdds(CvUnit* pAttacker, CvUnit* pDefender)
+ //Calculates the probability of a particular combat outcome
+ //Returns a float value (between 0 and 1)
+ //Written by PieceOfMind
++// The BUG option "Ignore Barb Free Wins" (ACO__IgnoreBarbFreeWins, Config/Advanced Combat Odds.xml), set by
++// CvGameTextMgr::setCombatPlotHelp once per tooltip: reading it here would call Python for every outcome.
++static bool s_bCombatOddsIgnoreBarbFreeWins = false;
++void setCombatOddsIgnoreBarbFreeWins(bool bIgnore)
++{
++    s_bCombatOddsIgnoreBarbFreeWins = bIgnore;
++}
++
+ //n_A = hits taken by attacker, n_D = hits taken by defender.
+ float getCombatOddsSpecific(CvUnit* pAttacker, CvUnit* pDefender, int n_A, int n_D)
+ {
+@@ -1038,7 +1046,7 @@ float getCombatOddsSpecific(CvUnit* pAttacker, CvUnit* pDefender, int n_A, int n
+     iDefenderOdds = ((GC.getDefineINT("COMBAT_DIE_SIDES") * iDefenderStrength) / (iAttackerStrength + iDefenderStrength));
+     iAttackerOdds = GC.getDefineINT("COMBAT_DIE_SIDES") - iDefenderOdds;
+ 
+-    if (GC.getDefineINT("ACO_IgnoreBarbFreeWins")==0)
++    if (!s_bCombatOddsIgnoreBarbFreeWins)
+     {
+         if (pDefender->isBarbarian())
+         {
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.h b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+index 3c509a5..34037db 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.h
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+@@ -272,6 +272,7 @@ int getCombatOdds(CvUnit* pAttacker, CvUnit* pDefender);							// Exposed to Pyt
+ // BEGIN                                                       //
+ /////////////////////////////////////////////////////////////////
+ float getCombatOddsSpecific(CvUnit* pAttacker, CvUnit* pDefender, int n_A, int n_D);
++void setCombatOddsIgnoreBarbFreeWins(bool bIgnore);	// the BUG option ACO__IgnoreBarbFreeWins, read once per tooltip
+ /////////////////////////////////////////////////////////////////
+ // ADVANCED COMABT ODDS                         PieceOfMind    //
+ // END                                                         //
+diff --git a/Assets/CvGameCoreDLL/CvGameTextMgr.cpp b/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
+index fbac12d..85cc50b 100644
+--- a/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
++++ b/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
+@@ -2002,6 +2002,8 @@ It is fine for a human player mouse-over (which is what it is used for).
+ */
+ /* New Code */
+     bool ACO_enabled = getBugOptionBOOL("ACO__Enabled", true, "ACO_ENABLED");
++    const bool bIgnoreBarbFreeWins = getBugOptionBOOL("ACO__IgnoreBarbFreeWins", false, "ACO_IGNORE_BARB_FREE_WINS");
++    setCombatOddsIgnoreBarbFreeWins(bIgnoreBarbFreeWins);
+     bool bShift = gDLL->shiftKey();
+ 	int iView = bShift ? 2 : 1;
+     if (getBugOptionBOOL("ACO__SwapViews", false, "ACO_SWAP_VIEWS"))
+@@ -2222,7 +2224,7 @@ It is fine for a human player mouse-over (which is what it is used for).
+ 					int iAttackerOdds = GC.getDefineINT("COMBAT_DIE_SIDES") - iDefenderOdds;
+ 
+                     // Barbarian related code.
+-                    if (getBugOptionBOOL("ACO__IgnoreBarbFreeWins", false, "ACO_IGNORE_BARB_FREE_WINS"))//Are we not going to ignore barb free wins?  If not, skip this section...
++                    if (!bIgnoreBarbFreeWins)//Are we not going to ignore barb free wins?  If not, skip this section...
+                     {    
+                         if (pDefender->isBarbarian())
+                         {
+diff --git a/Assets/Modules/Projects/Vincentz/Guilds/Guildhalls_CIV4BuildingClassInfos.xml b/Assets/Modules/Projects/Vincentz/Guilds/Guildhalls_CIV4BuildingClassInfos.xml
+index df862c1..b577683 100644
+--- a/Assets/Modules/Projects/Vincentz/Guilds/Guildhalls_CIV4BuildingClassInfos.xml
++++ b/Assets/Modules/Projects/Vincentz/Guilds/Guildhalls_CIV4BuildingClassInfos.xml
+@@ -39,7 +39,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_GUILDHALL_32</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -87,7 +87,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_GUILDHALL_36</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -111,7 +111,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_GUILDHALL_39</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -135,7 +135,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_GUILDHALL_41</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -159,7 +159,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_GUILDHALL_43</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+diff --git a/Assets/XML/Buildings/CIV4BuildingClassInfos.xml b/Assets/XML/Buildings/CIV4BuildingClassInfos.xml
+index ba35b3d..35bfe39 100644
+--- a/Assets/XML/Buildings/CIV4BuildingClassInfos.xml
++++ b/Assets/XML/Buildings/CIV4BuildingClassInfos.xml
+@@ -159,7 +159,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_MEETING_HALL</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -231,7 +231,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_GRANARY</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -243,7 +243,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_MODERN_GRANARY</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -255,7 +255,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_FISHERMAN_HUT</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -267,7 +267,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_BUTCHERY</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -279,7 +279,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_BAKERY</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -387,7 +387,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>1</bMonument>
+-			<DefaultBuilding>BUILDING_ARTESIAN_WELL</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -483,7 +483,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_HEALERHUT</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -495,7 +495,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_DOCTOR</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -759,7 +759,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_TANNERY</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -1407,7 +1407,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_BAZAAR</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -1455,7 +1455,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_PAVED_ROADS</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -1467,7 +1467,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_GROCER</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -1515,7 +1515,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_SUPERMARKET</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -1539,7 +1539,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_SHOPPING_DISTRICT</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+@@ -3315,7 +3315,7 @@
+ 			<iExtraPlayerInstances>0</iExtraPlayerInstances>
+ 			<bNoLimit>0</bNoLimit>
+ 			<bMonument>0</bMonument>
+-			<DefaultBuilding>BUILDING_SEWER_SYSTEM</DefaultBuilding>
++			<DefaultBuilding>NONE</DefaultBuilding>
+ 			<VictoryThresholds/>
+ 		</BuildingClassInfo>
+ 		<BuildingClassInfo>
+diff --git a/Assets/XML/Terrain/CIV4BonusInfos.xml b/Assets/XML/Terrain/CIV4BonusInfos.xml
+index 90c7c92..5a80ece 100644
+--- a/Assets/XML/Terrain/CIV4BonusInfos.xml
++++ b/Assets/XML/Terrain/CIV4BonusInfos.xml
+@@ -4118,7 +4118,7 @@
+ 			<BonusClassType>BONUSCLASS_GENERAL</BonusClassType>
+ 			<ArtDefineTag>ART_DEF_BONUS_WOOL</ArtDefineTag>
+ 			<TechReveal>NONE</TechReveal>
+-			<TechCityTrade>TECH_WEAVING</TechCityTrade>
++			<TechCityTrade>NONE</TechCityTrade>
+ 			<TechObsolete>NONE</TechObsolete>
+ 			<YieldChanges/>
+ 			<iAITradeModifier>0</iAITradeModifier>
+-- 
+2.43.0
+

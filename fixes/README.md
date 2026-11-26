@@ -1,5 +1,21 @@
 # Tested source fixes
 
+## Code map errors: the combat-odds option, canConstruct, missing default buildings, a missing technology
+
+[0022-codemap-errors.patch](0022-codemap-errors.patch) applies to GitLab `main` `ede81881b7de`. It is not
+on GitLab yet. It fixes the five errors the code map's checks confirmed
+([`codemap/guides/systems-and-errors.md`](../codemap/guides/systems-and-errors.md)):
+- the Advanced Combat Odds option "Ignore Barb Free Wins" was read as a define that does not exist in
+  one place, and with the opposite sense in the other;
+- `CvCity::canConstruct` read the building table before testing for no building, and Revolution's
+  BarbarianCiv reaches it with -1;
+- 21 building classes, 5 of them in the Guilds module, named default buildings that nothing defines;
+- `BONUS_WOOL` named a technology that does not exist, which shows an XML error dialog at load.
+
+The XML now says `NONE` where the game already loaded nothing, so the rules and saves stay the same.
+Build: 0 errors, 0 warnings; clang gate: 0 new diagnostics; P14 (harness runs) pending. See the
+[errors and changes](codemap-errors/README.md) and the [build](../builds/codemap-errors/README.md).
+
 ## Graphics paging coherence: the crash on moving a unit
 
 [graphics-paging-coherence.patch](graphics-paging-coherence.patch) applies to GitLab `main`
