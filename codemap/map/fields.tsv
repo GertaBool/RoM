@@ -749,6 +749,8 @@ CvCityAI	m_iWorkersHave	int	0	CvCityAI.h	197
 CvCityAI	m_iWorkersNeeded	int	0	CvCityAI.h	196
 CvCityAI	m_pbEmphasize	bool *	0	CvCityAI.h	185
 CvCityAI	m_routeToCity	IDInfo	0	CvCityAI.h	175
+CvCityAI::UpgradePair	szReplaced	const char *	0	CvCityAI.cpp	6112
+CvCityAI::UpgradePair	szUpgrade	const char *	0	CvCityAI.cpp	6112
 CvCivicInfo	m_bAllowInquisitions	int	0	CvInfos.h	1815
 CvCivicInfo	m_bBuildingOnlyHealthy	bool	0	CvInfos.h	1840
 CvCivicInfo	m_bCanDoElection	bool	0	CvInfos.h	1834
@@ -1214,26 +1216,26 @@ CvFractal	m_iXInc	int	0	CvFractal.h	55
 CvFractal	m_iXs	int	0	CvFractal.h	46
 CvFractal	m_iYInc	int	0	CvFractal.h	56
 CvFractal	m_iYs	int	0	CvFractal.h	47
-CvGame	m_aPlotExtraCosts	std::vector<PlotExtraCost>	0	CvGame.h	762
-CvGame	m_aPlotExtraYields	std::vector<PlotExtraYield>	0	CvGame.h	761
-CvGame	m_abReligionSlotTaken	bool *	0	CvGame.h	730
-CvGame	m_abTechCanFoundReligion	bool *	0	CvGame.h	737
-CvGame	m_aeInactiveTriggers	std::vector<EventTriggerTypes>	0	CvGame.h	764
-CvGame	m_aiDeferredRevealPlots	std::vector<int>	0	CvGame.h	693
-CvGame	m_aiDiploVote	int *	0	CvGame.h	726
-CvGame	m_aiPlayerRank	int *	0	CvGame.h	710
-CvGame	m_aiPlayerScore	int *	0	CvGame.h	711
-CvGame	m_aiRankPlayer	int *	0	CvGame.h	709
-CvGame	m_aiRankTeam	int *	0	CvGame.h	712
-CvGame	m_aiSecretaryGeneralTimer	int *	0	CvGame.h	724
-CvGame	m_aiShrineBuilding	int *	0	CvGame.h	768
-CvGame	m_aiShrineReligion	int *	0	CvGame.h	769
-CvGame	m_aiTeamRank	int *	0	CvGame.h	713
-CvGame	m_aiTeamScore	int *	0	CvGame.h	714
-CvGame	m_aiVoteTimer	int *	0	CvGame.h	725
-CvGame	m_apaiPlayerVote	int **	0	CvGame.h	744
-CvGame	m_aszDestroyedCities	std::vector<CvWString>	0	CvGame.h	746
-CvGame	m_aszGreatPeopleBorn	std::vector<CvWString>	0	CvGame.h	747
+CvGame	m_aPlotExtraCosts	std::vector<PlotExtraCost>	0	CvGame.h	763
+CvGame	m_aPlotExtraYields	std::vector<PlotExtraYield>	0	CvGame.h	762
+CvGame	m_abReligionSlotTaken	bool *	0	CvGame.h	731
+CvGame	m_abTechCanFoundReligion	bool *	0	CvGame.h	738
+CvGame	m_aeInactiveTriggers	std::vector<EventTriggerTypes>	0	CvGame.h	765
+CvGame	m_aiDeferredRevealPlots	std::vector<int>	0	CvGame.h	694
+CvGame	m_aiDiploVote	int *	0	CvGame.h	727
+CvGame	m_aiPlayerRank	int *	0	CvGame.h	711
+CvGame	m_aiPlayerScore	int *	0	CvGame.h	712
+CvGame	m_aiRankPlayer	int *	0	CvGame.h	710
+CvGame	m_aiRankTeam	int *	0	CvGame.h	713
+CvGame	m_aiSecretaryGeneralTimer	int *	0	CvGame.h	725
+CvGame	m_aiShrineBuilding	int *	0	CvGame.h	769
+CvGame	m_aiShrineReligion	int *	0	CvGame.h	770
+CvGame	m_aiTeamRank	int *	0	CvGame.h	714
+CvGame	m_aiTeamScore	int *	0	CvGame.h	715
+CvGame	m_aiVoteTimer	int *	0	CvGame.h	726
+CvGame	m_apaiPlayerVote	int **	0	CvGame.h	745
+CvGame	m_aszDestroyedCities	std::vector<CvWString>	0	CvGame.h	747
+CvGame	m_aszGreatPeopleBorn	std::vector<CvWString>	0	CvGame.h	748
 CvGame	m_bCircumnavigated	bool	0	CvGame.h	661
 CvGame	m_bDebugMode	bool	0	CvGame.h	662
 CvGame	m_bDebugModeCache	bool	0	CvGame.h	663
@@ -1244,37 +1246,37 @@ CvGame	m_bGraphicsPagingCities	bool	0	CvGame.h	670
 CvGame	m_bGraphicsPagingPlots	bool	0	CvGame.h	671
 CvGame	m_bGraphicsPagingSymbols	bool	0	CvGame.h	668
 CvGame	m_bGraphicsPagingUnits	bool	0	CvGame.h	669
-CvGame	m_bHotPbemBetweenTurns	bool	0	CvGame.h	695
-CvGame	m_bNukesValid	bool	0	CvGame.h	697
+CvGame	m_bHotPbemBetweenTurns	bool	0	CvGame.h	696
+CvGame	m_bNukesValid	bool	0	CvGame.h	698
 CvGame	m_bPagingPending	bool	0	CvGame.h	685
 CvGame	m_bPagingPendingOut	bool	0	CvGame.h	686
-CvGame	m_bPbemTurnSent	bool	0	CvGame.h	694
-CvGame	m_bPlayerOptionsSent	bool	0	CvGame.h	696
+CvGame	m_bPbemTurnSent	bool	0	CvGame.h	695
+CvGame	m_bPlayerOptionsSent	bool	0	CvGame.h	697
 CvGame	m_bScoreDirty	bool	0	CvGame.h	660
-CvGame	m_deals	FFreeListTrashArray<CvDeal>	0	CvGame.h	749
-CvGame	m_dwGraphicsMemorySampleTime	DWORD	0	CvGame.h	690
+CvGame	m_deals	FFreeListTrashArray<CvDeal>	0	CvGame.h	750
+CvGame	m_dwGraphicsMemorySampleTime	DWORD	0	CvGame.h	691
 CvGame	m_dwPagingCameraTime	DWORD	0	CvGame.h	682
 CvGame	m_dwPagingShrinkSince	DWORD	0	CvGame.h	683
 CvGame	m_dwPagingTime	DWORD	0	CvGame.h	681
-CvGame	m_eBestLandUnit	UnitTypes	0	CvGame.h	701
-CvGame	m_eBulkRevealTeam	TeamTypes	0	CvGame.h	692
-CvGame	m_eCultureVictoryCultureLevel	int	0	CvGame.h	772
-CvGame	m_eEventPlayer	PlayerTypes	0	CvGame.h	705
-CvGame	m_eGameState	GameStateTypes	0	CvGame.h	704
-CvGame	m_eHandicap	HandicapTypes	0	CvGame.h	699
+CvGame	m_eBestLandUnit	UnitTypes	0	CvGame.h	702
+CvGame	m_eBulkRevealTeam	TeamTypes	0	CvGame.h	693
+CvGame	m_eCultureVictoryCultureLevel	int	0	CvGame.h	773
+CvGame	m_eEventPlayer	PlayerTypes	0	CvGame.h	706
+CvGame	m_eGameState	GameStateTypes	0	CvGame.h	705
+CvGame	m_eHandicap	HandicapTypes	0	CvGame.h	700
 CvGame	m_ePagingActivePlayer	PlayerTypes	0	CvGame.h	684
-CvGame	m_ePausePlayer	PlayerTypes	0	CvGame.h	700
-CvGame	m_eVictory	VictoryTypes	0	CvGame.h	703
-CvGame	m_eWinner	TeamTypes	0	CvGame.h	702
+CvGame	m_ePausePlayer	PlayerTypes	0	CvGame.h	701
+CvGame	m_eVictory	VictoryTypes	0	CvGame.h	704
+CvGame	m_eWinner	TeamTypes	0	CvGame.h	703
 CvGame	m_iAIAutoPlay	int[51]	0	CvGame.h	653
-CvGame	m_iBulkRevealDepth	int	0	CvGame.h	691
+CvGame	m_iBulkRevealDepth	int	0	CvGame.h	692
 CvGame	m_iCutoffSlice	int	0	CvGame.h	632
 CvGame	m_iElapsedGameTurns	int	0	CvGame.h	627
 CvGame	m_iEstimateEndTurn	int	0	CvGame.h	630
 CvGame	m_iFreeTradeCount	int	0	CvGame.h	637
-CvGame	m_iGraphicsMemoryAvailMB	int	0	CvGame.h	688
-CvGame	m_iGraphicsMemoryPressure	int	0	CvGame.h	687
-CvGame	m_iGraphicsMemoryRecoverySamples	int	0	CvGame.h	689
+CvGame	m_iGraphicsMemoryAvailMB	int	0	CvGame.h	689
+CvGame	m_iGraphicsMemoryPressure	int	0	CvGame.h	688
+CvGame	m_iGraphicsMemoryRecoverySamples	int	0	CvGame.h	690
 CvGame	m_iInitLand	int	0	CvGame.h	645
 CvGame	m_iInitPopulation	int	0	CvGame.h	644
 CvGame	m_iInitTech	int	0	CvGame.h	646
@@ -1286,44 +1288,45 @@ CvGame	m_iMaxWonders	int	0	CvGame.h	643
 CvGame	m_iNoNukesCount	int	0	CvGame.h	638
 CvGame	m_iNukesExploded	int	0	CvGame.h	639
 CvGame	m_iNumCities	int	0	CvGame.h	634
-CvGame	m_iNumCultureVictoryCities	int	0	CvGame.h	771
+CvGame	m_iNumCultureVictoryCities	int	0	CvGame.h	772
 CvGame	m_iNumGameTurnActive	int	0	CvGame.h	633
-CvGame	m_iNumSessions	int	0	CvGame.h	759
+CvGame	m_iNumSessions	int	0	CvGame.h	760
 CvGame	m_iPagingEast	int	0	CvGame.h	676
 CvGame	m_iPagingMargin	int	0	CvGame.h	679
 CvGame	m_iPagingNorth	int	0	CvGame.h	677
+CvGame	m_iPagingOutCursor	int	0	CvGame.h	687
 CvGame	m_iPagingSouth	int	0	CvGame.h	678
 CvGame	m_iPagingStep	int	0	CvGame.h	680
 CvGame	m_iPagingWest	int	0	CvGame.h	675
 CvGame	m_iPagingX	int	0	CvGame.h	673
 CvGame	m_iPagingY	int	0	CvGame.h	674
-CvGame	m_iShrineBuildingCount	int	0	CvGame.h	767
+CvGame	m_iShrineBuildingCount	int	0	CvGame.h	768
 CvGame	m_iStartTurn	int	0	CvGame.h	628
 CvGame	m_iStartYear	int	0	CvGame.h	629
 CvGame	m_iTotalPopulation	int	0	CvGame.h	635
 CvGame	m_iTradeRoutes	int	0	CvGame.h	636
 CvGame	m_iTurnSlice	int	0	CvGame.h	631
-CvGame	m_listReplayMessages	ReplayMessageList	0	CvGame.h	756
-CvGame	m_mapRand	CvRandom	0	CvGame.h	753
-CvGame	m_mapVoteSourceReligions	stdext::hash_map<VoteSourceTypes, ReligionTypes>	0	CvGame.h	763
-CvGame	m_pReplayInfo	CvReplayInfo *	0	CvGame.h	757
-CvGame	m_paHeadquarters	IDInfo *	0	CvGame.h	742
-CvGame	m_paHolyCity	IDInfo *	0	CvGame.h	741
-CvGame	m_pabSpecialBuildingValid	bool *	0	CvGame.h	729
-CvGame	m_pabSpecialUnitValid	bool *	0	CvGame.h	728
-CvGame	m_paiBuildingClassCreatedCount	int *	0	CvGame.h	718
-CvGame	m_paiCorporationGameTurnFounded	int *	0	CvGame.h	723
-CvGame	m_paiForceCivicCount	int *	0	CvGame.h	720
-CvGame	m_paiProjectCreatedCount	int *	0	CvGame.h	719
-CvGame	m_paiReligionGameTurnFounded	int *	0	CvGame.h	722
-CvGame	m_paiUnitClassCreatedCount	int *	0	CvGame.h	717
-CvGame	m_paiUnitCreatedCount	int *	0	CvGame.h	716
-CvGame	m_paiVoteOutcome	PlayerVoteTypes *	0	CvGame.h	721
-CvGame	m_sorenRand	CvRandom	0	CvGame.h	754
-CvGame	m_szScriptData	CvString	0	CvGame.h	707
+CvGame	m_listReplayMessages	ReplayMessageList	0	CvGame.h	757
+CvGame	m_mapRand	CvRandom	0	CvGame.h	754
+CvGame	m_mapVoteSourceReligions	stdext::hash_map<VoteSourceTypes, ReligionTypes>	0	CvGame.h	764
+CvGame	m_pReplayInfo	CvReplayInfo *	0	CvGame.h	758
+CvGame	m_paHeadquarters	IDInfo *	0	CvGame.h	743
+CvGame	m_paHolyCity	IDInfo *	0	CvGame.h	742
+CvGame	m_pabSpecialBuildingValid	bool *	0	CvGame.h	730
+CvGame	m_pabSpecialUnitValid	bool *	0	CvGame.h	729
+CvGame	m_paiBuildingClassCreatedCount	int *	0	CvGame.h	719
+CvGame	m_paiCorporationGameTurnFounded	int *	0	CvGame.h	724
+CvGame	m_paiForceCivicCount	int *	0	CvGame.h	721
+CvGame	m_paiProjectCreatedCount	int *	0	CvGame.h	720
+CvGame	m_paiReligionGameTurnFounded	int *	0	CvGame.h	723
+CvGame	m_paiUnitClassCreatedCount	int *	0	CvGame.h	718
+CvGame	m_paiUnitCreatedCount	int *	0	CvGame.h	717
+CvGame	m_paiVoteOutcome	PlayerVoteTypes *	0	CvGame.h	722
+CvGame	m_sorenRand	CvRandom	0	CvGame.h	755
+CvGame	m_szScriptData	CvString	0	CvGame.h	708
 CvGame	m_uiInitialTime	unsigned int	0	CvGame.h	658
-CvGame	m_voteSelections	FFreeListTrashArray<VoteSelectionData>	0	CvGame.h	750
-CvGame	m_votesTriggered	FFreeListTrashArray<VoteTriggeredData>	0	CvGame.h	751
+CvGame	m_voteSelections	FFreeListTrashArray<VoteSelectionData>	0	CvGame.h	751
+CvGame	m_votesTriggered	FFreeListTrashArray<VoteTriggeredData>	0	CvGame.h	752
 CvGameAI	m_iPad	int	0	CvGameAI.h	34
 CvGameOptionInfo	m_bDefault	bool	0	CvInfos.h	7001
 CvGameOptionInfo	m_bVisible	bool	0	CvInfos.h	7002
@@ -2371,79 +2374,79 @@ CvPlayer	m_szScriptData	CvString	0	CvPlayer.h	1448
 CvPlayer	m_triggersFired	std::vector<EventTriggerTypes>	0	CvPlayer.h	1475
 CvPlayer	m_uiStartTime	uint	0	CvPlayer.h	1352
 CvPlayer	m_units	FFreeListTrashArray<CvUnitAI>	0	CvPlayer.h	1492
-CvPlayerAI	m_aPlayers	CvPlayerAI *	1	CvPlayerAI.h	621
-CvPlayerAI	m_aSettlePortLinks	std::vector<std::pair<int, int> >	0	CvPlayerAI.h	739
-CvPlayerAI	m_aSettlementCandidates	std::vector<AISettlementPolicy::Candidate>	0	CvPlayerAI.h	736
-CvPlayerAI	m_aaiContactTimer	int **	0	CvPlayerAI.h	731
-CvPlayerAI	m_aaiMemoryCount	int **	0	CvPlayerAI.h	732
-CvPlayerAI	m_abFirstContact	bool *	0	CvPlayerAI.h	729
-CvPlayerAI	m_aiAIAgendaBudget	int[5]	0	CvPlayerAI.h	683
-CvPlayerAI	m_aiAICitySites	std::vector<int>	0	CvPlayerAI.h	734
-CvPlayerAI	m_aiAIHappinessHeadroom	int[41]	0	CvPlayerAI.h	671
-CvPlayerAI	m_aiAIHealthHeadroom	int[41]	0	CvPlayerAI.h	672
-CvPlayerAI	m_aiAttitudeCache	int *	0	CvPlayerAI.h	724
-CvPlayerAI	m_aiAttitudeExtra	int *	0	CvPlayerAI.h	710
-CvPlayerAI	m_aiAverageCommerceExchange	int *	0	CvPlayerAI.h	661
-CvPlayerAI	m_aiAverageCommerceMultiplier	int *	0	CvPlayerAI.h	660
-CvPlayerAI	m_aiAverageYieldMultiplier	int *	0	CvPlayerAI.h	659
-CvPlayerAI	m_aiBonusTradeCounter	int *	0	CvPlayerAI.h	706
-CvPlayerAI	m_aiBonusValue	int *	0	CvPlayerAI.h	711
-CvPlayerAI	m_aiCloseBordersAttitudeCache	int *	0	CvPlayerAI.h	715
-CvPlayerAI	m_aiDifferentReligionCounter	int *	0	CvPlayerAI.h	704
-CvPlayerAI	m_aiFavoriteCivicCounter	int *	0	CvPlayerAI.h	705
-CvPlayerAI	m_aiGeneralCareers	std::vector<AIGeneralCareer>	0	CvPlayerAI.h	695
-CvPlayerAI	m_aiGoldTradedTo	int *	0	CvPlayerAI.h	709
-CvPlayerAI	m_aiMilitaryOperations	std::vector<AIOperationData>	0	CvPlayerAI.h	694
-CvPlayerAI	m_aiNumAIUnits	int *	0	CvPlayerAI.h	702
-CvPlayerAI	m_aiNumTrainAIUnits	int *	0	CvPlayerAI.h	701
-CvPlayerAI	m_aiOperationDeliveryCache	std::vector<AIOperationDeliveryCache>	0	CvPlayerAI.h	696
-CvPlayerAI	m_aiPeacetimeGrantValue	int *	0	CvPlayerAI.h	708
-CvPlayerAI	m_aiPeacetimeTradeValue	int *	0	CvPlayerAI.h	707
-CvPlayerAI	m_aiSameReligionCounter	int *	0	CvPlayerAI.h	703
-CvPlayerAI	m_aiSettleLandRegion	std::vector<int>	0	CvPlayerAI.h	737
-CvPlayerAI	m_aiSettleSeaRegion	std::vector<int>	0	CvPlayerAI.h	738
-CvPlayerAI	m_aiUnitClassWeights	int *	0	CvPlayerAI.h	712
-CvPlayerAI	m_aiUnitCombatWeights	int *	0	CvPlayerAI.h	713
-CvPlayerAI	m_bConsiderReligiousVictory	bool	0	CvPlayerAI.h	649
-CvPlayerAI	m_bHasInquisitionTarget	bool	0	CvPlayerAI.h	650
-CvPlayerAI	m_bPushReligiousVictory	bool	0	CvPlayerAI.h	648
-CvPlayerAI	m_bWasFinancialTrouble	bool	0	CvPlayerAI.h	742
-CvPlayerAI	m_iAIAgenda	int	0	CvPlayerAI.h	680
-CvPlayerAI	m_iAIAgendaScore	int	0	CvPlayerAI.h	681
-CvPlayerAI	m_iAIAgendaUpdateTurn	int	0	CvPlayerAI.h	682
-CvPlayerAI	m_iAIExpansionHorizon	int	0	CvPlayerAI.h	687
-CvPlayerAI	m_iAIIntentAtWar	int	0	CvPlayerAI.h	689
-CvPlayerAI	m_iAILogisticsPriority	int	0	CvPlayerAI.h	685
-CvPlayerAI	m_iAINavalPriority	int	0	CvPlayerAI.h	684
-CvPlayerAI	m_iAIStrategicRiskTolerance	int	0	CvPlayerAI.h	686
-CvPlayerAI	m_iAIWarPosture	int	0	CvPlayerAI.h	688
-CvPlayerAI	m_iAIWellbeingCacheExtraPop	int	0	CvPlayerAI.h	670
-CvPlayerAI	m_iAIWellbeingCacheGeneration	int	0	CvPlayerAI.h	669
-CvPlayerAI	m_iAIWellbeingGeneration	int	0	CvPlayerAI.h	668
-CvPlayerAI	m_iAttackOddsChange	int	0	CvPlayerAI.h	625
-CvPlayerAI	m_iAverageGreatPeopleMultiplier	int	0	CvPlayerAI.h	657
-CvPlayerAI	m_iAveragesCacheTurn	int	0	CvPlayerAI.h	655
-CvPlayerAI	m_iBadStartMask	int	0	CvPlayerAI.h	691
-CvPlayerAI	m_iBadStartScore	int	0	CvPlayerAI.h	692
-CvPlayerAI	m_iCivicTimer	int	0	CvPlayerAI.h	626
-CvPlayerAI	m_iEspionageWeight	int	0	CvPlayerAI.h	624
-CvPlayerAI	m_iExtraGoldTarget	int	0	CvPlayerAI.h	628
-CvPlayerAI	m_iFoundValuesCacheTurn	int	0	CvPlayerAI.h	666
-CvPlayerAI	m_iNextOperationID	int	0	CvPlayerAI.h	693
-CvPlayerAI	m_iOperationDeliveryCacheCityID	int	0	CvPlayerAI.h	698
-CvPlayerAI	m_iOperationDeliveryCacheTurn	int	0	CvPlayerAI.h	697
-CvPlayerAI	m_iPeaceWeight	int	0	CvPlayerAI.h	623
-CvPlayerAI	m_iReligionTimer	int	0	CvPlayerAI.h	627
-CvPlayerAI	m_iStrategyHash	int	0	CvPlayerAI.h	630
-CvPlayerAI	m_iStrategyHashCacheTurn	int	0	CvPlayerAI.h	631
-CvPlayerAI	m_iStrategyRand	int	0	CvPlayerAI.h	637
-CvPlayerAI	m_iTurnLastProductionDirty	int	0	CvPlayerAI.h	743
-CvPlayerAI	m_iUpgradeUnitsCacheTurn	int	0	CvPlayerAI.h	663
-CvPlayerAI	m_iUpgradeUnitsCachedExpThreshold	int	0	CvPlayerAI.h	664
-CvPlayerAI	m_iUpgradeUnitsCachedGold	int	0	CvPlayerAI.h	665
-CvPlayerAI	m_iVictoryStrategyHash	int	0	CvPlayerAI.h	638
-CvPlayerAI	m_iVictoryStrategyHashCacheTurn	int	0	CvPlayerAI.h	639
-CvPlayerAI	m_kAIStrategicContext	AIStrategicContextPolicy::Snapshot	0	CvPlayerAI.h	677
+CvPlayerAI	m_aPlayers	CvPlayerAI *	1	CvPlayerAI.h	623
+CvPlayerAI	m_aSettlePortLinks	std::vector<std::pair<int, int> >	0	CvPlayerAI.h	741
+CvPlayerAI	m_aSettlementCandidates	std::vector<AISettlementPolicy::Candidate>	0	CvPlayerAI.h	738
+CvPlayerAI	m_aaiContactTimer	int **	0	CvPlayerAI.h	733
+CvPlayerAI	m_aaiMemoryCount	int **	0	CvPlayerAI.h	734
+CvPlayerAI	m_abFirstContact	bool *	0	CvPlayerAI.h	731
+CvPlayerAI	m_aiAIAgendaBudget	int[5]	0	CvPlayerAI.h	685
+CvPlayerAI	m_aiAICitySites	std::vector<int>	0	CvPlayerAI.h	736
+CvPlayerAI	m_aiAIHappinessHeadroom	int[41]	0	CvPlayerAI.h	673
+CvPlayerAI	m_aiAIHealthHeadroom	int[41]	0	CvPlayerAI.h	674
+CvPlayerAI	m_aiAttitudeCache	int *	0	CvPlayerAI.h	726
+CvPlayerAI	m_aiAttitudeExtra	int *	0	CvPlayerAI.h	712
+CvPlayerAI	m_aiAverageCommerceExchange	int *	0	CvPlayerAI.h	663
+CvPlayerAI	m_aiAverageCommerceMultiplier	int *	0	CvPlayerAI.h	662
+CvPlayerAI	m_aiAverageYieldMultiplier	int *	0	CvPlayerAI.h	661
+CvPlayerAI	m_aiBonusTradeCounter	int *	0	CvPlayerAI.h	708
+CvPlayerAI	m_aiBonusValue	int *	0	CvPlayerAI.h	713
+CvPlayerAI	m_aiCloseBordersAttitudeCache	int *	0	CvPlayerAI.h	717
+CvPlayerAI	m_aiDifferentReligionCounter	int *	0	CvPlayerAI.h	706
+CvPlayerAI	m_aiFavoriteCivicCounter	int *	0	CvPlayerAI.h	707
+CvPlayerAI	m_aiGeneralCareers	std::vector<AIGeneralCareer>	0	CvPlayerAI.h	697
+CvPlayerAI	m_aiGoldTradedTo	int *	0	CvPlayerAI.h	711
+CvPlayerAI	m_aiMilitaryOperations	std::vector<AIOperationData>	0	CvPlayerAI.h	696
+CvPlayerAI	m_aiNumAIUnits	int *	0	CvPlayerAI.h	704
+CvPlayerAI	m_aiNumTrainAIUnits	int *	0	CvPlayerAI.h	703
+CvPlayerAI	m_aiOperationDeliveryCache	std::vector<AIOperationDeliveryCache>	0	CvPlayerAI.h	698
+CvPlayerAI	m_aiPeacetimeGrantValue	int *	0	CvPlayerAI.h	710
+CvPlayerAI	m_aiPeacetimeTradeValue	int *	0	CvPlayerAI.h	709
+CvPlayerAI	m_aiSameReligionCounter	int *	0	CvPlayerAI.h	705
+CvPlayerAI	m_aiSettleLandRegion	std::vector<int>	0	CvPlayerAI.h	739
+CvPlayerAI	m_aiSettleSeaRegion	std::vector<int>	0	CvPlayerAI.h	740
+CvPlayerAI	m_aiUnitClassWeights	int *	0	CvPlayerAI.h	714
+CvPlayerAI	m_aiUnitCombatWeights	int *	0	CvPlayerAI.h	715
+CvPlayerAI	m_bConsiderReligiousVictory	bool	0	CvPlayerAI.h	651
+CvPlayerAI	m_bHasInquisitionTarget	bool	0	CvPlayerAI.h	652
+CvPlayerAI	m_bPushReligiousVictory	bool	0	CvPlayerAI.h	650
+CvPlayerAI	m_bWasFinancialTrouble	bool	0	CvPlayerAI.h	744
+CvPlayerAI	m_iAIAgenda	int	0	CvPlayerAI.h	682
+CvPlayerAI	m_iAIAgendaScore	int	0	CvPlayerAI.h	683
+CvPlayerAI	m_iAIAgendaUpdateTurn	int	0	CvPlayerAI.h	684
+CvPlayerAI	m_iAIExpansionHorizon	int	0	CvPlayerAI.h	689
+CvPlayerAI	m_iAIIntentAtWar	int	0	CvPlayerAI.h	691
+CvPlayerAI	m_iAILogisticsPriority	int	0	CvPlayerAI.h	687
+CvPlayerAI	m_iAINavalPriority	int	0	CvPlayerAI.h	686
+CvPlayerAI	m_iAIStrategicRiskTolerance	int	0	CvPlayerAI.h	688
+CvPlayerAI	m_iAIWarPosture	int	0	CvPlayerAI.h	690
+CvPlayerAI	m_iAIWellbeingCacheExtraPop	int	0	CvPlayerAI.h	672
+CvPlayerAI	m_iAIWellbeingCacheGeneration	int	0	CvPlayerAI.h	671
+CvPlayerAI	m_iAIWellbeingGeneration	int	0	CvPlayerAI.h	670
+CvPlayerAI	m_iAttackOddsChange	int	0	CvPlayerAI.h	627
+CvPlayerAI	m_iAverageGreatPeopleMultiplier	int	0	CvPlayerAI.h	659
+CvPlayerAI	m_iAveragesCacheTurn	int	0	CvPlayerAI.h	657
+CvPlayerAI	m_iBadStartMask	int	0	CvPlayerAI.h	693
+CvPlayerAI	m_iBadStartScore	int	0	CvPlayerAI.h	694
+CvPlayerAI	m_iCivicTimer	int	0	CvPlayerAI.h	628
+CvPlayerAI	m_iEspionageWeight	int	0	CvPlayerAI.h	626
+CvPlayerAI	m_iExtraGoldTarget	int	0	CvPlayerAI.h	630
+CvPlayerAI	m_iFoundValuesCacheTurn	int	0	CvPlayerAI.h	668
+CvPlayerAI	m_iNextOperationID	int	0	CvPlayerAI.h	695
+CvPlayerAI	m_iOperationDeliveryCacheCityID	int	0	CvPlayerAI.h	700
+CvPlayerAI	m_iOperationDeliveryCacheTurn	int	0	CvPlayerAI.h	699
+CvPlayerAI	m_iPeaceWeight	int	0	CvPlayerAI.h	625
+CvPlayerAI	m_iReligionTimer	int	0	CvPlayerAI.h	629
+CvPlayerAI	m_iStrategyHash	int	0	CvPlayerAI.h	632
+CvPlayerAI	m_iStrategyHashCacheTurn	int	0	CvPlayerAI.h	633
+CvPlayerAI	m_iStrategyRand	int	0	CvPlayerAI.h	639
+CvPlayerAI	m_iTurnLastProductionDirty	int	0	CvPlayerAI.h	745
+CvPlayerAI	m_iUpgradeUnitsCacheTurn	int	0	CvPlayerAI.h	665
+CvPlayerAI	m_iUpgradeUnitsCachedExpThreshold	int	0	CvPlayerAI.h	666
+CvPlayerAI	m_iUpgradeUnitsCachedGold	int	0	CvPlayerAI.h	667
+CvPlayerAI	m_iVictoryStrategyHash	int	0	CvPlayerAI.h	640
+CvPlayerAI	m_iVictoryStrategyHashCacheTurn	int	0	CvPlayerAI.h	641
+CvPlayerAI	m_kAIStrategicContext	AIStrategicContextPolicy::Snapshot	0	CvPlayerAI.h	679
 CvPlayerColorInfo	m_iColorTypePrimary	int	0	CvInfos.h	6492
 CvPlayerColorInfo	m_iColorTypeSecondary	int	0	CvInfos.h	6493
 CvPlayerColorInfo	m_iTextColorType	int	0	CvInfos.h	6494
@@ -2460,78 +2463,78 @@ CvPlayerRecord	m_piNumBuildingsBuilt	int *	0	CvStatistics.h	120
 CvPlayerRecord	m_piNumUnitsBuilt	int *	0	CvStatistics.h	117
 CvPlayerRecord	m_piNumUnitsKilled	int *	0	CvStatistics.h	118
 CvPlayerRecord	m_piNumUnitsWasKilled	int *	0	CvStatistics.h	119
-CvPlot	m_abIsTeamBorderCache	bool *	0	CvPlot.h	635
-CvPlot	m_abRevealed	bool *	0	CvPlot.h	651
-CvPlot	m_abRiverCrossing	bool *	0	CvPlot.h	650
-CvPlot	m_aeRevealedImprovementType	short *	0	CvPlot.h	653
-CvPlot	m_aeRevealedRouteType	short *	0	CvPlot.h	654
-CvPlot	m_aiBlockadedCount	short *	0	CvPlot.h	647
-CvPlot	m_aiCulture	int *	0	CvPlot.h	641
-CvPlot	m_aiFoundValue	short *	0	CvPlot.h	642
-CvPlot	m_aiPlayerCityRadiusCount	char *	0	CvPlot.h	643
-CvPlot	m_aiPlotGroup	int *	0	CvPlot.h	644
-CvPlot	m_aiRevealedOwner	char *	0	CvPlot.h	648
-CvPlot	m_aiStolenVisibilityCount	short *	0	CvPlot.h	646
-CvPlot	m_aiVisibilityCount	short *	0	CvPlot.h	645
-CvPlot	m_aiYield	short *	0	CvPlot.h	640
-CvPlot	m_apaiCultureRangeCities	char **	0	CvPlot.h	669
-CvPlot	m_apaiInvisibleVisibilityCount	short **	0	CvPlot.h	670
-CvPlot	m_bFlagDirty	bool	0	CvPlot.h	604
-CvPlot	m_bGraphicsPagedOut	bool	0	CvPlot.h	607
-CvPlot	m_bHills	bool	0	CvPlot.h	598
-CvPlot	m_bIrrigated	bool	0	CvPlot.h	601
-CvPlot	m_bIsActivePlayerNoDangerCache	bool	0	CvPlot.h	634
-CvPlot	m_bLayoutStateWorked	bool	0	CvPlot.h	606
-CvPlot	m_bNOfRiver	bool	0	CvPlot.h	599
-CvPlot	m_bPagedBuilder	bool	0	CvPlot.h	609
-CvPlot	m_bPagedPlots	bool	0	CvPlot.h	608
-CvPlot	m_bPagedSymbols	bool	0	CvPlot.h	610
-CvPlot	m_bPlotLayoutDirty	bool	0	CvPlot.h	605
-CvPlot	m_bPotentialCityWork	bool	0	CvPlot.h	602
-CvPlot	m_bRevealedGraphicsDirty	bool	0	CvPlot.h	611
-CvPlot	m_bRevealedRouteDirty	bool	0	CvPlot.h	612
-CvPlot	m_bShowCitySymbols	bool	0	CvPlot.h	603
-CvPlot	m_bStartingPlot	bool	0	CvPlot.h	597
-CvPlot	m_bWOfRiver	bool	0	CvPlot.h	600
+CvPlot	m_abIsTeamBorderCache	bool *	0	CvPlot.h	639
+CvPlot	m_abRevealed	bool *	0	CvPlot.h	655
+CvPlot	m_abRiverCrossing	bool *	0	CvPlot.h	654
+CvPlot	m_aeRevealedImprovementType	short *	0	CvPlot.h	657
+CvPlot	m_aeRevealedRouteType	short *	0	CvPlot.h	658
+CvPlot	m_aiBlockadedCount	short *	0	CvPlot.h	651
+CvPlot	m_aiCulture	int *	0	CvPlot.h	645
+CvPlot	m_aiFoundValue	short *	0	CvPlot.h	646
+CvPlot	m_aiPlayerCityRadiusCount	char *	0	CvPlot.h	647
+CvPlot	m_aiPlotGroup	int *	0	CvPlot.h	648
+CvPlot	m_aiRevealedOwner	char *	0	CvPlot.h	652
+CvPlot	m_aiStolenVisibilityCount	short *	0	CvPlot.h	650
+CvPlot	m_aiVisibilityCount	short *	0	CvPlot.h	649
+CvPlot	m_aiYield	short *	0	CvPlot.h	644
+CvPlot	m_apaiCultureRangeCities	char **	0	CvPlot.h	673
+CvPlot	m_apaiInvisibleVisibilityCount	short **	0	CvPlot.h	674
+CvPlot	m_bFlagDirty	bool	0	CvPlot.h	608
+CvPlot	m_bGraphicsPagedOut	bool	0	CvPlot.h	611
+CvPlot	m_bHills	bool	0	CvPlot.h	602
+CvPlot	m_bIrrigated	bool	0	CvPlot.h	605
+CvPlot	m_bIsActivePlayerNoDangerCache	bool	0	CvPlot.h	638
+CvPlot	m_bLayoutStateWorked	bool	0	CvPlot.h	610
+CvPlot	m_bNOfRiver	bool	0	CvPlot.h	603
+CvPlot	m_bPagedBuilder	bool	0	CvPlot.h	613
+CvPlot	m_bPagedPlots	bool	0	CvPlot.h	612
+CvPlot	m_bPagedSymbols	bool	0	CvPlot.h	614
+CvPlot	m_bPlotLayoutDirty	bool	0	CvPlot.h	609
+CvPlot	m_bPotentialCityWork	bool	0	CvPlot.h	606
+CvPlot	m_bRevealedGraphicsDirty	bool	0	CvPlot.h	615
+CvPlot	m_bRevealedRouteDirty	bool	0	CvPlot.h	616
+CvPlot	m_bShowCitySymbols	bool	0	CvPlot.h	607
+CvPlot	m_bStartingPlot	bool	0	CvPlot.h	601
+CvPlot	m_bWOfRiver	bool	0	CvPlot.h	604
 CvPlot	m_eBattleEffect	EffectTypes	0	CvPlot.h	51
-CvPlot	m_eBonusType	short	0	CvPlot.h	618
-CvPlot	m_eFeatureType	short	0	CvPlot.h	617
-CvPlot	m_eImprovementType	short	0	CvPlot.h	619
-CvPlot	m_eOwner	char	0	CvPlot.h	614
-CvPlot	m_ePlotType	short	0	CvPlot.h	615
-CvPlot	m_eRiverNSDirection	char	0	CvPlot.h	621
-CvPlot	m_eRiverWEDirection	char	0	CvPlot.h	622
-CvPlot	m_eRouteType	short	0	CvPlot.h	620
-CvPlot	m_eTerrainType	short	0	CvPlot.h	616
-CvPlot	m_iArea	int	0	CvPlot.h	584
+CvPlot	m_eBonusType	short	0	CvPlot.h	622
+CvPlot	m_eFeatureType	short	0	CvPlot.h	621
+CvPlot	m_eImprovementType	short	0	CvPlot.h	623
+CvPlot	m_eOwner	char	0	CvPlot.h	618
+CvPlot	m_ePlotType	short	0	CvPlot.h	619
+CvPlot	m_eRiverNSDirection	char	0	CvPlot.h	625
+CvPlot	m_eRiverWEDirection	char	0	CvPlot.h	626
+CvPlot	m_eRouteType	short	0	CvPlot.h	624
+CvPlot	m_eTerrainType	short	0	CvPlot.h	620
+CvPlot	m_iArea	int	0	CvPlot.h	588
 CvPlot	m_iBattleCountdown	int	0	CvPlot.h	50
-CvPlot	m_iCityRadiusCount	short	0	CvPlot.h	591
-CvPlot	m_iFeatureVariety	short	0	CvPlot.h	586
-CvPlot	m_iForceUnownedTimer	short	0	CvPlot.h	590
-CvPlot	m_iImprovementDuration	short	0	CvPlot.h	588
-CvPlot	m_iMinOriginalStartDist	short	0	CvPlot.h	593
-CvPlot	m_iOwnershipDuration	short	0	CvPlot.h	587
-CvPlot	m_iReconCount	short	0	CvPlot.h	594
-CvPlot	m_iRiverCrossingCount	short	0	CvPlot.h	595
-CvPlot	m_iRiverID	int	0	CvPlot.h	592
-CvPlot	m_iUpgradeProgress	short	0	CvPlot.h	589
-CvPlot	m_iX	short	0	CvPlot.h	582
-CvPlot	m_iY	short	0	CvPlot.h	583
-CvPlot	m_pCenterUnit	CvUnit *	0	CvPlot.h	665
-CvPlot	m_pFeatureSymbol	CvFeature *	0	CvPlot.h	660
-CvPlot	m_pFlagSymbol	CvFlagEntity *	0	CvPlot.h	663
-CvPlot	m_pFlagSymbolOffset	CvFlagEntity *	0	CvPlot.h	664
-CvPlot	m_pPlotArea	CvArea *	0	CvPlot.h	585
-CvPlot	m_pPlotBuilder	CvPlotBuilder *	0	CvPlot.h	667
-CvPlot	m_pRiverSymbol	CvRiver *	0	CvPlot.h	662
-CvPlot	m_pRouteSymbol	CvRoute *	0	CvPlot.h	661
-CvPlot	m_paiBuildProgress	short *	0	CvPlot.h	658
-CvPlot	m_plotCity	IDInfo	0	CvPlot.h	624
-CvPlot	m_symbols	std::vector<CvSymbol *>	0	CvPlot.h	674
-CvPlot	m_szScriptData	char *	0	CvPlot.h	656
-CvPlot	m_units	CLinkList<IDInfo>	0	CvPlot.h	672
-CvPlot	m_workingCity	IDInfo	0	CvPlot.h	625
-CvPlot	m_workingCityOverride	IDInfo	0	CvPlot.h	626
+CvPlot	m_iCityRadiusCount	short	0	CvPlot.h	595
+CvPlot	m_iFeatureVariety	short	0	CvPlot.h	590
+CvPlot	m_iForceUnownedTimer	short	0	CvPlot.h	594
+CvPlot	m_iImprovementDuration	short	0	CvPlot.h	592
+CvPlot	m_iMinOriginalStartDist	short	0	CvPlot.h	597
+CvPlot	m_iOwnershipDuration	short	0	CvPlot.h	591
+CvPlot	m_iReconCount	short	0	CvPlot.h	598
+CvPlot	m_iRiverCrossingCount	short	0	CvPlot.h	599
+CvPlot	m_iRiverID	int	0	CvPlot.h	596
+CvPlot	m_iUpgradeProgress	short	0	CvPlot.h	593
+CvPlot	m_iX	short	0	CvPlot.h	586
+CvPlot	m_iY	short	0	CvPlot.h	587
+CvPlot	m_pCenterUnit	CvUnit *	0	CvPlot.h	669
+CvPlot	m_pFeatureSymbol	CvFeature *	0	CvPlot.h	664
+CvPlot	m_pFlagSymbol	CvFlagEntity *	0	CvPlot.h	667
+CvPlot	m_pFlagSymbolOffset	CvFlagEntity *	0	CvPlot.h	668
+CvPlot	m_pPlotArea	CvArea *	0	CvPlot.h	589
+CvPlot	m_pPlotBuilder	CvPlotBuilder *	0	CvPlot.h	671
+CvPlot	m_pRiverSymbol	CvRiver *	0	CvPlot.h	666
+CvPlot	m_pRouteSymbol	CvRoute *	0	CvPlot.h	665
+CvPlot	m_paiBuildProgress	short *	0	CvPlot.h	662
+CvPlot	m_plotCity	IDInfo	0	CvPlot.h	628
+CvPlot	m_symbols	std::vector<CvSymbol *>	0	CvPlot.h	678
+CvPlot	m_szScriptData	char *	0	CvPlot.h	660
+CvPlot	m_units	CLinkList<IDInfo>	0	CvPlot.h	676
+CvPlot	m_workingCity	IDInfo	0	CvPlot.h	629
+CvPlot	m_workingCityOverride	IDInfo	0	CvPlot.h	630
 CvPlotGroup	m_eOwner	PlayerTypes	0	CvPlotGroup.h	56
 CvPlotGroup	m_iID	int	0	CvPlotGroup.h	54
 CvPlotGroup	m_paiNumBonuses	int *	0	CvPlotGroup.h	58
@@ -3519,17 +3522,17 @@ FInputDevice::InputValue	m_point	POINT	0	FInputDevice.h	201
 FOWVis	pOffsets	POINT *	0	CvStructs.h	191
 FOWVis	uiCount	uint	0	CvStructs.h	190
 FVariable	m_eType	eVariableType	0	FVariableSystem.h	77
-FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_bValue	bool	0	FVariableSystem.h	64
-FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_cValue	char	0	FVariableSystem.h	65
-FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_dValue	double	0	FVariableSystem.h	72
-FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_fValue	float	0	FVariableSystem.h	71
-FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_iValue	int	0	FVariableSystem.h	69
-FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_szValue	char *	0	FVariableSystem.h	73
-FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_ucValue	byte	0	FVariableSystem.h	66
-FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_uiValue	uint	0	FVariableSystem.h	70
-FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_uwValue	word	0	FVariableSystem.h	68
-FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_wValue	short	0	FVariableSystem.h	67
-FVariable::(anonymous union at /tmp/cm-clang-mirror/FVariableSystem.h:62:3)	m_wszValue	wchar_t *	0	FVariableSystem.h	74
+FVariable::(anonymous union at /tmp/tmp.7Vs4hfpAwr/mirror/FVariableSystem.h:62:3)	m_bValue	bool	0	FVariableSystem.h	64
+FVariable::(anonymous union at /tmp/tmp.7Vs4hfpAwr/mirror/FVariableSystem.h:62:3)	m_cValue	char	0	FVariableSystem.h	65
+FVariable::(anonymous union at /tmp/tmp.7Vs4hfpAwr/mirror/FVariableSystem.h:62:3)	m_dValue	double	0	FVariableSystem.h	72
+FVariable::(anonymous union at /tmp/tmp.7Vs4hfpAwr/mirror/FVariableSystem.h:62:3)	m_fValue	float	0	FVariableSystem.h	71
+FVariable::(anonymous union at /tmp/tmp.7Vs4hfpAwr/mirror/FVariableSystem.h:62:3)	m_iValue	int	0	FVariableSystem.h	69
+FVariable::(anonymous union at /tmp/tmp.7Vs4hfpAwr/mirror/FVariableSystem.h:62:3)	m_szValue	char *	0	FVariableSystem.h	73
+FVariable::(anonymous union at /tmp/tmp.7Vs4hfpAwr/mirror/FVariableSystem.h:62:3)	m_ucValue	byte	0	FVariableSystem.h	66
+FVariable::(anonymous union at /tmp/tmp.7Vs4hfpAwr/mirror/FVariableSystem.h:62:3)	m_uiValue	uint	0	FVariableSystem.h	70
+FVariable::(anonymous union at /tmp/tmp.7Vs4hfpAwr/mirror/FVariableSystem.h:62:3)	m_uwValue	word	0	FVariableSystem.h	68
+FVariable::(anonymous union at /tmp/tmp.7Vs4hfpAwr/mirror/FVariableSystem.h:62:3)	m_wValue	short	0	FVariableSystem.h	67
+FVariable::(anonymous union at /tmp/tmp.7Vs4hfpAwr/mirror/FVariableSystem.h:62:3)	m_wszValue	wchar_t *	0	FVariableSystem.h	74
 FVariableSystem	m_iVariableIterator	FVariableHash::iterator	0	FVariableSystem.h	143
 FVariableSystem	m_mapVariableMap	FVariableHash	0	FVariableSystem.h	142
 GameTurnInfo	iMonthIncrement	int	0	CvStructs.h	48
@@ -3660,17 +3663,17 @@ XYCoords	iY	int	0	CvStructs.h	17
 `anonymous namespace'::ForecastFight	fAttackerDies	double	0	CvSelectionGroupAI.cpp	1011
 `anonymous namespace'::ForecastFight	fWin	double	0	CvSelectionGroupAI.cpp	1010
 `anonymous namespace'::ForecastFight	iDamageToDefender	int	0	CvSelectionGroupAI.cpp	1013
-`anonymous namespace'::PathValidMemo	bTurnStart	bool	0	CvGameCoreUtils.cpp	2071
-`anonymous namespace'::PathValidMemo	iInfo	int	0	CvGameCoreUtils.cpp	2070
-`anonymous namespace'::PathValidMemo	iResult	int	0	CvGameCoreUtils.cpp	2072
-`anonymous namespace'::PathValidMemo	iX	int	0	CvGameCoreUtils.cpp	2068
-`anonymous namespace'::PathValidMemo	iY	int	0	CvGameCoreUtils.cpp	2069
-`anonymous namespace'::PathValidMemo	pFinder	const FAStar *	0	CvGameCoreUtils.cpp	2065
-`anonymous namespace'::PathValidMemo	pGroup	const void *	0	CvGameCoreUtils.cpp	2067
-`anonymous namespace'::PathValidMemo	pParent	const FAStarNode *	0	CvGameCoreUtils.cpp	2066
-`anonymous namespace'::UnitTargetCounter	aeMissionAI	MissionAITypes *	0	CvPlayerAI.cpp	13077
-`anonymous namespace'::UnitTargetCounter	iCount	int	0	CvPlayerAI.cpp	13081
-`anonymous namespace'::UnitTargetCounter	iMaxPathTurns	int	0	CvPlayerAI.cpp	13080
-`anonymous namespace'::UnitTargetCounter	iMissionAICount	int	0	CvPlayerAI.cpp	13078
-`anonymous namespace'::UnitTargetCounter	pSkipSelectionGroup	const CvSelectionGroup *	0	CvPlayerAI.cpp	13079
-`anonymous namespace'::UnitTargetCounter	pUnit	CvUnit *	0	CvPlayerAI.cpp	13076
+`anonymous namespace'::PathValidMemo	bTurnStart	bool	0	CvGameCoreUtils.cpp	2076
+`anonymous namespace'::PathValidMemo	iInfo	int	0	CvGameCoreUtils.cpp	2075
+`anonymous namespace'::PathValidMemo	iResult	int	0	CvGameCoreUtils.cpp	2077
+`anonymous namespace'::PathValidMemo	iX	int	0	CvGameCoreUtils.cpp	2073
+`anonymous namespace'::PathValidMemo	iY	int	0	CvGameCoreUtils.cpp	2074
+`anonymous namespace'::PathValidMemo	pFinder	const FAStar *	0	CvGameCoreUtils.cpp	2070
+`anonymous namespace'::PathValidMemo	pGroup	const void *	0	CvGameCoreUtils.cpp	2072
+`anonymous namespace'::PathValidMemo	pParent	const FAStarNode *	0	CvGameCoreUtils.cpp	2071
+`anonymous namespace'::UnitTargetCounter	aeMissionAI	MissionAITypes *	0	CvPlayerAI.cpp	13567
+`anonymous namespace'::UnitTargetCounter	iCount	int	0	CvPlayerAI.cpp	13571
+`anonymous namespace'::UnitTargetCounter	iMaxPathTurns	int	0	CvPlayerAI.cpp	13570
+`anonymous namespace'::UnitTargetCounter	iMissionAICount	int	0	CvPlayerAI.cpp	13568
+`anonymous namespace'::UnitTargetCounter	pSkipSelectionGroup	const CvSelectionGroup *	0	CvPlayerAI.cpp	13569
+`anonymous namespace'::UnitTargetCounter	pUnit	CvUnit *	0	CvPlayerAI.cpp	13566

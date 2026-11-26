@@ -177,7 +177,7 @@ CvBuildingInfo::read	CvBuildingInfo	m_piReligionChange	ReligionChanges	SetVariab
 CvBuildingInfo::read	CvBuildingInfo	m_piSpecialistCount	SpecialistCounts	SetVariableListTagPair	CvInfos.cpp	11553
 CvBuildingInfo::read	CvBuildingInfo	m_piUnitCombatFreeExperience	UnitCombatFreeExperiences	SetVariableListTagPair	CvInfos.cpp	11583
 CvCameraOverlayInfo::read	CvCameraOverlayInfo	m_bVisible	bVisible	GetChildXmlValByName	CvInfoWater.cpp	398
-CvCityAI::AI_updateBestBuild	CvCityAI	m_aeBestBuild	      City %S switches best build on plot %d, %d from %S (%d) to %S (%d) with worker count %d	logBBAI	CvCityAI.cpp	8312
+CvCityAI::AI_updateBestBuild	CvCityAI	m_aeBestBuild	      City %S switches best build on plot %d, %d from %S (%d) to %S (%d) with worker count %d	logBBAI	CvCityAI.cpp	8821
 CvCivicInfo::read	CvCivicInfo	m_bAllowInquisitions	bAllowInquisitions	GetChildXmlValByName	CvInfos.cpp	8178
 CvCivicInfo::read	CvCivicInfo	m_bBuildingOnlyHealthy	bBuildingOnlyHealthy	GetChildXmlValByName	CvInfos.cpp	8154
 CvCivicInfo::read	CvCivicInfo	m_bCanDoElection	bCanDoElection	GetChildXmlValByName	CvInfos.cpp	8196
@@ -597,31 +597,31 @@ CvFeatureInfo::read	CvFeatureInfo	m_pi3DAudioScriptFootstepIndex	FootstepSounds	
 CvFeatureInfo::read	CvFeatureInfo	m_szEffectType	EffectType	GetChildXmlValByName	CvInfos.cpp	17625
 CvFeatureInfo::read	CvFeatureInfo	m_szOnUnitChangeTo	OnUnitChangeTo	GetChildXmlValByName	CvInfos.cpp	17600
 CvForceControlInfo::read	CvForceControlInfo	m_bDefault	bDefault	GetChildXmlValByName	CvInfos.cpp	26983
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_ASSIGN_CITY	getText	CvGame.cpp	10362
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_ASSIGN_CITY	operator=	CvGame.cpp	10362
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_DEFENSIVE_PACT	getText	CvGame.cpp	10286
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_DEFENSIVE_PACT	operator=	CvGame.cpp	10286
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_NO_TRADE	getText	CvGame.cpp	10320
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_NO_TRADE	operator=	CvGame.cpp	10320
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_PEACE	getText	CvGame.cpp	10302
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_PEACE	operator=	CvGame.cpp	10302
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_WAR	getText	CvGame.cpp	10338
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_WAR	operator=	CvGame.cpp	10338
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPEN_BORDERS	getText	CvGame.cpp	10278
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPEN_BORDERS	operator=	CvGame.cpp	10278
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPTION	getText	CvGame.cpp	10371
-CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPTION	operator=	CvGame.cpp	10371
-CvGame::doVoteResults	VoteSelectionSubData	szText	TXT_KEY_VOTE_RESULTS	getText	CvGame.cpp	10660
-CvGame::pageGraphics	CvGame	m_iPagingX	turn %d look (%d,%d) %s: in plots %d units %d cities %d, out plots %d units %d cities %d; paged out plots %d units %d cities %d	Format	CvGame.cpp	3088
-CvGame::processDeferredReveals	CvGame	m_aiDeferredRevealPlots	turn %d bulk reveal: refreshed %d, queued %d	Format	CvGame.cpp	2407
-CvGame::processVote	VoteSelectionSubData	eOtherPlayer	  Vote for assigning %S to %d (%S) passes	logBBAI	CvGame.cpp	8888
-CvGame::read	CvGame	m_iNumSessions	TXT_KEY_MISC_RELOAD	addReplayMessage	CvGame.cpp	9460
-CvGame::read	CvGame	m_iNumSessions	TXT_KEY_MISC_RELOAD	getText	CvGame.cpp	9460
-CvGame::startFlyoutMenu	FAStarNode	m_iData2	TXT_KEY_FLYOUT_MENU_MOVE_TO	getText	CvGameInterface.cpp	2240
-CvGame::startFlyoutMenu	FAStarNode	m_iData2	TXT_KEY_FLYOUT_MENU_MOVE_TO	operator=	CvGameInterface.cpp	2240
-CvGame::update	CvGame	m_iNumGameTurnActive	Turn-active count repaired from %d to %d on turn %d	logBBAI	CvGame.cpp	2208
-CvGame::updateGraphicsMemoryPressure	CvGame	m_iGraphicsMemoryPressure	turn %d memory pressure %d -> %d, available virtual %d MB	Format	CvGame.cpp	2502
-CvGame::updateGraphicsPaging	CvGame	m_iPagingX	turn %d look (%d,%d) %s: window west %d east %d north %d south %d margin %d	Format	CvGame.cpp	2672
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_ASSIGN_CITY	getText	CvGame.cpp	10550
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_ASSIGN_CITY	operator=	CvGame.cpp	10550
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_DEFENSIVE_PACT	getText	CvGame.cpp	10474
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_DEFENSIVE_PACT	operator=	CvGame.cpp	10474
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_NO_TRADE	getText	CvGame.cpp	10508
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_NO_TRADE	operator=	CvGame.cpp	10508
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_PEACE	getText	CvGame.cpp	10490
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_PEACE	operator=	CvGame.cpp	10490
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_WAR	getText	CvGame.cpp	10526
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_WAR	operator=	CvGame.cpp	10526
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPEN_BORDERS	getText	CvGame.cpp	10466
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPEN_BORDERS	operator=	CvGame.cpp	10466
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPTION	getText	CvGame.cpp	10559
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPTION	operator=	CvGame.cpp	10559
+CvGame::doVoteResults	VoteSelectionSubData	szText	TXT_KEY_VOTE_RESULTS	getText	CvGame.cpp	10848
+CvGame::pageGraphics	CvGame	m_iPagingX	turn %d look (%d,%d) %s: in plots %d units %d cities %d, out plots %d units %d cities %d; paged out plots %d units %d cities %d	Format	CvGame.cpp	3276
+CvGame::processDeferredReveals	CvGame	m_aiDeferredRevealPlots	turn %d bulk reveal: refreshed %d, queued %d	Format	CvGame.cpp	2422
+CvGame::processVote	VoteSelectionSubData	eOtherPlayer	  Vote for assigning %S to %d (%S) passes	logBBAI	CvGame.cpp	9076
+CvGame::read	CvGame	m_iNumSessions	TXT_KEY_MISC_RELOAD	addReplayMessage	CvGame.cpp	9648
+CvGame::read	CvGame	m_iNumSessions	TXT_KEY_MISC_RELOAD	getText	CvGame.cpp	9648
+CvGame::startFlyoutMenu	FAStarNode	m_iData2	TXT_KEY_FLYOUT_MENU_MOVE_TO	getText	CvGameInterface.cpp	2267
+CvGame::startFlyoutMenu	FAStarNode	m_iData2	TXT_KEY_FLYOUT_MENU_MOVE_TO	operator=	CvGameInterface.cpp	2267
+CvGame::update	CvGame	m_iNumGameTurnActive	Turn-active count repaired from %d to %d on turn %d	logBBAI	CvGame.cpp	2209
+CvGame::updateGraphicsMemoryPressure	CvGame	m_iGraphicsMemoryPressure	turn %d memory pressure %d -> %d, available virtual %d MB	Format	CvGame.cpp	2517
+CvGame::updateGraphicsPaging	CvGame	m_iPagingX	turn %d look (%d,%d) %s: window west %d east %d north %d south %d margin %d	Format	CvGame.cpp	2696
 CvGameOptionInfo::read	CvGameOptionInfo	m_bDefault	bDefault	GetChildXmlValByName	CvInfos.cpp	26873
 CvGameOptionInfo::read	CvGameOptionInfo	m_bVisible	bVisible	GetChildXmlValByName	CvInfos.cpp	26874
 CvGameSpeedInfo::read	CvGameSpeedInfo	m_iAnarchyPercent	iAnarchyPercent	GetChildXmlValByName	CvInfos.cpp	14754
@@ -1135,35 +1135,35 @@ CvNetResearch::Execute	CvNetResearch	m_eTech	RESEARCH\t%s\t%d\t%d	format	CvMessa
 CvNetTurnComplete::Debug	CvNetTurnComplete	m_ePlayer	Turn Complete, %d	sprintf	CvMessageData.cpp	149
 CvNetTurnComplete::Execute	CvNetTurnComplete	m_ePlayer	TURN	warLogAction	CvMessageData.cpp	154
 CvNetUpdateCivics::Debug	CvNetUpdateCivics	m_ePlayer	Update Civics, ePlayer is %d	sprintf	CvMessageData.cpp	332
-CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer		getText	CvPlayer.cpp	21254
-CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer		getText	CvPlayer.cpp	21320
-CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer		getText	CvPlayer.cpp	21345
-CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer		operator=	CvPlayer.cpp	21254
-CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer		operator=	CvPlayer.cpp	21320
-CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer	    Team %d (%S) declares war on team %d due to event	logBBAI	CvPlayer.cpp	20772
-CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer	AS2D_PILLAGED	addMessage	CvPlayer.cpp	20958
-CvPlayer::applyEvent	EventTriggeredData	m_iPlotX	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	21287
-CvPlayer::applyEvent	EventTriggeredData	m_iPlotX	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	21332
-CvPlayer::getItemTradeString	TradeData	m_iData	 	operator+	CvPlayer.cpp	24141
-CvPlayer::getItemTradeString	TradeData	m_iData	 	operator+=	CvPlayer.cpp	24141
-CvPlayer::getItemTradeString	TradeData	m_iData	%s (%d)	Format	CvPlayer.cpp	24087
-CvPlayer::getItemTradeString	TradeData	m_iData	TXT_KEY_TRADE_GOLD_NUM	getText	CvPlayer.cpp	24032
-CvPlayer::getItemTradeString	TradeData	m_iData	TXT_KEY_TRADE_GOLD_NUM	operator=	CvPlayer.cpp	24032
-CvPlayer::getItemTradeString	TradeData	m_iData	TXT_KEY_TRADE_GOLD_PER_TURN_NUM	getText	CvPlayer.cpp	24042
-CvPlayer::getItemTradeString	TradeData	m_iData	TXT_KEY_TRADE_GOLD_PER_TURN_NUM	operator=	CvPlayer.cpp	24042
-CvPlayer::getItemTradeString	TradeData	m_iData	TXT_KEY_TRADE_RESOURCE	getText	CvPlayer.cpp	24082
-CvPlayer::getItemTradeString	TradeData	m_iData	TXT_KEY_TRADE_RESOURCE	operator=	CvPlayer.cpp	24082
-CvPlayer::initTriggeredData	EventTriggeredData	m_eReligion		getText	CvPlayer.cpp	20305
-CvPlayer::initTriggeredData	EventTriggeredData	m_eReligion		operator=	CvPlayer.cpp	20305
-CvPlayer::setTriggerFired	EventTriggeredData	m_szGlobalText	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	19778
-CvPlayer::setTriggerFired	EventTriggeredData	m_szGlobalText	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	19782
-CvPlayer::setTriggerFired	EventTriggeredData	m_szText	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	19804
-CvPlayer::setTriggerFired	EventTriggeredData	m_szText	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	19808
-CvPlayerAI::AI_techValue	CvPlayerAI	m_iAIAgenda	      Player %d agenda %d adds %d to tech %S	logBBAI	CvPlayerAI.cpp	6108
-CvPlayerAI::AI_updateAgenda	CvPlayerAI	m_iBadStartMask	    Player %d (%S) bad start mask %d severity %d chooses agenda %d	logBBAI	CvPlayerAI.cpp	4807
-CvPlayerAI::AI_updateMilitaryOperations	AIOperationData	iID	    Operation %d state %d -> %d health %d ratio %d field %d capture %d urgency %d	logBBAI	CvPlayerAI.cpp	16309
-CvPlayerAI::AI_updateMilitaryOperations	AIOperationData	iID	    Player %d creates operation %d general %d personality %d target %S group %d	logBBAI	CvPlayerAI.cpp	16584
-CvPlayerAI::AI_updateMilitaryOperations	AIOperationData	iID	    Player %d operation %d captured %S: occupation reduced %d%%	logBBAI	CvPlayerAI.cpp	16143
+CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer		getText	CvPlayer.cpp	21280
+CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer		getText	CvPlayer.cpp	21346
+CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer		getText	CvPlayer.cpp	21371
+CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer		operator=	CvPlayer.cpp	21280
+CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer		operator=	CvPlayer.cpp	21346
+CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer	    Team %d (%S) declares war on team %d due to event	logBBAI	CvPlayer.cpp	20798
+CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer	AS2D_PILLAGED	addMessage	CvPlayer.cpp	20984
+CvPlayer::applyEvent	EventTriggeredData	m_iPlotX	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	21313
+CvPlayer::applyEvent	EventTriggeredData	m_iPlotX	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	21358
+CvPlayer::getItemTradeString	TradeData	m_iData	 	operator+	CvPlayer.cpp	24167
+CvPlayer::getItemTradeString	TradeData	m_iData	 	operator+=	CvPlayer.cpp	24167
+CvPlayer::getItemTradeString	TradeData	m_iData	%s (%d)	Format	CvPlayer.cpp	24113
+CvPlayer::getItemTradeString	TradeData	m_iData	TXT_KEY_TRADE_GOLD_NUM	getText	CvPlayer.cpp	24058
+CvPlayer::getItemTradeString	TradeData	m_iData	TXT_KEY_TRADE_GOLD_NUM	operator=	CvPlayer.cpp	24058
+CvPlayer::getItemTradeString	TradeData	m_iData	TXT_KEY_TRADE_GOLD_PER_TURN_NUM	getText	CvPlayer.cpp	24068
+CvPlayer::getItemTradeString	TradeData	m_iData	TXT_KEY_TRADE_GOLD_PER_TURN_NUM	operator=	CvPlayer.cpp	24068
+CvPlayer::getItemTradeString	TradeData	m_iData	TXT_KEY_TRADE_RESOURCE	getText	CvPlayer.cpp	24108
+CvPlayer::getItemTradeString	TradeData	m_iData	TXT_KEY_TRADE_RESOURCE	operator=	CvPlayer.cpp	24108
+CvPlayer::initTriggeredData	EventTriggeredData	m_eReligion		getText	CvPlayer.cpp	20331
+CvPlayer::initTriggeredData	EventTriggeredData	m_eReligion		operator=	CvPlayer.cpp	20331
+CvPlayer::setTriggerFired	EventTriggeredData	m_szGlobalText	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	19804
+CvPlayer::setTriggerFired	EventTriggeredData	m_szGlobalText	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	19808
+CvPlayer::setTriggerFired	EventTriggeredData	m_szText	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	19830
+CvPlayer::setTriggerFired	EventTriggeredData	m_szText	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	19834
+CvPlayerAI::AI_techValue	CvPlayerAI	m_iAIAgenda	      Player %d agenda %d adds %d to tech %S	logBBAI	CvPlayerAI.cpp	6294
+CvPlayerAI::AI_updateAgenda	CvPlayerAI	m_iBadStartMask	    Player %d (%S) bad start mask %d severity %d chooses agenda %d	logBBAI	CvPlayerAI.cpp	4948
+CvPlayerAI::AI_updateMilitaryOperations	AIOperationData	iID	    Operation %d state %d -> %d health %d ratio %d field %d capture %d urgency %d	logBBAI	CvPlayerAI.cpp	17088
+CvPlayerAI::AI_updateMilitaryOperations	AIOperationData	iID	    Player %d creates operation %d general %d personality %d target %S group %d	logBBAI	CvPlayerAI.cpp	17363
+CvPlayerAI::AI_updateMilitaryOperations	AIOperationData	iID	    Player %d operation %d captured %S: occupation reduced %d%%	logBBAI	CvPlayerAI.cpp	16922
 CvPlayerOptionInfo::read	CvPlayerOptionInfo	m_bDefault	bDefault	GetChildXmlValByName	CvInfos.cpp	27037
 CvProjectInfo::read	CvProjectInfo	m_bAllowsNukes	bAllowsNukes	GetChildXmlValByName	CvInfos.cpp	20782
 CvProjectInfo::read	CvProjectInfo	m_bSpaceship	bSpaceship	GetChildXmlValByName	CvInfos.cpp	20781
@@ -1356,9 +1356,9 @@ CvTurnTimerInfo::read	CvTurnTimerInfo	m_iBaseTime	iBaseTime	GetChildXmlValByName
 CvTurnTimerInfo::read	CvTurnTimerInfo	m_iCityBonus	iCityBonus	GetChildXmlValByName	CvInfos.cpp	14912
 CvTurnTimerInfo::read	CvTurnTimerInfo	m_iFirstTurnMultiplier	iFirstTurnMultiplier	GetChildXmlValByName	CvInfos.cpp	14914
 CvTurnTimerInfo::read	CvTurnTimerInfo	m_iUnitBonus	iUnitBonus	GetChildXmlValByName	CvInfos.cpp	14913
-CvUnit::getName	CvUnit	m_szName	%s (%s)	Format	CvUnit.cpp	12416
-CvUnit::performInquisition	CvUnit	m_pUnitInfo	AS2D_PLAGUE	addMessage	CvUnit.cpp	17286
-CvUnit::performInquisition	CvUnit	m_pUnitInfo	AS2D_SABOTAGE	addMessage	CvUnit.cpp	17315
+CvUnit::getName	CvUnit	m_szName	%s (%s)	Format	CvUnit.cpp	12498
+CvUnit::performInquisition	CvUnit	m_pUnitInfo	AS2D_PLAGUE	addMessage	CvUnit.cpp	17368
+CvUnit::performInquisition	CvUnit	m_pUnitInfo	AS2D_SABOTAGE	addMessage	CvUnit.cpp	17397
 CvUnitClassInfo::read	CvUnitClassInfo	m_iInstanceCostModifier	iInstanceCostModifier	GetChildXmlValByName	CvInfos.cpp	9080
 CvUnitClassInfo::read	CvUnitClassInfo	m_iMaxGlobalInstances	iMaxGlobalInstances	GetChildXmlValByName	CvInfos.cpp	9077
 CvUnitClassInfo::read	CvUnitClassInfo	m_iMaxPlayerInstances	iMaxPlayerInstances	GetChildXmlValByName	CvInfos.cpp	9079
@@ -1612,8 +1612,8 @@ CvYieldInfo::read	CvYieldInfo	m_iPeakChange	iPeakChange	GetChildXmlValByName	CvI
 CvYieldInfo::read	CvYieldInfo	m_iPopulationChangeDivisor	iPopulationChangeDivisor	GetChildXmlValByName	CvInfos.cpp	17952
 CvYieldInfo::read	CvYieldInfo	m_iPopulationChangeOffset	iPopulationChangeOffset	GetChildXmlValByName	CvInfos.cpp	17951
 CvYieldInfo::read	CvYieldInfo	m_iTradeModifier	iTradeModifier	GetChildXmlValByName	CvInfos.cpp	17954
-warLogCities	OrderData	eOrderType	Y\t%d\t%d\t%d\t%d\t%d\t%d\t%s\t%d\t%d\t%d\t%s\t%d\t%d\t%d	Format	CvGameCoreUtils.cpp	3627
-warLogDeal	TradeData	m_eItemType	%d:%d,	format	CvGameCoreUtils.cpp	3751
-warLogDeal	TradeData	m_eItemType	%d:%d,	operator+=	CvGameCoreUtils.cpp	3751
-warLogStacks	std::pair	first	%s%s:%d	Format	CvGameCoreUtils.cpp	3563
-warUnitLine	MissionData	eMissionType	L\t%d\t%d\t%d\t%d\t%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%s	format	CvGameCoreUtils.cpp	3785
+warLogCities	OrderData	eOrderType	Y\t%d\t%d\t%d\t%d\t%d\t%d\t%s\t%d\t%d\t%d\t%s\t%d\t%d\t%d	Format	CvGameCoreUtils.cpp	3632
+warLogDeal	TradeData	m_eItemType	%d:%d,	format	CvGameCoreUtils.cpp	3756
+warLogDeal	TradeData	m_eItemType	%d:%d,	operator+=	CvGameCoreUtils.cpp	3756
+warLogStacks	std::pair	first	%s%s:%d	Format	CvGameCoreUtils.cpp	3568
+warUnitLine	MissionData	eMissionType	L\t%d\t%d\t%d\t%d\t%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%s	format	CvGameCoreUtils.cpp	3790

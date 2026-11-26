@@ -41,7 +41,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - called by (4): CvSelectionGroup::groupMove, CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat
 - **112** `CvDLLEntity::SetPosition(CvPlot const*)` (exported)
   - calls: CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::SetPosition [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
-  - called by (1): CvUnit::setXY
+  - called by (2): CvUnit::pageGraphics, CvUnit::setXY
 - **122** `CvDLLEntity::NotifyEntity(MissionTypes)` (exported)
   - calls: CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::NotifyEntity [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
 - **132** `CvDLLEntity::SetSiegeTower(bool)` (exported)

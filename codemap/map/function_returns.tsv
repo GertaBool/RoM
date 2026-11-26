@@ -1,4 +1,17 @@
 function	returns
+AIBuildingLinePolicy::clamp	int
+AIBuildingLinePolicy::corporationNetValue100	int
+AIBuildingLinePolicy::crusadeWonderValue	int
+AIBuildingLinePolicy::djenneWonderValue	int
+AIBuildingLinePolicy::goldenAgeBuildingValue	int
+AIBuildingLinePolicy::himejiWonderValue	int
+AIBuildingLinePolicy::militaryWonderBonusValue	int
+AIBuildingLinePolicy::naniteDefuserValue	int
+AIBuildingLinePolicy::netUpgradeValue	int
+AIBuildingLinePolicy::obsolescenceFactorPercent	int
+AIBuildingLinePolicy::prereqChainCredit	int
+AIBuildingLinePolicy::scaledCivicHorizon	int
+AIBuildingLinePolicy::worldBankValue	int
 AICityGovernorPolicy::choose	int
 AICityGovernorPolicy::clamp	int
 AICityGovernorPolicy::eligible	bool
@@ -8,8 +21,11 @@ AICityGovernorPolicy::termLength	int
 AICityGovernorPolicy::utility	int
 AICivicPolicy::applyPenalty	int
 AICivicPolicy::freeExperienceValuePerTurn	int
+AICivicPolicy::improvementUpgradeStep	int
+AICivicPolicy::improvementUpgradeTurnsLeft	int
 AICivicPolicy::recurringUnitCostPerTurn	int
 AICivicPolicy::scaleCostPercent	int
+AICivicPolicy::scaledWorkRate	int
 AICivicPolicy::shouldSwitch	bool
 AIDecisionPolicy::assaultThreshold	int
 AIDecisionPolicy::clamp	int
@@ -30,8 +46,14 @@ AIDecisionPolicy::seaRouteWorthwhile	bool
 AIDecisionPolicy::settlerFerryWorthwhile	bool
 AIDecisionPolicy::workerHurryValue	int
 AIDiplomacyPolicy::goldForValueGap	int
+AIDiplomacyPolicy::goldPerTurnCostVal	int
+AIDiplomacyPolicy::isWeightedGreater	bool
+AIDiplomacyPolicy::maxAffordableGoldPerTurn	int
+AIDiplomacyPolicy::powerRatioPercent	int
+AIDiplomacyPolicy::resourceReservationVal	int
 AIDiplomacyPolicy::saturatingAdd	int
 AIDiplomacyPolicy::scaleByRatio	int
+AIDiplomacyPolicy::scaleByRatio64	int
 AIDiplomacyPolicy::valueFromGold	int
 AIFeedbackPolicy::agendaDelta	int
 AIFeedbackPolicy::chooseGeneralPersonality	int
@@ -67,6 +89,24 @@ AIPathPolicy::threatAdjustedCost	int
 AIPathReuse::Owner::admit	bool
 AIPathReuse::Owner::invalidate	void
 AIPathReuse::sameKey	bool
+AIPlaystylePolicy::academyConstructNpv	int
+AIPlaystylePolicy::clamp	int
+AIPlaystylePolicy::coastalNavalThreatDefenders	int
+AIPlaystylePolicy::collateralAttackPriorityBonus	int
+AIPlaystylePolicy::engineerWonderHurryDiscountPct	int
+AIPlaystylePolicy::espionageFloorPercent	int
+AIPlaystylePolicy::foodCorporationYieldWeight	int
+AIPlaystylePolicy::goldenAgeTotalValue	int
+AIPlaystylePolicy::landRangedUnitValueBonus	int
+AIPlaystylePolicy::projectedTradeYield	int
+AIPlaystylePolicy::rangeTargetScore	int
+AIPlaystylePolicy::revDcmResearchFloorPercent	int
+AIPlaystylePolicy::saturatingInt	int
+AIPlaystylePolicy::shouldSkirmishRetreatAfterShot	bool
+AIPlaystylePolicy::shouldSkirmishStepAndShoot	bool
+AIPlaystylePolicy::tangentialTechSaleScore	int
+AIPlaystylePolicy::unitTurnTimeDivisor	int
+AIPlaystylePolicy::urgentUpgradeReserve	int
 AIProductionChainPolicy::downstreamBuildingValue	int
 AIProductionChainPolicy::parallelTechReadinessPercent	int
 AIProductionChainPolicy::readinessPercent	int
@@ -83,6 +123,12 @@ AIStrategicContextPolicy::goldRunway	int
 AIStrategicContextPolicy::isCurrent	bool
 AIStrategicContextPolicy::saturatingAdd	int
 AIStrategicContextPolicy::usefulForeignTradeCities	int
+AIStrategicDefensePolicy::clamp	int
+AIStrategicDefensePolicy::coalitionCanMatchTarget	bool
+AIStrategicDefensePolicy::defensiveCounterstrokeAllowed	bool
+AIStrategicDefensePolicy::isHegemonThreat	bool
+AIStrategicDefensePolicy::shouldCancelOpenBordersForStaging	bool
+AIStrategicDefensePolicy::stagedGarrisonDeficit	int
 AIWellbeingPolicy::clamp	int
 AIWellbeingPolicy::happinessMarginal	int
 AIWellbeingPolicy::happinessPotential	int
@@ -6467,6 +6513,7 @@ CvPlayerAI::AI_religionTradeVal	int
 CvPlayerAI::AI_religionValue	int
 CvPlayerAI::AI_rememberGeneral	void
 CvPlayerAI::AI_reset	void
+CvPlayerAI::AI_resourceReservationVal	int
 CvPlayerAI::AI_setAttackOddsChange	void
 CvPlayerAI::AI_setAttitudeExtra	void
 CvPlayerAI::AI_setCivicTimer	void
@@ -6490,6 +6537,7 @@ CvPlayerAI::AI_totalMissionAIs	int
 CvPlayerAI::AI_totalUnitAIs	int
 CvPlayerAI::AI_totalWaterAreaUnitAIs	int
 CvPlayerAI::AI_tradeGiveVal	int
+CvPlayerAI::AI_tradeReservationVal	int
 CvPlayerAI::AI_uninit	void
 CvPlayerAI::AI_unitAIDomainType	DomainTypes
 CvPlayerAI::AI_unitImpassableCount	int
@@ -6788,6 +6836,7 @@ CvPlot::isRevealed	bool
 CvPlot::isRevealedBarbarian	bool
 CvPlot::isRevealedGoody	bool
 CvPlot::isRevealedGraphicsDirty	bool
+CvPlot::isRevealedRouteDirty	bool
 CvPlot::isRiver	bool
 CvPlot::isRiverConnection	bool
 CvPlot::isRiverCrossing	bool
@@ -6830,6 +6879,7 @@ CvPlot::prevUnitNode	CLLNode<IDInfo> *
 CvPlot::processArea	void
 CvPlot::read	void
 CvPlot::refreshRevealedGraphics	bool
+CvPlot::refreshRevealedRouteOnly	bool
 CvPlot::removeGoody	void
 CvPlot::removeUnit	void
 CvPlot::reset	void
@@ -12147,6 +12197,7 @@ XYCoords::operator>=	bool
 `anonymous namespace'::MissionTargetMap::stepDistance	int
 `anonymous namespace'::MissionTargetMap::width	int
 `anonymous namespace'::UnitTargetCounter::operator()	void
+`anonymous namespace'::bestScientistAcademyNpv	int
 `anonymous namespace'::calendarTurns	int
 `anonymous namespace'::calendarTurnsPercent	int
 `anonymous namespace'::forecastBinomial	double
@@ -12155,13 +12206,18 @@ XYCoords::operator>=	bool
 `anonymous namespace'::forecastIsSiege	bool
 `anonymous namespace'::forecastRounds	void
 `anonymous namespace'::generatePathOn	bool
+`anonymous namespace'::hasGroupReadyRangeStriker	bool
 `anonymous namespace'::isCommissionedGeneral	bool
 `anonymous namespace'::isCommissionedOperationalGeneral	bool
 `anonymous namespace'::isOperationFieldRole	bool
+`anonymous namespace'::isSafeIndependentSkirmisher	bool
 `anonymous namespace'::pathReuseKey	AIPathReuse::Key
 `anonymous namespace'::pathValidFrom	int
 `anonymous namespace'::powerInTargetAreas	int
+`anonymous namespace'::scoreGroupRangeStrikePlot	int
 `anonymous namespace'::setOperationalGeneralBadge	void
+`anonymous namespace'::trySkirmishRetreatAfterShot	bool
+`anonymous namespace'::trySkirmishStepAndShoot	bool
 `anonymous namespace'::unitTargetGroupCount	int
 `anonymous namespace'::upgradeReach	const std::vector<bool> &
 addEntityMission	void
@@ -12272,6 +12328,7 @@ getWonderScore	int
 getWorldSizeMaxConscript	int
 isAICunning	bool
 isAIDiplomacy	bool
+isAIEconomy	bool
 isBeforeUnitCycle	bool
 isBug	bool
 isCardinalDirection	bool

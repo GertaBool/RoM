@@ -31604,67 +31604,66 @@ Revolution/RevCivicsUtils.py	isCanDoElections	getNumCivicOptionInfos	1	320		gc
 Revolution/RevCivicsUtils.py	isCanDoElections	getCivics	1	321		pPlayer	i
 Revolution/RevCivicsUtils.py	isCanDoElections	getCivicInfo	1	323		gc	iCivic
 Revolution/RevCivicsUtils.py	isCanDoElections	isCanDoElection	1	324		kCivic	
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getPlayer	1	333		gc	iPlayer
-Revolution/RevCivicsUtils.py	getReligiousFreedom	isNone	1	335		pPlayer	
-Revolution/RevCivicsUtils.py	getReligiousFreedom	isAlive	1	335		pPlayer	
-Revolution/RevCivicsUtils.py	getReligiousFreedom	range	0	338			$num|gc.getNumCivicOptionInfos()
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getNumCivicOptionInfos	1	338		gc	
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getCivics	1	339		pPlayer	i
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getCivicInfo	1	341		gc	iCivic
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getRevReligiousFreedom	1	342		kCivic	
-Revolution/RevCivicsUtils.py	getReligiousFreedom	getRevReligiousFreedom	1	343		kCivic	
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getPlayer	1	351		gc	iPlayer
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	isNone	1	353		pPlayer	
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	isAlive	1	353		pPlayer	
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getCivicInfo	1	360		gc	i
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getRevReligiousFreedom	1	361		kCivic	
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	canDoCivics	1	362		pPlayer	i
-Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getRevReligiousFreedom	1	363		kCivic	
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getPlayer	1	372		gc	iPlayer
-Revolution/RevCivicsUtils.py	getDemocracyLevel	isNone	1	374		pPlayer	
-Revolution/RevCivicsUtils.py	getDemocracyLevel	isAlive	1	374		pPlayer	
-Revolution/RevCivicsUtils.py	getDemocracyLevel	range	0	377			$num|gc.getNumCivicOptionInfos()
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getNumCivicOptionInfos	1	377		gc	
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getCivics	1	378		pPlayer	i
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getCivicInfo	1	380		gc	iCivic
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getRevDemocracyLevel	1	381		kCivic	
-Revolution/RevCivicsUtils.py	getDemocracyLevel	getRevDemocracyLevel	1	382		kCivic	
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getPlayer	1	390		gc	iPlayer
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	isNone	1	392		pPlayer	
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	isAlive	1	392		pPlayer	
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getCivicInfo	1	399		gc	i
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getRevDemocracyLevel	1	400		kCivic	
-Revolution/RevCivicsUtils.py	getBestDemocracyLevel	canDoCivics	1	401		pPlayer	i
-Revolution/RevCivicsUtils.py	getLaborFreedom	getPlayer	1	411		gc	iPlayer
-Revolution/RevCivicsUtils.py	getLaborFreedom	isNone	1	413		pPlayer	
-Revolution/RevCivicsUtils.py	getLaborFreedom	isAlive	1	413		pPlayer	
-Revolution/RevCivicsUtils.py	getLaborFreedom	range	0	416			$num|gc.getNumCivicOptionInfos()
-Revolution/RevCivicsUtils.py	getLaborFreedom	getNumCivicOptionInfos	1	416		gc	
-Revolution/RevCivicsUtils.py	getLaborFreedom	getCivics	1	417		pPlayer	i
-Revolution/RevCivicsUtils.py	getLaborFreedom	getCivicInfo	1	419		gc	iCivic
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getPlayer	1	331		gc	iPlayer
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	isNone	1	333		pPlayer	
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	isAlive	1	333		pPlayer	
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	len	0	336			civicsList
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getNumCivicOptionInfos	1	336		gc	
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	initCivicsList	0	337	initCivicsList		
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	range	0	343			$num|gc.getNumCivicOptionInfos()
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getNumCivicOptionInfos	1	343		gc	
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getCivics	1	344		pPlayer	i
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	fnMetric	0	346			gc.getCivicInfo()
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getCivicInfo	1	346		gc	iCivic
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	fnMetric	0	350			gc.getCivicInfo()
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	getCivicInfo	1	350		gc	j
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	abs	0	352			val
+Revolution/RevCivicsUtils.py	_getPrimaryCivicMetric	abs	0	352			bestLevel
+Revolution/RevCivicsUtils.py	getReligiousFreedom	_getPrimaryCivicMetric	0	362	_getPrimaryCivicMetric		iPlayer|?
+Revolution/RevCivicsUtils.py	getReligiousFreedom	getRevReligiousFreedom	1	362		kCivic	
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getPlayer	1	368		gc	iPlayer
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	isNone	1	370		pPlayer	
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	isAlive	1	370		pPlayer	
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	len	0	373			civicsList
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getNumCivicOptionInfos	1	373		gc	
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	initCivicsList	0	374	initCivicsList		
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getCivicInfo	1	380		gc	i
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getRevReligiousFreedom	1	381		kCivic	
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	canDoCivics	1	382		pPlayer	i
+Revolution/RevCivicsUtils.py	getBestReligiousFreedom	getRevReligiousFreedom	1	383		kCivic	
+Revolution/RevCivicsUtils.py	getDemocracyLevel	_getPrimaryCivicMetric	0	391	_getPrimaryCivicMetric		iPlayer|?
+Revolution/RevCivicsUtils.py	getDemocracyLevel	getRevDemocracyLevel	1	391		kCivic	
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getPlayer	1	397		gc	iPlayer
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	isNone	1	399		pPlayer	
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	isAlive	1	399		pPlayer	
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	len	0	402			civicsList
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getNumCivicOptionInfos	1	402		gc	
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	initCivicsList	0	403	initCivicsList		
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getCivicInfo	1	409		gc	i
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	getRevDemocracyLevel	1	410		kCivic	
+Revolution/RevCivicsUtils.py	getBestDemocracyLevel	canDoCivics	1	411		pPlayer	i
+Revolution/RevCivicsUtils.py	getLaborFreedom	_getPrimaryCivicMetric	0	420	_getPrimaryCivicMetric		iPlayer|?
 Revolution/RevCivicsUtils.py	getLaborFreedom	getRevLaborFreedom	1	420		kCivic	
-Revolution/RevCivicsUtils.py	getLaborFreedom	getRevLaborFreedom	1	421		kCivic	
-Revolution/RevCivicsUtils.py	getBestLaborFreedom	getPlayer	1	429		gc	iPlayer
-Revolution/RevCivicsUtils.py	getBestLaborFreedom	isNone	1	431		pPlayer	
-Revolution/RevCivicsUtils.py	getBestLaborFreedom	isAlive	1	431		pPlayer	
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	getPlayer	1	426		gc	iPlayer
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	isNone	1	428		pPlayer	
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	isAlive	1	428		pPlayer	
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	len	0	431			civicsList
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	getNumCivicOptionInfos	1	431		gc	
+Revolution/RevCivicsUtils.py	getBestLaborFreedom	initCivicsList	0	432	initCivicsList		
 Revolution/RevCivicsUtils.py	getBestLaborFreedom	getCivicInfo	1	438		gc	i
 Revolution/RevCivicsUtils.py	getBestLaborFreedom	getRevLaborFreedom	1	439		kCivic	
 Revolution/RevCivicsUtils.py	getBestLaborFreedom	canDoCivics	1	440		pPlayer	i
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getPlayer	1	450		gc	iPlayer
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	isNone	1	452		pPlayer	
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	isAlive	1	452		pPlayer	
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	range	0	455			$num|gc.getNumCivicOptionInfos()
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getNumCivicOptionInfos	1	455		gc	
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getCivics	1	456		pPlayer	i
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getCivicInfo	1	458		gc	iCivic
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getRevEnvironmentalProtection	1	459		kCivic	
-Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getRevEnvironmentalProtection	1	460		kCivic	
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getPlayer	1	468		gc	iPlayer
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	isNone	1	470		pPlayer	
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	isAlive	1	470		pPlayer	
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getCivicInfo	1	477		gc	i
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getRevEnvironmentalProtection	1	478		kCivic	
-Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	canDoCivics	1	479		pPlayer	i
+Revolution/RevCivicsUtils.py	getEnvironmentalProtection	_getPrimaryCivicMetric	0	449	_getPrimaryCivicMetric		iPlayer|?
+Revolution/RevCivicsUtils.py	getEnvironmentalProtection	getRevEnvironmentalProtection	1	449		kCivic	
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getPlayer	1	455		gc	iPlayer
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	isNone	1	457		pPlayer	
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	isAlive	1	457		pPlayer	
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	len	0	460			civicsList
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getNumCivicOptionInfos	1	460		gc	
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	initCivicsList	0	461	initCivicsList		
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getCivicInfo	1	467		gc	i
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	getRevEnvironmentalProtection	1	468		kCivic	
+Revolution/RevCivicsUtils.py	getBestEnvironmentalProtection	canDoCivics	1	469		pPlayer	i
 Revolution/RevData.py	revLoad	sdLoad	1	27		SdToolKitCustom	object
 Revolution/RevData.py	revObjectInit	sdObjectInit	1	39		SdToolKitCustom	$str|object|VarDictionary
 Revolution/RevData.py	revObjectWipe	sdObjectWipe	1	45		SdToolKitCustom	$str|object
@@ -34065,61 +34064,19 @@ RoMEventManager.py	RoMEventManager.onProjectBuilt	ColorTypes	0	433			$num
 RoMEventManager.py	RoMEventManager.onUnitBuilt	PyPlayer	0	439			city.getOwner()
 RoMEventManager.py	RoMEventManager.onUnitBuilt	getOwner	1	439		city	
 RoMEventManager.py	RoMEventManager.onCityBuilt	recordCityBuilt	1	459		self.settlementTrainingProfiler	city
-RoMEventManager.py	RoMEventManager.onCityBuilt	getHeadSelectedUnit	1	461		CyInterface()	
-RoMEventManager.py	RoMEventManager.onCityBuilt	CyInterface	0	461			
-RoMEventManager.py	RoMEventManager.onCityBuilt	getDefineINT	1	463		gc	$str
-RoMEventManager.py	RoMEventManager.onCityBuilt	getUnitClassType	1	467		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getInfoTypeForString	1	467		gc	$str
-RoMEventManager.py	RoMEventManager.onCityBuilt	plot	1	469		CyMap()	pUnit.getX()|pUnit.getY()
-RoMEventManager.py	RoMEventManager.onCityBuilt	CyMap	0	469			
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	1	469		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	1	469		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	info	1	471		BugUtil	$str|iMessageID
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	1	472		pPlot	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	1	473		pPlot	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getOwner	1	474		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getID	1	475		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	sendModNetMessage	1	476		CyMessageControl()	iMessageID|iPlotX|iPlotY|iOwner|iUnitID
-RoMEventManager.py	RoMEventManager.onCityBuilt	CyMessageControl	0	476			
-RoMEventManager.py	RoMEventManager.onCityBuilt	getUnitClassType	1	478		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getInfoTypeForString	1	478		gc	$str
-RoMEventManager.py	RoMEventManager.onCityBuilt	plot	1	479		CyMap()	pUnit.getX()|pUnit.getY()
-RoMEventManager.py	RoMEventManager.onCityBuilt	CyMap	0	479			
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	1	479		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	1	479		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	info	1	481		BugUtil	$str|iMessageID
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	1	482		pPlot	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	1	483		pPlot	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getOwner	1	484		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getID	1	485		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	sendModNetMessage	1	486		CyMessageControl()	iMessageID|iPlotX|iPlotY|iOwner|iUnitID
-RoMEventManager.py	RoMEventManager.onCityBuilt	CyMessageControl	0	486			
-RoMEventManager.py	RoMEventManager.onCityBuilt	getUnitClassType	1	488		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getInfoTypeForString	1	488		gc	$str
-RoMEventManager.py	RoMEventManager.onCityBuilt	plot	1	489		CyMap()	pUnit.getX()|pUnit.getY()
-RoMEventManager.py	RoMEventManager.onCityBuilt	CyMap	0	489			
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	1	489		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	1	489		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	info	1	491		BugUtil	$str|iMessageID
-RoMEventManager.py	RoMEventManager.onCityBuilt	getX	1	492		pPlot	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getY	1	493		pPlot	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getOwner	1	494		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	getID	1	495		pUnit	
-RoMEventManager.py	RoMEventManager.onCityBuilt	sendModNetMessage	1	496		CyMessageControl()	iMessageID|iPlotX|iPlotY|iOwner|iUnitID
-RoMEventManager.py	RoMEventManager.onCityBuilt	CyMessageControl	0	496			
-RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	1	504		city	gc.getInfoTypeForString()
-RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	1	504		gc	$str
-RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	1	504		city	gc.getInfoTypeForString()
-RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	1	504		gc	$str
-RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	1	504		city	gc.getInfoTypeForString()
-RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	1	504		gc	$str
-RoMEventManager.py	RoMEventManager.onCityRazed	getID	1	505		city	
-RoMEventManager.py	RoMEventManager.onCityLost	PyPlayer	0	511			city.getOwner()
-RoMEventManager.py	RoMEventManager.onCityLost	getOwner	1	511		city	
-RoMEventManager.py	RoMEventManager.onCityLost	getID	1	513		city	
-RoMEventManager.py	RoMEventManager.onCityLost	setImprovementType	1	514		city.plot()	gc.getInfoTypeForString()
-RoMEventManager.py	RoMEventManager.onCityLost	plot	1	514		city	
-RoMEventManager.py	RoMEventManager.onCityLost	getInfoTypeForString	1	514		gc	$str
+RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	1	469		city	gc.getInfoTypeForString()
+RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	1	469		gc	$str
+RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	1	469		city	gc.getInfoTypeForString()
+RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	1	469		gc	$str
+RoMEventManager.py	RoMEventManager.onCityRazed	getNumRealBuilding	1	469		city	gc.getInfoTypeForString()
+RoMEventManager.py	RoMEventManager.onCityRazed	getInfoTypeForString	1	469		gc	$str
+RoMEventManager.py	RoMEventManager.onCityRazed	getID	1	470		city	
+RoMEventManager.py	RoMEventManager.onCityLost	PyPlayer	0	476			city.getOwner()
+RoMEventManager.py	RoMEventManager.onCityLost	getOwner	1	476		city	
+RoMEventManager.py	RoMEventManager.onCityLost	getID	1	478		city	
+RoMEventManager.py	RoMEventManager.onCityLost	setImprovementType	1	479		city.plot()	gc.getInfoTypeForString()
+RoMEventManager.py	RoMEventManager.onCityLost	plot	1	479		city	
+RoMEventManager.py	RoMEventManager.onCityLost	getInfoTypeForString	1	479		gc	$str
 RoMGameUtils.py	<module>	CyGlobalContext	0	20			
 RoMGameUtils.py	<module>	zCivics	1	25		zCivics	
 RoMGameUtils.py	<module>	fixSets	1	28		BugUtil	globals()
