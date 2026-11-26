@@ -211,6 +211,7 @@ root element, and no loader names them. *Not an error*: they are notes, not load
 | ID | Where | Fact | Effect | Status | Origin |
 |---|---|---|---|---|---|
 | C1 | `CvGameCoreUtils.cpp:1041`, `getCombatOddsSpecific` | The BUG option "Ignore Barb Free Wins" is read as a global define: `GC.getDefineINT("ACO_IgnoreBarbFreeWins")`. No define of that name exists, so it is always 0. The option is `ACO__IgnoreBarbFreeWins` in `Config/Advanced Combat Odds.xml`, and the same tooltip reads it correctly at `CvGameTextMgr.cpp:2225` with `getBugOptionBOOL`. | The combat-odds tooltip (`setCombatPlotHelp`) always applies the barbarian free-win rule in its odds, whatever the option says. Interface only. | confirmed | mod (ACO) |
+| C1b | `CvGameTextMgr.cpp:2225`, `setCombatPlotHelp` | The same option is read correctly (`getBugOptionBOOL`) but with the opposite sense: the free-win section runs only when "Ignore Barb Free Wins" is on. That contradicts the option's name and the line's own comment ("Are we not going to ignore barb free wins? If not, skip this section"). Found while preparing the patch for C1. | With the option off (the default), the tooltip's per-round odds leave the free wins out, while its outcome probabilities (`getCombatOddsSpecific`, C1) include them. Interface only. | confirmed | mod (ACO) |
 | C2 | `CvCity.cpp:2343`, `CvCity::canConstruct` | `CvBuildingInfo& kBuilding = GC.getBuildingInfo(eBuilding);` comes before `if (eBuilding == NO_BUILDING) return false;`. With -1 it reads `m_paBuildingInfo[-1]`, outside the table. The stock SDK tests first; the binding came in with RevDCM's "CanConstruct Performance" block. | Undefined behaviour for `NO_BUILDING`. Reached from Python by C3. | confirmed | mod (RevDCM) |
 | C3 | `Python/Revolution/Gameready/BarbarianCiv.py:804`, then `:1104`, `:1574`, `:1605`, `:1643` | `iGranary` is the civilization's building for `BUILDINGCLASS_GRANARY`, which is -1 (D1). It is passed to `city.canConstruct(iGranary)` when a barbarian civilization settles. | Reaches C2 with -1; the granary step never builds anything. | confirmed | mod (Revolution) + D1 |
 | C4 | `CvPlayerAI.cpp:22324`, `AI_getStrategyRand` | Draws from the synchronised generator the first time it is called for a player whose value is 0. Tooltip code reaches it (`use-cases.md`, 5.7). | Possibly a network desync. | open | mod (BBAI) |
@@ -251,9 +252,14 @@ loaded XML, D1 holds 21 and D2 the last.
 
 ### 5.6 Totals
 
+The six confirmed errors are fixed by [`fixes/0022-codemap-errors.patch`](../../fixes/0022-codemap-errors.patch)
+(P14). C3 needs no change of its own once C2 is fixed. D1 and D2 now name `NONE`, as the game already
+loaded them; restoring the buildings, or giving wool a trade technology, is left as a design decision.
+
+
 | Status | Count | IDs |
 |---|---|---|
-| confirmed | 5 | C1, C2, C3, D1, D2 |
+| confirmed | 6 | C1, C1b, C2, C3, D1, D2 |
 | dormant | 4 | C5, D3, L3, L5 |
 | open | 3 | C4, L1, L2 |
 | not an error | 5 | the README files, D4, L4, L6, L7 |
