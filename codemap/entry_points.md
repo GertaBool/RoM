@@ -295,8 +295,6 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 | Python function | defined in | called from |
 |---|---|---|
 | ?.? | not found | CvDLLButtonPopup::OnOkClicked |
-| ?.CvRandomEventInterface | not found | CvCity::getTriggerValue, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayer::checkExpireEvent, CvPlayer::initTriggeredData, CvPlayer::setTriggerFired, CvUnit::getTriggerValue |
-| ?.CvScreensInterface | not found | CvDLLButtonPopup::OnFocus, CvDLLButtonPopup::launchPythonScreen |
 | ?.addBonusType | not found | CvMapGenerator::addBonuses |
 | ?.addBonuses | not found | CvMapGenerator::addBonuses |
 | ?.addFeatures | not found | CvMapGenerator::addFeatures |
@@ -414,6 +412,8 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 | CvGameInterface.skipResearchPopup | base/EntryPoints/CvGameInterface.py:49 | CvDLLButtonPopup::launchChooseTechPopup |
 | CvGameInterface.unitCannotMoveInto | base/EntryPoints/CvGameInterface.py:97 | CvUnit::canMoveInto |
 | CvGameInterface.updateColoredPlots | base/EntryPoints/CvGameInterface.py:89 | CvGame::updateColoredPlots |
+| CvRandomEventInterface.? | not found | CvCity::getTriggerValue, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayer::checkExpireEvent, CvPlayer::initTriggeredData, CvPlayer::setTriggerFired, CvUnit::getTriggerValue |
+| CvScreensInterface.? | not found | CvDLLButtonPopup::OnFocus, CvDLLButtonPopup::launchPythonScreen |
 | CvScreensInterface.WorldBuilderGetHighlightPlot | EntryPoints/CvScreensInterface.py:680 | CvGame::getNewHighlightPlot |
 | CvScreensInterface.getCameraView | EntryPoints/CvScreensInterface.py:1200 | CvGame::graphicsWindowFromCamera |
 | CvScreensInterface.pediaBack | EntryPoints/CvScreensInterface.py:411 | CvDLLWidgetData::doPediaBack |

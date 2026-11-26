@@ -100,6 +100,26 @@ print('functions changed (new or edited):', len(ch), '| functions that can reach
 print('entry points affected: exported', len(imp & exported), '| bound for Python', len(imp & py))
 print('changed files:', len(changed_lines))
 
+sec('tests: Tools/test_*.py that take functions from the DLL source (block(text, signature))')
+import glob
+byq = collections.defaultdict(set)
+for i in defs: byq[(F[i]['scope'] + '::' if F[i]['scope'] else '') + F[i]['name']].add(i)
+tests = sorted(glob.glob(os.path.join(src, 'Tools', 'test_*.py')))
+uses, nblock, unmatched = {}, 0, 0
+for t in tests:
+    got = set()
+    for m in re.finditer(r"block\(\s*[^,]+,\s*[rbu]?['\"]([^'\"]+)['\"]", open(t, encoding='utf-8', errors='replace').read()):
+        nblock += 1
+        q = re.search(r'([A-Za-z_]\w*(?:::[A-Za-z_~]\w*)+)\s*\(', m.group(1))
+        if q and q.group(1) in byq: got |= byq[q.group(1)]
+        else: unmatched += 1
+    uses[os.path.basename(t)] = got
+taken = set().union(*uses.values()) if uses else set()
+print('tests', len(tests), '| taking named functions', sum(1 for g in uses.values() if g), '| block() calls', nblock,
+      '| not matched to a function', unmatched, '| distinct functions taken', len(taken))
+sel = sorted(t for t, g in uses.items() if g & ch)
+print('changed functions taken by a test:', len(ch & taken), 'of', len(ch), '| tests taking one:', len(sel), sel)
+
 sec('Python <-> DLL')
 p2c = read('py_to_cpp.tsv'); c2p = read('cpp_to_py.tsv'); eh = read('event_handlers.tsv')
 print('Python call sites whose name the DLL exposes:', len(p2c), '| with one candidate:', sum(r['candidates'] == '1' for r in p2c))

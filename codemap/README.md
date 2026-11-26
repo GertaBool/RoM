@@ -29,6 +29,8 @@ one the DLL is built with, so every call is the call the compiler made.
 - `guides/`: written by hand, from the same source commit.
   - `key-functions.md`: the functions that rank above the rest, what each does, and what a rewrite keeps.
   - `loans-and-bonds.md`: where loans and a bond market would go, in the DLL and the UI.
+  - `use-cases.md`: what code maps and code graphs are used for, which uses this map serves and how, with
+    worked examples, its gaps, and sources.
 - `files/<file>.md`: one page per source file. Every function in line order, with what it calls, what it
   takes the address of, and who calls it.
 - `map/`: the data, as tab-separated tables (below).

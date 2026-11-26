@@ -8,7 +8,7 @@ caller	module	python_function	file	line	python_file	python_line
 504	CvGameInterface	doReligion	CvCity.cpp	13942	base/EntryPoints/CvGameInterface.py	236
 505	CvGameInterface	doGreatPeople	CvCity.cpp	14012	base/EntryPoints/CvGameInterface.py	240
 506	CvGameInterface	doMeltdown	CvCity.cpp	14089	base/EntryPoints/CvGameInterface.py	244
-524	?	CvRandomEventInterface	CvCity.cpp	14999		
+524	CvRandomEventInterface	?	CvCity.cpp	14999		
 542	CvGameInterface	citiesDestroyFeatures	CvCity.cpp	226	base/EntryPoints/CvGameInterface.py	257
 579	CvGameInterface	canTrain	CvCity.cpp	2243	base/EntryPoints/CvGameInterface.py	140
 579	CvGameInterface	cannotTrain	CvCity.cpp	2298	base/EntryPoints/CvGameInterface.py	144
@@ -25,14 +25,14 @@ caller	module	python_function	file	line	python_file	python_line
 1250	CvGameInterface	getSecondRecommendedTech	CvDLLButtonPopup.cpp	1531	base/EntryPoints/CvGameInterface.py	61
 1250	CvGameInterface	showTechChooserButton	CvDLLButtonPopup.cpp	1506	base/EntryPoints/CvGameInterface.py	53
 1250	CvGameInterface	skipResearchPopup	CvDLLButtonPopup.cpp	1487	base/EntryPoints/CvGameInterface.py	49
-1261	?	CvScreensInterface	CvDLLButtonPopup.cpp	2172		
+1261	CvScreensInterface	?	CvDLLButtonPopup.cpp	2172		
 1284	?	?	CvDLLButtonPopup.cpp	454		
 1284	CvAppInterface	gameExitSave	CvDLLButtonPopup.cpp	93	EntryPoints/CvAppInterface.py	292
 1284	CvAppInterface	gameExitSave	CvDLLButtonPopup.cpp	102	EntryPoints/CvAppInterface.py	292
 1284	CvScreensInterface	showCivicsScreen	CvDLLButtonPopup.cpp	406	EntryPoints/CvScreensInterface.py	90
 1284	CvScreensInterface	showOptionsScreen	CvDLLButtonPopup.cpp	167	EntryPoints/CvScreensInterface.py	105
 1284	CvScreensInterface	showTechChooser	CvDLLButtonPopup.cpp	301	EntryPoints/CvScreensInterface.py	81
-1285	?	CvScreensInterface	CvDLLButtonPopup.cpp	847		
+1285	CvScreensInterface	?	CvDLLButtonPopup.cpp	847		
 1288	CvGameInterface	getRecommendedBuilding	CvDLLButtonPopup.cpp	1122	base/EntryPoints/CvGameInterface.py	85
 1288	CvGameInterface	getRecommendedUnit	CvDLLButtonPopup.cpp	1117	base/EntryPoints/CvGameInterface.py	81
 1288	CvGameInterface	showExamineCityButton	CvDLLButtonPopup.cpp	1083	base/EntryPoints/CvGameInterface.py	77
@@ -109,7 +109,7 @@ caller	module	python_function	file	line	python_file	python_line
 2812	CvGameInterface	updateColoredPlots	CvGameInterface.cpp	50	base/EntryPoints/CvGameInterface.py	89
 2816	CvScreensInterface	WorldBuilderGetHighlightPlot	CvGameInterface.cpp	2463	EntryPoints/CvScreensInterface.py	680
 2817	CvGameInterface	canPickPlot	CvGameInterface.cpp	2509	base/EntryPoints/CvGameInterface.py	272
-2980	?	CvRandomEventInterface	CvGameTextMgr.cpp	18488		
+2980	CvRandomEventInterface	?	CvGameTextMgr.cpp	18488		
 6394	?	getCustomMapOptionDefault	CvInitCore.cpp	1064		
 6394	?	getNumCustomMapOptions	CvInitCore.cpp	1053		
 6394	?	getNumHiddenCustomMapOptions	CvInitCore.cpp	1050		
@@ -138,14 +138,14 @@ caller	module	python_function	file	line	python_file	python_line
 7142	PbMain	sendEmail	CvPlayer.cpp	11774	base/EntryPoints/PbMain.py	95
 7383	CvGameInterface	doGold	CvPlayer.cpp	15305	base/EntryPoints/CvGameInterface.py	208
 7384	CvGameInterface	doResearch	CvPlayer.cpp	15374	base/EntryPoints/CvGameInterface.py	212
-7438	?	CvRandomEventInterface	CvPlayer.cpp	19772		
-7439	?	CvRandomEventInterface	CvPlayer.cpp	20272		
+7438	CvRandomEventInterface	?	CvPlayer.cpp	19772		
+7439	CvRandomEventInterface	?	CvPlayer.cpp	20272		
 7440	?	startHumansOnSameTile	CvPlayer.cpp	2029		
-7441	?	CvRandomEventInterface	CvPlayer.cpp	20669		
-7442	?	CvRandomEventInterface	CvPlayer.cpp	21265		
+7441	CvRandomEventInterface	?	CvPlayer.cpp	20669		
+7442	CvRandomEventInterface	?	CvPlayer.cpp	21265		
 7443	?	minStartingDistanceModifier	CvPlayer.cpp	2087		
 7448	?	findStartingArea	CvPlayer.cpp	2159		
-7452	?	CvRandomEventInterface	CvPlayer.cpp	21738		
+7452	CvRandomEventInterface	?	CvPlayer.cpp	21738		
 7459	?	findStartingPlot	CvPlayer.cpp	2219		
 7488	CvGameInterface	canRazeCity	CvPlayer.cpp	2863	base/EntryPoints/CvGameInterface.py	69
 7488	CvGameInterface	doCityCaptureGold	CvPlayer.cpp	2521	base/EntryPoints/CvGameInterface.py	254
@@ -175,7 +175,7 @@ caller	module	python_function	file	line	python_file	python_line
 9515	CvGameInterface	doHolyCityTech	CvTeam.cpp	6110	base/EntryPoints/CvGameInterface.py	204
 9515	CvGameInterface	doHolyCityTech	CvTeam.cpp	6265	base/EntryPoints/CvGameInterface.py	204
 9698	CvGameInterface	AI_doWar	CvTeamAI.cpp	4790	base/EntryPoints/CvGameInterface.py	187
-9995	?	CvRandomEventInterface	CvUnit.cpp	14185		
+9995	CvRandomEventInterface	?	CvUnit.cpp	14185		
 10065	CvGameInterface	isActionRecommended	CvUnit.cpp	1914	base/EntryPoints/CvGameInterface.py	93
 10076	CvGameInterface	unitCannotMoveInto	CvUnit.cpp	3029	base/EntryPoints/CvGameInterface.py	97
 10137	CvGameInterface	doPillageGold	CvUnit.cpp	5483	base/EntryPoints/CvGameInterface.py	251
