@@ -167,9 +167,13 @@ def exports(obj):
 def demangle(names):
     names = sorted(set(names))
     r = subprocess.run(['llvm-undname-18'], input='\n'.join(names) + '\n', capture_output=True, text=True)
-    out, lines = {}, r.stdout.split('\n')
-    for k in range(0, len(lines) - 1, 3):     # each input: its line, the result, a blank line
-        if k + 1 < len(lines): out[lines[k]] = lines[k + 1]
+    # each input is echoed, then its result and a blank line; a name it cannot demangle (a C name such as
+    # _DllMain@12, or the compiler's _$E initializers) gets no result line, only the blank one
+    out, lines, k = {}, r.stdout.split('\n'), 0
+    for n in names:
+        while k < len(lines) and lines[k] != n: k += 1
+        if k + 1 < len(lines) and lines[k + 1]: out[n] = lines[k + 1]; k += 3
+        else: k += 2
     return out
 
 

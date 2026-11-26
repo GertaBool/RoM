@@ -586,7 +586,8 @@ def render(cm, F, query, fsel, rows):
         L.append('| kind | entry | line | depends on | status | detail |'); L.append('|---|---|---|---|---|---|')
         for x in by[f]:
             L.append(f'| {x[1]} | `{x[2]}` | {x[3]} | {x[4]} | {x[5]} | {x[6]} |'.replace('`|', '`\\|'))
-    open(os.path.join(cm, 'hardcoded.md'), 'w', encoding='utf-8').write('\n'.join(L) + '\n')
+    from render import write_page   # escapes names for Markdown, as on the other pages
+    write_page(os.path.join(cm, 'hardcoded.md'), L)
 
 
 if __name__ == '__main__':

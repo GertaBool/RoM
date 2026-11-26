@@ -20,6 +20,30 @@ GROUPS = [   # (group, rule on the file name without extension); first match win
                                      r'DllPythonEvents|DllTranslator)$'),
     ('other', r''),
 ]
+PAGE_LINK = re.compile(r'\[[^\]`]+\]\([\w./#-]+\.md(#[\w-]*)?\)')
+
+
+def mdsafe(line):
+    """A line of a page with the text outside code spans escaped for Markdown: '[' and ']' (in names such as
+    operator new[](unsigned int), read as a link) and '<' (in template names such as CLinkList<int>, read as an
+    HTML tag and removed by GitHub). Links to pages are kept."""
+    out = []
+    for k, part in enumerate(re.split(r'(`[^`]*`)', line)):
+        if k % 2:
+            out.append(part); continue
+        keep = PAGE_LINK.findall(part) and [m.group(0) for m in PAGE_LINK.finditer(part)]
+        for j, lk in enumerate(keep or ()): part = part.replace(lk, f'\x00{j}\x00', 1)
+        part = re.sub(r'(?<!\\)([\[\]<])', r'\\\1', part)
+        for j, lk in enumerate(keep or ()): part = part.replace(f'\x00{j}\x00', lk, 1)
+        out.append(part)
+    return ''.join(out)
+
+
+def write_page(path, lines):
+    with open(path, 'w', encoding='utf-8') as o:
+        o.write('\n'.join(mdsafe(x) for x in '\n'.join(lines).split('\n')) + '\n')
+
+
 SUBST = 5   # backbone: a callee is shown when it calls at least this many different functions of the source
 TURN = {'update', 'doTurn', 'AI_doTurn', 'AI_doTurnPre', 'AI_doTurnPost', 'AI_doTurnUnitsPre', 'AI_doTurnUnitsPost',
         'AI_update', 'doTurnUnits'}
@@ -195,7 +219,7 @@ def main():
         for b, mark in expand(r):
             sub = [mk + short(x) for x, mk in expand(b)]
             S.append(f'  - {mark}{short(b)}' + (': ' + ', '.join(sub) if sub else ''))
-    open(os.path.join(root, 'skeleton.md'), 'w', encoding='utf-8').write('\n'.join(S) + '\n')
+    write_page(os.path.join(root, 'skeleton.md'), S)
 
     # entry points
     E = ['# Entry points of the DLL\n', 'How control reaches the source from outside, from `map/`.\n']
@@ -240,7 +264,7 @@ def main():
         poster[e['event']] = short(int(e['function'])) if e['function'] else ''
         if e['handler']: byev[e['event']].append(f"{e['handler']} ({e['file']}:{e['line']})")
     for ev in sorted(poster): E.append(f'| {ev} | {poster[ev]} | ' + ('; '.join(byev[ev]) or 'none registered') + ' |')
-    open(os.path.join(root, 'entry_points.md'), 'w', encoding='utf-8').write('\n'.join(E) + '\n')
+    write_page(os.path.join(root, 'entry_points.md'), E)
 
     # python side
     P = ['# The Python side\n',
@@ -254,7 +278,7 @@ def main():
              f'({sum(single.values())} with one candidate).\n')
     P.append('| module | functions and classes | calls into the DLL | of them with one candidate |'); P.append('|---|---|---|---|')
     for m in sorted(mods): P.append(f'| {m} | {mods[m]} | {tocpp[m]} | {single[m]} |')
-    open(os.path.join(root, 'python.md'), 'w', encoding='utf-8').write('\n'.join(P) + '\n')
+    write_page(os.path.join(root, 'python.md'), P)
 
     # one outline page per source file
     os.makedirs(os.path.join(root, 'files'), exist_ok=True)
@@ -283,7 +307,7 @@ def main():
             if rs: L.append('  - takes the address of: ' + ', '.join(name(b, True) for b in rs))
             cl = sorted(callers.get(i, ()), key=short)
             if cl: L.append(f'  - called by ({len(cl)}): ' + ', '.join(short(a) for a in cl[:12]) + (' …' if len(cl) > 12 else ''))
-        open(os.path.join(root, 'files', f + '.md'), 'w', encoding='utf-8').write('\n'.join(L) + '\n')
+        write_page(os.path.join(root, 'files', f + '.md'), L)
     print(f'{len(files)} file pages; {len(ct_only)} ctags-only and {len(compiled_only)} compiled-only definitions', file=sys.stderr)
 
 
