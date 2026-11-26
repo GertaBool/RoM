@@ -1,7 +1,8 @@
 #!/bin/bash
 # Rebuild the code map from a checkout of the DLL repository (GitLab rise-of-mankind).
 # usage: build.sh <rise-of-mankind checkout> <base game Python dir> <Python 2.4 dir> <original SDK dir> <XML dir>...
-#   base game Python dir: the Python folder of Beyond the Sword, which the mod's Python falls back to
+#   base game Python dir: the Python folders the mod's Python falls back to, in the game's order, separated by
+#   ':' (Beyond the Sword's, then Civilization IV's): a module the mod does not ship comes from the first
 #   Python 2.4 dir: the Windows Python 2.4 the game embeds (python.exe), run under Wine to parse the Python
 #   original SDK dir: the CvGameCoreDLL folder of the BTS 3.19 SDK as Firaxis shipped it
 #   XML dirs: the XML folders the game falls back to after the mod's, in order (Beyond the Sword's, then
@@ -29,7 +30,8 @@ python3 -I "$here/extract_asm.py" "$w/out" "$w/b" "$cm/map"
   | jq -r 'select(._type=="tag") | [.name, .path, .line] | @tsv' > "$w/ctags.tsv"
 
 # 2. the Python: the modules the game loads, parsed by the game's own Python 2.4
-python3 -I "$here/extract_py.py" list "$w/py_modules.tsv" "$src/Assets/Python" "$base"
+IFS=: read -r -a bases <<< "$base"
+python3 -I "$here/extract_py.py" list "$w/py_modules.tsv" "$src/Assets/Python" "${bases[@]}"
 wine "$py24/python.exe" "$(winpath "$here/py24_scan.py")" "$(winpath "$w/py_modules.tsv")" "$(winpath "$cm/map")"
 python3 -I "$here/extract_py.py" link "$cm/map" "$w/py_modules.tsv" "$src/Assets/Config"
 rm "$cm/map/py_calls_raw.tsv"

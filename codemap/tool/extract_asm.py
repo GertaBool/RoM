@@ -54,9 +54,26 @@ def db_text(s):
     return ''.join(out)
 
 
-def parse_listing(path, projdir):
-    """One unit's listing: functions, call sites, strings, vftables."""
+LOCAL_INIT = re.compile(r'(?<![\w$?@])_\$E\d+\b')   # the compiler's initializers of a unit's statics: _$E8
+PUBLIC = re.compile(r'^PUBLIC\s+(\S+)', re.M)
+
+
+def local_names(text):
+    """Functions of a listing that are not PUBLIC: local to the unit (static functions, _$E initializers)."""
+    return set(re.findall(r'^(\S+)\s+PROC\b', text, re.M)) - set(PUBLIC.findall(text))
+
+
+def parse_listing(path, projdir, clash=frozenset()):
+    """One unit's listing: functions, call sites, strings, vftables.
+    A function local to the unit gets the unit's name in its key when other units may have one of the same
+    name: always for the compiler's _$E initializers (numbered per unit), and for a static function when
+    another unit has a local function of that name (clash). Otherwise every unit's _$E8 would be one function."""
     text = open(path, encoding='latin-1').read().replace('\r\n', '\n')
+    unit = os.path.basename(path)[:-4]
+    loc = local_names(text)
+    text = LOCAL_INIT.sub(lambda m: m.group(0) + '@' + unit, text)
+    for n in sorted(loc & clash):
+        if not LOCAL_INIT.fullmatch(n): text = re.sub(r'(?<!\S)' + re.escape(n) + r'(?![^\s,\]])', n + '@' + unit, text)
     # the compiler names an anonymous namespace with a hash that changes with every compile; replace each by
     # a number fixed by the unit's name and its order of appearance, so that rebuilds give the same names
     anon = {}
@@ -250,8 +267,11 @@ def main():
     projfiles = {f.lower(): f for f in os.listdir(bdir) if f.endswith(('.cpp', '.h', '.inl'))}
     funcs, sites, vfts, exp = {}, [], {}, set()
     units = sorted(f for f in os.listdir(out) if f.endswith('.asm'))
+    seen = collections.Counter()   # local function names found in more than one unit
+    for u in units: seen.update(local_names(open(os.path.join(out, u), encoding='latin-1').read()))
+    clash = frozenset(n for n, c in seen.items() if c > 1)
     for u in units:
-        fs, ss, vs = parse_listing(os.path.join(out, u), projdir)
+        fs, ss, vs = parse_listing(os.path.join(out, u), projdir, clash)
         for k, v in fs.items():
             v['file'] = projfiles.get(v['file'], v['file'])
             if k not in funcs or (funcs[k]['first'] is None and v['first']): funcs[k] = v
@@ -333,7 +353,7 @@ def main():
     nodes = {}   # key -> function record (defined functions and declared virtual methods)
     LIBRARY = re.compile(r'^(std|stdext|boost|__)\b|^_')   # library templates the compiler instantiated here
     for k, f in funcs.items():
-        scope, name, args, flags = split_demangled(dm.get(k, k))
+        scope, name, args, flags = split_demangled(dm.get(k, k.split('@')[0] if LOCAL_INIT.match(k) else k))
         if LIBRARY.match(scope): continue
         nodes[k] = dict(scope=scope, name=name, sig=name + args, file=f['file'], line=f['first'] or '',
                         end=f['last'] or '', definition=1, exported=int(k in exp), virtual=int('virtual' in flags),

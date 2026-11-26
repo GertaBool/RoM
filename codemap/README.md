@@ -49,8 +49,9 @@ functions it dominates.
 
 ## How it is made
 
-`tool/build.sh <rise-of-mankind checkout> <base game Python dir> <Python 2.4 dir> <original SDK dir> <XML dir>...`
-rebuilds everything, in a few minutes. The original SDK dir is the `CvGameCoreDLL` folder of the BTS 3.19 SDK as
+`tool/build.sh <rise-of-mankind checkout> <base game Python dirs> <Python 2.4 dir> <original SDK dir> <XML dir>...`
+rebuilds everything, in a few minutes. The base game Python dirs are the folders the mod's Python falls back to,
+separated by `:`, in the game's order: Beyond the Sword's, then Civilization IV's. The original SDK dir is the `CvGameCoreDLL` folder of the BTS 3.19 SDK as
 Firaxis shipped it; the XML dirs are the folders the game falls back to after the mod's (Beyond the Sword's,
 then Civilization IV's). The source commit is written at the top of `skeleton.md`.
 
@@ -83,8 +84,9 @@ then Civilization IV's). The source commit is written at the top of `skeleton.md
    - **Exports** are the `/EXPORT` directives each object passes to the linker.
    - **Python bindings, calls into Python and event names** are the string arguments pushed for those calls.
 3. **`tool/extract_py.py` lists the Python modules the game loads,** and `tool/py24_scan.py` parses them.
-   - The game imports by name, the mod's folder first, then the base game's. A base module the mod replaces
-     is left out, and so is a file whose name is not a module name.
+   - The game imports by name, the mod's folder first, then Beyond the Sword's, then Civilization IV's. A
+     module found in an earlier folder hides those of the same name in later ones, and a file whose name is
+     not a module name is left out.
    - The parser is the game's own Python 2.4 under Wine, its `compiler` package.
    - Links into the DLL and the event handlers are then matched by name. The handlers include the BUG
      configuration XML.
