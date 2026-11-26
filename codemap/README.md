@@ -31,6 +31,8 @@ one the DLL is built with, so every call is the call the compiler made.
   - `loans-and-bonds.md`: where loans and a bond market would go, in the DLL and the UI.
   - `use-cases.md`: what code maps and code graphs are used for, which uses this map serves and how, with
     worked examples, its gaps, and sources.
+  - `systems-and-errors.md`: every function sorted into a category and a system, the Python, XML and
+    loaded modules around the DLL, and the register of errors found, each with its status.
 - `files/<file>.md`: one page per source file. Every function in line order, with what it calls, what it
   takes the address of, and who calls it.
 - `map/`: the data, as tab-separated tables (below).
