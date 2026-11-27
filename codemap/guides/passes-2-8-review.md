@@ -238,10 +238,21 @@ Every consumer, and what danger does there:
 | OP2 | `AI_neededDefenders` adds 1 to 6 defenders per city from the peacetime scan. Through `AI_isDefended`, that reaches `AI_guardCity`, `AI_guardCityAirlift`, `AI_chokeDefend`, `AI_pickup`, `AI_doDraft`, `AI_doHurry` and `AI_chooseProduction`: units stay as garrisons. |
 | OP3 | 7.3: transports with an invasion force unload in a port in danger, attack-city units there are not picked up, and garrisons do not leave. |
 | OP4 | `AI_promote` (bit 512): a land unit of level 2 or more, in enemy territory during a war and with less than 20 damage, keeps a ready promotion until it has the experience for the next level as well (`isPromotionReady` means experience ≥ `calculateExperience(getLevel())`). Units on campaign fight one promotion short. |
-| OP5 | `AI_calculateAreaAIType`: after a recent attack, MASSING instead of DEFENSIVE at 65 % of enemy area power or more. Area AI type has 48 readers (`query.py state m_aeAreaAIType`). In `AI_doWar`'s total-war switch, MASSING leaves `bAreaValid` as it was, where DEFENSIVE set it to false. |
+| OP5 | `AI_calculateAreaAIType`: after a recent attack, an area is set to MASSING instead of DEFENSIVE when own power is at least 65 % of enemy area power. Of area AI type's 48 readers, 29 test DEFENSIVE or MASSING. What changes is listed under the table. |
 | OP6 | `AI_reserveMove` (bit 512): a lone reserve unit that can build routes builds one on an own plot without danger. |
 | OP7 | Tactical upgrades in `AI_doTurnUnitsPost` (bit 512): a unit scoring 1000 or more skips the upgrade budget. That is a unit in a city under `AI_getAnyPlotDanger`, or one with the experience bonus, a capped unit class and at least 44 experience points. |
 | OP8 | The operation functions themselves are unchanged. An operation starts only from an `UNITAI_ATTACK_CITY` group, against a city of a team at war. `AI_Abombard`'s change acts only with `DCM_ARCHER_BOMBARD` on, which is off by default (`GlobalDefinesAlt.xml:75`, `Config/RevDCM.xml:65`). |
+
+OP5, what changes in an attacked area set to MASSING instead of DEFENSIVE:
+- `AI_neededDefenders` loses its `bDefenseWar` terms: +1 to +3 defenders per city in several cases (`CvCityAI.cpp:6577–6691`).
+- `AI_getTotalFloatingDefendersNeeded`: ×2 under DEFENSIVE; ×1, or ×2/3 under MASSING (`CvPlayerAI.cpp:23970–23995`).
+- `AI_chooseProduction`: unit spending +25 instead of +10 (2601). The invader chance rises (2996). Assault ships are built (2646).
+- `AI_attackCityMove`: stacks ready to attack set out (2933) instead of guarding cities in smaller stacks (3215). They may also hunt barbarians, which DEFENSIVE forbade (2883).
+- `AI_cityDefenseMove`: city-defence units may join attack stacks (4478).
+- `AI_attackMove`, `AI_counterMove`: units load onto assault ships and explore (2555, 2576, 2606, 4258).
+- `AI_collateralMove` groups with attack stacks (3565). `AI_pickup` and `AI_assaultSeaReinforce` stop treating the area as one to defend (20851, 20929, 17934).
+- In `AI_doWar`'s total-war switch, MASSING leaves `bAreaValid` as it was, where DEFENSIVE set it to false.
+
 
 **Found by this trace, present before the passes**
 
@@ -267,8 +278,8 @@ Every consumer, and what danger does there:
   Or the anti-hegemon log line appearing rarely.
 
 **7. Fewer and weaker operations, at the moment the agenda asks for war.**
-- *Facts:* OP1 to OP4 keep units home, unload invasions and withhold promotions, while 6 raises the military
-  budget. OP5 pulls the other way after an attack.
+- *Facts:* OP1 to OP4 keep units home in peace, unload invasions and withhold promotions, while 6 raises the
+  military budget. OP5 does the opposite once attacked: it sends garrisons out at 65 % of the enemy's power.
 - *Would contradict it:* the number of operations per war and their group sizes matching `c08a472` in seeded
   runs.
 
@@ -292,5 +303,4 @@ Their consumers were not read one by one: listed, not read.
 - How often each condition holds in play: `AI_isDanger` in peacetime, the Castellan share, governor
   replacements, turns under a war plan, operations per war and their size. This needs the harness build of
   `ede81881b7de` from section 6, and logs at `gTeamLogLevel` and `gCityLogLevel` of 2 or more.
-- The 48 readers of area AI type under OP5, read one by one.
 - Whether GV4's value for Agriculturalists is intended. The commit gives no reason.

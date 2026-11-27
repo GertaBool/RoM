@@ -142,8 +142,8 @@ Diagnostics in the state files, off by default because they run extra searches:
 |---|---|
 | `HARNESS_SETTLER_DIAG=1` | per settler: escort, horizon, and for the eight best settlement candidates every filter `AI_found` applies (can found, enemy units, other parties, path with and without `MOVE_SAFE_TERRITORY`, delivery region) and the transport of a settler at sea |
 | `HARNESS_VALUE_DIAG=1` | per AI city: the twelve buildings with the highest `AI_buildingValue`, with cost and turns |
-| `HARNESS_DEFENCE_DIAG=1` | per AI city, `def`: its land defenders, the defenders it wants (`AI_neededDefenders`), the staged-force forecast of `AI_STAGED_FORECAST` (`CvCityAI::AI_stagedForecast`, per mille) with all defenders and with the weakest left out, the danger flag (`AI_isDanger`), and the owner's threshold |
-| `HARNESS_WAR_DIAG=1` | per AI team (on its leader's entry), `war`: the gates of `CvTeamAI::AI_doWar` at that moment. Whether it considers a new war (no war plan, or enemy power percent below 45), its war plans, the overall check, the handicap's declare-war probability, its power as the war tests use it, the per-mille chance of trying a total, limited or dogpile war this turn, and its leader's war ratios. Then per team it has met, `targets`: attitude, no-war probability, the per-mille chance that each path's no-war roll passes, whether war can be declared, land target, vassal, `AI_startWarVal`, and both sides of each power test (total near and far, limited, dogpile with the target's other enemies, and the dogpile reach test). Also the hegemon the team sees (`AI_balanceHegemon`, -1 for none); the no-war probability is `AI_balanceNoWarProb`. Reads only; the protected ratio functions are reproduced from the leader fields |
+| `HARNESS_DEFENCE_DIAG=1` | per AI city, `def`: its land defenders, the defenders it wants (`AI_neededDefenders`), the staged-force forecast of `AI_STAGED_FORECAST` (`CvCityAI::AI_stagedForecast`, per mille) with all defenders and with the weakest left out, the danger flag (`AI_isDanger`), and the owner's threshold. On a source without change S2, the two forecasts are -1 (`HARNESS_STAGED_FORECAST` off) |
+| `HARNESS_WAR_DIAG=1` | per AI team (on its leader's entry), `war`: the gates of `CvTeamAI::AI_doWar` at that moment. Whether it considers a new war (no war plan, or enemy power percent below 45), its war plans, the overall check, the handicap's declare-war probability, its power as the war tests use it, the per-mille chance of trying a total, limited or dogpile war this turn, and its leader's war ratios. Then per team it has met, `targets`: attitude, no-war probability, the per-mille chance that each path's no-war roll passes, whether war can be declared, land target, vassal, `AI_startWarVal`, and both sides of each power test (total near and far, limited, dogpile with the target's other enemies, and the dogpile reach test). Also the hegemon the team sees (`AI_balanceHegemon`, -1 for none); the no-war probability is `AI_balanceNoWarProb`. On a source without the balance change (GitLab main, for one), `build_dll.sh` leaves `HARNESS_BALANCE` off: the hegemon is -1 and the no-war probability is `AI_noWarAttitudeProb`, the one `AI_doWar` uses there Reads only; the protected ratio functions are reproduced from the leader fields |
 | `HARNESS_HISTORY_DIAG=1` | what the save remembers: each player's per-turn score, economy, industry, agriculture, power and culture history from turn 0, research progress and queue, cost terms, every unit (type, role, experience, position), the AI's value of every civic it may adopt; for the game, the replay messages (city foundings, civic adoptions, wars, first techs) and the number of units of each type created |
 
 ## WorldBuilder scenarios
@@ -161,7 +161,9 @@ Arguments: speed (`-` keeps the file's), difficulty, map random seed, turns,
 telemetry file, detailed line every N turns.
 
 Each turn line holds every player's economy (`bld` is the number of buildings
-in its cities), attitude toward each met player and,
+in its cities), its AI agenda (`agenda`, `agendaScore`), financial trouble (`trouble`), its team's war
+plans (`plans`, `getAnyWarPlanCount`), its active military operations (`ops`), its cities per local
+governor type (`gov`: Steward to Colonial, then none), attitude toward each met player and,
 on detailed lines, the attitude components and memories; the team matrix (met,
 war, open borders, defensive pact, vassal, war plan, war success); and the turn's
 events: standing deals opened and ended, cities founded, captured or razed,
@@ -221,7 +223,8 @@ earlier than the game does: with the earlier telemetry the same seed gave a
 different game from turn 38 on. `HarnessPeek.h` saves those caches and the
 random seeds before the telemetry, the stuck report and the state dump, and
 restores them afterwards (`build_dll.sh` declares it a friend of `CvPlayerAI`,
-`CvCityAI` and `CvCity` in its copy). Check: `HARNESS_TELEMETRY_MINIMAL=1`
+`CvCityAI`, `CvCity` and `CvTeamAI` in its copy). `plans`, `ops` and `gov` read fields and count them;
+they fill no cache. Check: `HARNESS_TELEMETRY_MINIMAL=1`
 leaves out attitudes, components and memories; a 200-turn Epic game is the
 same with and without it.
 

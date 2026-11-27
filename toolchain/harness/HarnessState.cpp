@@ -242,14 +242,23 @@ static void HH_warDiag(FILE* f, CvTeamAI& kT)
 		(iPlans == 0 || iEnemyPowerPercent < 45) ? 1 : 0, iPlans, iEnemyPowerPercent, bChecks ? 1 : 0,
 		GC.getHandicapInfo(g.getHandicapType()).getAIDeclareWarProb(), iOurPower, pTotal, pLimited, pDogpile,
 		HH_teamLeaderField(kT, HH_NEARBY), HH_teamLeaderField(kT, HH_DISTANT), HH_teamLeaderField(kT, HH_LIMITED),
-		HH_teamLeaderField(kT, HH_MINADJ), (int)kT.AI_balanceHegemon());
+		HH_teamLeaderField(kT, HH_MINADJ),
+#ifdef HARNESS_BALANCE
+		(int)kT.AI_balanceHegemon());
+#else
+		-1);   // the source has no balance term (change B): reported as -1
+#endif
 	bool bFirst = true;
 	for (int t = 0; t < MAX_CIV_TEAMS; ++t)
 	{
 		CvTeamAI& kE = GET_TEAM((TeamTypes)t);
 		if (t == kT.getID() || !kE.isAlive() || kE.isBarbarian() || !kT.isHasMet((TeamTypes)t)) continue;
 		const AttitudeTypes eAtt = kT.AI_getAttitude((TeamTypes)t);
+		#ifdef HARNESS_BALANCE
 		const int iNoWar = kT.AI_balanceNoWarProb((TeamTypes)t);
+#else
+		const int iNoWar = HarnessPeek::noWarAttitudeProb(kT, eAtt);   // AI_doWar's own no-war probability without change B
+#endif
 		const int iCmp = bReach ? (int)(((__int64)kT.AI_getReachablePower((TeamTypes)t) * iOurPower) / std::max(1, kT.getPower(true))) : iOurPower;
 		// total war: pass 0 and 1 against the nearby ratio, pass 2 against the distant one (CvTeamAI.cpp:5259)
 		const int iTotalDef = bReach ? kE.AI_getReachableDefence() : kE.getDefensivePower() * 2 / 3;
@@ -502,7 +511,13 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 				// flag (AI_isDanger), and the owner's staged-forecast threshold. Reads only.
 				CvCityAI* pAI = static_cast<CvCityAI*>(c);
 				fprintf(f, ",\"def\":[%d,%d,%d,%d,%d,%d]", c->plot()->plotCount(PUF_canDefend, -1, -1, c->getOwnerINLINE(), NO_TEAM, PUF_isDomainType, DOMAIN_LAND),
-					pAI->AI_neededDefenders(), pAI->AI_stagedForecast(false), pAI->AI_stagedForecast(true), pAI->AI_isDanger() ? 1 : 0,
+					pAI->AI_neededDefenders(),
+#ifdef HARNESS_STAGED_FORECAST
+					pAI->AI_stagedForecast(false), pAI->AI_stagedForecast(true),
+#else
+					-1, -1,   // the source has no staged forecast (change S2): reported as -1
+#endif
+					pAI->AI_isDanger() ? 1 : 0,
 					GC.getDefineINT("AI_STAGED_FORECAST", 0) + 10 * GET_PLAYER(c->getOwnerINLINE()).AI_getAttackOddsChange());
 			}
 			fprintf(f, "}");

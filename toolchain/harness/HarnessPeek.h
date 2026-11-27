@@ -20,6 +20,10 @@
 
 struct HarnessPeek
 {
+	// The AI's active military operations (CvPlayerAI::m_aiMilitaryOperations is private). Reads only.
+	static int operations(const CvPlayerAI& k) { return (int)k.m_aiMilitaryOperations.size(); }
+	// CvTeamAI::AI_noWarAttitudeProb is protected; the war diagnostics report it. Reads only.
+	static int noWarAttitudeProb(const CvTeamAI& k, AttitudeTypes e) { return k.AI_noWarAttitudeProb(e); }
 	// CvPlayer::getResearchTurnsLeftTimes100 is protected; AI_techValue divides by it.
 	static int researchTurnsLeftTimes100(const CvPlayerAI& k, TechTypes eTech) { return k.getResearchTurnsLeftTimes100(eTech, false); }
 	struct PlayerCaches

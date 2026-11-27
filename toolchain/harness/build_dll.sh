@@ -79,7 +79,8 @@ open(p, 'wb').write(s.encode('latin-1'))
 # HarnessPeek (HarnessPeek.h) reads and restores the AI's caches.
 for name, anchor in (('CvPlayerAI.h', 'class CvPlayerAI : public CvPlayer\r\n{\r\n'),
                      ('CvCityAI.h', 'class CvCityAI : public CvCity\r\n{\r\n'),
-                     ('CvCity.h', 'class CvCity : public CvDLLEntity\r\n{\r\n')):
+                     ('CvCity.h', 'class CvCity : public CvDLLEntity\r\n{\r\n'),
+                     ('CvTeamAI.h', 'class CvTeamAI : public CvTeam\r\n{\r\n')):
     p = d + '/' + name
     s = open(p, 'rb').read().decode('latin-1')
     i = s.index(anchor) + len(anchor)
@@ -93,6 +94,10 @@ case "$log" in
 esac
 # Diagnostics that need the settlement delivery regions (patch 0012 and later).
 if grep -q AI_canDeliverSettler "$src/CvPlayerAI.h"; then export CFLAGS="${CFLAGS:-} /DHARNESS_SETTLE_REACH"; fi
+# The war and defence diagnostics read functions of the balance (B) and staging-defence (S2) changes: on
+# when the source has them, so sources without those changes (GitLab main) still build.
+if grep -q AI_balanceNoWarProb "$src/CvTeamAI.h"; then export CFLAGS="${CFLAGS:-} /DHARNESS_BALANCE"; fi
+if grep -q AI_stagedForecast "$src/CvCityAI.h"; then export CFLAGS="${CFLAGS:-} /DHARNESS_STAGED_FORECAST"; fi
 "$H/../build_dll.sh" "$tmp" "$out" 8
 rm -rf "$tmp"
 ls -la "$out/release/CvGameCoreDLL.dll"

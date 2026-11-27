@@ -618,7 +618,22 @@ extern "C" __declspec(dllexport) int HH_telemetry(char* szBuf, int iSize, int iD
 		  << ",\"culture\":" << k.countTotalCulture() << ",\"rel\":" << (int)k.getStateReligion()
 		  << ",\"agenda\":" << (int)k.AI_getAgenda() << ",\"agendaScore\":" << k.AI_getAgendaScore()
 		  << ",\"vic\":" << HarnessPeek::victoryHash(k) << ",\"strat\":" << HarnessPeek::strategyHash(k)
-		  << ",\"trouble\":" << (k.AI_isFinancialTrouble() ? 1 : 0) << ",\"att\":[";
+		  << ",\"trouble\":" << (k.AI_isFinancialTrouble() ? 1 : 0)
+		  << ",\"plans\":" << kT.getAnyWarPlanCount(true) << ",\"ops\":" << HarnessPeek::operations(k);
+		{
+			// Cities per local governor type (CvCityAI::AI_getGovernorType; -1 for none counts in the last slot). Reads only.
+			int aiGov[10] = {0};
+			int iGovLoop;
+			for (CvCity* pCity = k.firstCity(&iGovLoop); pCity != NULL; pCity = k.nextCity(&iGovLoop))
+			{
+				const int iGov = static_cast<CvCityAI*>(pCity)->AI_getGovernorType();
+				++aiGov[(iGov >= 0 && iGov < 9) ? iGov : 9];
+			}
+			o << ",\"gov\":[";
+			for (int g = 0; g < 10; ++g) o << (g ? "," : "") << aiGov[g];
+			o << "]";
+		}
+		o << ",\"att\":[";
 		for (size_t b = 0; b < aiP.size(); ++b)
 		{
 			const PlayerTypes eO = (PlayerTypes)aiP[b];
