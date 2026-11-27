@@ -107,8 +107,8 @@ None of this was measured. Section 6 says how.
 
 ### 4.5 An error in the map, found here
 
-108 of the 220 "calls through a function pointer" in `map/unresolved.tsv` were switch statements compiled
-as jump tables (`jmp DWORD PTR $LN…[reg*4]`). `extract_asm.py` now skips them.
+114 of the 220 "calls through a function pointer" in `map/unresolved.tsv` were switch statements compiled
+as jump tables (`jmp DWORD PTR $LN…[reg*4]`). `extract_asm.py` now skips them; 106 remain.
 
 ## 5. Readings
 

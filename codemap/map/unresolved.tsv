@@ -1,6 +1,4 @@
 caller	file	line	reason	what
-19	AICityGovernorPolicy.h	47	through a function pointer	  switch (governor)
-20	AICityGovernorPolicy.h	76	through a function pointer	  switch (governor)
 123	CvArea.cpp		through a function pointer	
 123	CvCity.cpp		through a function pointer	
 123	CvGame.cpp		through a function pointer	
@@ -18,43 +16,15 @@ caller	file	line	reason	what
 268	CvArtFileMgr.cpp	181	virtual call: no class has a method named in the statement at its slot	slot 0:  ART_INFO_DEFN(Feature);
 274	CvArtFileMgr.cpp	182	virtual call: no class has a method named in the statement at its slot	slot 0:  ART_INFO_DEFN(Movie);
 280	CvArtFileMgr.cpp	183	virtual call: no class has a method named in the statement at its slot	slot 0:  ART_INFO_DEFN(Interface);
-486	CvCity.cpp	12787	through a function pointer	     switch (eOrder)
-517	CvCity.cpp	14851	through a function pointer	   switch(pOrderNode->m_data.eOrderType)
-529	CvCity.cpp	1527	through a function pointer	  switch (eTask)
-555	CvCity.cpp	16246	through a function pointer	  {    switch (pNode->m_data.eOrderType)
-592	CvCity.cpp	2851	through a function pointer	  switch (order.eOrderType)
-600	CvCity.cpp	3147	through a function pointer	  {    switch (pOrderNode->m_data.eOrderType)
-601	CvCity.cpp	3181	through a function pointer	  {    switch (pOrderNode->m_data.eOrderType)
-602	CvCity.cpp	3215	through a function pointer	  {    switch (pOrderNode->m_data.eOrderType)
-1132	CvCityAI.cpp	10747	through a function pointer	  {    switch (m_iGovernorType)
-1167	CvCityAI.cpp	13585	through a function pointer	     {       switch (GET_PLAYER(getOwnerINLINE()).AI_getAttitude((PlayerTypes)iI))
-1225	CvCityAI.cpp	1072	through a function pointer	  }   switch (m_iGovernorType)
-1225	CvCityAI.cpp	2595	through a function pointer	      switch (pArea->getAreaAIType(getTeam()))
 1280	CvDLLButtonPopup.cpp	49	virtual destructor (delete)	slot 0:   delete m_pInst;
-1284	CvDLLButtonPopup.cpp	79	through a function pointer	  int iExamineCityID;   int iI;     switch (info.getButtonPopupType())
-1284	CvDLLButtonPopup.cpp	87	through a function pointer	   {     switch (info.getData1())
-1285	CvDLLButtonPopup.cpp	772	through a function pointer	  }     switch (info.getButtonPopupType())
-1286	CvDLLButtonPopup.cpp	862	through a function pointer	    switch (info.getButtonPopupType())
 1554	CvDLLPythonIFaceBase.h	112	virtual call: no class has a method named in the statement at its slot	slot 6:    Py_DECREF(item);
 1554	CvDLLPythonIFaceBase.h	112	virtual call: no class has a method named in the statement at its slot	slot 6:    Py_DECREF(item);
 1554	CvDLLPythonIFaceBase.h	112	virtual call: no class has a method named in the statement at its slot	slot 6:    Py_DECREF(item);
 1555	CvDLLPythonIFaceBase.h	112	virtual call: no class has a method named in the statement at its slot	slot 6:    Py_DECREF(item);
-1704	CvDLLWidgetData.cpp	1074	through a function pointer	  switch (widgetDataStruct.m_eWidgetType)
-1784	CvDLLWidgetData.cpp	4671	through a function pointer	  {    // Data1 is the heading    switch (widgetDataStruct.m_iData1)
-1784	CvDLLWidgetData.cpp	4752	through a function pointer	    {      switch(eDenial)
-1797	CvDLLWidgetData.cpp	5187	through a function pointer	   {     switch (pOrder->eOrderType)
-1807	CvDLLWidgetData.cpp	54	through a function pointer	  switch (widgetDataStruct.m_eWidgetType)
-1875	CvDLLWidgetData.cpp	5738	through a function pointer	  switch (eType)
-1888	CvDLLWidgetData.cpp	660	through a function pointer	    switch (widgetDataStruct.m_eWidgetType)
-1889	CvDLLWidgetData.cpp	989	through a function pointer	  switch (widgetDataStruct.m_eWidgetType)
-1911	CvDeal.cpp	1101	through a function pointer	  int iI, iJ;     switch (trade.m_eItemType)
-1917	CvDeal.cpp	1306	through a function pointer	  switch (eItem)
-1959	CvDeal.cpp	705	through a function pointer	    switch (trade.m_eItemType)
 2173	CvEventReporter.cpp	571	virtual call: several candidate methods	3 candidates:   m_kStatistics.read(pStream);
 2174	CvEventReporter.cpp	575	virtual call: several candidate methods	3 candidates:   m_kStatistics.write(pStream);
 2215	CvGame.cpp	10439	virtual call: several candidate methods	9 candidates:   return ((VoteSelectionData*)(m_voteSelections.getAt(iID)));
 2218	CvGame.cpp	10591	virtual call: several candidate methods	9 candidates:   return ((VoteTriggeredData*)(m_votesTriggered.getAt(iID)));
-2222	CvGame.cpp	10787	through a function pointer	        {          switch ((PlayerVoteTypes)iI)
 2223	CvGame.cpp	120	virtual call: several candidate methods	12 candidates:     //--------------------------------   // Init containers   m_deals.init();
 2223	CvGame.cpp	121	virtual call: several candidate methods	12 candidates:   m_voteSelections.init();
 2223	CvGame.cpp	122	virtual call: several candidate methods	12 candidates:   m_votesTriggered.init();
@@ -66,32 +36,9 @@ caller	file	line	reason	what
 2357	CvGame.cpp	715	virtual call: several candidate methods	9 candidates:   m_voteSelections.removeAll();
 2357	CvGame.cpp	716	virtual call: several candidate methods	9 candidates:   m_votesTriggered.removeAll();
 2542	CvGame.cpp	9105	virtual call: several candidate methods	9 candidates:   return ((CvDeal *)(m_deals.getAt(iID)));
-2551	CvGame.cpp	9185	through a function pointer	      switch (getTurnSlice() % 4)
 2554	CvGame.cpp	9311	virtual destructor (delete)	slot 0:    {     delete pMessage;
 2566	CvGame.cpp	9842	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_pReplayInfo);
 2570	CvGame.cpp	9958	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_pReplayInfo);
-2617	CvGameCoreUtils.cpp	109	through a function pointer	  switch( eDirection )
-2640	CvGameCoreUtils.cpp	149	through a function pointer	  switch( eDirection )
-2701	CvGameCoreUtils.cpp	2697	through a function pointer	    switch (eCalendar)
-2702	CvGameCoreUtils.cpp	2755	through a function pointer	  switch (eDirectionType)
-2704	CvGameCoreUtils.cpp	2779	through a function pointer	  switch (eActivityType)
-2705	CvGameCoreUtils.cpp	2804	through a function pointer	  switch (eMissionType)
-2707	CvGameCoreUtils.cpp	2882	through a function pointer	  switch (eMissionAI)
-2708	CvGameCoreUtils.cpp	2925	through a function pointer	  // note, GC.getUnitAIInfo(eUnitAI).getDescription() is a international friendly way to get string (but it will be longer)      switch (eUnitAI)
-2744	CvGameCoreUtils.cpp	3734	through a function pointer	  switch (eOrder)
-2783	CvGameCoreUtils.cpp	93	through a function pointer	  switch (eCard)
-2810	CvGameInterface.cpp	1477	through a function pointer	  }     switch (eControl)
-2811	CvGameInterface.cpp	1643	through a function pointer	  }     switch (eControl)
-2815	CvGameInterface.cpp	2317	through a function pointer	  {    switch (kItem.m_eFlyout)
-2817	CvGameInterface.cpp	2489	through a function pointer	   {     switch (gDLL->getInterfaceIFace()->getInterfaceMode())
-2936	CvGameTextMgr.cpp	15158	through a function pointer	  switch (eWarPlan)
-2939	CvGameTextMgr.cpp	15443	through a function pointer	  switch (tradeData.m_eItemType)
-2966	CvGameTextMgr.cpp	177	through a function pointer	    switch (eCalendar)
-2991	CvGameTextMgr.cpp	19393	through a function pointer	  switch (eType)
-2991	CvGameTextMgr.cpp	19396	through a function pointer	  {   case GLOBE_LAYER_STRATEGY:    switch(iOption)
-2991	CvGameTextMgr.cpp	19416	through a function pointer	  case GLOBE_LAYER_UNIT:    switch(iOption)
-2991	CvGameTextMgr.cpp	19436	through a function pointer	  case GLOBE_LAYER_RESOURCE:    switch(iOption)
-3024	CvGameTextMgr.cpp	364	through a function pointer	  CvCity* pCity;   UnitTypes eTrainUnit;   BuildingTypes eConstructBuilding;   ProjectTypes eCreateProject;   ReligionTypes eReligion;   CivicTypes eCivic;     
 3646	CvGlobals.cpp	543	virtual destructor (delete)	slot 0:     SAFE_DELETE(m_game);
 3646	CvGlobals.cpp	544	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_map);
 3646	CvGlobals.cpp	549	virtual destructor (delete)	slot 0:     SAFE_DELETE(m_asyncRand);
@@ -193,24 +140,19 @@ caller	file	line	reason	what
 4448	CvInfos.cpp	16129	virtual destructor (delete)	slot 0:     SAFE_DELETE_ARRAY(m_paImprovementBonus);
 5318	CvInfos.cpp	25913	virtual destructor (delete)	slot 0:   SAFE_DELETE_ARRAY(m_pResponses); 
 5384	CvInfos.cpp	26733	virtual destructor (delete)	slot 0:   SAFE_DELETE_ARRAY(m_paTutorialMessages);
-5740	CvInfos.cpp	3596	through a function pointer	  switch (getSubType())
 6123	CvInfos.cpp	8537	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
-6483	CvInitCore.cpp	247	through a function pointer	  switch (getType())
-6484	CvInitCore.cpp	265	through a function pointer	  switch (getType())
 6584	CvMap.cpp	111	virtual destructor (delete)	slot 0:     SAFE_DELETE_ARRAY(m_pMapPlots);
 6584	CvMap.cpp	113	virtual call: several candidate methods	9 candidates:     m_areas.uninit();
 6598	CvMap.cpp	1174	virtual call: several candidate methods	9 candidates:   return m_areas.getAt(iID);
 6601	CvMap.cpp	238	virtual call: several candidate methods	9 candidates:   }     m_areas.removeAll();
 6604	CvMap.cpp	1213	virtual call: several candidate methods	9 candidates:     m_areas.removeAll();
 6636	CvMap.cpp	83	virtual call: several candidate methods	12 candidates:     //--------------------------------   // Init containers   m_areas.init();
-6689	CvMapGenerator.cpp	567	through a function pointer	         switch (aiShuffle[iI])
 6700	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
 6700	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
 6700	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
 6700	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
 6700	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
 6700	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
-6784	CvMessageData.cpp	11	through a function pointer	  switch (eType)
 7319	CvPlayer.cpp	14796	virtual call: several candidate methods	9 candidates:   return((CvPlotGroup *)(m_plotGroups.getAt(iID)));
 7325	CvPlayer.cpp	14832	virtual call: several candidate methods	9 candidates:   return(m_cities.getAt(iID));
 7331	CvPlayer.cpp	14868	virtual call: several candidate methods	9 candidates:   return (m_units.getAt(iID));
@@ -220,28 +162,16 @@ caller	file	line	reason	what
 7351	CvPlayer.cpp	15022	virtual destructor (delete)	slot 0:    {     delete pInfo;
 7355	CvPlayer.cpp	15064	virtual destructor (delete)	slot 0:    {     delete pDiplo;
 7359	CvPlayer.cpp	15109	virtual destructor (delete)	slot 0:      SAFE_DELETE(pInfo);
-7396	CvPlayer.cpp	16771	through a function pointer	   }   }     switch (eAction)
 7427	CvPlayer.cpp	204	virtual call: several candidate methods	12 candidates:     //--------------------------------   // Init containers   m_plotGroups.init();
 7427	CvPlayer.cpp	206	virtual call: several candidate methods	12 candidates:     m_cities.init();
 7427	CvPlayer.cpp	208	virtual call: several candidate methods	12 candidates:     m_units.init();
 7427	CvPlayer.cpp	210	virtual call: several candidate methods	12 candidates:     m_selectionGroups.init();
 7427	CvPlayer.cpp	212	virtual call: several candidate methods	12 candidates:     m_eventsTriggered.init();
-7511	CvPlayer.cpp	23874	through a function pointer	     // Build what we need to build for this item    switch (i)
-7512	CvPlayer.cpp	24006	through a function pointer	    switch ( eItem )
-7513	CvPlayer.cpp	24053	through a function pointer	    switch (zTradeData.m_eItemType)
-7517	CvPlayer.cpp	24334	through a function pointer	  switch (eGlobeLayerType)
-7519	CvPlayer.cpp	24438	through a function pointer	          switch (eOption)
-7520	CvPlayer.cpp	24595	through a function pointer	     switch (eOption)
-7532	CvPlayer.cpp	3160	through a function pointer	       }          switch (pLoopUnit->AI_getUnitAIType())
-7561	CvPlayer.cpp	4083	through a function pointer	   {     switch (pLoopSelectionGroup->getDomainType())
 7585	CvPlayer.cpp	455	virtual call: several candidate methods	12 candidates:     //--------------------------------   // Init containers   m_plotGroups.init();
 7585	CvPlayer.cpp	457	virtual call: several candidate methods	12 candidates:     m_cities.init();
 7585	CvPlayer.cpp	459	virtual call: several candidate methods	12 candidates:     m_units.init();
 7585	CvPlayer.cpp	461	virtual call: several candidate methods	12 candidates:     m_selectionGroups.init();
 7585	CvPlayer.cpp	463	virtual call: several candidate methods	12 candidates:     m_eventsTriggered.init();
-7610	CvPlayer.cpp	5155	through a function pointer	  CivicTypes* paeNewCivics;   CvCity* pCity;   int iI;      /************************************************************************************************/  
-7613	CvPlayer.cpp	5422	through a function pointer	  }     switch (item.m_eItemType)
-7614	CvPlayer.cpp	5730	through a function pointer	  CvCity* pCity;     switch (item.m_eItemType)
 7638	CvPlayer.cpp	781	virtual call: several candidate methods	9 candidates:       m_plotGroups.uninit();
 7638	CvPlayer.cpp	783	virtual call: several candidate methods	9 candidates:     m_cities.uninit();
 7638	CvPlayer.cpp	785	virtual call: several candidate methods	9 candidates:     m_units.uninit();
@@ -252,58 +182,15 @@ caller	file	line	reason	what
 7661	CvPlayer.cpp	1223	virtual call: several candidate methods	9 candidates:     m_units.removeAll();
 7661	CvPlayer.cpp	1225	virtual call: several candidate methods	9 candidates:     m_selectionGroups.removeAll();
 7661	CvPlayer.cpp	1227	virtual call: several candidate methods	9 candidates:     m_eventsTriggered.removeAll();
-7823	CvPlayerAI.cpp	11082	through a function pointer	    switch (GET_TEAM(GET_PLAYER(ePlayer).getTeam()).AI_getAttitude(eTradeTeam))
-7830	CvPlayerAI.cpp	11449	through a function pointer	  {    switch (eUnitAI)
-7830	CvPlayerAI.cpp	11898	through a function pointer	     int iFastMoverMultiplier;     switch (eUnitAI)
-7952	CvPlayerAI.cpp	20431	through a function pointer	   {     switch (AI_getAttitude(kTriggeredData.m_eOtherPlayer))
-7957	CvPlayerAI.cpp	2101	through a function pointer	  switch (eUnitAI)
-7960	CvPlayerAI.cpp	21210	through a function pointer	         }         }           // Multiplying by higher number means unit has higher priority, less likely to be disbanded         switch (pLoopUnit->AI_getUnit
-7966	CvPlayerAI.cpp	2198	through a function pointer	     //XXX Add something for 100%/0% type situations   switch (eCommerce)
-8033	CvPlayerAI.cpp	25975	through a function pointer	  switch (AI_getAttitude(ePlayer))
-8095	CvPlayerAI.cpp	742	through a function pointer	      switch (iPass)
-8097	CvPlayerAI.cpp	6798	through a function pointer	        // BBAI TODO: Change this to evaluating all unitai types defined in XML for unit?       // Without this change many unit types are hard to evaluate, lik
 8136	CvPlayerAI.cpp	84	virtual destructor (delete)	slot 0:   SAFE_DELETE_ARRAY(m_aPlayers);
-8138	CvPlayerAI.cpp	8968	through a function pointer	  {    FAssertMsg(!(pNode->m_data.m_bHidden), "(pNode->m_data.m_bHidden) did not return false as expected");      switch (pNode->m_data.m_eItemType)
-8196	CvPlot.cpp	1658	through a function pointer	  CvPlot *pPlot;   switch(eDirection)
-8199	CvPlot.cpp	1724	through a function pointer	  }     switch (eDirection)
 8245	CvPlot.cpp	3491	through a function pointer	    {      func(pLoopUnit, iData1, iData2);
 8246	CvPlot.cpp	3517	through a function pointer	    {      if ((funcA == NULL) || funcA(pLoopUnit, iData1A, iData2A))
 8246	CvPlot.cpp	3519	through a function pointer	     {       if ((funcB == NULL) || funcB(pLoopUnit, iData1B, iData2B))
 8247	CvPlot.cpp	3548	through a function pointer	    {      if (funcA(pLoopUnit, iData1A, iData2A))
 8247	CvPlot.cpp	3550	through a function pointer	     {       if ((funcB == NULL) || funcB(pLoopUnit, iData1B, iData2B))
-8288	CvPlot.cpp	4181	through a function pointer	  switch (unit.getDomainType())
-8334	CvPlot.cpp	4727	through a function pointer	  {    switch (aiShuffle[iI])
-8436	CvPlot.cpp	7552	through a function pointer	  {    switch (eIndex)
 8633	CvReplayInfo.cpp	335	virtual destructor (delete)	slot 0:    {     delete pMessage;
 8636	CvReplayInfo.cpp	41	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(m_listReplayMessages[i]);
-8699	CvSelectionGroup.cpp	1425	through a function pointer	  {    FAssertMsg(GET_PLAYER(getOwnerINLINE()).isTurnActive() || GET_PLAYER(getOwnerINLINE()).isHuman(), "It's expected that either the turn is active for this 
-8699	CvSelectionGroup.cpp	1658	through a function pointer	     {       switch (headMissionQueueNode()->m_data.eMissionType)
-8703	CvSelectionGroup.cpp	2089	through a function pointer	    {      switch (headMissionQueueNode()->m_data.eMissionType)
-8703	CvSelectionGroup.cpp	2391	through a function pointer	   {     switch (headMissionQueueNode()->m_data.eMissionType)
-8707	CvSelectionGroup.cpp	2765	through a function pointer	     switch (eInterfaceMode)
-8708	CvSelectionGroup.cpp	2964	through a function pointer	     switch (eInterfaceMode)
-8800	CvSelectionGroup.cpp	5744	through a function pointer	     switch (getActivityType())
-8843	CvSelectionGroup.cpp	953	through a function pointer	     switch (iMission)
-8904	CvSelectionGroupAI.cpp	699	through a function pointer	   {     switch (pHeadUnit->AI_getUnitAIType())
-9280	CvTalkingHeadMessage.cpp	205	through a function pointer	  switch (m_eMessageType)
-9594	CvTeamAI.cpp	1329	through a function pointer	  }  /************************************************************************************************/  /* BETTER_BTS_AI_MOD                       END         
-9598	CvTeamAI.cpp	1661	through a function pointer	    }       switch (AI_getAttitude(eTeam))
-9623	CvTeamAI.cpp	3091	through a function pointer	    switch ((GET_TEAM(eTeam).AI_getAttitude(ePeaceTeam) + GET_TEAM(ePeaceTeam).AI_getAttitude(eTeam)) / 2)
-9625	CvTeamAI.cpp	3196	through a function pointer	    switch (GET_TEAM(eTeam).AI_getAttitude(eWarTeam))
-9625	CvTeamAI.cpp	3252	through a function pointer	  {    switch (GET_TEAM(eTeam).AI_getAttitude(getID()))
-9670	CvTeamAI.cpp	3950	through a function pointer	  switch (AI_getWarPlan(eIndex))
 9687	CvTeamAI.cpp	45	virtual destructor (delete)	slot 0:   SAFE_DELETE_ARRAY(m_aTeams);
-9701	CvTeamAI.cpp	5593	through a function pointer	  switch (AI_getAttitude(eTeam))
-9703	CvTeamAI.cpp	5663	through a function pointer	      }         switch (GC.getUnitInfo(eLoopUnit).getDefaultUnitAIType())
-10067	CvUnit.cpp	2326	through a function pointer	  }     switch (eCommand)
-10068	CvUnit.cpp	2444	through a function pointer	  {    switch (eCommand)
-10076	CvUnit.cpp	2764	through a function pointer	       }       }      }     }    }   }     switch (getDomainType())
-10086	CvUnit.cpp	3341	through a function pointer	  }  /************************************************************************************************/  /* Afforess                      END                   
-10131	CvUnit.cpp	5147	through a function pointer	     }      switch(iMis0)
-10409	CvUnitAI.cpp	262	through a function pointer	  {    switch (getGroup()->getAutomateType())
-10409	CvUnitAI.cpp	367	through a function pointer	     switch (AI_getUnitAIType())
-10498	CvUnitAI.cpp	5622	through a function pointer	  {    switch (GET_PLAYER(getOwnerINLINE()).AI_getAttitude(plot()->getOwnerINLINE()))
-10511	CvUnitAI.cpp	747	through a function pointer	  switch (AI_getUnitAIType())
 10535	CvXMLLoadUtility.cpp	156	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(GC.getLandscapeInfo()[i]);
 10536	CvXMLLoadUtility.cpp	175	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(GC.getEffectInfo()[i]);
 10545	CvXMLLoadUtility.cpp	677	virtual call: no class has a method named in the statement at its slot	slot 3:   {    m_pCBFxn(++m_iCurProgressStep, GetNumProgressSteps(), CvString::format("Reading XML %s",     szMessage ? szMessage : "").c_str());
@@ -1686,7 +1573,6 @@ caller	file	line	reason	what
 13787	FFreeListTrashArray.h	512	virtual call: several candidate methods	5 candidates:    pData->read( pStream );
 13788	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
 13894	FVariableSystem.inl	114	virtual destructor (delete)	slot 0:    if ( pkVariable != NULL ) delete pkVariable;
-13899	FVariableSystem.inl	372	through a function pointer	    switch (pkVariable->m_eType)
 13903	FVariableSystem.inl	537	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
 13904	FVariableSystem.inl	647	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
 13904	FVariableSystem.inl	647	virtual destructor (delete)	slot 0:   {    delete iIterator->second;

@@ -142,7 +142,7 @@ At `ede81881b7de`:
 | Virtual calls | 17689, of them 10907 with the object's class shown in the code | `calls.tsv` |
 | Addresses taken | 4313 (callbacks, function pointers) | `calls.tsv` |
 | Classes, bases, overrides | 333 classes, 161 base links, 563 overrides | `classes.tsv`, `bases.tsv`, `overrides.tsv` |
-| Calls not tied to one function | 1723: 1430 virtual `delete`, 220 through a function pointer, 56 with several candidates, 17 matching no name | `unresolved.tsv` |
+| Calls not tied to one function | 1609: 1430 virtual `delete`, 106 through a function pointer, 56 with several candidates, 17 matching no name | `unresolved.tsv` |
 | Python | 277 modules, 6681 functions and classes, 63566 call sites, 0 modules that failed to parse | `py_*.tsv` |
 | Python → DLL | 29043 call sites whose name the DLL exposes, 16784 of them with one candidate | `py_to_cpp.tsv` |
 | DLL → Python | 183 `callFunction` sites, 130 landing in a Python function found in the mod | `cpp_to_py.tsv` |
@@ -366,7 +366,7 @@ tests are not tied to functions this way.
 | Fields: who reads and writes `m_iGold` | B1, D1, D3, save formats | the member accesses of each function | the listings address members as `this` plus an offset; the type records give each class's member offsets |
 | Control flow inside a function | B1 precision, D2 | branches and blocks per function | the listings hold every jump and label |
 | Data flow, taint | D1, D4 | definitions and uses across calls | not in the listings in usable form; a CodeQL or Joern database of the source would hold it |
-| Function pointers | A2, B1 | points-to analysis | 220 calls through pointers are listed with their statement, and 4313 addresses taken |
+| Function pointers | A2, B1 | points-to analysis | 106 calls through pointers are listed with their statement, and 4313 addresses taken |
 | Which exports the exe uses | E2, C1 | the exe's import table | not in the repository |
 | Python called by computed name | E1 | run-time tracing | 50 `callFunction` sites have a module or function known only at run time |
 | XML to code, beyond the 12 key functions | B4 | the `hardcoded.py` checks applied to all functions | the checks exist and run per function |
