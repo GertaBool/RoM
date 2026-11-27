@@ -138,6 +138,7 @@ def parse_listing(path, projdir, clash=frozenset()):
         if op in ('call', 'jmp'):
             a = arg.strip()
             if a.startswith('SHORT ') or a.startswith('$'): continue
+            if op == 'jmp' and a.startswith('DWORD PTR $L'): continue   # a switch's jump table, not a call
             if a.startswith('DWORD PTR __imp_'):
                 sites.append(dict(caller=fn, kind='import', target=a[16:], file=cur_file, line=line)); continue
             s = SLOT.match(a)
