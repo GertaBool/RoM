@@ -174,7 +174,7 @@ def main():
                 if c in accessor:
                     stack += [(cc, c) for cc in Q.up[c]]
 
-    rows.sort(key=lambda x: (x[1], x[2], x[0]))
+    rows.sort(key=lambda x: (x[1], x[2], x[0], x[3], x[4], str(x[5]), str(x[6])))   # a total order: the same rows, the same file
     with open(os.path.join(out, 'state.tsv'), 'w', encoding='utf-8') as f:
         f.write('function\tname\tmember\tclass\taccess\thow\tvia\tline\n')
         for i, nm, cls, acc, how, via, line in rows:

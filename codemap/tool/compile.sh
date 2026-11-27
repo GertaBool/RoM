@@ -10,6 +10,11 @@
 set -eu
 src=$(cd "$1" && pwd); w=$2; jobs=${3:-4}
 : "${VCTOOLKIT_DIR:?}" "${PSDK_DIR:?}" "${BTS_SDK_DIR:?}" "${WINEPREFIX:?}"
+# A missing header makes cl stop with an error, and under Wine it can then hang instead of exiting:
+# check the SDK folders before compiling anything.
+for d in "$BTS_SDK_DIR/Boost-1.32.0/include/boost/python" "$BTS_SDK_DIR/Python24/include"; do
+  [ -d "$d" ] || { echo "compile.sh: $d not found; BTS_SDK_DIR must be the SDK's CvGameCoreDLL folder" >&2; exit 1; }
+done
 export WINEARCH=win32 WINEDEBUG=-all
 mkdir -p "$w/b" "$w/out"
 cp "$src"/*.cpp "$src"/*.h "$src"/*.inl "$w/b/"
