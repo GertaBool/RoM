@@ -26,4 +26,5 @@ export BTS_SDK_DIR=~/src/bts-sdk/CvGameCoreDLL
 toolchain/build_dll.sh <rise-of-mankind at the patched commit>/Assets/CvGameCoreDLL /tmp/build 8
 ```
 
-0 errors, 0 warnings. Not tested in the game. The headless check is P14 (pending).
+0 errors, 0 warnings. Not tested in the game. Headless (P17): 10 seeded pairs at Marathon, 350 turns, all complete,
+every pair identical turn for turn.

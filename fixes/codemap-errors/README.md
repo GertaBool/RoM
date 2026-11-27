@@ -1,7 +1,7 @@
 # Code map errors: the ACO option, canConstruct, missing default buildings and a missing technology
 
 [`../0022-codemap-errors.patch`](../0022-codemap-errors.patch) applies to GitLab `main` `ede81881b7de`
-and gives tree `e8368dea`. It serves P14, under hypothesis H9. It also applies unchanged to the
+and gives tree `e8368dea`. It was committed under P14 and is judged by P17, under hypothesis H9. P14, P15 and P16 were withdrawn before any evidence: the user asked for Marathon speed, 10 runs per arm and 350 turns. It also applies unchanged to the
 `builds/balance` source, which the harness arms of P14 use.
 
 The errors were found by the code map's checks and are registered in
@@ -44,7 +44,7 @@ Those are design decisions, not errors in the code or the data, and are left to 
 | clang gate on the three changed C++ files against `ede81881b7de` | 0 new diagnostics ([clang-gate.log](clang-gate.log)) |
 | `codemap/tool/check_links.py` on the patched tree | 0 type references defined nowhere (22 before); 2 undefined defines (3 before; the 2 left are D3 and C5, dormant, not in this patch) |
 | `method/patchcheck.py` | passes |
-| P14: harness runs, with and without the patch, 30 seeds each | pending |
+| P17: harness runs with and without the patch, Mediterranean, Standard map from turn 0, all seats AI, Noble, Marathon, 350 turns, 10 seeds per arm | 10 of 10 runs reach turn 350 in each arm; every pair plays identically turn for turn |
 
 The harness has no Python and draws no tooltip. So C1, C1b and C3 rest on the reading above; the
 runs check that nothing else changes.

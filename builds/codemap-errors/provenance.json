@@ -17,7 +17,7 @@
  },
  "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine 9.0, TARGET=release; 0 errors, 0 warnings",
  "tests": "clang gate on CvGameCoreUtils.cpp, CvGameTextMgr.cpp and CvCity.cpp against ede81881b7de: 0 new diagnostics (baseline and patched 1 error, 50 warnings; fixes/codemap-errors/clang-gate.log). codemap/tool/check_links.py on the patched tree: 0 type references in the loaded XML defined nowhere (22 before), 2 undefined defines (3 before; the 2 left are the dormant D3 and C5)",
- "tested_headless": "P14 evidence pending",
+ "tested_headless": "P17 (P14, P15 and P16 withdrawn before evidence, for Marathon speed, 10 runs per arm and 350 turns): harness DLLs of the builds/balance source with and without the patch, Mediterranean, Standard map from turn 0, all seats AI, Noble, Marathon, 350 turns, 10 seeds per arm from ledger.py seeds: 10 of 10 runs reach turn 350 in each arm, and every pair plays identically turn for turn (telemetry without timings)",
  "tested_in_game": false,
  "previous": "GitLab main ede81881b7de",
  "merge_request": "not opened yet",

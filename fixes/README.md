@@ -13,7 +13,8 @@ on GitLab yet. It fixes the five errors the code map's checks confirmed
 - `BONUS_WOOL` named a technology that does not exist, which shows an XML error dialog at load.
 
 The XML now says `NONE` where the game already loaded nothing, so the rules and saves stay the same.
-Build: 0 errors, 0 warnings; clang gate: 0 new diagnostics; P14 (harness runs) pending. See the
+Build: 0 errors, 0 warnings; clang gate: 0 new diagnostics. Harness (P17): 10 seeded pairs at Marathon, 350 turns,
+all complete, every pair identical turn for turn. See the
 [errors and changes](codemap-errors/README.md) and the [build](../builds/codemap-errors/README.md).
 
 ## Graphics paging coherence: the crash on moving a unit
