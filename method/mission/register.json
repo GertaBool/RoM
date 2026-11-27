@@ -629,5 +629,41 @@
    "fixes/codemap-errors/",
    "builds/codemap-errors/"
   ]
+ },
+ {
+  "id": "W4",
+  "type": "withdrawal",
+  "of": "P15",
+  "reason": "Before any evidence was committed: the user lowered the minimum to 10 runs per arm (method commit f99de91) and stopped the runs at 17 per arm. P15's claim fixes 30, so it is replaced by P16, the same claim and arms with min_n 10. P15's 17 seeded pairs all completed and played identically; they do not count for P16, whose seeds differ."
+ },
+ {
+  "id": "P16",
+  "type": "prediction",
+  "line": "codemap-errors",
+  "hypotheses": [
+   "H9"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "fixes/0022-codemap-errors.patch (committed under P14, judged first by P15) on GitLab main ede81881b7de: setCombatPlotHelp reads ACO__IgnoreBarbFreeWins once (getBugOptionBOOL), applies the barbarian free-win section when it is off and gives it to getCombatOddsSpecific (setCombatOddsIgnoreBarbFreeWins), which no longer reads GC.getDefineINT(\"ACO_IgnoreBarbFreeWins\"); CvCity::canConstruct tests NO_BUILDING before GC.getBuildingInfo; the 21 DefaultBuilding entries and BONUS_WOOL's TechCityTrade say NONE. Arm a: a harness DLL of the builds/balance source (2a8b9a8 plus staging-defence and balance, tree 68a00fc0) with the patch applied, its XML patched too; arm b: the same without the patch. Both from turn 0 of the mod's Mediterranean, Standard WorldBuilder map (PrivateMaps, wbs2scn.py), all seats AI, Noble, Marathon speed (harness.exe scenario with GAMESPEED_MARATHON), 200 turns per run, seeds from ledger.py seeds. The harness has no Python and draws no tooltip, so C1 and C3 are judged by reading; the run checks that nothing else changes.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 10,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameTextMgr.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/XML/Buildings/CIV4BuildingClassInfos.xml",
+   "gitlab:Assets/Modules/Projects/Vincentz/Guilds/Guildhalls_CIV4BuildingClassInfos.xml",
+   "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml",
+   "fixes/0022-codemap-errors.patch",
+   "fixes/codemap-errors/",
+   "builds/codemap-errors/"
+  ]
  }
 ]
