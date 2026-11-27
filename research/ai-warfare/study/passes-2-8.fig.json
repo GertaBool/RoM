@@ -1,0 +1,380 @@
+{
+ "command": [
+  "@repo/research/passes-2-8/passes_runs.py",
+  "@repo/research/ai-warfare/study/passes-2-8.fig.json",
+  "/root/p1819"
+ ],
+ "inputs": {
+  "/root/p1819/P18/a/s1089266792/run.jsonl": "50420b6ec077a3cd7c22434ed9cca7ea1fa88ee618de2c466232cf025ad08636",
+  "/root/p1819/P18/a/s1089266792/run.log": "8a11c25d8f5a3a5ceef688322ae3a7de1a6a317bf0af8c5102d3a238c924bd7e",
+  "/root/p1819/P18/a/s1169990382/run.jsonl": "88b9305b795f9d26e0a9bf5be96489f949027c622d7311039906593b35a46d04",
+  "/root/p1819/P18/a/s1169990382/run.log": "6b9f2261f65671d738618ad3492ca62de845dea16e65db5003a7b1d67e536956",
+  "/root/p1819/P18/a/s1193677748/run.jsonl": "27a59e1e4040b5b03b63aef9ce9916c8031b51ea52781170d5abdd7b4b649b32",
+  "/root/p1819/P18/a/s1193677748/run.log": "a11ae98907671b5d60f2205b25129b491d3c577dc7e9d92e49e07407d8116e32",
+  "/root/p1819/P18/a/s1734786699/run.jsonl": "de7d61afcd74e3e0f91da1a97da927f13206f8f963bf103878afe2faaa0507ab",
+  "/root/p1819/P18/a/s1734786699/run.log": "89949e74725a4be75a7ff26814b0ff1bd4283f980ecb9247f54d9b45a9127c86",
+  "/root/p1819/P18/a/s329039567/run.jsonl": "cf10e2a744c1f689107b85a48243b7c45b504852cfc118801a10d85a190e417f",
+  "/root/p1819/P18/a/s329039567/run.log": "dfd5a16fd8d6fd06dfbc6605e61e98a17ed596ebd40d23769cd4e5d127b85c5a",
+  "/root/p1819/P18/a/s337839419/run.jsonl": "a2066f4489859c74966ef65e2f0f065e5dedea191fdce1e680ad3a4d1fc07e23",
+  "/root/p1819/P18/a/s337839419/run.log": "28cd7d0fc79e1e2ba60a304ec0585c39190cf7fee6408b998f177b3f55183aaf",
+  "/root/p1819/P18/a/s602330348/run.jsonl": "cce0d27bc53113363317df609e5c29d5ed84f61243ca741dc76fc0382bd932fd",
+  "/root/p1819/P18/a/s602330348/run.log": "b67de0e1c7a25159f3f9b8df9f9400f94f0286eb692ccb9c45903907eaf96a6d",
+  "/root/p1819/P18/a/s696162495/run.jsonl": "e6819bbc0d87a064ac6af961c9a21909a24a01548a927df1cb1fd4f57c588ebb",
+  "/root/p1819/P18/a/s696162495/run.log": "ce81ab676a6a2b6c29c7c3ec36a16bf499dccb0f6293fb1f087daf2816691271",
+  "/root/p1819/P18/a/s901500501/run.jsonl": "6f2852093b36be00d12c7d636948fad8fcdc683234623c8280c79283ba91123d",
+  "/root/p1819/P18/a/s901500501/run.log": "5aa4f1ab7d3fa48d1cb146a3782471d859aaea9b60a52e18e3dc5af83bbe325b",
+  "/root/p1819/P18/a/s938352262/run.jsonl": "13149e0f70fbf4d4252a82f7119896c42613399a478489b99ad5b6f2a5aa6e5e",
+  "/root/p1819/P18/a/s938352262/run.log": "069a375310d228dcd8141aba050d78e0827108b4d242993fef4d80f2f1f382f5",
+  "/root/p1819/P19/b/s1271051838/run.jsonl": "b29a7d45427953fc208141b619429b5b836f7f02ffa3007d741d0039c6455142",
+  "/root/p1819/P19/b/s1271051838/run.log": "2edaf4479a6ca24fcfe846550bf31a7f5957dfb789ccb428a33a2364e29e091c",
+  "/root/p1819/P19/b/s132942555/run.jsonl": "d593f7f4c7f9d8518f34e94b5d6dcc9ce421d7a3343092efac15b0849bb61adc",
+  "/root/p1819/P19/b/s132942555/run.log": "1101ac7db20bac317c05993e23ad5dafb22d45609e889977dd6176af15515a8e",
+  "/root/p1819/P19/b/s1906170794/run.jsonl": "cc72d17c6f81c2b71e97700b20feb9d6350d3a0359a4ebb3dffd81a84c813381",
+  "/root/p1819/P19/b/s1906170794/run.log": "0357870eb7aaefe9127a261afc00f09e6c5f13d3a0027370cbc0dcf1744f9d98",
+  "/root/p1819/P19/b/s400171849/run.jsonl": "7b58bf03d4de5f3324c60473b06863b06e25f605a5923945aef734de4cb20c51",
+  "/root/p1819/P19/b/s400171849/run.log": "9478872fa96a98166f605ec41c9fc502c396ba01e7898e1b2b6a135722028019",
+  "/root/p1819/P19/b/s411461467/run.jsonl": "5df8137b9f1284067a2e8e2747cb2f1c8d10c68877bdd62bc3d882b2348143b8",
+  "/root/p1819/P19/b/s411461467/run.log": "ae8e1f09632e7589a20ff283d6cf2a5db3a379d6a6764162810d2348d07fef5d",
+  "/root/p1819/P19/b/s444753391/run.jsonl": "ecb6ffd4ac4d146c84797b41c85948f13deef2bcbfa3a637ec733aa17b1516cb",
+  "/root/p1819/P19/b/s444753391/run.log": "4dbca63ffbc4fcaf14029d4a16943a6e151ad346eb02aa585b606b4ee6ee758e",
+  "/root/p1819/P19/b/s552175416/run.jsonl": "521d51126511fa44f226c2ea4ef56fe0a8df75133b6435e291ce511cd197e686",
+  "/root/p1819/P19/b/s552175416/run.log": "fcd96cd5b472eb349c8c3e9ebf8f5b12f912cc6b7a0ec550de2d35ca9f3f1ac8",
+  "/root/p1819/P19/b/s553719366/run.jsonl": "711e18846e60dcf8fbc518cab0e6a2e903cb1072f790a1c156265590a2d92b9a",
+  "/root/p1819/P19/b/s553719366/run.log": "fa30cb2fde5b9c858bc1240104eb4ebf34824cc8107cb039f4d15a877250ec63",
+  "/root/p1819/P19/b/s795833243/run.jsonl": "e4fbad36400779fac7001bd441da8727f4f84524b26bf7cc66394910216e1d88",
+  "/root/p1819/P19/b/s795833243/run.log": "2392191db9ab2928f9e3b833ea216f18843b9462dde14db6b081daaba69ab711",
+  "/root/p1819/P19/b/s949787639/run.jsonl": "7c379d2aff4e9005e3b491026afdbef0217b8c20ab37cd04b5d0ba97c009f0c3",
+  "/root/p1819/P19/b/s949787639/run.log": "0004820e564f17c37761ca4326d42a92dda9d2ab7452d32d4d917eab7df3357b",
+  "/root/p1819/P18/b/s1089266792/run.jsonl": "a8e017792974b40edee29a7e1ab31b5a417b253daf164b4c580b177d6423cec5",
+  "/root/p1819/P18/b/s1089266792/run.log": "8a11c25d8f5a3a5ceef688322ae3a7de1a6a317bf0af8c5102d3a238c924bd7e",
+  "/root/p1819/P18/b/s1169990382/run.jsonl": "ae23896e2f7c5dc0c8c9d182a94cab26430f4166d415ca6a706e3bffa5fd4bb3",
+  "/root/p1819/P18/b/s1169990382/run.log": "6b9f2261f65671d738618ad3492ca62de845dea16e65db5003a7b1d67e536956",
+  "/root/p1819/P18/b/s1193677748/run.jsonl": "9fbc9a4df757e5e15fb1c3cba7a529b2e6056ceb1f4b01b2f3d1bb50dd46c6c4",
+  "/root/p1819/P18/b/s1193677748/run.log": "a11ae98907671b5d60f2205b25129b491d3c577dc7e9d92e49e07407d8116e32",
+  "/root/p1819/P18/b/s1734786699/run.jsonl": "533647eed15f4f6efa1cee5c23f8a4cc39fadf9f56f581dfac0fef2be8167b02",
+  "/root/p1819/P18/b/s1734786699/run.log": "89949e74725a4be75a7ff26814b0ff1bd4283f980ecb9247f54d9b45a9127c86",
+  "/root/p1819/P18/b/s329039567/run.jsonl": "b2912d0ff950b224f54b19c98b51610f4d9b74aa17df586040e9327f91d469b1",
+  "/root/p1819/P18/b/s329039567/run.log": "dfd5a16fd8d6fd06dfbc6605e61e98a17ed596ebd40d23769cd4e5d127b85c5a",
+  "/root/p1819/P18/b/s337839419/run.jsonl": "8dc8021c290a0e954cc7a29c828e0ff72ef97f7e6ddf21a6238df7130f498411",
+  "/root/p1819/P18/b/s337839419/run.log": "28cd7d0fc79e1e2ba60a304ec0585c39190cf7fee6408b998f177b3f55183aaf",
+  "/root/p1819/P18/b/s602330348/run.jsonl": "28a85140645dc0b709b91b79ccb7ddc14dcb1a00015dc76e63faaf18b67593f1",
+  "/root/p1819/P18/b/s602330348/run.log": "b67de0e1c7a25159f3f9b8df9f9400f94f0286eb692ccb9c45903907eaf96a6d",
+  "/root/p1819/P18/b/s696162495/run.jsonl": "36454ac039f9ae3345639f90e99a6518250257ac79eaff1222d0e5f4253170d0",
+  "/root/p1819/P18/b/s696162495/run.log": "ce81ab676a6a2b6c29c7c3ec36a16bf499dccb0f6293fb1f087daf2816691271",
+  "/root/p1819/P18/b/s901500501/run.jsonl": "e7b1974192a6842474d71e771b9bad0990d49f37c04dfb0199551126e929f93f",
+  "/root/p1819/P18/b/s901500501/run.log": "5aa4f1ab7d3fa48d1cb146a3782471d859aaea9b60a52e18e3dc5af83bbe325b",
+  "/root/p1819/P18/b/s938352262/run.jsonl": "38729132445df07f4a21cbc8b6bd69dec76db7778d54955cb5eb17a598fa182a",
+  "/root/p1819/P18/b/s938352262/run.log": "069a375310d228dcd8141aba050d78e0827108b4d242993fef4d80f2f1f382f5",
+  "/root/p1819/P19/a/s1271051838/run.jsonl": "ad3207a5947e48d789ec31e7b71ce78a88f8b91f110902cbd03f74ea748cf702",
+  "/root/p1819/P19/a/s1271051838/run.log": "2edaf4479a6ca24fcfe846550bf31a7f5957dfb789ccb428a33a2364e29e091c",
+  "/root/p1819/P19/a/s132942555/run.jsonl": "034895c51190c5ed75de7add604bce1c9dc50d591100d9066a72c2a546a7a481",
+  "/root/p1819/P19/a/s132942555/run.log": "1101ac7db20bac317c05993e23ad5dafb22d45609e889977dd6176af15515a8e",
+  "/root/p1819/P19/a/s1906170794/run.jsonl": "856f744f99f3d95188ebd3e0af3d917d0b8f6757bed8aa0493c3463ad2ce1e70",
+  "/root/p1819/P19/a/s1906170794/run.log": "0357870eb7aaefe9127a261afc00f09e6c5f13d3a0027370cbc0dcf1744f9d98",
+  "/root/p1819/P19/a/s400171849/run.jsonl": "d698cdc26f9c427881b18fa39e203a55c46ea5673d7b582d84d9161eb931c35a",
+  "/root/p1819/P19/a/s400171849/run.log": "9478872fa96a98166f605ec41c9fc502c396ba01e7898e1b2b6a135722028019",
+  "/root/p1819/P19/a/s411461467/run.jsonl": "316397f1067e3e6b4233a16182b1ad598668da9cf218b79f115669fcfb2ffb43",
+  "/root/p1819/P19/a/s411461467/run.log": "ae8e1f09632e7589a20ff283d6cf2a5db3a379d6a6764162810d2348d07fef5d",
+  "/root/p1819/P19/a/s444753391/run.jsonl": "c9a0355082899f47f929f08981c215e8abad2b90782b1547ec6111d810877772",
+  "/root/p1819/P19/a/s444753391/run.log": "4dbca63ffbc4fcaf14029d4a16943a6e151ad346eb02aa585b606b4ee6ee758e",
+  "/root/p1819/P19/a/s552175416/run.jsonl": "40c32a3f17210afdafe5cfed6e36bcf442d24ab086e58d11353b813562032e20",
+  "/root/p1819/P19/a/s552175416/run.log": "fcd96cd5b472eb349c8c3e9ebf8f5b12f912cc6b7a0ec550de2d35ca9f3f1ac8",
+  "/root/p1819/P19/a/s553719366/run.jsonl": "63075f21aa1f587a64dc102fe38bf2f686ff4f218e744edf09cf082a76d3389e",
+  "/root/p1819/P19/a/s553719366/run.log": "fa30cb2fde5b9c858bc1240104eb4ebf34824cc8107cb039f4d15a877250ec63",
+  "/root/p1819/P19/a/s795833243/run.jsonl": "1266ceadadb86f5470ecd40b80e7a4c6119af9c051aa7589f3290b0659438238",
+  "/root/p1819/P19/a/s795833243/run.log": "2392191db9ab2928f9e3b833ea216f18843b9462dde14db6b081daaba69ab711",
+  "/root/p1819/P19/a/s949787639/run.jsonl": "4e76ab03c5ec50ebb4de5c7c1714ec6d9443cfd53bdb1297ff1280a46848eb21",
+  "/root/p1819/P19/a/s949787639/run.log": "0004820e564f17c37761ca4326d42a92dda9d2ab7452d32d4d917eab7df3357b"
+ },
+ "figures": {
+  "runs_c08a472": {
+   "kind": "value",
+   "value": 20,
+   "unit": "runs",
+   "who": "every AI player of the Mediterranean scenario (10 players, all AI)",
+   "turn": "turns 1 to 350, Marathon",
+   "source": "toolchain/harness telemetry (run.jsonl, run.log), research/passes-2-8/passes_runs.py",
+   "n": null
+  },
+  "done_c08a472": {
+   "kind": "value",
+   "value": 20,
+   "unit": "runs",
+   "who": "every AI player of the Mediterranean scenario (10 players, all AI)",
+   "turn": "turn 350",
+   "source": "toolchain/harness telemetry (run.jsonl, run.log), research/passes-2-8/passes_runs.py: runs whose run.log has the RESULT line",
+   "n": null
+  },
+  "pt_c08a472": {
+   "kind": "value",
+   "value": 70214,
+   "unit": "turns",
+   "who": "every AI player of the Mediterranean scenario (10 players, all AI)",
+   "turn": "turns 1 to 350, Marathon",
+   "source": "toolchain/harness telemetry (run.jsonl, run.log), research/passes-2-8/passes_runs.py: player-turn records with the new fields",
+   "n": null
+  },
+  "secs_median_c08a472": {
+   "kind": "value",
+   "value": 120.5,
+   "unit": "seconds",
+   "who": "the harness run",
+   "turn": "turns 1 to 350, Marathon",
+   "source": "toolchain/harness telemetry (run.jsonl, run.log), research/passes-2-8/passes_runs.py: sum of the turn records' ms, median over the runs",
+   "n": null
+  },
+  "runs_main": {
+   "kind": "value",
+   "value": 20,
+   "unit": "runs",
+   "who": "every AI player of the Mediterranean scenario (10 players, all AI)",
+   "turn": "turns 1 to 350, Marathon",
+   "source": "toolchain/harness telemetry (run.jsonl, run.log), research/passes-2-8/passes_runs.py",
+   "n": null
+  },
+  "done_main": {
+   "kind": "value",
+   "value": 20,
+   "unit": "runs",
+   "who": "every AI player of the Mediterranean scenario (10 players, all AI)",
+   "turn": "turn 350",
+   "source": "toolchain/harness telemetry (run.jsonl, run.log), research/passes-2-8/passes_runs.py: runs whose run.log has the RESULT line",
+   "n": null
+  },
+  "pt_main": {
+   "kind": "value",
+   "value": 70186,
+   "unit": "turns",
+   "who": "every AI player of the Mediterranean scenario (10 players, all AI)",
+   "turn": "turns 1 to 350, Marathon",
+   "source": "toolchain/harness telemetry (run.jsonl, run.log), research/passes-2-8/passes_runs.py: player-turn records with the new fields",
+   "n": null
+  },
+  "secs_median_main": {
+   "kind": "value",
+   "value": 110.1,
+   "unit": "seconds",
+   "who": "the harness run",
+   "turn": "turns 1 to 350, Marathon",
+   "source": "toolchain/harness telemetry (run.jsonl, run.log), research/passes-2-8/passes_runs.py: sum of the turn records' ms, median over the runs",
+   "n": null
+  },
+  "state": {
+   "kind": "table",
+   "head": [
+    "measure",
+    "c08a472",
+    "main"
+   ],
+   "rows": [
+    [
+     "player-turns under a war plan",
+     303.7,
+     533.3
+    ],
+    [
+     "player-turns in financial trouble",
+     19.8,
+     11.0
+    ],
+    [
+     "active operations, summed over player-turns",
+     104.4,
+     83.4
+    ]
+   ],
+   "unit": "per mille",
+   "who": "every AI player of the Mediterranean scenario (10 players, all AI)",
+   "turn": "turns 1 to 350, Marathon",
+   "source": "toolchain/harness telemetry (run.jsonl, run.log), research/passes-2-8/passes_runs.py: per mille of player-turns (operations: per thousand player-turns)",
+   "n": 140400,
+   "values_total": 3,
+   "values_shown": 3,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "player-turns under a war plan",
+    "player-turns in financial trouble",
+    "active operations, summed over player-turns"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "agenda": {
+   "kind": "table",
+   "head": [
+    "agenda",
+    "c08a472",
+    "main"
+   ],
+   "rows": [
+    [
+     "Survive",
+     43.1,
+     106.3
+    ],
+    [
+     "Recover",
+     3.1,
+     2.4
+    ],
+    [
+     "Expand land",
+     614.8,
+     664.1
+    ],
+    [
+     "Expand maritime",
+     180.0,
+     58.1
+    ],
+    [
+     "Consolidate",
+     40.1,
+     25.9
+    ],
+    [
+     "Power spike",
+     0.0,
+     0.0
+    ],
+    [
+     "Conquest",
+     89.1,
+     127.6
+    ],
+    [
+     "Science",
+     29.6,
+     15.4
+    ],
+    [
+     "Culture",
+     0.0,
+     0.0
+    ]
+   ],
+   "unit": "per mille",
+   "who": "every AI player of the Mediterranean scenario (10 players, all AI)",
+   "turn": "turns 1 to 350, Marathon",
+   "source": "toolchain/harness telemetry (run.jsonl, run.log), research/passes-2-8/passes_runs.py: per mille of player-turns with an agenda",
+   "n": 140000,
+   "values_total": 9,
+   "values_shown": 9,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "Survive",
+    "Recover",
+    "Expand land",
+    "Expand maritime",
+    "Consolidate",
+    "Power spike",
+    "Conquest",
+    "Science",
+    "Culture"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "governor": {
+   "kind": "table",
+   "head": [
+    "governor",
+    "c08a472",
+    "main"
+   ],
+   "rows": [
+    [
+     "Steward",
+     197.4,
+     200.3
+    ],
+    [
+     "Agriculturalist",
+     132.1,
+     126.5
+    ],
+    [
+     "Harbourmaster",
+     110.6,
+     86.8
+    ],
+    [
+     "Merchant",
+     43.8,
+     47.5
+    ],
+    [
+     "Industrialist",
+     324.8,
+     315.9
+    ],
+    [
+     "Scholar",
+     133.7,
+     172.2
+    ],
+    [
+     "Curator",
+     30.8,
+     21.5
+    ],
+    [
+     "Castellan",
+     3.2,
+     9.2
+    ],
+    [
+     "Colonial",
+     23.6,
+     20.1
+    ]
+   ],
+   "unit": "per mille",
+   "who": "every AI city with a governor",
+   "turn": "turns 1 to 350, Marathon",
+   "source": "toolchain/harness telemetry (run.jsonl, run.log), research/passes-2-8/passes_runs.py: per mille of city-turns with a governor",
+   "n": 439722,
+   "values_total": 9,
+   "values_shown": 9,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "Steward",
+    "Agriculturalist",
+    "Harbourmaster",
+    "Merchant",
+    "Industrialist",
+    "Scholar",
+    "Curator",
+    "Castellan",
+    "Colonial"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "p18_p": {
+   "kind": "value",
+   "value": 0.0041,
+   "unit": "share",
+   "who": "the harness run",
+   "turn": "turns 1 to 350, Marathon",
+   "source": "method/stats.py rank_welch on P18 arm a (c08a472) against arm b (main), seconds per run",
+   "n": 20
+  },
+  "p18_A": {
+   "kind": "value",
+   "value": 0.86,
+   "unit": "share",
+   "who": "the harness run",
+   "turn": "turns 1 to 350, Marathon",
+   "source": "Vargha-Delaney A of P18 arm a over arm b (probability that a run of c08a472 takes longer)",
+   "n": 20
+  }
+ },
+ "xml": {}
+}

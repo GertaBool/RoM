@@ -125,16 +125,19 @@ packages.**
 - *Would contradict it:* the 37 missing pairs being removed from the Python on purpose. They are present
   at `ede81881b7de`.
 
-**3. The passes make the AI spend more time per turn.**
+**3. The passes make the AI spend more time per turn.** Contradicted in play.
 - *Facts:* 4.3.
 - *Would contradict it:* turn times within noise of `c08a472` in the harness (section 6).
+- *Result:* the harness runs of P18 (`research/ai-warfare/study/passes-2-8.md`) show `main` faster than
+  `c08a472`, not slower. P18 is not corroborated. The scans of 4.3 exist, but they are not what decides the
+  turn time on that map.
 
 ## 6. Open
 
-- **Turn time and stability of passes 3 to 8 in play.** These need a harness build of `ede81881b7de`:
-  either the staging and balance patches rebased onto it, or the harness's diagnostics that read those
-  patches' members made optional. Then seeded runs against `c08a472`, comparing `turn_seconds` and
-  `completed`.
+- **Turn time and stability of passes 3 to 8 in play.** Done: the harness now builds `ede81881b7de`
+  (its diagnostics that read the balance and staging members are compiled only where those exist). P18
+  (turn time) and P19 (completion) ran 10 seeded runs per arm against `c08a472`. Results in
+  `research/ai-warfare/study/passes-2-8.md`.
 - **Whether the shipped DLL is exactly pass 2.** A build of `08893b2` is 4096 bytes larger than the
   shipped DLL. It may come from other build settings. It is not passes 3 to 8 in any case.
 
@@ -300,7 +303,10 @@ Their consumers were not read one by one: listed, not read.
 
 ### 7.7 Open
 
-- How often each condition holds in play: `AI_isDanger` in peacetime, the Castellan share, governor
-  replacements, turns under a war plan, operations per war and their size. This needs the harness build of
-  `ede81881b7de` from section 6, and logs at `gTeamLogLevel` and `gCityLogLevel` of 2 or more.
+- Measured in the harness (`research/ai-warfare/study/passes-2-8.md`): turns under a war plan (far more
+  on `main`), the agenda (more Survive and Conquest, much less Expand Maritime), operations (fewer), and the
+  Castellan share (higher, but small on that map). Readings 6 and 7 hold there; reading 5 is weak for
+  governors on that map.
+- Still not measured: whether `AI_isDanger` fires in peacetime (the telemetry does not call it, because it
+  fills caches), governor replacements, and the building mix of specialised governors (GV1).
 - Whether GV4's value for Agriculturalists is intended. The commit gives no reason.

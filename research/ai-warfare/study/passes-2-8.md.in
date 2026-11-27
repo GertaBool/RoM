@@ -1,0 +1,69 @@
+<!-- registry: passes-2-8.fig.json -->
+# The GitLab passes in play: `c08a472` against `main`
+
+What the AI did in the harness before and after the third to eighth passes (`bf17674`, `d5fa0d1`),
+for the agenda planner, the city governors, the military operations and turn time. The reading that
+led here is `codemap/guides/passes-2-8-review.md`, section seven; the hypothesis is H10 and the
+predictions P18 and P19 (`method/mission/register.json`).
+
+## Setup
+
+- Two harness DLLs (`toolchain/harness/build_dll.sh`): `c08a472` (before the second pass) and
+  `ede81881b7de` (`main`), each with the XML of its own commit. On `main` that switches the passes on
+  (`AI_CUNNING_FLAGS` and `AI_ECONOMY_FLAGS` as committed).
+- The mod's Mediterranean scenario, Standard WorldBuilder map, from turn zero, all seats AI, Noble,
+  Marathon (`med-standard.scn`, the same as P17).
+- Seeds from `ledger.py seeds` for P18 and for P19: {{runs_c08a472}} runs of `c08a472` and
+  {{runs_main}} of `main`, pooled below. Four runs at a time, the two commits of each seed side by side.
+- The telemetry reads each AI player's agenda, financial trouble, its team's war plans, its active
+  operations and its cities per governor type on every turn (`plans`, `ops`, `gov`, added for this).
+
+## Description
+
+**Completion.** {{done_c08a472}} runs of `c08a472` and {{done_main}} of `main` reached their result line.
+
+**Turn time.** Median seconds per run: `c08a472` {{secs_median_c08a472}}, `main` {{secs_median_main}}.
+P18, on its own runs: rank Welch test p {{p18_p}}, A {{p18_A}} (the probability that a run of
+`c08a472` takes longer than one of `main`).
+
+**War plans, financial trouble and operations,** per thousand player-turns
+({{pt_c08a472}} player-turns of `c08a472`, {{pt_main}} of `main`):
+
+{{table:state}}
+
+**Agenda,** per thousand player-turns:
+
+{{table:agenda}}
+
+**Governors,** per thousand city-turns with a governor:
+
+{{table:governor}}
+
+## Readings
+
+**The passes do not slow the AI here; `main` is faster.**
+- *Facts:* the turn-time line above. P18 predicted `c08a472` no slower than `main` and is not
+  corroborated: the difference runs the other way.
+- *What it contradicts:* reading three of the review (the passes make the AI spend more time per turn).
+  The added scans exist, but something else the passes changed costs less, or the AI does less.
+- *Would contradict this reading:* the same comparison on a later, larger map with the opposite result.
+
+**War plans are set far more often, and the agenda follows them.**
+- *Facts:* the war-plan row and the Survive and Conquest rows. This is what AG1 to AG4 of the review
+  predicted from the anti-hegemon branch of `AI_doWar`.
+- *Would contradict it:* the same share of war-plan turns with the anti-hegemon branch switched off
+  (cunning flag bit `256` cleared), which would point to another cause.
+
+**Fewer operations.**
+- *Facts:* the operations row, lower on `main` while war plans are more frequent.
+- *Would contradict it as an effect of garrisons (OP1 to OP4):* the same drop with the peacetime danger
+  scan off (cunning flag bit `128` cleared).
+
+**Castellans are rare in this scenario.**
+- *Facts:* the Castellan row: more on `main`, but a small share of all governed cities. The governor
+  churn of GV3 was not measured: the telemetry counts types, not replacements.
+- *What it weakens:* reading five of the review, as far as governors go, for this map.
+
+**Not measured here:** the economy-focus loss of GV1 (no building counts per governor type), governor
+replacements, and whether peacetime danger fired (`AI_isDanger` fills caches; the telemetry does not
+call it).
