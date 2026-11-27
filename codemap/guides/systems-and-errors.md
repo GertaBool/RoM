@@ -8,13 +8,14 @@ Written by hand from the map at GitLab commit `ede81881b7de`. The figures are pr
 python3 codemap/tool/systems.py                                                     # sections 2-3
 python3 codemap/tool/check_links.py <rom> <BTS XML> <Civ4 XML> --base-python <BTS Python> <Civ4 Python>   # section 5
 python3 codemap/tool/measure.py <rom> 2a8b9a83eb5b                                   # reach and cycles
+python3 codemap/tool/state.py <rom>/Assets/CvGameCoreDLL && python3 codemap/tool/subsystems.py   # section 1.1
 ```
 
 Sections 1 to 5 describe. Section 6 holds the readings. Section 7 lists what is still open.
 
 ## Contents
 
-1. [How the sorting works](#1-how-the-sorting-works)
+1. [How the sorting works](#1-how-the-sorting-works), and [what it missed](#11-what-sorting-by-name-missed-and-the-sort-by-shared-state)
 2. [The DLL: categories](#2-the-dll-categories)
 3. [The DLL: systems within each category](#3-the-dll-systems-within-each-category)
 4. [Around the DLL: Python, XML and the modules](#4-around-the-dll-python-xml-and-the-modules)
@@ -37,6 +38,30 @@ This sorts by name and file, not by what the code does. A function named `getAdv
 system; none is unassigned.
 
 Calls are counted as distinct caller-callee pairs between the DLL's own functions: 71100 pairs.
+
+### 1.1 What sorting by name missed, and the sort by shared state
+
+Sorting by name missed three of the AI's own systems: the agenda planner, the city governors and the military
+operations. No rule matched "agenda", "governor" or "operation". So their 37 functions were scattered over 12
+systems, and the functions that drive them (`AI_updateAgenda`, `AI_updateLocalGovernor`,
+`AI_updateMilitaryOperations`) fell into the leftover "player AI" and "city AI". Sections 2 and 3 did not
+name them, and the review of passes 2 to 8 did not look at them until it was asked to.
+
+`tool/state.py` now lists every class member and every function that reads or writes it (`map/state.tsv`).
+`tool/subsystems.py` groups the AI classes' 128 members into 75 groups by the functions that write them, and
+lists each group's writers and readers in full (`subsystems.md`). That grouping does not use names, and it
+finds the three systems by itself:
+
+| Group in `subsystems.md` | Members | System |
+|---|---|---|
+| 5 | `m_iAIAgenda`, `m_aiAIAgendaBudget`, `m_iAIWarPosture`, `m_kAIStrategicContext` and 7 more | agenda planner |
+| 14, 74 | `m_aiMilitaryOperations`, `m_aiGeneralCareers`, `m_iNextOperationID`; the delivery cache | military operations |
+| 31 | the seven `m_iGovernor…` members of `CvCityAI` | city governors |
+| 4, 30 | `m_aeWarPlan`, `m_aiWarPlanStateCounter` | war plans |
+
+The name sort in sections 2 and 3 stays as it was written. Read it as a sort of the code by file and name, not
+as a list of the systems. For what the systems are and how they depend on each other, use `subsystems.md` and
+`query.py state <member>`.
 
 ## 2. The DLL: categories
 

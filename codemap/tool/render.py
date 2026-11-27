@@ -306,7 +306,7 @@ def main():
             rs = list(dict.fromkeys(refs.get(i, [])))
             if rs: L.append('  - takes the address of: ' + ', '.join(name(b, True) for b in rs))
             cl = sorted(callers.get(i, ()), key=short)
-            if cl: L.append(f'  - called by ({len(cl)}): ' + ', '.join(short(a) for a in cl[:12]) + (' …' if len(cl) > 12 else ''))
+            if cl: L.append(f'  - called by ({len(cl)}): ' + ', '.join(short(a) for a in cl))
         write_page(os.path.join(root, 'files', f + '.md'), L)
     print(f'{len(files)} file pages; {len(ct_only)} ctags-only and {len(compiled_only)} compiled-only definitions', file=sys.stderr)
 

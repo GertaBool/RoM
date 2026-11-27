@@ -4,9 +4,10 @@ A map of every function of the DLL (`Assets/CvGameCoreDLL` of the GitLab reposit
 how they connect. It shows:
 - who calls whom, and who overrides whom;
 - what the DLL offers the game exe and what it calls in the exe;
-- what Python calls in the DLL, and what the DLL calls in Python.
+- what Python calls in the DLL, and what the DLL calls in Python;
+- which functions read and write each class member, and which members move together.
 
-It describes linkage only, not what the functions do. It is read from the output of the real compiler, the
+It describes linkage and shared state, not what the functions do. It is read from the output of the real compiler, the
 one the DLL is built with, so every call is the call the compiler made.
 
 ## Where to start
@@ -23,6 +24,10 @@ one the DLL is built with, so every call is the call the compiler made.
   - What is exposed to Python, and where the DLL calls Python.
   - The events posted to Python, with every handler registered for them.
 - `python.md`: the Python modules and how many of their calls reach DLL functions.
+- `subsystems.md`: the AI classes' members grouped by the functions that write them, with every writer and
+  reader. This is the list of the AI's systems; the name sort in `guides/systems-and-errors.md` is not.
+- `reviews/`: reviews of commit ranges, made with `tool/impact.py`. For each changed function: every caller,
+  every member it writes, every reader of those members, and the members written further down its calls.
 - `hardcoded.md`: the key functions (`query.py rank`) and every entry hard-coded in them, each with what
   outside the function depends on it, checked against the files that hold the other end. It is for
   rewriting one of them: what a new version has to keep.
@@ -44,7 +49,12 @@ python3 codemap/tool/query.py callees CvCityAI::AI_chooseProduction 2
 python3 codemap/tool/query.py callers CvUnitAI::AI_attackCityMove 3
 python3 codemap/tool/query.py path CvGame::update CvCityAI::AI_chooseProduction
 python3 codemap/tool/query.py rank 12                              # the functions that rank above the rest
+python3 codemap/tool/query.py state '^m_iGovernorType$'            # every writer and reader of a member
+python3 codemap/tool/impact.py <rom> <base> <head> codemap/reviews/impact-<base>-<head>.tsv
 ```
+
+No query cuts its output short. Where a page lists only examples (the systems tables, the three files a file
+calls most), it says so.
 
 `rank`: function A ranks above function B when every call path from outside the DLL into B passes through A
 (A dominates B). Calls from outside enter at every function the exe or Python can call: exported functions,
@@ -104,6 +114,18 @@ then Civilization IV's). The source commit is written at the top of `skeleton.md
    - Python calls and events against the Python functions and registered handlers;
    - log formats against the tools of this repository that read them;
    - lines changed since the file entered the mod's repository, by commit (`git blame`).
+6. **`tool/state.py` maps the shared state** (`map/members.tsv`, `map/state.tsv`).
+   - The members come from universal-ctags. Their uses are found in each function's source, with comments
+     and strings removed.
+   - Each use is a read or a write: assignment, `++`, address taken, a non-const reference, mutating
+     container calls, and `Read`, `memset` and the like count as writes. In a const method, a member not
+     declared `mutable` is only read.
+   - Accessors pass the access on to their callers. An accessor is a function of at most 4 lines, one that
+     returns an expression naming the member, or a `set`/`change` mutator.
+   - It does not see state outside classes (globals, statics in functions), members reached through another
+     object's public fields in other functions, or values handed on through out parameters.
+7. **`tool/subsystems.py` writes `subsystems.md`** from `map/state.tsv`. Two members are grouped together when
+   one function writes both, outside the lifecycle functions (constructors, `reset`, `init`, `read`, `write`).
 
 ## The tables in `map/`
 
@@ -126,6 +148,8 @@ then Civilization IV's). The source commit is written at the top of `skeleton.md
 | `event_handlers.tsv` | event and each handler registered for it |
 | `py_event_registrations.tsv` | every registration of a Python event handler, for any event name |
 | `hardcoded.tsv` | hard-coded entry of a key function: kind, entry, line, what depends on it, its status |
+| `members.tsv` | class member: class, type, where declared, and how many functions write and read it, directly and through accessors |
+| `state.tsv` | function, member and kind of access (`read` or `write`), `direct` (with the line of the first use) or through an `accessor` (named in `via`) |
 
 ## Checks, and limits
 

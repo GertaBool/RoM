@@ -5,7 +5,7 @@ checks show about them, and what reading every changed hunk found. Written by ha
 `ede81881b7de`, against the commit before pass 2, `c08a472`.
 
 Sections 1 to 4 describe. Section 5 holds the readings. Section 6 lists what stays open. Section 7 follows
-the passes into the agenda planner, the city governors and the military operations.
+the passes into the agenda planner, the city governors and the military operations, through shared state.
 
 ## 1. The commits
 
@@ -140,80 +140,157 @@ packages.**
 
 ## 7. Agenda planner, city governors and military operations
 
+This section replaces an earlier version written before the state map existed. That version traced the
+three systems by calls only. It missed the coupling through shared state, and how far `AI_isDanger`'s
+consumers reach.
+
 ### 7.1 How they were traced
 
-- The map's callees of `CvPlayerAI::AI_updateAgenda`, `CvCityAI::AI_updateLocalGovernor`,
-  `AI_buildGovernorChooseProduction`, `CvPlayerAI::AI_updateMilitaryOperations`, `CvUnitAI::AI_operationMove`
-  and `AI_reinforceOperation`, three calls deep, crossed with the functions the passes changed.
-- Then by hand: what the six read, what fills those fields, and what reads `m_iGovernorType`, the agenda and
-  the war plans.
-- None of the six functions changed. Their inputs did.
-- **Scope:** pass 2, the only one in the shipped DLL, touches none of the code below. Its one hunk on these
-  paths, `AI_cityThreat`, only changes how a power ratio is computed. Everything in this section acts only
-  with a DLL built from `ede81881b7de`. The XML defaults that switch it on are `AI_CUNNING_FLAGS` 1023
-  (bits 128 and 256) and `AI_ECONOMY_FLAGS` 15 (bit 4).
+1. **Shared state.** `tool/state.py` lists every class member (3318), and every function that reads or
+   writes each one, directly or through an accessor (`map/state.tsv`). `tool/subsystems.py` groups the AI
+   classes' members by the functions that write them (`subsystems.md`). Without being told, that grouping
+   puts the three systems in groups of their own:
+   - agenda: group 5, 11 members, from `m_iAIAgenda` to `m_kAIStrategicContext`;
+   - operations: groups 14 and 74, `m_aiMilitaryOperations`, `m_aiGeneralCareers` and the delivery cache;
+   - governors: group 31, the seven `m_iGovernor…` members;
+   - war plans: groups 4 and 30, `m_aeWarPlan` and `m_aiWarPlanStateCounter`.
+2. **Consumers of every change.** `tool/impact.py` lists, for each of the 106 functions the four commits
+   changed, every caller, every member it writes and every reader of that member
+   (`reviews/impact-c08a472-ede8188.tsv`, 29390 links, none left out).
+3. **Reading.**
+   - Every call site was read for: `AI_isDanger` (11 in cities, 13 in units), `AI_isFinancialTrouble` (40 sites
+     in 33 functions), `AI_neededDefenders` and `AI_isDefended`, and `AI_getTotalFloatingDefenders`.
+   - Also read: the operation functions (`AI_updateMilitaryOperations`, `AI_reinforceOperation`,
+     `AI_getOperationReinforcementGroup`), `AI_updateAgenda`, and the governor policy.
+   - The other changed functions were classified from their hunks (section 7.6).
+4. **Scope.** The shipped DLL holds pass 2 only, and pass 2 changes none of the behaviour below. Its one hunk
+   on these paths, `AI_cityThreat`, only changes how a power ratio is computed. Everything here acts only with
+   a DLL built from `ede81881b7de`, where the XML defaults switch it on: `AI_CUNNING_FLAGS` 1023 (bits 128, 256,
+   512) and `AI_ECONOMY_FLAGS` 15 (bit 4).
 
-### 7.2 City governors
+### 7.2 How the three systems are coupled (from the state map)
 
-| ID | Where | Fact |
+| From | To | Through |
 |---|---|---|
-| GV1 | `CvCityAI::AI_chooseProduction`, `CvCityAI.cpp:1048` | `bSpecGov` is true for every governor above `GOVERNOR_STEWARD`. In `AICityGovernorPolicy.h` that is all eight of them, Agriculturalist to Colonial. Those cities lose the production, gold, research, maintenance and espionage foci from `iEconomyFlags`. Only happiness, health and their governor's case remain. `iEconomyFlags` drives the economy-building calls at `CvCityAI.cpp:1498, 2541, 3282, 3291`. What remains: Agriculturalist: food, health, happiness. Harbourmaster: sea, food, gold. Merchant and Colonial: gold, maintenance. Industrialist: production. Scholar: research, specialists. Curator: culture, happiness. Castellan: defence, experience, production. Each also keeps happiness and health. Before the passes, every case added to the full set. |
-| GV2 | `CvCityAI::AI_isDanger`, `CvCityAI.cpp:6828` | With bit 128 set, a city is in danger when visible land units that can attack stand within two plots, and their total `currCombatStr` is at least 80 % of the city's own plot strength. Those units must belong to a non-barbarian player that is not at war with the owner, not a vassal or master, and not Friendly. Before, only `AI_getAnyPlotDanger`, which covers enemies at war, counted. `MIN_CITY_RANGE` is 1 (`GlobalDefines.xml:226`): a foreign city two plots away lies inside the scan. |
-| GV3 | `AI_updateLocalGovernor` with `AICityGovernorPolicy` | `context.danger` comes from `AI_isDanger`. With danger, the Castellan is eligible, with a utility of 80 + 2 × production + culture pressure. The Steward's utility is 40 + food + production + commerce. Example: a city with 12 food, 8 production and 10 commerce scores 96 for the Castellan and 70 for the Steward. `prosperity` subtracts 20 for danger. Every turn of danger between reviews adds a disruption turn. A review held while danger is on gives negative performance, which replaces the incumbent and resets its reputation. |
-| GV4 | `CvCityAI::AI_specialistValue`, `CvCityAI.cpp:540` | Scholar and Agriculturalist cities value Great People points at 10. The default is 4, and Great People emphasis gives 20. |
+| governors | agenda | `AI_updateAgenda` reads every city's `AI_getGovernorType`, reputation and completed terms, and adds `AIFeedbackPolicy::agendaDelta`, at most ±120 per agenda. |
+| operations | agenda | `AI_updateAgenda` reads finished operations' doctrine evidence (`m_aiGeneralCareers`). |
+| war plans | agenda | `AI_getStrategicContext` sets `hasWarPlan` (`m_kAIStrategicContext`). |
+| agenda | production | `AI_chooseProduction` adds `(AI_getAgendaBudget(AI_BUDGET_MILITARY) − 200) / 20` to the unit-build chance. |
+| agenda | operations | A new operation's general personality reads `AI_getAgendaBudget(AI_BUDGET_EXPANSION)`. |
+| governors | production | Castellan +10 to the unit-build chance, Agriculturalist and Scholar −5 (`CvCityAI.cpp:923`). Building foci (GV1). |
+| governors | citizens and workers | `AI_yieldValue`'s governor multipliers reach `AI_plotValue` (tiles worked), `AI_updateBestBuild` (improvements chosen) and `AI_updateWorkersNeededHere`. |
+| danger | all three | `AI_isDanger` feeds the governor context, production, drafting, hurrying, garrisons and transports (7.3). |
 
-### 7.3 Agenda planner
+### 7.3 `AI_isDanger`: what peacetime "danger" now does
 
-| ID | Where | Fact |
-|---|---|---|
-| AG1 | `CvTeamAI::AI_doWar`, anti-hegemon branch (`CvTeamAI.cpp`, before the log line "starting ANTI-HEGEMON") | The branch is the last `else if` after the random total, limited and dogpile war rolls. So it runs on every turn those rolls fail, with no random gate and no `AI_noWarAttitudeProb` test. Only Friendly blocks it. `isHegemonThreat` counts the team itself among the met teams. With three met teams, the leader holds at least a third of the power and of the score, so the leader always passes the 33 % and 32 % tests. Coalition power adds the reachable power of every met team Cautious or worse toward the target, whether or not that team plans war. |
-| AG2 | `AI_doWar`, `WARPLAN_PREPARING_LIMITED` handling | With cunning bit 1 set and no strike force ready, the plan is dropped after `20 × iAbandonTimeModifier / 100` turns. On the next turn the anti-hegemon branch can set it again, since `getAnyWarPlanCount(true)` is 0 once more. |
-| AG3 | `AI_updateAgenda`, `CvPlayerAI.cpp:4622` | A war plan adds 350 to Survive, 850 to Conquest and 250 to Power Spike, and takes 300 from Expand Land. `AI_isFinancialTrouble` lowers its safe percentage by 12 under any war plan. |
-| AG4 | `CvPlayerAI::AI_isFinancialTrouble`, `CvPlayerAI.cpp:4201` | The commerce sent to culture and espionage now counts as income. An empire with those sliders up is in financial trouble less often. That trouble is worth 900 to Recover, and costs 700 to Expand Land and 300 to Conquest. |
-| AG5 | `CvTeamAI::AI_getEnemyPowerPercent` | Only widened to 64 bits and capped. The result is the same unless the old one overflowed. |
+**Fact (`CvCityAI.cpp:6828`).** With bit 128 set, a city is in danger when visible land units that can attack
+stand within two plots, and their total `currCombatStr` is at least 80 % of the city's own plot strength.
+Those units must belong to a non-barbarian player that is not at war with the owner, not a vassal or master,
+and not Friendly. `MIN_CITY_RANGE` is 1 (`GlobalDefines.xml:226`), so a foreign city two plots away is inside
+the scan. Human-owned cities are unaffected (`!isHuman()`).
 
-### 7.4 Military operations
+Every consumer, and what danger does there:
 
-| ID | Where | Fact |
-|---|---|---|
-| OP1 | `CvPlayerAI::AI_getTotalFloatingDefenders` | `UNITAI_COLLATERAL` and `UNITAI_DEFENSE_AIR` are no longer counted. The list `AI_chooseLeastRepresentedUnit` fills that count from (`CvCityAI.cpp:2004`) still holds `UNITAI_COLLATERAL` at weight 100, and is used at lines 2008 and 3111. Collateral units built to meet the quota no longer reduce the shortfall. Collateral is also a role that operations request (`aiDesiredRoles[UNITAI_COLLATERAL]`). |
-| OP2 | `CvCityAI::AI_neededDefenders`, `CvCityAI.cpp:6632` | The same staged-unit scan as GV2 adds 1 to 6 defenders per city, from `stagedGarrisonDeficit`, in peacetime. |
-| OP3 | `CvTeamAI::AI_calculateAreaAIType`, `CvTeamAI.cpp:621` | After a recent attack, an area is now set to MASSING instead of DEFENSIVE when own power is at least 65 % of enemy power and the war-success ratio is at least −50. |
-| OP4 | The operation functions | `AI_updateMilitaryOperations`, `AI_operationMove` and `AI_reinforceOperation` are unchanged. An operation starts only from an `UNITAI_ATTACK_CITY` group, against a city of a team at war. The general's personality reads `AI_getAgendaBudget(AI_BUDGET_EXPANSION)`. |
-| OP5 | `CvUnitAI::AI_Abombard`, reached from `AI_operationMove` through `AI_anyAttack` | Its random skip is removed, but the function acts only when `DCM_ARCHER_BOMBARD` is on. Its default is 0 (`GlobalDefinesAlt.xml:75`) and False (`Config/RevDCM.xml:65`). No effect by default. |
-| OP6 | `CvPlayerAI::AI_doTurnUnitsPost`, tactical upgrades (bit 512) | Units scoring 1000 or more skip the upgrade budget. A unit in a city under `AI_getAnyPlotDanger` gets 1000. So does a unit with no danger, if it has the experience bonus, a capped unit class and at least 44 experience points. |
+| Site | Effect of danger |
+|---|---|
+| `AI_updateLocalGovernor` (11421, 11468) | Disruption turn. Castellan becomes eligible. −20 prosperity at review (GV2, GV3). |
+| `AI_chooseProduction` (746; used at 43 places in the function) | Stops workers, settlers, sea workers, wonders and most economy buildings. Builds a minimum of 4 attack units plus the defender shortfall (1827). Raises the odds of defensive units (2034). Builds experience buildings (3266). Raises the settling threshold by half (2149). |
+| `AI_buildGovernorChooseProduction` (12660) | None: it serves human cities' governors, and the new scan skips human owners. |
+| `AI_bestUnit` (3546) | Settler value ×8 instead of ×20, worker ×2 instead of ×7, explorer ×6 instead of ×15, sea worker ×3 instead of ×10. |
+| `AI_neededDefenders` (6601, 6620) | +1 defender, and +1 more in a city taken in the last 10 turns. |
+| `AI_doDraft` (8881) | When not defended, the draft skips the financial-trouble check (8884) and the population check (8891). |
+| `AI_goldHurryScore` (8989), `AI_doHurry` (9030, 9159) | A combat unit's hurry value is 50 instead of 4 in peace. Defence buildings count as essential within 3 turns. The turtle gold thresholds are lower. |
+| `AI_guardCity` | A unit with `bLeave` may not leave the city. |
+| `AI_assaultSeaMove` (`CvUnitAI.cpp:7358`) | A loaded transport in a city in danger unloads all its cargo and skips its turn: an invasion force waiting in port disembarks. |
+| `AI_pickup` (20855, 20933, 20984) | Attack-city units in a city in danger are not picked up. Transports do not go to such cities. |
+| `AI_defendPlot` (23595) | Every unit asked whether to defend its plot in an own city in danger answers yes. |
+| `AI_guardCityAirlift`, `AI_offensiveAirlift`, `AI_assaultSeaReinforce` | Such cities are preferred as airlift and reinforcement destinations. |
+| `AI_airOffenseBaseValue`, `AI_airBombDefenses`, `AI_RbombardNaval`, `AI_defenseAirMove` | Value ×2 or ×3. For foreign cities, from their owner's side. |
+
+### 7.4 Findings by system
+
+**City governors**
+
+| ID | Fact |
+|---|---|
+| GV1 | `bSpecGov` (`CvCityAI.cpp:1048`) is true for all eight governors above the Steward. They drop the production, gold, research, maintenance and espionage foci from `iEconomyFlags`, which the economy-building calls at lines 1498, 2541, 3282 and 3291 use. They keep happiness, health and their own case. Agriculturalist: food. Harbourmaster: sea, food, gold. Merchant and Colonial: gold, maintenance. Industrialist: production. Scholar: research, specialists. Curator: culture. Castellan: defence, experience, production. |
+| GV2 | Danger (7.3) makes the Castellan eligible, with a utility of 80 + 2 × production + culture pressure. The Steward's is 40 + food + production + commerce. With 12 food, 8 production and 10 commerce, that is 96 against 70. |
+| GV3 | Danger subtracts 20 from prosperity. A review held while danger is on gives negative performance, and the incumbent is replaced with its reputation reset. Every turn of danger between reviews is a disruption turn. |
+| GV4 | Scholar and Agriculturalist cities value Great People points at 10 (`CvCityAI.cpp:540`). The default is 4. |
+| GV5 | Governors feed the agenda (7.2). Computed from `AIFeedbackPolicy`, if every city has a Castellan: new governors (0 terms, reputation 0) add 11 to Survive, 11 to Conquest and 9 to Power Spike. Veterans (5 terms, reputation 100) add 68, 68 and 56. Stewards add between −2 and +4. |
+
+**Agenda planner**
+
+| ID | Fact |
+|---|---|
+| AG1 | The anti-hegemon branch of `AI_doWar` is the last `else if` after the three random war rolls. It runs on every turn they fail, with no random gate and no `AI_noWarAttitudeProb` test. Only Friendly blocks it. |
+| AG2 | `isHegemonThreat` counts the team itself among the met teams. With three, the leader holds at least a third of power and of score, so it always passes the 33 % and 32 % tests. Coalition power adds every met team Cautious or worse toward the target, whether or not it plans war. |
+| AG3 | A `PREPARING_LIMITED` plan with no strike force ready is dropped after `20 × iAbandonTimeModifier / 100` turns. On the next turn `getAnyWarPlanCount(true)` is 0, and the branch can set it again. |
+| AG4 | A war plan adds 350 to Survive, 850 to Conquest and 250 to Power Spike, and takes 300 from Expand Land. `AI_isFinancialTrouble` lowers its safe percentage by 12 under any war plan. |
+| AG5 | `AI_isFinancialTrouble` counts commerce sent to culture and espionage as income, so it is true less often with those sliders up. All 40 call sites use it the same way: trouble means cut costs or hold back. They include unit disbanding (`AI_doMilitary`, `CvPlayerAI.cpp:17139`), espionage spending (17586, so a high espionage slider no longer counts against itself), settlers, hurrying, drafting, trades, Recover (+900) and the finance gate on war (`AI_doWar`, `CvTeamAI.cpp:5166`, which AG1 checks). |
+| AG6 | GV5 and AG4 add up: Castellan cities and war plans both push Survive and Conquest. |
+
+**Military operations**
+
+| ID | Fact |
+|---|---|
+| OP1 | `AI_getTotalFloatingDefenders` stopped counting `UNITAI_COLLATERAL` and `UNITAI_DEFENSE_AIR`. The list `AI_chooseLeastRepresentedUnit` fills that count from (`CvCityAI.cpp:2004`, used at 2008 and 3111) still holds `UNITAI_COLLATERAL`. Collateral units built to meet the quota no longer reduce the shortfall. |
+| OP2 | `AI_neededDefenders` adds 1 to 6 defenders per city from the peacetime scan. Through `AI_isDefended`, that reaches `AI_guardCity`, `AI_guardCityAirlift`, `AI_chokeDefend`, `AI_pickup`, `AI_doDraft`, `AI_doHurry` and `AI_chooseProduction`: units stay as garrisons. |
+| OP3 | 7.3: transports with an invasion force unload in a port in danger, attack-city units there are not picked up, and garrisons do not leave. |
+| OP4 | `AI_promote` (bit 512): a land unit of level 2 or more, in enemy territory during a war and with less than 20 damage, keeps a ready promotion until it has the experience for the next level as well (`isPromotionReady` means experience ≥ `calculateExperience(getLevel())`). Units on campaign fight one promotion short. |
+| OP5 | `AI_calculateAreaAIType`: after a recent attack, MASSING instead of DEFENSIVE at 65 % of enemy area power or more. Area AI type has 48 readers (`query.py state m_aeAreaAIType`). In `AI_doWar`'s total-war switch, MASSING leaves `bAreaValid` as it was, where DEFENSIVE set it to false. |
+| OP6 | `AI_reserveMove` (bit 512): a lone reserve unit that can build routes builds one on an own plot without danger. |
+| OP7 | Tactical upgrades in `AI_doTurnUnitsPost` (bit 512): a unit scoring 1000 or more skips the upgrade budget. That is a unit in a city under `AI_getAnyPlotDanger`, or one with the experience bonus, a capped unit class and at least 44 experience points. |
+| OP8 | The operation functions themselves are unchanged. An operation starts only from an `UNITAI_ATTACK_CITY` group, against a city of a team at war. `AI_Abombard`'s change acts only with `DCM_ARCHER_BOMBARD` on, which is off by default (`GlobalDefinesAlt.xml:75`, `Config/RevDCM.xml:65`). |
+
+**Found by this trace, present before the passes**
+
+| ID | Fact |
+|---|---|
+| PRE1 | Operations ask for roles that are never delivered. A Logistician's operation sets `aiDesiredRoles[UNITAI_RESERVE] = 2`. A Colonizer's sets `UNITAI_CITY_DEFENSE` 2 and `UNITAI_WORKER` 1. But `AI_getOperationReinforcementGroup` returns nothing for a unit outside `isOperationFieldRole` (attack-city, attack, counter, collateral, pillage), and only the moves of those five roles call `AI_reinforceOperation`. The same code is at `c08a472`. |
 
 ### 7.5 Readings
 
 **4. Under a DLL built from `main`, specialised governors stop building the economy.**
-- *Facts:* GV1. Eight of nine governor types drop the production, gold, research and maintenance foci from
-  the main economy-building calls.
-- *Would contradict it:* other building calls without `iEconomyFlags` (for example the
-  `AI_buildGovernorChooseProduction` set at `CvCityAI.cpp:12770`, which serves human governors) filling those
-  buildings in AI cities. In play, AI cities with non-Steward governors keeping pace in markets, libraries and
-  forges.
+- *Facts:* GV1.
+- *Would contradict it:* AI cities with non-Steward governors keeping pace in markets, libraries and forges in
+  play. Those buildings coming from calls that do not use `iEconomyFlags`.
 
-**5. Peaceful neighbours turn border cities into Castellan cities and make governors churn.**
-- *Facts:* GV2, GV3. Units in transit under Open Borders, border garrisons and cities two plots away all count.
-  The test needs 80 % of the city's own plot strength, and a frontier city often holds one or two defenders.
-- *Would contradict it:* governor logs in peacetime showing few Castellan appointments and few replacements on
-  negative performance.
+**5. Peaceful neighbours make AI cities behave as if besieged.**
+- *Facts:* 7.3, GV2, GV3, OP2, OP3. One condition, units of a non-Friendly neighbour near a lightly held city,
+  touches production, governors, drafting, hurrying, garrisons and invasion transports at once.
+- *Would contradict it:* logs in peacetime showing `AI_isDanger` rarely true without a war.
 
-**6. The agenda planner spends much more of the game under a war plan, so it leans to Conquest and Survive.**
-- *Facts:* AG1 to AG3. There is no random gate or attitude test, a three-team leader always qualifies, and an
-  abandoned plan is re-set at once.
-- *Would contradict it:* `AI_doWar` logs showing the anti-hegemon line rarely. Or agenda histories with the
-  same share of Conquest and Survive turns as at `c08a472`.
+**6. The agenda planner leans to Conquest and Survive, from two directions.**
+- *Facts:* AG1 to AG4, plus GV5 through Castellan cities. AG5 adds less financial caution.
+- *Would contradict it:* agenda histories with the same share of Conquest and Survive turns as at `c08a472`.
+  Or the anti-hegemon log line appearing rarely.
 
-**7. Fewer and later operations, because units stay home.**
-- *Facts:* OP1, OP2 hold more units as defenders. OP4: operations need attack-city groups, and these
-  changes do not make any. OP3 pulls the other way after an attack.
-- *Would contradict it:* the number of operations created per war, and their group sizes, matching
-  `c08a472` in seeded runs.
+**7. Fewer and weaker operations, at the moment the agenda asks for war.**
+- *Facts:* OP1 to OP4 keep units home, unload invasions and withhold promotions, while 6 raises the military
+  budget. OP5 pulls the other way after an attack.
+- *Would contradict it:* the number of operations per war and their group sizes matching `c08a472` in seeded
+  runs.
 
-### 7.6 Open
+### 7.6 The other changed functions
 
-- How often each condition holds in play: the Castellan share, governor replacements, turns under a war plan,
-  operations per war. This needs the harness build of `ede81881b7de` from section 6, and logs at
-  `gTeamLogLevel` and `gCityLogLevel` of 2 or more.
+Of the 106 changed functions, these change no result except in overflow, by their hunks: the 64-bit power
+ratios in `CvTeamAI` (`AI_getEnemyPowerPercent`, `AI_endWarVal`, `AI_startWarVal`, `AI_minorKeepWarVal`,
+`AI_getBarbarianCivWarVal`, `AI_surrenderTrade`, `AI_declareWarTradeVal`), `AI_cityThreat`,
+`AI_getConquestVictoryStage`, and the `AIDiplomacyPolicy` helpers.
+
+Graphics paging and reveal (`CvGame::pageGraphics`, `updateGraphicsPaging`, `processDeferredReveals`,
+`CvCity::pageGraphics`, `CvUnit::pageGraphics`, `CvPlot::refreshRevealedRouteOnly`, `isRevealedRouteDirty`,
+`CvGame::reset`) and the pass 8 work-rate functions were checked in section 4.4.
+
+The remaining behaviour changes were listed in 4.2 and are traced in `reviews/impact-c08a472-ede8188.tsv`:
+civic, technology, building, corporation, trade and diplomacy valuation, founding, nukes and bombard.
+Their consumers were not read one by one: listed, not read.
+
+### 7.7 Open
+
+- How often each condition holds in play: `AI_isDanger` in peacetime, the Castellan share, governor
+  replacements, turns under a war plan, operations per war and their size. This needs the harness build of
+  `ede81881b7de` from section 6, and logs at `gTeamLogLevel` and `gCityLogLevel` of 2 or more.
+- The 48 readers of area AI type under OP5, read one by one.
 - Whether GV4's value for Agriculturalists is intended. The commit gives no reason.

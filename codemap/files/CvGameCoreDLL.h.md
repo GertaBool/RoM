@@ -13,7 +13,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **59** `NiPoint3::NiPoint3()`
   - called by (4): CvDllPythonEvents::reportKbdEvent, CvDllPythonEvents::reportMouseEvent, CvGlobals::CvGlobals, CvPlot::getPoint
 - **60** `NiPoint3::NiPoint3(float, float, float)`
-  - called by (15): CvDLLButtonPopup::launchAlarmPopup, CvDLLButtonPopup::launchDisbandCityPopup, CvDLLButtonPopup::launchEventPopup, CvDLLButtonPopup::launchProductionPopup, CvDLLButtonPopup::launchRazeCityPopup, CvGame::regenerateMap, CvGlobals::init, CvPlayer::setTurnActive, CvSelectionGroup::continueMission, CvUnit::attackForDamage, CvUnit::found, CvUnit::promote …
+  - called by (15): CvDLLButtonPopup::launchAlarmPopup, CvDLLButtonPopup::launchDisbandCityPopup, CvDLLButtonPopup::launchEventPopup, CvDLLButtonPopup::launchProductionPopup, CvDLLButtonPopup::launchRazeCityPopup, CvGame::regenerateMap, CvGlobals::init, CvPlayer::setTurnActive, CvSelectionGroup::continueMission, CvUnit::attackForDamage, CvUnit::found, CvUnit::promote, CvUnit::updateCombat, CvUnit::updateStackCombat, CyPlot::getPoint
 - **87** `NiPoint3::Length() const`
   - called by (1): NiPoint3::Unitize
 - **90** `NiPoint3::Unitize()`

@@ -19,7 +19,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **1186** `CvPlayer::AI_unitUpdate(…)` (virtual; pure virtual)
   - called by (1): CvGame::updateMoves
 - **1187** `CvPlayer::AI_makeAssignWorkDirty(…)` (virtual; pure virtual)
-  - called by (20): CvPlayer::changeAnarchyTurns, CvPlayer::changeBuildingBadHealth, CvPlayer::changeBuildingGoodHealth, CvPlayer::changeBuildingHappiness, CvPlayer::changeBuildingOnlyHealthyCount, CvPlayer::changeCommerceRateModifier, CvPlayer::changeExtraHappiness, CvPlayer::changeExtraHealth, CvPlayer::changeFreeSpecialist, CvPlayer::changeHappyPerMilitaryUnit, CvPlayer::changeLargestCityHappiness, CvPlayer::changeNoUnhealthyPopulationCount …
+  - called by (20): CvPlayer::changeAnarchyTurns, CvPlayer::changeBuildingBadHealth, CvPlayer::changeBuildingGoodHealth, CvPlayer::changeBuildingHappiness, CvPlayer::changeBuildingOnlyHealthyCount, CvPlayer::changeCommerceRateModifier, CvPlayer::changeExtraHappiness, CvPlayer::changeExtraHealth, CvPlayer::changeFreeSpecialist, CvPlayer::changeHappyPerMilitaryUnit, CvPlayer::changeLargestCityHappiness, CvPlayer::changeNoUnhealthyPopulationCount, CvPlayer::changeSpecialistExtraCommerce, CvPlayer::changeSpecialistExtraYield, CvPlayer::changeSpecialistValidCount, CvPlayer::changeWarWearinessModifier, CvPlayer::changeYieldRateModifier, CvPlayer::setCommercePercent, CvPlayer::setNonStateReligionCommerce, CvPlayer::updateWarWearinessPercentAnger
 - **1188** `CvPlayer::AI_assignWorkingPlots(…)` (virtual; pure virtual)
   - called by (1): CvPlayer::doTurn
 - **1189** `CvPlayer::AI_updateAssignWork(…)` (virtual; pure virtual)

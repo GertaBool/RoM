@@ -19,7 +19,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - calls: CvArea::uninit, IDInfo::reset \[CvStructs.h\], CvGlobals::getNumBonusInfos \[CvGlobals.cpp\], operator new\[\](unsigned int) \[CvGameCoreDLL.cpp\], CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getNumImprovementInfos \[CvGlobals.cpp\]
   - called by (3): CvArea::CvArea, CvArea::init, CvArea::read
 - **206** `CvArea::getID() const`
-  - called by (35): CvArea::calculateTotalBestNatureYield, CvArea::countCoastalLand, CvArea::countHasCorporation, CvArea::countHasReligion, CvCity::getLiberationPlayer, CvCityAI::AI_chooseProduction, CvDLLButtonPopup::launchFreeColonyPopup, CvGame::createAnimals, CvGame::createBarbarianUnits, CvGameTextMgr::setPlotHelp, CvMap::calculateAreas, CvMapGenerator::addUniqueBonusType …
+  - called by (35): CvArea::calculateTotalBestNatureYield, CvArea::countCoastalLand, CvArea::countHasCorporation, CvArea::countHasReligion, CvCity::getLiberationPlayer, CvCityAI::AI_chooseProduction, CvDLLButtonPopup::launchFreeColonyPopup, CvGame::createAnimals, CvGame::createBarbarianUnits, CvGameTextMgr::setPlotHelp, CvMap::calculateAreas, CvMapGenerator::addUniqueBonusType, CvPlayer::canSplitArea, CvPlayer::canSplitEmpire, CvPlayer::countNumCoastalCitiesByArea, CvPlayer::countReligionSpreadUnits, CvPlayer::findStartingArea, CvPlayer::getSplitEmpirePlayer, CvPlayerAI::AI_advancedStartPlaceExploreUnits, CvPlayerAI::AI_bestAreaUnitAIValue, CvPlayerAI::AI_conquerCity, CvPlayerAI::AI_doSplit, CvPlayerAI::AI_getTotalAreaCityThreat, CvPlayerAI::AI_neededExplorers, CvPlayerAI::AI_neededWorkers, CvPlayerAI::AI_techUnitValue, CvPlot::isAdjacentToArea(CvArea const*) const, CvPlot::secondWaterArea, CvPlot::setPlotType, CvTeamAI::AI_isWaterAreaRelevant, CvUnit::getUpgradeCity(UnitTypes, bool, int*) const, CyArea::getID, FFreeListTrashArray\<CvArea>::getAt, FFreeListTrashArray\<CvArea>::load, FFreeListTrashArray\<CvArea>::removeAt
 - **212** `CvArea::setID(int)`
   - called by (1): FFreeListTrashArray\<CvArea>::add
 - **218** `CvArea::calculateTotalBestNatureYield() const`
@@ -38,7 +38,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - calls: CvPlayer::isAlive \[CvPlayer.cpp\], CvPlayerAI::getPlayer \[CvPlayerAI.h\], CvPlayer::firstCity \[CvPlayer.cpp\], CvPlayer::nextCity \[CvPlayer.cpp\], CvArea::getID, CvCity::area \[CvCity.cpp\], CvCity::isHasCorporation \[CvCity.cpp\]
   - called by (4): CvPlayerAI::AI_executiveValue, CvPlayerAI::AI_neededExecutives, CvPlayerAI::AI_unitValue, CyArea::countHasCorporation
 - **353** `CvArea::getNumTiles() const`
-  - called by (23): CvArea::getNumUnownedTiles, CvArea::getNumUnrevealedTiles, CvArea::isLake, CvCity::isValidBuildingLocation, CvCityAI::AI_bestUnit, CvCityAI::AI_chooseProduction, CvGame::createBarbarianCities, CvMap::findBiggestArea, CvMapGenerator::addGoodies, CvMapGenerator::addRivers, CvMapGenerator::addUniqueBonusType, CvPlayer::findStartingArea …
+  - called by (23): CvArea::getNumUnownedTiles, CvArea::getNumUnrevealedTiles, CvArea::isLake, CvCity::isValidBuildingLocation, CvCityAI::AI_bestUnit, CvCityAI::AI_chooseProduction, CvGame::createBarbarianCities, CvMap::findBiggestArea, CvMapGenerator::addGoodies, CvMapGenerator::addRivers, CvMapGenerator::addUniqueBonusType, CvPlayer::findStartingArea, CvPlayerAI::AI_advancedStartPlaceExploreUnits, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_getPlotCanalValue, CvPlot::canHaveBonus, CvPlot::canTrain, CvPlot::isCoastalLand, CvPlot::secondWaterArea, CvPlot::setPlotType, CvPlot::waterArea, CvTeamAI::AI_isLandTarget, CyArea::getNumTiles
 - **359** `CvArea::isLake() const`
   - calls: CvArea::getNumTiles, CvArea::isWater, CvGlobals::getLAKE_MAX_AREA_SIZE \[CvGlobals.cpp\], CvGlobals::getInstance \[CvGlobals.h\]
   - called by (5): CvArea::changeNumTiles, CvPlot::isLake, CvUnit::getUpgradeCity(UnitTypes, bool, int*) const, CvUnitAI::AI_airOffenseBaseValue, CyArea::isLake
@@ -59,7 +59,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **418** `CvArea::getNumUnits() const`
   - called by (1): CyArea::getNumUnits
 - **424** `CvArea::getNumCities() const`
-  - called by (19): CvCityAI::AI_cachePlayerCloseness, CvCityAI::AI_chooseProduction, CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvPlayerAI::AI_conquerCity, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_getTotalFloatingDefendersNeeded, CvPlayerAI::AI_isAreaAlone, CvPlayerAI::AI_neededExecutives, CvPlayerAI::AI_neededMissionaries, CvPlot::isHasPathToEnemyCity, CvSelectionGroup::calculateIsStranded …
+  - called by (19): CvCityAI::AI_cachePlayerCloseness, CvCityAI::AI_chooseProduction, CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvPlayerAI::AI_conquerCity, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_getTotalFloatingDefendersNeeded, CvPlayerAI::AI_isAreaAlone, CvPlayerAI::AI_neededExecutives, CvPlayerAI::AI_neededMissionaries, CvPlot::isHasPathToEnemyCity, CvSelectionGroup::calculateIsStranded, CvTeam::isMasterPlanningLandWar, CvTeamAI::AI_calculateAreaAIType, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_spyMove, CvUnitAI::AI_workerMove, CyArea::getNumCities
 - **430** `CvArea::getTotalPopulation() const`
   - called by (1): CyArea::getTotalPopulation
 - **436** `CvArea::getNumStartingPlots() const`
@@ -67,7 +67,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **442** `CvArea::changeNumStartingPlots(int)`
   - called by (2): CvPlayer::setStartingPlot, CvPlot::processArea
 - **449** `CvArea::isWater() const`
-  - called by (17): CvArea::countCoastalLand, CvArea::isLake, CvGame::createAnimals, CvGame::createBarbarianUnits, CvMap::findBiggestArea, CvMap::getNumLandAreas, CvPlayer::findStartingArea, CvPlayer::getEventTriggerWeight, CvPlayerAI::AI_bestAreaUnitAIValue, CvPlayerAI::AI_isPrimaryArea, CvPlayerAI::AI_neededExplorers, CvPlayerAI::AI_unitValue …
+  - called by (17): CvArea::countCoastalLand, CvArea::isLake, CvGame::createAnimals, CvGame::createBarbarianUnits, CvMap::findBiggestArea, CvMap::getNumLandAreas, CvPlayer::findStartingArea, CvPlayer::getEventTriggerWeight, CvPlayerAI::AI_bestAreaUnitAIValue, CvPlayerAI::AI_isPrimaryArea, CvPlayerAI::AI_neededExplorers, CvPlayerAI::AI_unitValue, CvPlayerAI::AI_updateAreaTargets, CvPlot::setPlotType, CvTeamAI::AI_calculateAreaAIType, CyArea::isWater, `anonymous namespace'::powerInTargetAreas
 - **455** `CvArea::getUnitsPerPlayer(PlayerTypes) const`
   - called by (5): CvGame::createAnimals, CvGame::createBarbarianUnits, CvPlayerAI::AI_unitValue, CvTeam::countNumUnitsByArea, CyArea::getUnitsPerPlayer
 - **463** `CvArea::changeUnitsPerPlayer(PlayerTypes, int)`
@@ -77,7 +77,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **482** `CvArea::changeAnimalsPerPlayer(PlayerTypes, int)`
   - called by (2): CvPlot::processArea, CvUnit::setXY
 - **491** `CvArea::getCitiesPerPlayer(PlayerTypes) const`
-  - called by (34): CvCity::calculateColonyMaintenanceTimes100, CvCityAI::AI_bestUnit, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction, CvCityAI::AI_updateNeededFloatingDefenders, CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvGameTextMgr::setPlotHelp, CvPlayer::canSplitArea, CvPlayer::getEventTriggerWeight, CvPlayerAI::AI_executiveValue, CvPlayerAI::AI_foundValue …
+  - called by (34): CvCity::calculateColonyMaintenanceTimes100, CvCityAI::AI_bestUnit, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction, CvCityAI::AI_updateNeededFloatingDefenders, CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvGameTextMgr::setPlotHelp, CvPlayer::canSplitArea, CvPlayer::getEventTriggerWeight, CvPlayerAI::AI_executiveValue, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_getTotalFloatingDefenders, CvPlayerAI::AI_getTotalFloatingDefendersNeeded, CvPlayerAI::AI_isPrimaryArea, CvPlayerAI::AI_militaryWeight, CvPlayerAI::AI_missionaryValue, CvPlayerAI::AI_neededExecutives, CvPlayerAI::AI_neededExplorers, CvPlayerAI::AI_neededMissionaries, CvPlayerAI::AI_neededWorkers, CvPlayerAI::AI_techUnitValue, CvPlot::isHasPathToPlayerCity, CvSelectionGroup::calculateIsStranded, CvTeam::countNumCitiesByArea, CvTeamAI::AI_calculateAreaAIType, CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_attackMove, CvUnitAI::AI_load, CvUnitAI::AI_specialSeaTransportSpy, CvUnitAI::AI_spyMove, CyArea::getCitiesPerPlayer
 - **499** `CvArea::changeCitiesPerPlayer(PlayerTypes, int)`
   - called by (3): CvCity::init, CvCity::kill, CvPlot::processArea
 - **510** `CvArea::getPopulationPerPlayer(PlayerTypes) const`
@@ -136,12 +136,12 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - calls: CvGlobals::getInstance \[CvGlobals.h\], CvGlobals::getMapINLINE \[CvGlobals.h\], CvMap::verifyUnitValidPlot \[CvMap.cpp\]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
 - **746** `CvArea::getAreaAIType(TeamTypes) const`
-  - called by (38): CvCityAI::AI_bestUnit, CvCityAI::AI_chooseProduction, CvCityAI::AI_cityValue, CvCityAI::AI_doDraft, CvCityAI::AI_doHurry, CvCityAI::AI_doPanic, CvCityAI::AI_neededDefenders, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateSpecialYieldMultiplier, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvPlayerAI::AI_convertUnitAITypesForCrush …
+  - called by (38): CvCityAI::AI_bestUnit, CvCityAI::AI_chooseProduction, CvCityAI::AI_cityValue, CvCityAI::AI_doDraft, CvCityAI::AI_doHurry, CvCityAI::AI_doPanic, CvCityAI::AI_neededDefenders, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateSpecialYieldMultiplier, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvPlayerAI::AI_convertUnitAITypesForCrush, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_getTotalFloatingDefendersNeeded, CvPlayerAI::AI_techUnitValue, CvPlayerAI::AI_unitValue, CvTeam::isMasterPlanningLandWar, CvTeam::isMasterPlanningSeaWar, CvUnitAI::AI_airOffenseBaseValue, CvUnitAI::AI_assaultSeaMove, CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_attackAirMove, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_attackMove, CvUnitAI::AI_barbAttackMove, CvUnitAI::AI_cityDefenseMove, CvUnitAI::AI_collateralMove, CvUnitAI::AI_counterMove, CvUnitAI::AI_defenseAirMove, CvUnitAI::AI_generalMove, CvUnitAI::AI_moveToStagingCity, CvUnitAI::AI_offensiveAirlift, CvUnitAI::AI_paratrooperMove, CvUnitAI::AI_pickTargetCity, CvUnitAI::AI_pickup, CvUnitAI::AI_pillageMove, CvUnitAI::AI_settlerSeaMove, CyArea::getAreaAIType
 - **754** `CvArea::setAreaAIType(TeamTypes, AreaAITypes)`
   - called by (1): CvTeamAI::AI_updateAreaStragies
 - **762** `CvArea::getTargetCity(PlayerTypes) const`
   - calls: getCity \[CvGameCoreUtils.cpp\]
-  - called by (14): CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvPlot::processArea, CvUnitAI::AI_RbombardNaval, CvUnitAI::AI_airBombDefenses, CvUnitAI::AI_airOffenseBaseValue, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_getEspionageTargetValue, CvUnitAI::AI_offensiveAirlift, CvUnitAI::AI_pickTargetCity, CvUnitAI::AI_pillage, CvUnitAI::AI_pillageRange …
+  - called by (14): CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvPlot::processArea, CvUnitAI::AI_RbombardNaval, CvUnitAI::AI_airBombDefenses, CvUnitAI::AI_airOffenseBaseValue, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_getEspionageTargetValue, CvUnitAI::AI_offensiveAirlift, CvUnitAI::AI_pickTargetCity, CvUnitAI::AI_pillage, CvUnitAI::AI_pillageRange, CvUnitAI::AI_seaBombardRange, CyArea::getTargetCity
 - **770** `CvArea::setTargetCity(PlayerTypes, CvCity*)`
   - calls: CvCity::getIDInfo \[CvCity.cpp\], IDInfo::reset \[CvStructs.h\]
   - called by (3): CvPlayer::handleDiploEvent, CvPlayerAI::AI_updateAreaTargets, CvPlot::processArea

@@ -28,6 +28,8 @@ python3 -I "$here/extract_asm.py" "$w/out" "$w/b" "$cm/map"
 (cd "$w/b" && find . -maxdepth 1 -type f \( -name '*.cpp' -o -name '*.h' -o -name '*.inl' \) ! -name '_codemap_types.cpp' \
    -printf '%f\n' | sort | xargs ctags --output-format=json --fields=+n --c++-kinds=f --language-force=c++ --extras=-q -f - 2>/dev/null) \
   | jq -r 'select(._type=="tag") | [.name, .path, .line] | @tsv' > "$w/ctags.tsv"
+# the shared state: members, and the functions that read and write them (map/members.tsv, map/state.tsv)
+python3 -I "$here/state.py" "$w/b" "$cm/map"
 
 # 2. the Python: the modules the game loads, parsed by the game's own Python 2.4
 IFS=: read -r -a bases <<< "$base"
@@ -41,3 +43,4 @@ python3 -I "$here/render.py" "$cm" "$commit" "$w/ctags.tsv"
 
 # 4. the hard-coded entries of the key functions, checked against the exe's SDK, the XML and Python
 python3 -I "$here/hardcoded.py" "$cm" "$src" "$sdk" "$@"
+python3 -I "$here/subsystems.py" "$cm"

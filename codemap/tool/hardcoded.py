@@ -417,10 +417,10 @@ def main():
                     readers = sorted({p for p, txt in rtext if piece in txt})
                     add(fid, 'log format', fmt[:90], ln, 'tools that read the log',
                         f'read by {len(readers)} files' if readers else 'not read by the tools of this repository',
-                        f'searched for "{piece}"' + (': ' + ', '.join(readers[:6]) if readers else ''))
+                        f'searched for "{piece}"' + (': ' + ', '.join(readers) if readers else ''))
             if nm.startswith('warLog'):
                 add(fid, 'log call', nm, ln, 'Logs/WarLog.log and the tools that read it',
-                    f'read by {len(warlog_readers)} files', ', '.join(warlog_readers[:8]))
+                    f'read by {len(warlog_readers)} files', ', '.join(warlog_readers))
 
         # strings by their form
         for s in STR.finditer(t):
@@ -442,7 +442,7 @@ def main():
                 if d in events:
                     hs = regs.get(events[d], [])
                     add(fid, 'event', events[d], int(ln) if ln else a, 'Python handlers registered for the event',
-                        f'{len(hs)} handlers', '; '.join(f"{h['handler']} ({h['file']}:{h['line']})" for h in hs[:8]) + (' …' if len(hs) > 8 else ''))
+                        f'{len(hs)} handlers', '; '.join(f"{h['handler']} ({h['file']}:{h['line']})" for h in hs))
 
         # enums
         used = collections.OrderedDict()
@@ -457,7 +457,7 @@ def main():
                     'differs' if moved or gone else 'ok',
                     f"{len(O[e])} values in the original SDK" +
                     (f'; {len(added)} added by the mod' if added else '') +
-                    (f'; moved: {", ".join(moved[:5])}' if moved else '') + (f'; removed: {", ".join(gone[:5])}' if gone else ''))
+                    (f'; moved: {", ".join(moved)}' if moved else '') + (f'; removed: {", ".join(gone)}' if gone else ''))
             else:
                 add(fid, 'enum values', e, ln, 'Python and XML by name', 'not in the original SDK')
         def switches(lo, hi):
@@ -482,7 +482,7 @@ def main():
             add(fid, 'enum switch', e, lineof(p0), f'enum {e}: a value added later needs a case',
                 f'{len(miss)} values without a case' if miss else 'every value has a case',
                 f'{len(set(labs))} cases of {len(vals)} values' + ('; default case present' if has_default else '; no default case') +
-                (f'; without a case: {", ".join(miss[:12])}' + (' …' if len(miss) > 12 else '') if miss else ''))
+                (f'; without a case: {", ".join(miss)}' if miss else ''))
 
         # numbers
         for m in re.finditer(r'(?<![\w.])(0x[0-9A-Fa-f]+|\d+(?:\.\d+)?f?)(?![\w.])', tb):
@@ -506,7 +506,7 @@ def main():
                         if g and g != fid: others.add(g)
             names = sorted(F[g]['name'] for g in others)
             add(fid, 'state', mem, ln, 'the other functions that set it', f'set by {len(others)} other functions',
-                ', '.join(names[:8]) + (' …' if len(names) > 8 else ''))
+                ', '.join(names))
 
         freed = [(m.group(1), lineof(m.start())) for m in re.finditer(r'\bdeleteInfoArray\s*\(\s*(m_\w+)\s*\)', tb)]
         if freed:
@@ -539,7 +539,7 @@ def main():
                     if o not in via: via.add(o); todo.append(o)
             cs = sorted({c for v in via for c in callers.get(v, ())}, key=lambda i: query.name[i])
             add(fid, 'return value', 'bool', a, 'the functions that call it', f'{len(cs)} callers',
-                ', '.join(query.name[i] for i in cs[:8]) + (' …' if len(cs) > 8 else '') +
+                ', '.join(query.name[i] for i in cs) +
                 (f' (through {", ".join(query.name[v] for v in sorted(via - {fid}))})' if len(via) > 1 else ''))
 
     order = {k: n for n, k in enumerate(KINDS)}

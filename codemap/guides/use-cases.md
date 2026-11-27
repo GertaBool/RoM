@@ -163,7 +163,7 @@ Its precision, in the terms of section 1:
 The ways to read it:
 - **Pages:** `../skeleton.md` (overview, groups, backbone), `../entry_points.md`, `../python.md`,
   `../hardcoded.md`, `../files/<file>.md`.
-- **Queries:** `../tool/query.py` (`find`, `callers`, `callees`, `path`, `rank`).
+- **Queries:** `../tool/query.py` (`find`, `callers`, `callees`, `path`, `rank`, `state`), `../tool/impact.py`.
 - **Tables:** `../map/*.tsv`, tab-separated with a header row, for anything else.
 
 ## 4. Use cases against this map
@@ -181,17 +181,17 @@ hold what the answer needs. Results are at `ede81881b7de`.
 | A6 | Key functions | Yes | `query.py rank [n]`, by dominance | 12 functions; `key-functions.md` |
 | A7 | Dispatch | Partial | `overrides.tsv`; ambiguous calls keep every candidate | 56 calls with several candidates |
 | A8 | Onboarding | Yes | `skeleton.md`, `entry_points.md`, `key-functions.md` | |
-| B1 | Impact analysis | Partial | transitive callers; no data flow | 2a8b9a8 → ede8188: 217 functions changed, 1331 can reach one (5.4) |
+| B1 | Impact analysis | Partial | transitive callers; members written and their readers (`tool/impact.py`, `map/state.tsv`); no data flow inside functions | 2a8b9a8 → ede8188: 217 functions changed, 1331 can reach one (5.4); c08a472 → ede8188 in `../reviews/` |
 | B2 | Test selection | Partial | the mod's `Tools/test_*.py` take named functions out of the DLL source (and 10 compile them); match them to the changed functions | 7 of 33 tests take a changed function (5.11) |
 | B3 | Refactoring safety | Partial | callers, `exported`, overrides, `python_defs.tsv` | calls by name from Python, and through pointers, are not exact |
 | B4 | Interface contracts | Yes, for the 12 key functions | `hardcoded.md`: exports, exe calls, enums, XML, defines, text keys, Python, logs | 252 entries, none whose other end is missing |
 | B5 | Rewrite a function | Yes, for the 12 key functions | `hardcoded.md`, `key-functions.md` | |
-| B6 | Review a patch | Partial | B1 for the patch's functions (5.4 shows the method) | |
+| B6 | Review a patch | Partial | `tool/impact.py`: callers, state written, readers of that state, for every changed function | the review of passes 2 to 8, section 7 |
 | C1 | Dead code | Partial | functions no one reaches | 187 candidates (5.5) |
 | C2 | Hotspots | Yes | fan-in and fan-out from `calls.tsv` | 209 functions with fan-in ≥ 100 (5.6) |
 | C3 | Cycles | Yes | strongly connected components of `calls.tsv` | largest: 215 functions (5.6) |
 | C4 | Layering | Partial | `skeleton.md` call matrix between file groups | groups by file name, not by design |
-| C5 | Architecture recovery | No | no clustering is computed | the tables would support it |
+| C5 | Architecture recovery | Partial, for the AI | `../subsystems.md`: the AI classes' members grouped by their writers | 128 members in 75 groups; agenda, operations, governors and war plans come out as their own groups |
 | C6 | Completeness | Yes | `completeness.tsv` against ctags; `units.tsv` | 273 definitions no unit compiles, 203 that ctags does not see |
 | D1 | Taint, data flow | No | no data-flow edges | |
 | D2 | Bug patterns | Partial | call patterns only (who calls what, from where) | |
@@ -363,7 +363,7 @@ tests are not tied to functions this way.
 
 | Gap | Use cases | What it would need | Available here |
 |---|---|---|---|
-| Fields: who reads and writes `m_iGold` | B1, D1, D3, save formats | the member accesses of each function | the listings address members as `this` plus an offset; the type records give each class's member offsets |
+| Fields through other objects | B1, D1 | uses of a member written as `obj.field` in a function that did not take `obj` from a member | `map/state.tsv` covers `m_` members by name and through accessors (see `../README.md`, step 6); the listings' member offsets would cover the rest |
 | Control flow inside a function | B1 precision, D2 | branches and blocks per function | the listings hold every jump and label |
 | Data flow, taint | D1, D4 | definitions and uses across calls | not in the listings in usable form; a CodeQL or Joern database of the source would hold it |
 | Function pointers | A2, B1 | points-to analysis | 106 calls through pointers are listed with their statement, and 4313 addresses taken |

@@ -6,6 +6,8 @@ usage: query.py find <regex>              functions whose Scope::name matches
        query.py callers <function> [depth]  who calls it, as a tree
        query.py path <from> <to>          a shortest call path between two functions
        query.py rank [n]                  the n functions (default 12) that rank above the most others
+       query.py state <member regex>      every function that writes, then reads, each matching member
+                                          (from map/state.tsv, written by state.py; nothing is left out)
 A function is given as an id, as Scope::name, or as a regex matching exactly one Scope::name.
 Virtual calls are followed into the overriding methods of the object's class and its subclasses.
 rank: function A ranks above B when every call path from outside the DLL into B passes through A (A
@@ -109,7 +111,7 @@ def resolve(q):
     if len(exact) == 1: return exact[0]
     hits = exact or [i for i in F if re.search(q, name[i])]
     if len(hits) == 1: return hits[0]
-    for i in hits[:40]: print(f"{i}\t{name[i]}\t{F[i]['file']}:{F[i]['line']}")
+    for i in hits: print(f"{i}\t{name[i]}\t{F[i]['file']}:{F[i]['line']}")
     sys.exit(f'{len(hits)} functions match {q!r}; give one id')
 
 
@@ -143,6 +145,19 @@ def main():
             print('  ' * d + f"{name[i]}  [{i}] dominates {s}  {F[i]['file']}:{F[i]['line']}")
             for j, t in kids[i]: show(j, t, d + 1)
         for i, s in kids[0]: show(i, s, 0)
+    elif cmd == 'state':
+        rows = [r for r in read('state.tsv') if re.search(args[0], r['member'])]
+        if not rows: sys.exit(f'no member matches {args[0]!r}')
+        by = collections.defaultdict(list)
+        for r in rows: by[(r['class'], r['member'])].append(r)
+        for (cls, m), rs in sorted(by.items()):
+            print(f'{cls}::{m}')
+            for acc in ('write', 'read'):
+                sel = [r for r in rs if r['access'] == acc]
+                print(f'  {acc}s ({len(sel)}):')
+                for r in sorted(sel, key=lambda r: (r['how'], r['name'])):
+                    where = f"{F[int(r['function'])]['file']}:{r['line']}" if r['how'] == 'direct' else 'via ' + name[int(r['via'])]
+                    print(f"    {r['name']}  [{r['function']}] {where}")
     elif cmd == 'path':
         a, b = resolve(args[0]), resolve(args[1])
         prev, q = {a: None}, collections.deque([a])
