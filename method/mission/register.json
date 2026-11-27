@@ -701,5 +701,54 @@
    "fixes/codemap-errors/",
    "builds/codemap-errors/"
   ]
+ },
+ {
+  "id": "H10",
+  "type": "hypothesis",
+  "line": "passes-2-8",
+  "text": "GitLab passes 3 to 8 (commits bf17674 and d5fa0d1, on c08a472; main ede81881b7de) change the AI's agenda planner, city governors and military operations through shared state, by reading (codemap/guides/passes-2-8-review.md, section 7): peacetime 'danger' from a non-Friendly neighbour's units (AI_isDanger, AI_neededDefenders) holds units home, appoints Castellans and unloads invasion transports; specialised governors drop the production, gold and research building foci; the anti-hegemon branch of AI_doWar sets war plans with no random gate, which with Castellan cities pushes the agenda to Survive and Conquest; collateral units no longer count as floating defenders; promotions are held in enemy territory. They also add work in hot paths: a 5x5 unit scan in AI_isDanger, AI_neededDefenders and AI_chooseProduction, a building-class loop in AI_buildingValueThreshold, and Open Borders and resource-swap scans in AI_doDiplo (section 4.3). Expected: more wall-clock time per turn, and no change in whether a run completes."
+ },
+ {
+  "id": "P18",
+  "type": "prediction",
+  "line": "passes-2-8",
+  "hypotheses": [
+   "H10"
+  ],
+  "variable": "turn_seconds",
+  "evidence": "runs",
+  "change": "Passes 3 to 8 against the commit before pass 2. Arm a and arm b are harness DLLs (toolchain/harness/build_dll.sh) of two GitLab commits, each with its own XML as committed: arm a, c08a472 (before pass 2) and arm b, ede81881b7de (main, after pass 8). Both from turn 0 of the mod's Mediterranean, Standard WorldBuilder map (/root/harness-work/med-standard.scn, from PrivateMaps by wbs2scn.py), all seats AI, Noble, Marathon speed (harness.exe scenario with GAMESPEED_MARATHON), 350 turns per run, seeds from ledger.py seeds. The harness reads the AI's agenda, financial trouble, war plans, operations and governor types each turn (telemetry fields agenda, trouble, plans, ops, gov); those are described, not judged.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 10,
+   "seat": 0
+  },
+  "paths": [
+   "toolchain/harness/HarnessState.cpp",
+   "toolchain/harness/HarnessPeek.h",
+   "toolchain/harness/HarnessScenario.cpp",
+   "toolchain/harness/build_dll.sh",
+   "toolchain/harness/README.md"
+  ]
+ },
+ {
+  "id": "P19",
+  "type": "prediction",
+  "line": "passes-2-8",
+  "hypotheses": [
+   "H10"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "Passes 3 to 8 against the commit before pass 2, the same runs as P18. Arm a and arm b are harness DLLs (toolchain/harness/build_dll.sh) of two GitLab commits, each with its own XML as committed: arm a, ede81881b7de (main, after pass 8) and arm b, c08a472 (before pass 2). Both from turn 0 of the mod's Mediterranean, Standard WorldBuilder map (/root/harness-work/med-standard.scn, from PrivateMaps by wbs2scn.py), all seats AI, Noble, Marathon speed (harness.exe scenario with GAMESPEED_MARATHON), 350 turns per run, seeds from ledger.py seeds. The harness reads the AI's agenda, financial trouble, war plans, operations and governor types each turn (telemetry fields agenda, trouble, plans, ops, gov); those are described, not judged.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 10,
+   "seat": 0
+  }
  }
 ]
